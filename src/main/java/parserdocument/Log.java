@@ -3,8 +3,6 @@
  */
 package parserdocument;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -30,10 +28,10 @@ public class Log {
 		}
 		
 	}
-	
-	public void toLog(){
+	@Override
+	public String toString(){
 		
-		System.out.println("hora: " + log.get("hora") + 
+		return "hora: " + log.get("hora") + 
 		"\n nombre del usuario: "+ log.get("nombre del usuario") + 
 		"\n usuario afectado: " + log.get("usuario afectado") + 
 		"\n contexto del evento: " + log.get("contexto del evento") + 
@@ -41,7 +39,7 @@ public class Log {
 		"\n nombre del evento: " + log.get("nombre del evento") + 
 		"\n descripcion: " + log.get("descripcion") + 
 		"\n origen: " + log.get("origen") + 
-		"\n ip: " + log.get("ip"));
+		"\n ip: " + log.get("ip");
 	}
 
 }

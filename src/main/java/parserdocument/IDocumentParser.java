@@ -9,6 +9,6 @@ package parserdocument;
  */
 public interface IDocumentParser {
 
-	public void documentParser(String file);
+	public void readDocument();
 
 }
