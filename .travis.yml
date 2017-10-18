@@ -1,6 +1,10 @@
 language: java
 sudo: false
 install: true
+before_install:
+- sudo rm -vf /etc/apt/sources.list.d/*riak*
+- sudo apt-get update
+
 addons:
   sonarcloud:
     organization: "trona85-github"
