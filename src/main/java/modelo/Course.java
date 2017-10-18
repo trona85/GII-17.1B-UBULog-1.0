@@ -3,14 +3,8 @@
  */
 package modelo;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +41,7 @@ public class Course {
 	 *            objeto JSON con la información del curso
 	 * @throws Exception
 	 */
-	public Course(JSONObject obj) throws Exception {
+	public Course(/*JSONObject obj*/) throws Exception {
 		/*this.id = obj.getInt("id");
 		if (obj.getString("shortname") != null)
 			this.shortName = obj.getString("shortname");
