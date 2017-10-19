@@ -13,10 +13,12 @@ jdk:
   - oraclejdk8
 script:
   - ./gradlew assemble
-  - sonar-scanner
+  - ./gradlew sonarqube
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
     - '$HOME/.gradle'
     - '.gradle'
+
+
