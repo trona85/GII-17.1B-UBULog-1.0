@@ -4,8 +4,11 @@
 package webservice;
 
 /**
- * @author oscar
- *
+ * Clase para las funciones proporcionadas por el web service de moodle 3.3
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class WebServiceOptions {
 

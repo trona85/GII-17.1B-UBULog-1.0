@@ -4,8 +4,10 @@
 package parserdocument;
 
 /**
- * @author oscar
- *
+ * Clase abstracta para documentos.
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public abstract class DocumentParser implements IDocumentParser {
 

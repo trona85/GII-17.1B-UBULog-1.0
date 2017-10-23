@@ -3,17 +3,27 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author oscar
- *
+import controlador.UBULog;
+
+/** Clase curso. Tiene las propiedades de curso.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class Course {
-	// TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&userid=6
+	// TODO
+	// http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&userid=6
 
 	private int id;
 	private String shortName;
@@ -21,18 +31,17 @@ public class Course {
 	private int enrolledUsersCount;
 	private String idNumber;
 	private String summary;
-	private String showGrades;
 	private String lang;
-	private String progress;
-	private Date startDate;
-	private Date endDate;
-	//public ArrayList<EnrolledUser> enrolledUsers;
-	//public Set<String> roles; // roles que hay en el curso
-	//public Set<String> groups; // grupos que hay en el curso
-	//public ArrayList<GradeReportLine> gradeReportLines;
-	//public Set<String> typeActivities;
+	// private Date startDate;
+	// private Date endDate;
+	public ArrayList<EnrolledUser> enrolledUsers;
+	public Set<String> roles; // roles que hay en el curso
+	public Set<String> groups; // grupos que hay en el curso
+	// public ArrayList<GradeReportLine> gradeReportLines;
+	public Set<String> typeActivities;
 
 	static final Logger logger = LoggerFactory.getLogger(Course.class);
+
 	/**
 	 * Constructor de un curso a partir de contenido JSON. Establece los
 	 * parámetros de un curso.
@@ -41,20 +50,17 @@ public class Course {
 	 *            objeto JSON con la información del curso
 	 * @throws Exception
 	 */
-	public Course(/*JSONObject obj*/) throws Exception {
-		/*this.id = obj.getInt("id");
-		if (obj.getString("shortname") != null)
-			this.shortName = obj.getString("shortname");
-		if (obj.getString("fullname") != null)
-			this.fullName = obj.getString("fullname");
-		if (obj.getInt("enrolledusercount") != 0)
-			this.enrolledUsersCount = obj.getInt("enrolledusercount");
-		if (obj.getString("idnumber") != null)
-			this.idNumber = obj.getString("idnumber");
-		if (obj.getString("summary") != null)
-			this.summary = obj.getString("summary");*/
-		//this.enrolledUsers = new ArrayList<EnrolledUser>();
-		//this.gradeReportLines = new ArrayList<GradeReportLine>();
+	public Course(JSONObject obj) throws Exception {
+
+		this.id = obj.getInt("id");
+		this.shortName = obj.getString("shortname");
+		this.fullName = obj.getString("fullname");
+		this.enrolledUsersCount = obj.getInt("enrolledusercount");
+		this.idNumber = obj.getString("idnumber");
+		this.summary = obj.getString("summary");
+		this.lang = obj.getString("lang");
+		this.enrolledUsers = new ArrayList<EnrolledUser>();
+
 	}
 
 	/**
@@ -112,7 +118,7 @@ public class Course {
 	}
 
 	/**
-	 * Devuelve el n� de usuarios del curso
+	 * Devuelve el no de usuarios del curso
 	 * 
 	 * @return enrolledUsersCount
 	 */
@@ -121,7 +127,7 @@ public class Course {
 	}
 
 	/**
-	 * Modifica el n� de usuarios del curso
+	 * Modifica el no de usuarios del curso
 	 * 
 	 * @param enrolledUserCount
 	 */
@@ -165,14 +171,6 @@ public class Course {
 		this.summary = summary;
 	}
 
-	public String getShowGrades() {
-		return showGrades;
-	}
-
-	public void setShowGrades(String showGrades) {
-		this.showGrades = showGrades;
-	}
-
 	public String getLang() {
 		return lang;
 	}
@@ -181,28 +179,145 @@ public class Course {
 		this.lang = lang;
 	}
 
-	public String getProgress() {
-		return progress;
+	/*
+	 * public Date getStartDate() { return startDate; }
+	 * 
+	 * public void setStartDate(Date startDate) { this.startDate = startDate; }
+	 * 
+	 * public Date getEndDate() { return endDate; }
+	 * 
+	 * public void setEndDate(Date endDate) { this.endDate = endDate; }
+	 */
+
+	/**
+	 * Devuelve una lista de los usuarios matriculados en el curso.
+	 * 
+	 * @return lista de usuarios
+	 */
+	public ArrayList<EnrolledUser> getEnrolledUsers() {
+		Collections.sort(this.enrolledUsers, (o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
+		return this.enrolledUsers;
 	}
 
-	public void setProgress(String progress) {
-		this.progress = progress;
+	/**
+	 * Modifica la lista de usuarios matriculados en el curso
+	 * 
+	 * @param eUsers
+	 */
+	public void setEnrolledUsers(ArrayList<EnrolledUser> eUsers) {
+		this.enrolledUsers.clear();
+		for (EnrolledUser eUser : eUsers) {
+			this.enrolledUsers.add(eUser);
+		}
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	/**
+	 * Devuelve los roles que hay en el curso.
+	 * 
+	 * @return lista de roles del curso
+	 */
+	public ArrayList<String> getRoles() {
+		ArrayList<String> result = new ArrayList<String>();
+		Iterator<String> roleIt = this.roles.iterator();
+		while (roleIt.hasNext()) {
+			String data = roleIt.next();
+			if (data != null && !data.trim().equals(""))
+				result.add(data);
+		}
+		return result;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	/**
+	 * Almacena en un set los roles que hay en el curso.
+	 * 
+	 * @param users
+	 *            usuarios matriculados en el curso
+	 */
+	public void setRoles(ArrayList<EnrolledUser> users) {
+		// Creamos el set de roles
+		roles = new HashSet<String>();
+		// Recorremos la lista de usuarios matriculados en el curso
+		for (int i = 0; i < users.size(); i++) {
+			// sacamos el rol del usuario
+			ArrayList<Role> roleArray = users.get(i).getRoles();
+			// cada rol nuevo se a�ade al set roles
+			for (int j = 0; j < roleArray.size(); j++) {
+				roles.add(roleArray.get(j).getName());
+			}
+		}
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	/**
+	 * Devuelve los grupos que hay en el curso.
+	 * 
+	 * @return lista de grupos del curso
+	 */
+	public ArrayList<String> getGroups() {
+		ArrayList<String> result = new ArrayList<String>();
+		Iterator<String> groupsIt = this.groups.iterator();
+		while (groupsIt.hasNext()) {
+			String data = groupsIt.next();
+			if (data != null && !data.trim().equals(""))
+				result.add(data);
+		}
+		return result;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	/**
+	 * Almacena en una lista los grupos que hay en un curso, a partir de los
+	 * usuarios que est�n matriculados.
+	 * 
+	 * @param users
+	 *            usuarios del curso
+	 */
+	public void setGroups(ArrayList<EnrolledUser> users) {
+		// Creamos el set de grupos
+		groups = new HashSet<String>();
+		// Recorremos la lista de usuarios matriculados en el curso
+		for (int i = 0; i < users.size(); i++) {
+			// Sacamos el grupo del usuario
+			ArrayList<Group> groupsArray = users.get(i).getGroups();
+			// Cada grupo nuevo se a�ade al set de grupos
+			for (int j = 0; j < groupsArray.size(); j++) {
+				groups.add(groupsArray.get(j).getName());
+			}
+		}
+	}
+
+	/**
+	 * Devuelve las actividades que hay en el curso.
+	 * 
+	 * @return lista de actividades
+	 */
+	public ArrayList<String> getActivities() {
+		ArrayList<String> result = new ArrayList<String>();
+		Iterator<String> grclIt = this.typeActivities.iterator();
+		while (grclIt.hasNext()) {
+			String data = grclIt.next();
+			if (data != null && !data.trim().equals(""))
+				result.add(data);
+		}
+		return result;
+	}
+
+	/**
+	 * Devuelve el id de un curso a partir de su nombre
+	 * 
+	 * @param courseName
+	 * @return
+	 */
+	public static Course getCourseByString(String courseName) {
+		Course course = null;
+
+		ArrayList<Course> courses = (ArrayList<Course>) UBULog.user.getCourses();
+
+		for (int i = 0; i < courses.size(); i++) {
+			if (courses.get(i).getFullName().equals(courseName)) {
+				course = courses.get(i);
+			}
+		}
+
+		return course;
 	}
 
 }

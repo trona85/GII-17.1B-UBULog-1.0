@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * @author oscar
- *
+ * 
+ * Clase para el parseo de csv.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class CsvParser extends DocumentParser {
 

@@ -14,8 +14,11 @@ import controlador.UBULog;
 import modelo.Course;
 
 /**
- * @author oscar
- *
+ *  Clase sesión. Obtiene el token de usuario y guarda sus parámetros. Establece la sesión.
+ *  
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class Session {
 

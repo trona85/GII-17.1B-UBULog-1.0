@@ -4,13 +4,17 @@
 package modelo;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import modelo.Course;
 
 /**
  * clase MoodleUser. para guardar el usuario logeado.
  * @author oscar Fernández Armengol
  * 
- *@version 1.0
+ * @version 1.0
  */
 public class MoodleUser {
 	private int id;
@@ -29,7 +33,7 @@ public class MoodleUser {
 	private String profileImageUrlSmall;
 	private String profileImageUrl;
 	private String tokenSession;
-	// private ArrayList<Course> courses;
+	private ArrayList<Course> courses;
 
 	/**
 	 * Constructor de MoodleUser
@@ -82,6 +86,11 @@ public class MoodleUser {
 		this.setDescription(description);
 		this.setProfileImageUrlSmall(profileImageUrlSmall);
 		this.setProfileImageUrl(profileImageUrl);
+		this.courses = new ArrayList<Course>();
+	}
+
+	public MoodleUser() {
+		// TODO generado para primer login revisar otra manera.
 	}
 
 	/**
@@ -175,7 +184,7 @@ public class MoodleUser {
 	}
 
 	/**
-	 * Devuelve la fecha de �ltimo acceso
+	 * Devuelve la fecha de ultimo acceso
 	 * 
 	 * @return lastAccess
 	 */
@@ -184,7 +193,7 @@ public class MoodleUser {
 	}
 
 	/**
-	 * Modifica la fecha de �ltimo acceso
+	 * Modifica la fecha de ultimo acceso
 	 * 
 	 * @param lastAccess
 	 */
@@ -270,6 +279,24 @@ public class MoodleUser {
 
 	public void setProfileImageUrlSmall(String profileImageUrlSmall) {
 		this.profileImageUrlSmall = profileImageUrlSmall;
+	}
+	
+	/**
+	 * Devuelve la lista de cursos que en los que este matriculado el usuario
+	 * 
+	 * @return lista de cursos
+	 */
+	public List<Course> getCourses() {
+		return this.courses;
+	}
+
+	/**
+	 * Modifica la lista de cursos en los que este matriculado el usuario
+	 * 
+	 * @param courses
+	 */
+	public void setCourses(ArrayList<Course> courses) {
+		this.courses = courses;
 	}
 
 }

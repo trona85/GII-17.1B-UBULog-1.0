@@ -5,9 +5,13 @@ package parserdocument;
 
 import java.util.HashMap;
 
+
 /**
- * @author oscar
- *
+ * Clase para generar cada tipo de log.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class Log {
 	private HashMap<String, String> log;

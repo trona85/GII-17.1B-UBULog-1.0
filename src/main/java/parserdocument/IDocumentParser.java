@@ -4,8 +4,11 @@
 package parserdocument;
 
 /**
- * @author oscar
- *
+ * Interfaz para documentos.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public interface IDocumentParser {
 
