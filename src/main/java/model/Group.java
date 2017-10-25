@@ -1,7 +1,7 @@
 /**
  * 
  */
-package modelo;
+package model;
 
 /**
  * Clase Group para distinguir los grupos que hay en un curso, así como los grupos en los que se encuentra un usuario.
@@ -23,7 +23,7 @@ public class Group {
 	 * @param name
 	 *            nombre del grupo
 	 * @param description
-	 *            descripci�n del grupo
+	 *            descripción del grupo
 	 */
 	public Group(int id, String name, String description) {
 		this.id = id;
@@ -83,5 +83,11 @@ public class Group {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String toString(){
+		return "id: "+ getId() + "\n"+
+				"name: "+ getName() + "\n"+
+				"description: "+ getDescription() ;
 	}
 }

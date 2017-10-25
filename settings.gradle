@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'GII-17.1B-UBULog-1.00'
+rootProject.name = 'GII-17.1B-UBULog-1.0'

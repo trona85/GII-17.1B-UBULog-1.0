@@ -13,8 +13,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import controlador.UBULog;
-import modelo.EnrolledUser;
+import controllers.UBULog;
+import model.EnrolledUser;
 
 /**
  * Clase EnrolledUser para webservices.Recoge funciones útiles para servicios web relacionados con un EnrolledUser.

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package modelo;
+package model;
 
 /**
  * Clase Role para distinguir el rol de los usuarios matriculados en un curso.
@@ -84,5 +84,11 @@ public class Role {
 	 */
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
+	}
+	
+	public String toString(){
+		return "id: "+ getId() + "\n"+
+				"name: "+ getName() + "\n"+
+				"shortName: "+ getShortName();
 	}
 }

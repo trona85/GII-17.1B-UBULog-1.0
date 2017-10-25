@@ -1,14 +1,14 @@
 /**
  * 
  */
-package modelo;
+package model;
 
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import modelo.Course;
+import model.Course;
 
 /**
  * clase MoodleUser. para guardar el usuario logeado.

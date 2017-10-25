@@ -14,9 +14,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import controlador.UBULog;
-import modelo.Course;
-import modelo.MoodleUser;
+import controllers.UBULog;
+import model.Course;
+import model.MoodleUser;
 
 /**
  * Clase MoodleUser para webservices. Recoge funciones útiles para servicios web relacionados con un MoodleUser.
@@ -31,29 +31,31 @@ public class MoodleUserWS {
 	 * 
 	 * @param token
 	 *            token de usuario
-	 * @param eMail
-	 *            email de usuario
+	 * @param userName
+	 *            nombre de usuario
 	 * @param mUser
 	 *            moodleUser
 	 * @throws Exception
 	 */
-	public static void setMoodleUser(String token, String eMail, MoodleUser mUser) throws Exception {
+	public static void setMoodleUser(String token, String userName, MoodleUser mUser) throws Exception {
 		//TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_user_get_users_by_field&field=username&values[0]=profesor
+		// para id TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_user_get_users_by_field&field=id&values[0]=6
+		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 			System.out.println("entramos set moodle user");
 			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_INFO_USUARIO
-					+ "&field=username&values[0]=" + eMail);
+					+ "&field=username&values[0]=" + userName);
 			System.out.println("entramos httpget: "+ httpget.toString());
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
-				System.out.println("try");
+				//System.out.println("try");
 				String respuesta = EntityUtils.toString(response.getEntity());
 				// logger.info(respuesta);
-				System.out.println("respuesta: " + respuesta);
+				//System.out.println("respuesta: " + respuesta);
 				JSONArray jsonArray = new JSONArray(respuesta);
-				System.out.println("json"+ jsonArray.length());
+				//System.out.println("json"+ jsonArray.length());
 				
 				if (jsonArray.length() > 0) {
 					JSONObject jsonObject = (JSONObject) jsonArray.get(0);
@@ -72,7 +74,7 @@ public class MoodleUserWS {
 							mUser.setLastAccess(new Date(jsonObject.getLong("lastaccess") * 1000));
 					}
 				}
-				System.out.println("final moodle");
+				//System.out.println("final moodle");
 			} finally {
 				response.close();
 			}
@@ -90,10 +92,11 @@ public class MoodleUserWS {
 	 *            usuario
 	 * @throws Exception
 	 */
-	public void setCourses(String token, MoodleUser mUser) throws Exception {
+	public static void setCourses(String token, MoodleUser mUser) throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		ArrayList<Course> courses = new ArrayList<Course>();
 		try {
+			// TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&&userid=6
 			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_CURSOS + "&userid="
 					+ mUser.getId());
@@ -106,7 +109,7 @@ public class MoodleUserWS {
 						JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 						if (jsonObject != null) {
 							courses.add(new Course(jsonObject));
-							System.out.println(courses.get(i));
+							//System.out.println(courses.get(i));
 						}
 					}
 				}

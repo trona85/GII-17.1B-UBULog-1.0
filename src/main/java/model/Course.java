@@ -1,7 +1,7 @@
 /**
  * 
  */
-package modelo;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +13,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controlador.UBULog;
+import controllers.UBULog;
 
-/** Clase curso. Tiene las propiedades de curso.
+/**
+ * Clase curso. Tiene las propiedades de curso.
  * 
  * @author Oscar Fernández Armengol
  * 
@@ -37,7 +38,7 @@ public class Course {
 	public ArrayList<EnrolledUser> enrolledUsers;
 	public Set<String> roles; // roles que hay en el curso
 	public Set<String> groups; // grupos que hay en el curso
-	// public ArrayList<GradeReportLine> gradeReportLines;
+	public ArrayList<GradeReportLine> gradeReportLines;
 	public Set<String> typeActivities;
 
 	static final Logger logger = LoggerFactory.getLogger(Course.class);
@@ -171,24 +172,6 @@ public class Course {
 		this.summary = summary;
 	}
 
-	public String getLang() {
-		return lang;
-	}
-
-	public void setLang(String lang) {
-		this.lang = lang;
-	}
-
-	/*
-	 * public Date getStartDate() { return startDate; }
-	 * 
-	 * public void setStartDate(Date startDate) { this.startDate = startDate; }
-	 * 
-	 * public Date getEndDate() { return endDate; }
-	 * 
-	 * public void setEndDate(Date endDate) { this.endDate = endDate; }
-	 */
-
 	/**
 	 * Devuelve una lista de los usuarios matriculados en el curso.
 	 * 
@@ -285,6 +268,28 @@ public class Course {
 	}
 
 	/**
+	 * Devuelve la lista de gradeReportLines que hay en el curso. (El
+	 * calificador)
+	 * 
+	 * @return lista de gradeReportConfigurationLines
+	 */
+	public ArrayList<GradeReportLine> getGradeReportLines() {
+		return this.gradeReportLines;
+	}
+
+	/**
+	 * Establece la lista de gradeReportLines del curso (el calificador)
+	 * 
+	 * @param grcl
+	 */
+	public void setGradeReportLines(ArrayList<GradeReportLine> grcl) {
+		this.gradeReportLines.clear();
+		for (GradeReportLine gl : grcl) {
+			this.gradeReportLines.add(gl);
+		}
+	}
+
+	/**
 	 * Devuelve las actividades que hay en el curso.
 	 * 
 	 * @return lista de actividades
@@ -301,6 +306,35 @@ public class Course {
 	}
 
 	/**
+	 * Almacena en un set las actividades que hay en el curso.
+	 * 
+	 * @param grcl
+	 *            gradeReportConfigurationLines
+	 */
+	public void setActivities(ArrayList<GradeReportLine> grcl) {
+		// Creamos el set de roles
+		typeActivities = new HashSet<String>();
+		// Recorremos la lista de usuarios matriculados en el curso
+		for (int i = 0; i < grcl.size(); i++) {
+			typeActivities.add(grcl.get(i).getNameType());
+		}
+	}
+
+	/**
+	 * Sustituimos el elemento de la lista que es una cabecera por el elemento
+	 * que es una categoria completa con todos sus atributos
+	 * 
+	 * @param line
+	 */
+	public void updateGRLList(GradeReportLine line) {
+		for (int i = 0; i < this.gradeReportLines.size(); i++) {
+			if (this.gradeReportLines.get(i).getId() == line.getId()) {
+				this.gradeReportLines.set(i, line);
+			}
+		}
+	}
+
+	/**
 	 * Devuelve el id de un curso a partir de su nombre
 	 * 
 	 * @param courseName
@@ -310,7 +344,7 @@ public class Course {
 		Course course = null;
 
 		ArrayList<Course> courses = (ArrayList<Course>) UBULog.user.getCourses();
-
+		// logger.info(" N� de cursos: " + courses.size());
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).getFullName().equals(courseName)) {
 				course = courses.get(i);
@@ -318,6 +352,22 @@ public class Course {
 		}
 
 		return course;
+	}
+
+	// TODO algo no funciona bien
+	public String toString() {
+		return "id: " + getId() /*
+								 * + "\n" + "shortName: " + getShortName() +
+								 * "\n" + "fullName: " + getFullName() + "\n" +
+								 * "enrolledUsersCount: " +
+								 * getEnrolledUsersCount() + "\n" + "idNumber: "
+								 * + getIdNumber() + "\n" + "summary: " +
+								 * getSummary() + "\n" + "lang: " + getLang() +
+								 * "\n" + "enrolledUsers: " + getEnrolledUsers()
+								 * + "\n" + "roles: " + getRoles() + "\n" +
+								 * "groups: " + getGroups() + "\n" +
+								 * "typeActivities: " + getActivities() + "\n"
+								 */;
 	}
 
 }

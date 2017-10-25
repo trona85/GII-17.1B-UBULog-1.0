@@ -6,7 +6,6 @@ package parserdocument;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * 
@@ -17,13 +16,10 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class CsvParser extends DocumentParser {
-
-	private HashMap<Integer, Log > logs;
-	private Log log;
 	
 	public CsvParser(String file) {
+		super();
 		this.setFile(file);
-		logs = new HashMap<>();
 	}
 	/* (non-Javadoc)
 	 * @see parserdocument.DocumentParser#readDocument(java.lang.String)
@@ -31,7 +27,7 @@ public class CsvParser extends DocumentParser {
 	@Override
 	public void readDocument() {
 		BufferedReader br = null;
-		Integer cont = 1;
+		Integer cont = 0;
 	      
 	      try {
 	         br =new BufferedReader(new FileReader(this.getFile()));
@@ -41,9 +37,10 @@ public class CsvParser extends DocumentParser {
 	         while (null!=line) {
 	            String [] fields = line.split(",");
 	            
-	            log = new Log(fields);
-	            System.out.println(log.toString());
-	            logs.put(cont, log);
+	            this.setLog( new Log(fields));
+	            //System.out.println(getLog().toString());
+	            this.setLogs(cont, getLog());
+	            //getLogs().put(cont, getLog());
 	            
 	            line = br.readLine();
 	            cont +=1;

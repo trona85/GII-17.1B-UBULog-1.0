@@ -10,8 +10,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import controlador.UBULog;
-import modelo.Course;
+import controllers.UBULog;
+import model.Course;
 
 /**
  *  Clase sesión. Obtiene el token de usuario y guarda sus parámetros. Establece la sesión.
@@ -50,8 +50,8 @@ public class Session {
 	}
 
 	/**
-	 * Establece el token del usuario a partir de usuario y contrase�a. Se
-	 * realiza mediante una petici�n http al webservice de Moodle
+	 * Establece el token del usuario a partir de usuario y contraseña. Se
+	 * realiza mediante una petición http al webservice de Moodle
 	 * 
 	 * @throws Exception
 	 */

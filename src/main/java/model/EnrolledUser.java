@@ -1,16 +1,17 @@
 /**
  * 
  */
-package modelo;
+package model;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import modelo.Group;
-import modelo.Role;
+import model.Group;
+import model.Role;
 
 /**
  * Clase que representa un usuario matriculado en una asignatura.
@@ -27,7 +28,6 @@ public class EnrolledUser {
 	private Date firstAccess;
 	private Date lastAccess;
 	public String description;
-	private String descriptionFormat;
 	private String city;
 	private String country;
 	private String profileImageUrlSmall;
@@ -42,7 +42,7 @@ public class EnrolledUser {
 	 * @param token
 	 *            token de usuario logueado
 	 * @param obj
-	 *            objeto JSON con la informaci�n del usuario
+	 *            objeto JSON con la información del usuario
 	 * @throws Exception
 	 */
 	public EnrolledUser(String token, JSONObject obj) throws Exception {
@@ -218,24 +218,6 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Devuelve el formato de la descripci�n
-	 * 
-	 * @return descriptionFormat
-	 */
-	public String getDescriptionFormat() {
-		return this.descriptionFormat;
-	}
-
-	/**
-	 * Modifica el formato de la descripci�n
-	 * 
-	 * @param descriptionFormat
-	 */
-	public void setDescriptionFormat(String descriptionFormat) {
-		this.descriptionFormat = descriptionFormat;
-	}
-
-	/**
 	 * Devuelve la ciudad del usuario
 	 * 
 	 * @return city
@@ -338,7 +320,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Modifica la lista de grupos en los que est� el usuario
+	 * Modifica la lista de grupos en los que está el usuario
 	 * 
 	 * @param groups
 	 */
@@ -350,7 +332,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Devuelve la lista de cursos en los que est� matriculado el usuario
+	 * Devuelve la lista de cursos en los que está matriculado el usuario
 	 * 
 	 * @return courses
 	 */
@@ -359,7 +341,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Modifica la lista de cursos en los que est� matriculado el usuario
+	 * Modifica la lista de cursos en los que está matriculado el usuario
 	 * 
 	 * @param courses
 	 */
@@ -370,11 +352,22 @@ public class EnrolledUser {
 		}
 	}
 
-	/**
-	 * Convierte el EnrolledUser a un String con su nombre
-	 */
 	public String toString() {
-		return this.getLastName() + ", " + this.getFirstName();
+		
+		return "id: "+ getId() + "\n"+
+		"firstName: "+ getFirstName() + "\n"+
+		"lastName: "+ getLastName() + "\n"+
+		"fullName: "+ getFullName() + "\n"+
+		"firstAccess: "+ getFirstAccess() + "\n"+
+		"lastAccess: "+ getLastAccess() + "\n"+
+		"description: "+ getDescription() + "\n"+
+		"city: "+ getCity() + "\n"+
+		"country: "+ getCountry() + "\n"+
+		"profileImageUrlSmall: "+ getProfileImageUrlSmall()+ "\n"+
+		"profileImageUrl: "+ getProfileImageUrl() + "\n"+
+		"roles: "+ getRoles() + "\n"+
+		"groups: "+ getGroups() + "\n"+
+		"courses: "+ getEnrolledCourses() + "\n";
 	}
 
 }

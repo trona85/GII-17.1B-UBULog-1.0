@@ -13,5 +13,6 @@ package parserdocument;
 public interface IDocumentParser {
 
 	public void readDocument();
+	public void filter(String [] fields, String [] vals);
 
 }
