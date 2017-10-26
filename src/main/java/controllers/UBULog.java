@@ -32,7 +32,7 @@ public class UBULog extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			logger.info("[Bienvenido a UBULog]");
-			FXMLLoader loader = new FXMLLoader(UBULog.class.getResource("/view/Login.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			init = primaryStage;

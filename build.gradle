@@ -18,7 +18,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 version = '1.0'
 
-mainClassName = 'controlador.UBULog'
+mainClassName = 'controllers.UBULog'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
