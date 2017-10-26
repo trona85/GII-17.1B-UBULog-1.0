@@ -3,3 +3,9 @@
 .gradle/
 build/
 bin/
+
+# Compiled class file for java
+*.class
+
+# Log file
+*.log
