@@ -87,7 +87,7 @@ public class LoginController {
 						try {
 							// Accedemos a la siguiente ventana
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Welcome.fxml"));
-
+							
 							UBULog.stage = new Stage();
 
 							Parent root = loader.load();

@@ -134,7 +134,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem fx:id="MIAboutUBUGrades" mnemonicParsing="false" onAction="#aboutUBUGrades" text="Acerca de UBUGrades" />
+              <MenuItem fx:id="MIAboutUBULog" mnemonicParsing="false" onAction="#aboutUBULog" text="Acerca de UBULog" />
             </items>
           </Menu>
         </menus>

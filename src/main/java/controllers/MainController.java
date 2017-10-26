@@ -28,6 +28,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -64,7 +65,7 @@ import webservice.CourseWS;
  * @author oscar
  *
  */
-public class MainController {
+public class MainController implements Initializable {
 
 	static final Logger logger = LoggerFactory.getLogger(MainController.class);
 

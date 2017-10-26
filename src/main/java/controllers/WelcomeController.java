@@ -11,13 +11,12 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controllers.UBULog;
-import controllers.WelcomeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,7 +30,7 @@ import model.Course;
  * @author oscar
  *
  */
-public class WelcomeController {
+public class WelcomeController implements Initializable {
 
 	@FXML
 	private Label lblUser;
@@ -79,7 +78,8 @@ public class WelcomeController {
 			logger.info(" Curso seleccionado: " + UBULog.session.getActualCourse().getFullName());
 
 			// Accedemos a la siguiente ventana:
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
+			System.err.println(getClass());
+			FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/view/Main.fxml"));
 
 			UBULog.stage.close();
 			UBULog.stage = new Stage();
@@ -94,6 +94,7 @@ public class WelcomeController {
 			lblNoSelect.setText("");
 			// logger.info("-- Entrando al curso");
 		} catch (Exception e) {
+			e.getStackTrace();
 			lblNoSelect.setText("Debe seleccionar un curso");
 			logger.info("Debe seleccionar un curso");
 		}

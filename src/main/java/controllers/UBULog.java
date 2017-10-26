@@ -15,7 +15,7 @@ import webservice.Session;
 /**
  * Clase main. Inicializa la ventana de login
  * 
- * @author Claudia Mart�nez Herrero
+ * @author Oscar Fernández Armengol
  * @version 1.0
  *
  */
