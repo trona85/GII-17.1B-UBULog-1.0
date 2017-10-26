@@ -16,12 +16,10 @@ public abstract class DocumentParser implements IDocumentParser {
 	private String file;
 	private HashMap<Integer, Log > logs;
 	private HashMap<Integer, Log > logsFilter;
-	private Log log;
 
 	public DocumentParser() {
 		logs = new HashMap<>();
 		logsFilter = new HashMap<>();
-		log = new Log();
 	}
 	
 	public abstract void readDocument();
@@ -41,14 +39,6 @@ public abstract class DocumentParser implements IDocumentParser {
 	public void setLogs(int id, Log log) {
 		this.logs.put(id, log);
 	}
-
-	public Log getLog() {
-		return log;
-	}
-
-	public void setLog(Log log) {
-		this.log = log;
-	}
 	
 	public HashMap<Integer, Log> getLogFilter() {
 		return logsFilter;
@@ -59,7 +49,7 @@ public abstract class DocumentParser implements IDocumentParser {
 	}
 	
 	public void filter(String [] fields, String [] vals){
-		boolean comp=true;
+		/*boolean comp=true;
 		int contador = 0;
 
 		for (int i = 0 ; i< logs.size() ; i++) {
@@ -74,7 +64,7 @@ public abstract class DocumentParser implements IDocumentParser {
 				contador++;
 			}
 			comp=true;
-		}
+		}*/
 		for (int i = 0 ; i< logsFilter.size() ; i++) {
 			System.out.println(logsFilter.get(i) + "salida total"); //TODO
 			

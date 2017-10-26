@@ -5,11 +5,6 @@ package parserdocument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-
-import model.MoodleUser;
-
 
 /**
  * Clase para generar cada tipo de log.
@@ -19,99 +14,75 @@ import model.MoodleUser;
  * @version 1.0
  */
 public class Log {
-	private HashMap<String, String> log;
-	private Date date = new Date();
-	private MoodleUser nameUser;
-	private MoodleUser userAffected;
+	private String date;
+	private String nameUser;
+	private String userAffected;
 	private String context;
 	private String component;
 	private String event;
 	private String description;
 	private String origin;
 	private String ip;
-	
+
 	public Log(String[] fields) {
-		if (fields.length > 0){
-			//TODO problemas con formateo de fecha dara igual asi?????
-			 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy H:m");
-			log =new HashMap<>();
-			
+		if (fields.length > 0) {
+			// TODO problemas con formateo de fecha dara igual asi?????
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy H:m");
 			try {
-				System.out.println(formatter.format(formatter.parse(fields[0])).toString());
-				//System.err.println(formatter.parse(fields[0]).toString() + "format");
-				//this.setDate(formatter.parser(formatter.format(fields[0])));
-				System.err.println(getDate());
+				//System.out.println(formatter.format(formatter.parse(fields[0])).toString());
+				this.setDate(formatter.format(formatter.parse(fields[0])));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block no es fecha valida........
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			setNameUser(fields[1]);
+			setUserAffected(fields[2]);
+			setContext(fields[3]);
+			setComponent(fields[4]);
+			setEvent(fields[5]);
+			setDescription(fields[7]);
+			setIp(fields[8]);
 			
-			setLog("hora", fields[0]);
-			setLog("nombre del usuario", fields[1]);
-			//setNameUser(fields[1]);
-			setLog("usuario afectado", fields[2]);
-			//setUserAffected(fields[2]);
-			setLog("contexto del evento", fields[3]);
-			//setContext(fields[3]);
-			setLog("componentes", fields[4]);
-			//setComponent(fields[4]);
-			setLog("nombre del evento", fields[5]);
-			//setEvent(fields[5]);
-			setLog("descripcion", fields[6]);
-			//setDescription(fields[7]);
-			setLog("origen", fields[7]);
-			//setIp(fields[8]);
-			setLog("ip", fields[8]);
 		}
-		
+
 	}
-	
+
 	public Log() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HashMap<String, String> getLog(){
-		return this.log;
-	}
-	public void setLog(String field, String val){
-		log.put(field,val);
-	}
 	@Override
-	public String toString(){
-		
-		return "hora: " + log.get("hora") + 
-		"\n nombre del usuario: "+ log.get("nombre del usuario") + 
-		"\n usuario afectado: " + log.get("usuario afectado") + 
-		"\n contexto del evento: " + log.get("contexto del evento") + 
-		"\n componentes: " + log.get("componentes") + 
-		"\n nombre del evento: " + log.get("nombre del evento") + 
-		"\n descripcion: " + log.get("descripcion") + 
-		"\n origen: " + log.get("origen") + 
-		"\n ip: " + log.get("ip");
+	public String toString() {
+
+		return "hora: " + getDate() + "\n nombre del usuario: " + getNameUser()
+				+ "\n usuario afectado: " + getUserAffected() + "\n contexto del evento: "
+				+ getContext() + "\n componentes: " + getComponent()
+				+ "\n nombre del evento: " + getEvent() + "\n descripcion: " + getDescription()
+				+ "\n origen: " + getOrigin() + "\n ip: " + getIp();
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(String string) {
+		this.date = string;
 	}
 
-	public MoodleUser getNameUser() {
+	public String getNameUser() {
 		return nameUser;
 	}
 
-	public void setNameUser(MoodleUser nameUser) {
-		this.nameUser = nameUser;
+	public void setNameUser(String fields) {
+		this.nameUser = fields;
 	}
 
-	public MoodleUser getUserAffected() {
+	public String getUserAffected() {
 		return userAffected;
 	}
 
-	public void setUserAffected(MoodleUser userAffected) {
-		this.userAffected = userAffected;
+	public void setUserAffected(String fields) {
+		this.userAffected = fields;
 	}
 
 	public String getContext() {

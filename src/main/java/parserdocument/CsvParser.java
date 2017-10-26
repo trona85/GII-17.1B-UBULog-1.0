@@ -7,6 +7,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controllers.UBULog;
+
 /**
  * 
  * Clase para el parseo de csv.
@@ -17,13 +22,13 @@ import java.io.IOException;
  */
 public class CsvParser extends DocumentParser {
 	
+	static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
+	
 	public CsvParser(String file) {
 		super();
 		this.setFile(file);
 	}
-	/* (non-Javadoc)
-	 * @see parserdocument.DocumentParser#readDocument(java.lang.String)
-	 */
+
 	@Override
 	public void readDocument() {
 		BufferedReader br = null;
@@ -36,15 +41,15 @@ public class CsvParser extends DocumentParser {
 	         
 	         while (null!=line) {
 	            String [] fields = line.split(",");
-	            
-	            this.setLog( new Log(fields));
-	            //System.out.println(getLog().toString());
-	            this.setLogs(cont, getLog());
-	            //getLogs().put(cont, getLog());
+
+	            this.setLogs(cont, new Log(fields));
 	            
 	            line = br.readLine();
 	            cont +=1;
 	         }
+	         for (int i=1;i < getLogs().size() ; ++i) {
+				logger.info(getLogs().get(i).toString() + i);
+			}
 	         
 	      } catch (Exception e) {
 	         System.err.println("no existe");
