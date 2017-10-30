@@ -42,14 +42,14 @@ public class CsvParser extends DocumentParser {
 	         while (null!=line) {
 	            String [] fields = line.split(",");
 
-	            this.setLogs(cont, new Log(fields));
+	            this.setLogs(new Log(fields));
 	            
 	            line = br.readLine();
 	            cont +=1;
 	         }
-	         for (int i=1;i < getLogs().size() ; ++i) {
+	         /*for (int i=1;i < getLogs().size() ; ++i) {
 				logger.info(getLogs().get(i).toString() + i);
-			}
+			}*/
 	         
 	      } catch (Exception e) {
 	         System.err.println("no existe");

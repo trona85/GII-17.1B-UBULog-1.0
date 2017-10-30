@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.MoodleUser;
-import parserdocument.CsvParser;
 import webservice.Session;
 
 /**
@@ -49,54 +48,6 @@ public class UBULog extends Application {
 
 	// Main comando
 	public static void main(String[] args) {
-		CsvParser p = new CsvParser("doc/docparser/logs_curso2_20171012-1005.csv");
-		p.readDocument();
-		
-		//System.out.println(p.getLogs());
 		launch(args);
 	}
 }
-	/*public static void main(String[] args) {
-		logger.info("[Bienvenido a UBULog]");
-		session = new Session("profesor", "1Qwerty--");
-		String [] field = {"nombre del usuario"};
-		String [] var = {"profesor profesor"};
-		try {
-			session.setToken();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//System.out.println("user: " + session.getUserName() + ", token: "+ session.getToken());
-		
-		MoodleUser user = new MoodleUser();
-		MoodleUserWS userPro = new MoodleUserWS();
-		CourseWS cws = new CourseWS();
-		try {
-			// creo al usuario logeado con sus caracteristicas
-			userPro.setMoodleUser(session.getToken(), session.getUserName(), user);
-			//System.out.println(user.getId() + " "+ user.getEmail());
-			// inserto sus cursos
-			userPro.setCourses(session.getToken(), user);
-			for (Course c : user.getCourses()) {
-				CourseWS.setEnrolledUsers(session.getToken(), c);
-				//System.out.println(c.toString());
-				
-			}
-			
-			//TODO meter los nuevos campos, mirar el rol para saber las asignaturas necesitaremos una lista para poder acceder a los usuarios mas rapidamente por su id
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//TODO
-		CsvParser p = new CsvParser("doc/docparser/logs_curso2_20171012-1005.csv");
-		p.readDocument();
-		
-		//System.out.println(p.getLogs());
-		p.filter(field, var);
-
-		
-		
-	}*/
-

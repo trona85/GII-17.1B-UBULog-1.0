@@ -131,13 +131,10 @@ public class MainController implements Initializable {
 	 * de las que se compone.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		//FileChooser fileChooser = new FileChooser();
-		//File file = fileChooser.showOpenDialog(UBULog.stage);
 		
-		//System.out.println(file);
-		//try {
+		try {
 			//logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
-			/*engine = webView.getEngine();
+			engine = webView.getEngine();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 			// Establecemos calificador del curso
@@ -425,7 +422,7 @@ public class MainController implements Initializable {
 		lblActualCourse.setText("Curso actual: " + UBULog.session.getActualCourse().getFullName());
 
 		// Mostramos Host actual
-		lblActualHost.setText("Host: " + UBULog.host);*/
+		lblActualHost.setText("Host: " + UBULog.host);
 	}
 
 	/**

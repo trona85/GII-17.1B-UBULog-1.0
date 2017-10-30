@@ -36,7 +36,7 @@ public abstract class DocumentParser implements IDocumentParser {
 		return logs;
 	}
 
-	public void setLogs(int id, Log log) {
+	public void setLogs( Log log) {
 		this.logs.add( log);
 	}
 	
