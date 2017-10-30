@@ -356,7 +356,8 @@ public class Course {
 
 	// TODO algo no funciona bien
 	public String toString() {
-		return "id: " + getId() /*
+		return getFullName();
+				/*"id: " + getId() 
 								 * + "\n" + "shortName: " + getShortName() +
 								 * "\n" + "fullName: " + getFullName() + "\n" +
 								 * "enrolledUsersCount: " +
@@ -367,7 +368,7 @@ public class Course {
 								 * + "\n" + "roles: " + getRoles() + "\n" +
 								 * "groups: " + getGroups() + "\n" +
 								 * "typeActivities: " + getActivities() + "\n"
-								 */;
+								 */
 	}
 
 }

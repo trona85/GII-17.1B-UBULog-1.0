@@ -354,7 +354,8 @@ public class EnrolledUser {
 
 	public String toString() {
 		
-		return "id: "+ getId() + "\n"+
+		return getFullName()
+				/*"id: "+ getId() + "\n"+
 		"firstName: "+ getFirstName() + "\n"+
 		"lastName: "+ getLastName() + "\n"+
 		"fullName: "+ getFullName() + "\n"+
@@ -367,7 +368,7 @@ public class EnrolledUser {
 		"profileImageUrl: "+ getProfileImageUrl() + "\n"+
 		"roles: "+ getRoles() + "\n"+
 		"groups: "+ getGroups() + "\n"+
-		"courses: "+ getEnrolledCourses() + "\n";
+		"courses: "+ getEnrolledCourses() + "\n"*/;
 	}
 
 }

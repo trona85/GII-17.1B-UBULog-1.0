@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.html.parser.DocumentParser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,9 @@ import model.EnrolledUser;
 import model.GradeReportLine;
 import model.Group;
 import model.Role;
+import parserdocument.CsvParser;
+import parserdocument.IDocumentParser;
+import parserdocument.Log;
 import webservice.CourseWS;
 
 /**
@@ -78,35 +82,39 @@ public class MainController implements Initializable {
 	@FXML // Host actual
 	public Label lblActualHost;
 
-	@FXML // N� participantes
+	@FXML // Numero de participantes
 	public Label lblCountParticipants;
 	@FXML // lista de participantes
 	public ListView<EnrolledUser> listParticipants;
 	ObservableList<EnrolledUser> enrList;
+	
+	@FXML // lista de participantes
+	public ListView<Log> listLogs;
+	ObservableList<Log> enrLog;
 
-	@FXML // Bot�n filtro por rol
+	@FXML // Botón filtro por rol
 	public MenuButton slcRole;
 	MenuItem[] roleMenuItems;
 	String filterRole = "Todos";
 
-	@FXML // Bot�n filtro por grupo
+	@FXML // Botón filtro por grupo
 	public MenuButton slcGroup;
 	MenuItem[] groupMenuItems;
 	String filterGroup = "Todos";
 
-	@FXML // Entrada de filtro de usuarios por patr�n
+	@FXML // Entrada de filtro de usuarios por patrón
 	public TextField tfdParticipants;
 	String patternParticipants = "";
 
-	@FXML // Vista en �rbol de actividades
+	@FXML // Vista en árbol de actividades
 	public TreeView<GradeReportLine> tvwGradeReport;
 	ArrayList<GradeReportLine> gradeReportList;
 
-	@FXML // Entrada de filtro de actividades por patr�n
+	@FXML // Entrada de filtro de actividades por patrón
 	public TextField tfdItems;
 	String patternCalifications = "";
 
-	@FXML // Bot�n filtro por tipo de actividad
+	@FXML // Botón filtro por tipo de actividad
 	public MenuButton slcType;
 	MenuItem[] typeMenuItems;
 	String filterType = "Todos";
@@ -119,13 +127,17 @@ public class MainController implements Initializable {
 	private WebEngine engine;
 
 	/**
-	 * Muestra los usuarios matriculados en el curso, as� como las actividades
+	 * Muestra los usuarios matriculados en el curso, así como las actividades
 	 * de las que se compone.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
-			engine = webView.getEngine();
+		//FileChooser fileChooser = new FileChooser();
+		//File file = fileChooser.showOpenDialog(UBULog.stage);
+		
+		//System.out.println(file);
+		//try {
+			//logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
+			/*engine = webView.getEngine();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 			// Establecemos calificador del curso
@@ -140,55 +152,15 @@ public class MainController implements Initializable {
 
 			//////////////////////////////////////////////////////////////////////////
 			// Manejo de roles (MenuButton Rol):
-			EventHandler<ActionEvent> actionRole = selectRole();
-			// Cargamos una lista con los nombres de los roles
-			ArrayList<String> rolesList = UBULog.session.getActualCourse().getRoles();
-			// Convertimos la lista a una lista de MenuItems para el MenuButton
-			ArrayList<MenuItem> rolesItemsList = new ArrayList<MenuItem>();
-			// En principio se mostrar�n todos los usuarios con cualquier rol
-			MenuItem mi = (new MenuItem("Todos"));
-			// A�adimos el manejador de eventos al primer MenuItem
-			mi.setOnAction(actionRole);
-			rolesItemsList.add(mi);
-
-			for (int i = 0; i < rolesList.size(); i++) {
-				String rol = rolesList.get(i);
-				mi = (new MenuItem(rol));
-				mi.setOnAction(actionRole);
-				// A�adimos el manejador de eventos a cada MenuItem
-				rolesItemsList.add(mi);
-			}
-
-			// Asignamos la lista de MenuItems al MenuButton "Rol"
-			slcRole.getItems().addAll(rolesItemsList);
-			slcRole.setText("Todos");
+			MenuItem mi;
+			manejoRoles();
 
 			//////////////////////////////////////////////////////////////////////////
 			// Manejo de grupos (MenuButton Grupo):
-			EventHandler<ActionEvent> actionGroup = selectGroup();
-			// Cargamos una lista de los nombres de los grupos
-			ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
-			// Convertimos la lista a una lista de MenuItems para el MenuButton
-			ArrayList<MenuItem> groupsItemsList = new ArrayList<MenuItem>();
-			// En principio mostrar�n todos los usuarios en cualquier grupo
-			mi = (new MenuItem("Todos"));
-			// A�adimos el manejador de eventos al primer MenuItem
-			mi.setOnAction(actionGroup);
-			groupsItemsList.add(mi);
-
-			for (int i = 0; i < groupsList.size(); i++) {
-				String group = groupsList.get(i);
-				mi = (new MenuItem(group));
-				// A�adimos el manejador de eventos a cada MenuItem
-				mi.setOnAction(actionGroup);
-				groupsItemsList.add(mi);
-			}
-			// Asignamos la lista de MenuItems al MenuButton "Grupo"
-			slcGroup.getItems().addAll(groupsItemsList);
-			slcGroup.setText("Todos");
+			manejoGrupos();
 
 			////////////////////////////////////////////////////////
-			// A�adimos todos los participantes a la lista de visualizaci�n
+			// Añadimos todos los participantes a la lista de visualización
 			for (int j = 0; j < users.size(); j++) {
 				nameUsers.add(users.get(j));
 			}
@@ -231,14 +203,14 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 		}
 
-		// Activamos la selecci�n m�ltiple en la lista de participantes
+		// Activamos la selección múltiple en la lista de participantes
 		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// Asignamos el manejador de eventos de la lista
-		// Al clickar en la lista, se recalcula el n� de elementos seleccionados
+		// Al clickar en la lista, se recalcula el número de elementos seleccionados
 		listParticipants.setOnMouseClicked(new EventHandler<Event>() {
-			// Manejador que llama a la funci�n de mostrar gr�fico
+			// Manejador que llama a la función de mostrar gráfico
 			@Override
-			public void handle(Event event) { // (1� click en participantes)
+			public void handle(Event event) { // (1er click en participantes)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
 						.getSelectedItems();
 				ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
@@ -261,7 +233,7 @@ public class MainController implements Initializable {
 						CourseWS.setGradeReportLines(UBULog.session.getToken(), actualUser.getId(),
 								UBULog.session.getActualCourse());
 					} catch (Exception e) {
-						logger.error("Error de conexi�n. {}", e);
+						logger.error("Error de conexión. {}", e);
 						e.printStackTrace();
 						errorDeConexion();
 					}
@@ -442,7 +414,7 @@ public class MainController implements Initializable {
 			}
 		});
 
-		// Mostramos n� participantes
+		// Mostramos número participantes
 		lblCountParticipants.setText(
 				"Participantes: " + String.valueOf(UBULog.session.getActualCourse().getEnrolledUsersCount()));
 
@@ -453,7 +425,63 @@ public class MainController implements Initializable {
 		lblActualCourse.setText("Curso actual: " + UBULog.session.getActualCourse().getFullName());
 
 		// Mostramos Host actual
-		lblActualHost.setText("Host: " + UBULog.host);
+		lblActualHost.setText("Host: " + UBULog.host);*/
+	}
+
+	/**
+	 * 
+	 */
+	private void manejoGrupos() {
+		MenuItem mi;
+		EventHandler<ActionEvent> actionGroup = selectGroup();
+		// Cargamos una lista de los nombres de los grupos
+		ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
+		// Convertimos la lista a una lista de MenuItems para el MenuButton
+		ArrayList<MenuItem> groupsItemsList = new ArrayList<MenuItem>();
+		// En principio mostrar�n todos los usuarios en cualquier grupo
+		mi = (new MenuItem("Todos"));
+		// A�adimos el manejador de eventos al primer MenuItem
+		mi.setOnAction(actionGroup);
+		groupsItemsList.add(mi);
+
+		for (int i = 0; i < groupsList.size(); i++) {
+			String group = groupsList.get(i);
+			mi = (new MenuItem(group));
+			// Añadimos el manejador de eventos a cada MenuItem
+			mi.setOnAction(actionGroup);
+			groupsItemsList.add(mi);
+		}
+		// Asignamos la lista de MenuItems al MenuButton "Grupo"
+		slcGroup.getItems().addAll(groupsItemsList);
+		slcGroup.setText("Todos");
+	}
+
+	/**
+	 * Manejo de roles
+	 */
+	private void manejoRoles() {
+		EventHandler<ActionEvent> actionRole = selectRole();
+		// Cargamos una lista con los nombres de los roles
+		ArrayList<String> rolesList = UBULog.session.getActualCourse().getRoles();
+		// Convertimos la lista a una lista de MenuItems para el MenuButton
+		ArrayList<MenuItem> rolesItemsList = new ArrayList<MenuItem>();
+		// En principio se mostrarón todos los usuarios con cualquier rol
+		MenuItem mi = (new MenuItem("Todos"));
+		// Añadimos el manejador de eventos al primer MenuItem
+		mi.setOnAction(actionRole);
+		rolesItemsList.add(mi);
+
+		for (int i = 0; i < rolesList.size(); i++) {
+			String rol = rolesList.get(i);
+			mi = (new MenuItem(rol));
+			mi.setOnAction(actionRole);
+			// Añadimos el manejador de eventos a cada MenuItem
+			rolesItemsList.add(mi);
+		}
+
+		// Asignamos la lista de MenuItems al MenuButton "Rol"
+		slcRole.getItems().addAll(rolesItemsList);
+		slcRole.setText("Todos");
 	}
 
 	/**
@@ -909,8 +937,27 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Bot�n "Salir". Cierra la aplicaci�n.
+	 * Boton para cargar documento
 	 * 
+	 * @param actionEvent
+	 * @throws Exception
+	 */
+	public void cargaDocumento(ActionEvent actionEvent) throws Exception {
+		FileChooser fileChooser = new FileChooser();
+		File file = fileChooser.showOpenDialog(UBULog.stage);
+		CsvParser logs = new CsvParser(file.toString());
+		logs.readDocument();
+		
+		enrLog = FXCollections.observableArrayList(logs.getLogs());
+		//enrLog.add(logs);
+		listLogs.setItems(enrLog);
+				
+		
+	}
+	
+	/**
+	 * 
+	 *  Botón "Salir". Cierra la aplicación.
 	 * @param actionEvent
 	 * @throws Exception
 	 */

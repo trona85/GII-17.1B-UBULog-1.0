@@ -3,7 +3,7 @@
  */
 package parserdocument;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Clase abstracta para documentos.
@@ -14,12 +14,12 @@ import java.util.HashMap;
 public abstract class DocumentParser implements IDocumentParser {
 
 	private String file;
-	private HashMap<Integer, Log > logs;
-	private HashMap<Integer, Log > logsFilter;
+	private ArrayList<Log> logs;
+	private ArrayList<Log> logsFilter;
 
 	public DocumentParser() {
-		logs = new HashMap<>();
-		logsFilter = new HashMap<>();
+		logs = new ArrayList<Log>();
+		logsFilter = new ArrayList<Log>();
 	}
 	
 	public abstract void readDocument();
@@ -32,19 +32,19 @@ public abstract class DocumentParser implements IDocumentParser {
 		this.file = file;
 	}
 
-	public HashMap<Integer, Log > getLogs() {
+	public ArrayList<Log> getLogs() {
 		return logs;
 	}
 
 	public void setLogs(int id, Log log) {
-		this.logs.put(id, log);
+		this.logs.add( log);
 	}
 	
-	public HashMap<Integer, Log> getLogFilter() {
+	public ArrayList<Log> getLogFilter() {
 		return logsFilter;
 	}
 
-	public void setLogFilter(HashMap<Integer, Log > logsFilter) {
+	public void setLogFilter(ArrayList<Log> logsFilter) {
 		this.logsFilter = logsFilter;
 	}
 	

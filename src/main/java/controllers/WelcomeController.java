@@ -43,7 +43,7 @@ public class WelcomeController implements Initializable {
 	static final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 
 	/**
-	 * Funci�n initialize. Muestra la lista de cursos del usuario introducido.
+	 * Función initialize. Muestra la lista de cursos del usuario introducido.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		try {

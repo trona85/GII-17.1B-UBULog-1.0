@@ -36,8 +36,8 @@ public class CsvParser extends DocumentParser {
 	      
 	      try {
 	         br =new BufferedReader(new FileReader(this.getFile()));
-	         String cabecera = br.readLine();
 	         String line = br.readLine();
+	         line = br.readLine();
 	         
 	         while (null!=line) {
 	            String [] fields = line.split(",");

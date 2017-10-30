@@ -298,5 +298,9 @@ public class MoodleUser {
 	public void setCourses(ArrayList<Course> courses) {
 		this.courses = courses;
 	}
+	
+	public String toString(){
+		return getFullName();
+	}
 
 }

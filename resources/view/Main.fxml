@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -23,7 +31,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="canvas" prefHeight="600.0" prefWidth="900.0" styleClass="anchorpane" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<AnchorPane id="canvas" prefHeight="600.0" prefWidth="900.0" styleClass="anchorpane" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
   <!-- TODO Add Nodes -->
   <children>
     <Pane fx:id="PanelParticipantes" prefHeight="284.0" prefWidth="256.0" styleClass="pane" stylesheets="@/css/style.css">
@@ -91,6 +99,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Button fx:id="btncarga11" alignment="CENTER_RIGHT" layoutX="278.0" layoutY="475.0" mnemonicParsing="false" onAction="#cargaDocumento" style="-fx-font-size: 13;" styleClass="rich-blue" stylesheets="@/css/style.css" text="Cargar documento">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
               </children>
             </AnchorPane>
           </content>
@@ -99,7 +112,12 @@
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             	<children>
-                	<WebView fx:id="webView" prefHeight="455.0" prefWidth="644.0" />
+                        <Button fx:id="btncarga" alignment="CENTER_RIGHT" layoutX="263.0" layoutY="472.0" mnemonicParsing="false" onAction="#cargaDocumento" style="-fx-font-size: 13;" styleClass="rich-blue" stylesheets="@/css/style.css" text="Cargar documento">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                	<WebView fx:id="webView" layoutX="1.0" layoutY="1.0" prefHeight="455.0" prefWidth="644.0" />
                         <Button fx:id="btnExit1" alignment="CENTER_RIGHT" layoutX="590.0" layoutY="472.0" mnemonicParsing="false" onAction="#closeApplication" style="-fx-font-size: 13;" styleClass="rich-blue" stylesheets="@/css/style.css" text="Salir">
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -114,6 +132,31 @@
             </AnchorPane>
           </content>
         </Tab>
+            <Tab text="Logs">
+               <content>
+                  <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <WebView fx:id="webView1" layoutX="-4.0" layoutY="-3.0" prefHeight="455.0" prefWidth="644.0" />
+                        <Button fx:id="btncarga1" alignment="CENTER_RIGHT" layoutX="263.0" layoutY="468.0" mnemonicParsing="false" onAction="#cargaDocumento" style="-fx-font-size: 13;" styleClass="rich-blue" stylesheets="@/css/style.css" text="Cargar documento">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnExit11" alignment="CENTER_RIGHT" layoutX="590.0" layoutY="472.0" mnemonicParsing="false" onAction="#closeApplication" style="-fx-font-size: 13;" styleClass="rich-blue" stylesheets="@/css/style.css" text="Salir">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnExportTable1" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="472.0" mnemonicParsing="false" onAction="#saveTable" style="-fx-font-size: 13;" stylesheets="@/css/style.css" text="Exportar tabla">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ListView fx:id="listLogs" layoutX="4.0" layoutY="-2.0" prefHeight="465.0" prefWidth="636.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
       </tabs>
     </TabPane>
       <MenuBar layoutX="256.0" layoutY="1.0" prefHeight="59.0" prefWidth="327.0" stylesheets="@/css/style.css">

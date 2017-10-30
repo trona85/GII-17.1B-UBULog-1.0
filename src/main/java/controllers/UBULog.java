@@ -9,7 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import model.*;
+import model.MoodleUser;
+import parserdocument.CsvParser;
 import webservice.Session;
 
 /**
@@ -28,7 +29,7 @@ public class UBULog extends Application {
 
 	static final Logger logger = LoggerFactory.getLogger(UBULog.class);
 
-	@Override
+	@Override 
 	public void start(Stage primaryStage) {
 		try {
 			logger.info("[Bienvenido a UBULog]");
@@ -48,6 +49,10 @@ public class UBULog extends Application {
 
 	// Main comando
 	public static void main(String[] args) {
+		CsvParser p = new CsvParser("doc/docparser/logs_curso2_20171012-1005.csv");
+		p.readDocument();
+		
+		//System.out.println(p.getLogs());
 		launch(args);
 	}
 }

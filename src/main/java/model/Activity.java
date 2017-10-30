@@ -27,7 +27,7 @@ public class Activity implements Serializable {
 	 * @param token
 	 *            token de MoodleUser
 	 * @param obj
-	 *            objeto JSON con la informaci�n de la actividad
+	 *            objeto JSON con la información de la actividad
 	 * @throws Exception
 	 */
 	public Activity(String token, JSONObject obj) throws Exception {
@@ -44,9 +44,9 @@ public class Activity implements Serializable {
 	 * @param weight
 	 *            peso
 	 * @param minRange
-	 *            rango m�nimo de nota
+	 *            rango mínimo de nota
 	 * @param maxRange
-	 *            rango m�ximo de nota
+	 *            rango máximo de nota
 	 */
 	public Activity(String itemName, String type, float weight, String minRange, String maxRange) {
 		this.itemName = itemName;
@@ -111,7 +111,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Devuelve el rango m�nimo
+	 * Devuelve el rango mánimo
 	 * 
 	 * @return minRange
 	 */
@@ -120,7 +120,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Modifica el rango m�nimo
+	 * Modifica el rango mánimo
 	 * 
 	 * @param minRange
 	 */
@@ -129,7 +129,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Devuelve el rango m�ximo
+	 * Devuelve el rango máximo
 	 * 
 	 * @return maxRange
 	 */
@@ -138,7 +138,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Modifica el rango m�ximo
+	 * Modifica el rango máximo
 	 * 
 	 * @param maxRange
 	 */
@@ -147,7 +147,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Devuelve la contribuci�n total de la actividad
+	 * Devuelve la contribución total de la actividad
 	 * 
 	 * @return contributionCourseTotal
 	 */
@@ -162,6 +162,10 @@ public class Activity implements Serializable {
 	 */
 	public void setContributionCourseTotal(float contributionCourseTotal) {
 		this.contributionCourseTotal = contributionCourseTotal;
+	}
+	
+	public String toString(){
+		return getItemName();
 	}
 
 }
