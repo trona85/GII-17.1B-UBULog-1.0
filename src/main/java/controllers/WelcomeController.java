@@ -27,7 +27,11 @@ import javafx.stage.Stage;
 import model.Course;
 
 /**
- * @author oscar
+ * Clase controlador de la pantalla de bienvenida en la que se muestran los
+ * cursos del usuario logueado.
+ * 
+ * @author oscar Fernández Armengol
+ * @version 1.0
  *
  */
 public class WelcomeController implements Initializable {

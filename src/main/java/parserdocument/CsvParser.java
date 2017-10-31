@@ -10,8 +10,6 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controllers.UBULog;
-
 /**
  * 
  * Clase para el parseo de csv.
@@ -47,11 +45,9 @@ public class CsvParser extends DocumentParser {
 	            line = br.readLine();
 	            cont +=1;
 	         }
-	         /*for (int i=1;i < getLogs().size() ; ++i) {
-				logger.info(getLogs().get(i).toString() + i);
-			}*/
 	         
 	      } catch (Exception e) {
+	    	  // TODO hacer errores concretos
 	         System.err.println("no existe");
 	         e.printStackTrace();
 

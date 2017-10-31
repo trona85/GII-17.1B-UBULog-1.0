@@ -14,13 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.html.parser.DocumentParser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controllers.MainController;
-import controllers.UBULog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -37,6 +34,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -46,7 +44,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -61,13 +58,14 @@ import model.GradeReportLine;
 import model.Group;
 import model.Role;
 import parserdocument.CsvParser;
-import parserdocument.IDocumentParser;
 import parserdocument.Log;
 import webservice.CourseWS;
 
 /**
- * @author oscar
- *
+ * Clase controlador de la ventana principal
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class MainController implements Initializable {
 
@@ -119,12 +117,14 @@ public class MainController implements Initializable {
 	MenuItem[] typeMenuItems;
 	String filterType = "Todos";
 
-	@FXML // Gr�fico
+	@FXML // Gráfico
 	private LineChart<String, Number> lineChart;
 
 	@FXML // Tabla de calificaciones
 	private WebView webView;
 	private WebEngine engine;
+	
+	private ArrayList<EnrolledUser> users;
 
 	/**
 	 * Muestra los usuarios matriculados en el curso, así como las actividades
@@ -143,7 +143,7 @@ public class MainController implements Initializable {
 					UBULog.session.getActualCourse());
 
 			// Almacenamos todos participantes en una lista
-			ArrayList<EnrolledUser> users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
+			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
 					.getEnrolledUsers();
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
 
@@ -235,7 +235,7 @@ public class MainController implements Initializable {
 						errorDeConexion();
 					}
 
-					// A�adimos valores al gr�fico
+					// Añadimos valores al gráfico
 					XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 					series.setName(actualUser.getLastName() + ", " + actualUser.getFirstName());
 
@@ -253,13 +253,13 @@ public class MainController implements Initializable {
 								// logger.info(actualLine.getName() + ":" +
 								// actualLine.getGrade());
 
-								// A�adimos la actividad a la tabla
+								// Añadimos la actividad a la tabla
 								if (countA == countB) {
 									htmlTitle += "<th style='border: 1.0 solid grey'> " + actualLine.getName()
 											+ " </th>";
 									countB++;
 								}
-								// Si es num�rico lo graficamos (calculamos
+								// Si es numérico lo graficamos (calculamos
 								// sobre 10) y lo mostramos en la tabla
 								if (!Float.isNaN(CourseWS.getFloat(calculatedGrade))) {
 
@@ -271,14 +271,14 @@ public class MainController implements Initializable {
 									htmlRow += "<td style='border: 1.0 solid grey'> "
 											+ Math.round(CourseWS.getFloat(calculatedGrade) * 100.0) / 100.0
 											+ "/<b style='color:#ab263c'>" + actualLine.getRangeMax() + "</b> </td>";
-								} else { // Si no, s�lo lo mostramos en la tabla
+								} else { // Si no, sólo lo mostramos en la tabla
 									htmlRow += "<td style='border: 1.0 solid grey'> " + calculatedGrade + " </td>";
 								}
 							}
 						}
 					}
 					htmlTitle += "</tr>";
-					// Mostramos el gr�fico
+					// Mostramos el gráfico
 					lineChart.getData().add(series);
 					htmlRow += "</tr>";
 					content += htmlRow;
@@ -300,7 +300,7 @@ public class MainController implements Initializable {
 		/// Mostramos la lista de participantes
 		listParticipants.setItems(enrList);
 
-		// Establecemos la estructura en �rbol del calificador
+		// Establecemos la estructura en árbol del calificador
 		ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>) UBULog.session.getActualCourse()
 				.getGradeReportLines();
 		// Establecemos la raiz del Treeview
@@ -327,14 +327,14 @@ public class MainController implements Initializable {
 						.getSelectedItems();
 				ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
 						.getSelectedItems();
-				// Se reinicia el gr�fico por cada nuevo �tem seleccionado
+				// Se reinicia el gráfico por cada nuevo �tem seleccionado
 				lineChart.getData().clear();
 				String htmlTitle = "<tr><th style='background:#066db3; border: 1.0 solid grey; color:white;'> Alumno </th>";
 				String content = "";
 				int countA = 0;
 				// Por cada usuario seleccionado
 				for (EnrolledUser actualUser : selectedParticipants) {
-					// Se a�ade el usuario a la tabla
+					// Se añade el usuario a la tabla
 					String htmlRow = "<th style='color:#066db3; background:white; border: 1.0 solid grey;'> "
 							+ actualUser.getFullName() + " </th>";
 					try {
@@ -348,12 +348,12 @@ public class MainController implements Initializable {
 						errorDeConexion();
 					}
 
-					// A�adimos elementos al gr�fico
+					// A�adimos elementos al gráfico
 					XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 					series.setName(actualUser.getLastName() + ", " + actualUser.getFirstName());
 					int countB = 1;
 
-					// Por cada �tem seleccionado
+					// Por cada ítem seleccionado
 					for (TreeItem<GradeReportLine> structTree : selectedGRL) {
 						countA++;
 						for (GradeReportLine actualLine : UBULog.session.getActualCourse().getGradeReportLines()) {
@@ -364,12 +364,12 @@ public class MainController implements Initializable {
 									// "+actualLine.getGrade());
 
 									if (countA == countB) {
-										// A�adimos la actividad a la tabla
+										// Añadimos la actividad a la tabla
 										htmlTitle += "<th style='border: 1.0 solid grey'> " + actualLine.getName()
 												+ " </th>";
 										countB++;
 									}
-									// Si es num�rico lo graficamos y lo
+									// Si es numérico lo graficamos y lo
 									// mostramos en la tabla
 									if (!Float.isNaN(CourseWS.getFloat(calculatedGrade))) {
 										series.getData()
@@ -381,7 +381,7 @@ public class MainController implements Initializable {
 												+ Math.round(CourseWS.getFloat(calculatedGrade) * 100.0) / 100.0
 												+ "/<b style='color:#ab263c'>" + actualLine.getRangeMax()
 												+ "</b> </td>";
-									} else { // Si no, s�lo lo mostramos en la
+									} else { // Si no, sólo lo mostramos en la
 												// tabla
 										htmlRow += "<td style='border: 1.0 solid grey'> " + calculatedGrade + " </td>";
 									}
@@ -435,7 +435,7 @@ public class MainController implements Initializable {
 		ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
 		ArrayList<MenuItem> groupsItemsList = new ArrayList<MenuItem>();
-		// En principio mostrar�n todos los usuarios en cualquier grupo
+		// En principio mostrarán todos los usuarios en cualquier grupo
 		mi = (new MenuItem("Todos"));
 		// A�adimos el manejador de eventos al primer MenuItem
 		mi.setOnAction(actionGroup);
@@ -495,7 +495,7 @@ public class MainController implements Initializable {
 			 * participantes
 			 */
 			public void handle(ActionEvent event) {
-				// Obtenemos el �tem que se ha seleccionado
+				// Obtenemos el ítem que se ha seleccionado
 				MenuItem mItem = (MenuItem) event.getSource();
 				// Obtenemos el rol por el que se quiere filtrar
 				filterRole = mItem.getText();
@@ -520,7 +520,7 @@ public class MainController implements Initializable {
 			 * participantes
 			 */
 			public void handle(ActionEvent event) {
-				// Obtenemos el �tem que se ha seleccionado
+				// Obtenemos el ítem que se ha seleccionado
 				MenuItem mItem = (MenuItem) event.getSource();
 				// Obtenemos el grupo por el que se quire filtrar
 				filterGroup = mItem.getText();
@@ -552,7 +552,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Filtra los participantes seg�n el rol, el grupo y el patr�n indicados
+	 * Filtra los participantes según el rol, el grupo y el patrón indicados
 	 */
 	public void filterParticipants() {
 		try {
@@ -560,7 +560,7 @@ public class MainController implements Initializable {
 			boolean roleYes;
 			boolean groupYes;
 			boolean patternYes;
-			ArrayList<EnrolledUser> users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
+			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
 					.getEnrolledUsers();
 			// Cargamos la lista de los roles
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
@@ -593,7 +593,7 @@ public class MainController implements Initializable {
 						}
 					}
 				}
-				// Filtrado por patr�n:
+				// Filtrado por patrón:
 				patternYes = false;
 				if (patternParticipants.equals("")) {
 					patternYes = true;
@@ -907,7 +907,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Deja de seleccionar los participantes/actividades y borra el gr�fico.
+	 * Deja de seleccionar los participantes/actividades y borra el gráfico.
 	 * 
 	 * @param actionEvent
 	 * @throws Exception
@@ -940,10 +940,19 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) throws Exception {
+
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(UBULog.stage);
 		CsvParser logs = new CsvParser(file.toString());
 		logs.readDocument();
+		
+		for (int i=1;i < logs.getLogs().size() ; ++i) {
+			for (int j = 0 ; j < users.size();j++){
+				if(logs.getLogs().get(i).getIdUser() == users.get(j).getId() ){
+					logs.getLogs().get(i).setUser(users.get(j));
+				}
+			}
+		}
 		
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 		//enrLog.add(logs);
@@ -959,7 +968,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void closeApplication(ActionEvent actionEvent) throws Exception {
-		logger.info("Cerrando aplicaci�n");
+		logger.info("Cerrando aplicación");
 		UBULog.stage.close();
 	}
 
@@ -968,9 +977,9 @@ public class MainController implements Initializable {
 
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.initOwner(UBULog.stage);
-		alert.getDialogPane().setContentText("Su equipo ha perdido la conexi�n a Internet");
+		alert.getDialogPane().setContentText("Su equipo ha perdido la conexión a Internet");
 
-		logger.warn("Su equipo ha perdido la conexi�n a Internet");
+		logger.warn("Su equipo ha perdido la conexión a Internet");
 		ButtonType buttonSalir = new ButtonType("Cerrar UBULog");
 		alert.getButtonTypes().setAll(buttonSalir);
 

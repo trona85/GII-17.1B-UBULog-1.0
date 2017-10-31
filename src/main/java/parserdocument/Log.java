@@ -6,6 +6,8 @@ package parserdocument;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import model.EnrolledUser;
+
 /**
  * Clase para generar cada tipo de log.
  * 
@@ -23,13 +25,15 @@ public class Log {
 	private String description;
 	private String origin;
 	private String ip;
+	private EnrolledUser user = null;
+	private int idUser;
 
 	public Log(String[] fields) {
 		if (fields.length > 0) {
 			// TODO problemas con formateo de fecha dara igual asi?????
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy H:m");
 			try {
-				//System.out.println(formatter.format(formatter.parse(fields[0])).toString());
+				// System.out.println(formatter.format(formatter.parse(fields[0])).toString());
 				this.setDate(formatter.format(formatter.parse(fields[0])));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -40,9 +44,14 @@ public class Log {
 			setContext(fields[3]);
 			setComponent(fields[4]);
 			setEvent(fields[5]);
-			setDescription(fields[7]);
+			setDescription(fields[6]);
+			setOrigin(fields[7]);
 			setIp(fields[8]);
-			
+			String[] fieldDescription = fields[6].split("'");
+			setIdUser(Integer.parseInt(fieldDescription[1]));
+			// TODO hacer funcion para filtrar los campos descripcion, se
+			// necesitara un switch
+
 		}
 
 	}
@@ -54,11 +63,10 @@ public class Log {
 	@Override
 	public String toString() {
 
-		return "hora: " + getDate() + "\n nombre del usuario: " + getNameUser()
-				+ "\n usuario afectado: " + getUserAffected() + "\n contexto del evento: "
-				+ getContext() + "\n componentes: " + getComponent()
-				+ "\n nombre del evento: " + getEvent() + "\n descripcion: " + getDescription()
-				+ "\n origen: " + getOrigin() + "\n ip: " + getIp();
+		return "hora: " + getDate() + "\n nombre del usuario: " + getNameUser() + "\n usuario afectado: "
+				+ getUserAffected() + "\n contexto del evento: " + getContext() + "\n componentes: " + getComponent()
+				+ "\n nombre del evento: " + getEvent() + "\n descripcion: " + getDescription() + "\n origen: "
+				+ getOrigin() + "\n ip: " + getIp() + "\n usuario: " + getUser();
 	}
 
 	public String getDate() {
@@ -131,6 +139,22 @@ public class Log {
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public EnrolledUser getUser() {
+		return user;
+	}
+
+	public void setUser(EnrolledUser enrolledUser) {
+		this.user = enrolledUser;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 }
