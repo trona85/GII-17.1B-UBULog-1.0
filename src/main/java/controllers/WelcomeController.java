@@ -96,7 +96,7 @@ public class WelcomeController implements Initializable {
 			UBULog.stage.show();
 			UBULog.init.getScene().setCursor(Cursor.DEFAULT);
 			lblNoSelect.setText("");
-			// logger.info("-- Entrando al curso");
+			 logger.info("-- Entrando al curso");
 		} catch (Exception e) {
 			e.getStackTrace();
 			lblNoSelect.setText("Debe seleccionar un curso");

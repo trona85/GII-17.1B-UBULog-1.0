@@ -48,8 +48,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -63,6 +61,7 @@ import webservice.CourseWS;
 
 /**
  * Clase controlador de la ventana principal
+ * 
  * @author Oscar Fernández Armengol
  * 
  * @version 1.0
@@ -85,7 +84,7 @@ public class MainController implements Initializable {
 	@FXML // lista de participantes
 	public ListView<EnrolledUser> listParticipants;
 	ObservableList<EnrolledUser> enrList;
-	
+
 	@FXML // lista de participantes
 	public ListView<Log> listLogs;
 	ObservableList<Log> enrLog;
@@ -120,10 +119,6 @@ public class MainController implements Initializable {
 	@FXML // Gráfico
 	private LineChart<String, Number> lineChart;
 
-	@FXML // Tabla de calificaciones
-	private WebView webView;
-	private WebEngine engine;
-	
 	private ArrayList<EnrolledUser> users;
 
 	/**
@@ -131,10 +126,10 @@ public class MainController implements Initializable {
 	 * de las que se compone.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
-			engine = webView.getEngine();
+
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 			// Establecemos calificador del curso
@@ -143,11 +138,10 @@ public class MainController implements Initializable {
 					UBULog.session.getActualCourse());
 
 			// Almacenamos todos los participantes en una lista
-			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
-					.getEnrolledUsers();
+			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
 			// insertamos los usuarios ficticios.
 			insertUserFicticios();
-					
+
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
 
 			//////////////////////////////////////////////////////////////////////////
@@ -206,7 +200,8 @@ public class MainController implements Initializable {
 		// Activamos la selección múltiple en la lista de participantes
 		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// Asignamos el manejador de eventos de la lista
-		// Al clickar en la lista, se recalcula el número de elementos seleccionados
+		// Al clickar en la lista, se recalcula el número de elementos
+		// seleccionados
 		listParticipants.setOnMouseClicked(new EventHandler<Event>() {
 			// Manejador que llama a la función de mostrar gráfico
 			@Override
@@ -286,17 +281,6 @@ public class MainController implements Initializable {
 					htmlRow += "</tr>";
 					content += htmlRow;
 				}
-				// Mostramos la tabla
-				String head = "";
-				try {
-					engine.setUserStyleSheetLocation(getClass().getResource("../css/style.css").toString());
-				} catch (Exception e) {
-					head = "<style>table {margin-bottom: 3.0em; width: 100.0%;font-family:Arial, Verdana, sans-serif; text-align:center;border-radius: 1; border-collapse: collapse;}"
-							+ "th{heigth:20%;font-size:80%;color: white;   background: #ab263c;   padding:1%;   border-collapse: collapse;}"
-							+ "td {font-size:80%;heigth:20%;   background: white;   padding:1%; border-collapse: collapse;}</style>";
-				}
-				engine.loadContent("<html><head>" + head + "</head><body style='background-color:#f2f2f2'><table>"
-						+ htmlTitle + content + "</table></body></html>");
 			}
 		});
 
@@ -321,9 +305,10 @@ public class MainController implements Initializable {
 		tvwGradeReport.setRoot(root);
 		tvwGradeReport.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// Asignamos el manejador de eventos de la lista
-		// Al clickar en la lista, se recalcula el n� de elementos seleccionados
+		// Al clickar en la lista, se recalcula el número de elementos
+		// seleccionados
 		tvwGradeReport.setOnMouseClicked(new EventHandler<Event>() {
-			// Manejador que llama a la funci�n de mostrar gr�fico
+			// Manejador que llama a la función de mostrar gráfico
 			@Override
 			public void handle(Event event) { // (1� clik en el calificador)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
@@ -399,24 +384,12 @@ public class MainController implements Initializable {
 					htmlRow += "</tr>";
 					content += htmlRow;
 				}
-				// Mostramos la tabla
-				String head = "";
-				try {
-					engine.setUserStyleSheetLocation(getClass().getResource("../css/style.css").toString());
-				} catch (Exception e) {
-					logger.error("No hay fichero de hoja de estilo disponible", e);
-					head = "<style>table {margin-bottom: 3.0em; width: 100.0%;font-family:Arial, Verdana, sans-serif; text-align:center;border-radius: 1; border-collapse: collapse;}"
-							+ "th{heigth:20%;font-size:80%;color: white;   background: #ab263c;   padding:1%;   border-collapse: collapse;}"
-							+ "td {font-size:80%;heigth:20%;   background: white;   padding:1%; border-collapse: collapse;}</style>";
-				}
-				engine.loadContent("<html><head>" + head + "</head><body style='background-color:#f2f2f2'><table>"
-						+ htmlTitle + content + "</table></body></html>");
 			}
 		});
 
 		// Mostramos número participantes
-		lblCountParticipants.setText(
-				"Participantes: " + String.valueOf(UBULog.session.getActualCourse().getEnrolledUsersCount()));
+		lblCountParticipants
+				.setText("Participantes: " + String.valueOf(UBULog.session.getActualCourse().getEnrolledUsersCount()));
 
 		// Mostramos Usuario logeado
 		lblActualUser.setText("Usuario: " + UBULog.user.getFullName());
@@ -429,13 +402,14 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Método para crear usuarios que no estan inscritos al curso, pero pueden tener interacciones en el.
+	 * Método para crear usuarios que no estan inscritos al curso, pero pueden
+	 * tener interacciones en el.
 	 */
 	private void insertUserFicticios() {
 		users.add(new EnrolledUser("Administrador", 2));
-		
+
 		users.add(new EnrolledUser("Invitado", 1));
-		
+
 		users.add(new EnrolledUser("Sistema", 0));
 		users.add(new EnrolledUser("Desconocido", -1));
 	}
@@ -549,7 +523,7 @@ public class MainController implements Initializable {
 	/**
 	 * Manejador de eventos para el textField de filtro de participantes.
 	 * 
-	 * @return manejador de eventos para el patr�n de participantes
+	 * @return manejador de eventos para el patrón de participantes
 	 */
 	private EventHandler<ActionEvent> inputParticipant() {
 		return new EventHandler<ActionEvent>() {
@@ -575,8 +549,7 @@ public class MainController implements Initializable {
 			boolean roleYes;
 			boolean groupYes;
 			boolean patternYes;
-			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
-					.getEnrolledUsers();
+			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
 			// Cargamos la lista de los roles
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
 			// Obtenemos los participantes que tienen el rol elegido
@@ -631,8 +604,8 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Rellena el �rbol de actividades (GradeReportLines). Obtiene los hijos de
-	 * la l�nea pasada por par�metro, los transforma en treeitems y los
+	 * Rellena el árbol de actividades (GradeReportLines). Obtiene los hijos de
+	 * la línea pasada por parámetro, los transforma en treeitems y los
 	 * establece como hijos del elemento treeItem equivalente de line
 	 * 
 	 * @param parent
@@ -649,7 +622,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * A�ade un icono a cada elemento del �rbol seg�n su tipo de actividad
+	 * Añade un icono a cada elemento del árbol según su tipo de actividad
 	 * 
 	 * @param item
 	 */
@@ -704,7 +677,7 @@ public class MainController implements Initializable {
 	/**
 	 * Manejador de eventos para el textField de filtro de actividades.
 	 * 
-	 * @return manejador de eventos para el patr�n de filtro de actividades
+	 * @return manejador de eventos para el patrón de filtro de actividades
 	 */
 	public EventHandler<ActionEvent> inputCalification() {
 		return new EventHandler<ActionEvent>() {
@@ -722,7 +695,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Filtra la lista de actividades del calificador seg�n el tipo y el patr�n
+	 * Filtra la lista de actividades del calificador según el tipo y el patrón
 	 * introducidos.
 	 */
 	public void filterCalifications() {
@@ -775,7 +748,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Crea un �rbol filtrado en el que los hijos del root(ra�z) son elementos
+	 * Crea un árbol filtrado en el que los hijos del root(raíz) son elementos
 	 * de cualquier nivel que cumplen el filtro
 	 * 
 	 * @param root
@@ -837,7 +810,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Exporta el gr�fico. El usuario podr� elegir entre el formato .png o .jpg
+	 * Exporta el gráfico. El usuario podrá elegir entre el formato .png o .jpg
 	 * para guardar la imagen.
 	 * 
 	 * @param actionEvent
@@ -870,14 +843,12 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Exporta la tabla de calificaciones. El usuario podrá elegir entre el
-	 * formato .png o .jpg para guardar la imagen.
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
 	 */
 	public void saveTable(ActionEvent actionEvent) throws Exception {
-		WritableImage image = webView.snapshot(new SnapshotParameters(), null);
+		
+		//TODO Arreglar para exportar el log resultante si se quiere.
+		/*WritableImage image = webView.snapshot(new SnapshotParameters(), null);
 
 		File file = new File("table.png");
 
@@ -898,7 +869,7 @@ public class MainController implements Initializable {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
@@ -935,7 +906,6 @@ public class MainController implements Initializable {
 
 	public void clearData() {
 		lineChart.getData().clear();
-		engine.loadContent("<html><head></head><body style='background-color:#f2f2f2'></body></html>");
 	}
 
 	/**
@@ -955,32 +925,34 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) throws Exception {
-		
+
 		FileChooser fileChooser = new FileChooser();
-	////TODO comparar documentos System.err.println(getFile().contains(".csv"));
+		//// TODO comparar documentos
+		//// System.err.println(getFile().contains(".csv")); saveTable puede
+		//// ayidar al control errores
 		File file = fileChooser.showOpenDialog(UBULog.stage);
 
 		CsvParser logs = new CsvParser(file.toString());
 		logs.readDocument();
-		
-		for (int i=0;i < logs.getLogs().size() ; ++i) {
-			for (int j = 0 ; j < users.size();j++){
-				if(logs.getLogs().get(i).getIdUser() == users.get(j).getId() ){
+
+		for (int i = 0; i < logs.getLogs().size(); ++i) {
+			for (int j = 0; j < users.size(); j++) {
+				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
 					logs.getLogs().get(i).setUser(users.get(j));
 					break;
 				}
 			}
 		}
-		
+
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 		listLogs.setItems(enrLog);
-				
-		
+
 	}
-	
+
 	/**
 	 * 
-	 *  Botón "Salir". Cierra la aplicación.
+	 * Botón "Salir". Cierra la aplicación.
+	 * 
 	 * @param actionEvent
 	 * @throws Exception
 	 */

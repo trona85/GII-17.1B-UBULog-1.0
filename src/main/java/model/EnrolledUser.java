@@ -3,15 +3,11 @@
  */
 package model;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import model.Group;
-import model.Role;
 
 /**
  * Clase que representa un usuario matriculado en una asignatura.
