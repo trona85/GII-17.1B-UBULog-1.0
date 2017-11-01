@@ -428,12 +428,15 @@ public class MainController implements Initializable {
 		lblActualHost.setText("Host: " + UBULog.host);
 	}
 
+	/**
+	 * Método para crear usuarios que no estan inscritos al curso, pero pueden tener interacciones en el.
+	 */
 	private void insertUserFicticios() {
 		users.add(new EnrolledUser("Administrador", 2));
 		
-		users.add(new EnrolledUser("Invitado", 2));
+		users.add(new EnrolledUser("Invitado", 1));
 		
-		users.add(new EnrolledUser("Sistema", 2));
+		users.add(new EnrolledUser("Sistema", 0));
 		users.add(new EnrolledUser("Desconocido", -1));
 	}
 
