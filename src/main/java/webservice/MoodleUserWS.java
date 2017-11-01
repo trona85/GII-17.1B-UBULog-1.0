@@ -50,12 +50,9 @@ public class MoodleUserWS {
 			System.out.println("entramos httpget: "+ httpget.toString());
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
-				//System.out.println("try");
 				String respuesta = EntityUtils.toString(response.getEntity());
-				// logger.info(respuesta);
-				//System.out.println("respuesta: " + respuesta);
+
 				JSONArray jsonArray = new JSONArray(respuesta);
-				//System.out.println("json"+ jsonArray.length());
 				
 				if (jsonArray.length() > 0) {
 					JSONObject jsonObject = (JSONObject) jsonArray.get(0);

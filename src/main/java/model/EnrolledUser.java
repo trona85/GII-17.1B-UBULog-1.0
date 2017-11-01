@@ -92,6 +92,14 @@ public class EnrolledUser {
 	}
 
 	/**
+	 * Constructor para crear usuarios ficticios
+	 */
+	public EnrolledUser(String nombreCompleto, int id){
+		setFullName(nombreCompleto);
+		setId(id);
+		
+	}
+	/**
 	 * Devuelve el id del usuario
 	 * 
 	 * @return id de usuario matriculado
@@ -182,7 +190,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Devuelve la �ltima fecha de acceso a la plataforma
+	 * Devuelve la última fecha de acceso a la plataforma
 	 * 
 	 * @return lastAccess
 	 */
@@ -191,7 +199,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Modifica la �ltima fecha de acceso a la plataforma
+	 * Modifica la última fecha de acceso a la plataforma
 	 * 
 	 * @param lastAccess
 	 */
@@ -200,7 +208,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Devuelve la descripci�n del usuario
+	 * Devuelve la descripción del usuario
 	 * 
 	 * @return description
 	 */
@@ -209,7 +217,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Modifica la descripci�n del usuario
+	 * Modifica la descripción del usuario
 	 * 
 	 * @param description
 	 */

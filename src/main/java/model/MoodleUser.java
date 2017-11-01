@@ -286,7 +286,7 @@ public class MoodleUser {
 	 * 
 	 * @return lista de cursos
 	 */
-	public List<Course> getCourses() {
+	public ArrayList<Course> getCourses() {
 		return this.courses;
 	}
 

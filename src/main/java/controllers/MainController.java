@@ -133,7 +133,7 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		try {
-			//logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
+			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
 			engine = webView.getEngine();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
@@ -142,9 +142,12 @@ public class MainController implements Initializable {
 					UBULog.session.getActualCourse().getEnrolledUsers().get(0).getId(),
 					UBULog.session.getActualCourse());
 
-			// Almacenamos todos participantes en una lista
+			// Almacenamos todos los participantes en una lista
 			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse()
 					.getEnrolledUsers();
+			// insertamos los usuarios ficticios.
+			insertUserFicticios();
+					
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
 
 			//////////////////////////////////////////////////////////////////////////
@@ -423,6 +426,15 @@ public class MainController implements Initializable {
 
 		// Mostramos Host actual
 		lblActualHost.setText("Host: " + UBULog.host);
+	}
+
+	private void insertUserFicticios() {
+		users.add(new EnrolledUser("Administrador", 2));
+		
+		users.add(new EnrolledUser("Invitado", 2));
+		
+		users.add(new EnrolledUser("Sistema", 2));
+		users.add(new EnrolledUser("Desconocido", -1));
 	}
 
 	/**
@@ -855,7 +867,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Exporta la tabla de calificaciones. El usuario podr� elegir entre el
+	 * Exporta la tabla de calificaciones. El usuario podrá elegir entre el
 	 * formato .png o .jpg para guardar la imagen.
 	 * 
 	 * @param actionEvent
@@ -940,22 +952,24 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) throws Exception {
-
+		
 		FileChooser fileChooser = new FileChooser();
+	////TODO comparar documentos System.err.println(getFile().contains(".csv"));
 		File file = fileChooser.showOpenDialog(UBULog.stage);
+
 		CsvParser logs = new CsvParser(file.toString());
 		logs.readDocument();
 		
-		for (int i=1;i < logs.getLogs().size() ; ++i) {
+		for (int i=0;i < logs.getLogs().size() ; ++i) {
 			for (int j = 0 ; j < users.size();j++){
 				if(logs.getLogs().get(i).getIdUser() == users.get(j).getId() ){
 					logs.getLogs().get(i).setUser(users.get(j));
+					break;
 				}
 			}
 		}
 		
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
-		//enrLog.add(logs);
 		listLogs.setItems(enrLog);
 				
 		
