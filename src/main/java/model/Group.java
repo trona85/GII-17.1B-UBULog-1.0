@@ -68,7 +68,7 @@ public class Group {
 	}
 
 	/**
-	 * Devuelve la descripci�n del grupo
+	 * Devuelve la descripción del grupo
 	 * 
 	 * @return description
 	 */
@@ -77,7 +77,7 @@ public class Group {
 	}
 
 	/**
-	 * Modifica la descripci�n del grupo
+	 * Modifica la descripción del grupo
 	 * 
 	 * @param description
 	 */

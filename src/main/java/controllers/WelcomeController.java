@@ -67,7 +67,7 @@ public class WelcomeController implements Initializable {
 	}
 
 	/**
-	 * Bot�n entrar, accede a la siguiente ventana
+	 * Botón entrar, accede a la siguiente ventana
 	 * 
 	 * @param event
 	 * @throws Exception

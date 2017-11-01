@@ -35,7 +35,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Constructor de una actividad con todos sus par�metros
+	 * Constructor de una actividad con todos sus parámetros
 	 * 
 	 * @param itemName
 	 *            nombre de la actividad
@@ -156,7 +156,7 @@ public class Activity implements Serializable {
 	}
 
 	/**
-	 * Modifica contrila buci�n total de la actividad
+	 * 
 	 * 
 	 * @param contributionCourseTotal
 	 */

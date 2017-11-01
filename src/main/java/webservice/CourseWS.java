@@ -75,10 +75,10 @@ public class CourseWS {
 	}
 
 	/**
-	 * Establece los GradeReportLine de un usuario en un curso. Esta funci�n se
-	 * usar� para obtener todos los GradeReportLine del primer usuario
-	 * matriculado y as� sacar la estructura del calificador del curso para
-	 * despu�s mostrarla como TreeView en la vista
+	 * Establece los GradeReportLine de un usuario en un curso. Esta función se
+	 * usará para obtener todos los GradeReportLine del primer usuario
+	 * matriculado y así sacar la estructura del calificador del curso para
+	 * después mostrarla como TreeView en la vista
 	 * 
 	 * @param token
 	 *            token del profesor logueado
@@ -103,10 +103,10 @@ public class CourseWS {
 				// logger.info("response: "+jsonArray.toString());
 				// lista de GradeReportLines
 				course.gradeReportLines = new ArrayList<GradeReportLine>();
-				// En esta pila s�lo van a entrar Categor�as. Se mantendr�n en
+				// En esta pila sólo van a entrar Categorías. Se mantendrán en
 				// la pila mientran tengan descendencia.
-				// Una vez a�adida al �rbol toda la descendencia de un nodo,
-				// este nodo se saca de la pila y se a�ade al �rbol.
+				// Una vez añadida al árbol toda la descendencia de un nodo,
+				// este nodo se saca de la pila y se añade al árbol.
 				Stack<GradeReportLine> deque = new Stack<GradeReportLine>();
 
 				if (jsonArray != null) {
@@ -118,11 +118,11 @@ public class CourseWS {
 					// logger.info("TableData:");
 					// logger.info(tableData); logger.info();
 
-					// El elemento table data tiene las l�neas del configurador
+					// El elemento table data tiene las líneas del configurador
 					// (que convertiremos a GradeReportLines)
 					for (int i = 0; i < tableData.length(); i++) {
 						JSONObject tableDataElement = tableData.getJSONObject(i);
-						// sea categor�a o item, se saca de la misma manera el
+						// sea categoría o item, se saca de la misma manera el
 						// nivel del itemname
 						JSONObject itemname = tableDataElement.getJSONObject("itemname");
 						int actualLevel = getActualLevel(itemname.getString("class"));
@@ -133,7 +133,7 @@ public class CourseWS {
 							String nameContainer = itemname.getString("content");
 							String nameLine = "";
 							String typeActivity = "";
-							// true=item, false=categor�a
+							// true=item, false=categoría
 							boolean typeLine = false;
 							// Si es una actividad (assignment o quiz)
 							// Se reconocen por la etiqueta "<a"
@@ -161,7 +161,7 @@ public class CourseWS {
 							// Sacamos la nota (grade)
 							JSONObject gradeContainer = tableDataElement.getJSONObject("grade");
 							String grade = "-";
-							// Si no hay nota num�rica
+							// Si no hay nota numérica
 							if (!gradeContainer.getString("content").contains("-")) {
 								grade = getNumber(gradeContainer.getString("content"));
 								// logger.info(" - Nota item: " + grade);
@@ -191,13 +191,13 @@ public class CourseWS {
 							// logger.info(" - Rango: " + rangeMin + "-" +
 							// rangeMax);
 							if (typeLine) { // Si es un item
-								// A�adimos la linea actual
+								// Añadimos la linea actual
 								GradeReportLine actualLine = new GradeReportLine(idLine, nameLine, actualLevel,
 										typeLine, weight, rangeMin, rangeMax, grade, percentage, typeActivity);
 								if (!deque.isEmpty()) {
 									deque.lastElement().addChild(actualLine);
 								}
-								// A�adimos el elemento a la lista como item
+								// Añadimos el elemento a la lista como item
 								course.gradeReportLines.add(actualLine);
 							} else {
 								// Obtenemos el elemento cabecera de la pila
@@ -212,19 +212,19 @@ public class CourseWS {
 								// dejarla como una categoria completa
 								course.updateGRLList(actualLine);
 							}
-						} else {// --- Si es una categor�a
+						} else {// --- Si es una categoría
 							String nameLine = getNameCategorie(itemname.getString("content"));
 
-							// A�adimos la cabecera de la categoria a la pila
+							// Añadimos la cabecera de la categoria a la pila
 							GradeReportLine actualLine = new GradeReportLine(idLine, nameLine, actualLevel, false);
-							// Lo a�adimos como hijo de la categoria anterior
+							// Lo añadimos como hijo de la categoria anterior
 							if (!deque.isEmpty()) {
 								deque.lastElement().addChild(actualLine);
 							}
 
-							// A�adimos esta cabecera a la pila
+							// Añadimos esta cabecera a la pila
 							deque.add(actualLine);
-							// A�adimos el elemento a la lista como cabecera por
+							// Añadimos el elemento a la lista como cabecera por
 							// ahora
 							course.gradeReportLines.add(actualLine);
 						}
@@ -235,7 +235,7 @@ public class CourseWS {
 				response.close();
 			}
 		} catch (Exception e) {
-			logger.error("Error de conexi�n");
+			logger.error("Error de conexión");
 			MainController.errorDeConexion();
 		} finally {
 			httpclient.close();
@@ -254,10 +254,10 @@ public class CourseWS {
 	}
 
 	/**
-	 * Devuelve el nivel del GradeReportLine que est� siendo le�da.
+	 * Devuelve el nivel del GradeReportLine que está siendo leída.
 	 * 
 	 * @param data
-	 * @return nivel de la l�nea
+	 * @return nivel de la línea
 	 */
 	public static int getActualLevel(String data) {
 		int result = 0;
@@ -266,19 +266,19 @@ public class CourseWS {
 	}
 
 	/**
-	 * Devuelve el nombre de una categor�a
+	 * Devuelve el nombre de una categoría
 	 * 
 	 * @param data
 	 * @return
 	 */
 	public static String getNameCategorie(String data) {
 		String result = "";
-		// Busco el final de la cadena �nica a partir de la cual empieza el
-		// nombre de la categor�a
+		// Busco el final de la cadena única a partir de la cual empieza el
+		// nombre de la categoría
 		int begin = data.lastIndexOf("/>") + 2;
 		// El nombre termina al final de todo el texto
 		int end = data.length();
-		// Me quedo con la cadena entre esos �ndices
+		// Me quedo con la cadena entre esos índices
 		result = data.substring(begin, end);
 
 		return result;
@@ -297,7 +297,7 @@ public class CourseWS {
 	}
 
 	/**
-	 * Devuelve el nombre de un item manual o un cierre de categor�a
+	 * Devuelve el nombre de un item manual o un cierre de categoría
 	 * 
 	 * @param data
 	 * @return
@@ -309,10 +309,10 @@ public class CourseWS {
 	}
 
 	/**
-	 * Devuelve el tipo de un GradeReportLine (actividad o categor�a)
+	 * Devuelve el tipo de un GradeReportLine (actividad o categoría)
 	 * 
 	 * @param data
-	 * @return tipo de l�nea (cebecera de categor�a, suma de calificaciones o
+	 * @return tipo de línea (cebecera de categoría, suma de calificaciones o
 	 *         item)
 	 */
 	public static boolean getTypeLine(String data) {
@@ -321,11 +321,11 @@ public class CourseWS {
 	}
 
 	/**
-	 * Comprueba si la l�nea es una suma de calificaciones de categor�a (un
-	 * cierre de categor�a)
+	 * Comprueba si la línea es una suma de calificaciones de categoría (un
+	 * cierre de categoría)
 	 * 
 	 * @param data
-	 * @return true si la l�nea es una suma de calificaciones, false si no
+	 * @return true si la línea es una suma de calificaciones, false si no
 	 */
 	public static boolean getBaggtLine(String data) {
 		String[] matrix = data.split(" ");
@@ -333,22 +333,22 @@ public class CourseWS {
 	}
 
 	/**
-	 * Devuelve el rango m�nimo o m�ximo
+	 * Devuelve el rango mínimo o máximo
 	 * 
 	 * @param data
 	 * @param option
-	 * @return rango m�ximo o m�nimo
+	 * @return rango máximo o mínimo
 	 */
 	public static String getRange(String data, boolean option) {
 		String[] ranges = data.split("&ndash;");
-		if (option) // true = rango m�nimo
+		if (option) // true = rango mínimo
 			return ranges[0];
-		else // false = rango m�ximo
+		else // false = rango máximo
 			return ranges[1];
 	}
 
 	/**
-	 * Comprueba si una cadena de texto contiene un n�mero decimal.
+	 * Comprueba si una cadena de texto contiene un número decimal.
 	 * 
 	 * @param cad
 	 *            texto
@@ -382,7 +382,7 @@ public class CourseWS {
 	}
 
 	/**
-	 * Diferencia si la l�nea es un item manual o un cierre de categor�a.
+	 * Diferencia si la línea es un item manual o un cierre de categoría.
 	 * 
 	 * @param data
 	 * @return
@@ -400,7 +400,7 @@ public class CourseWS {
 	}
 
 	/**
-	 * Devuelve un n�mero en formato Float si se encuentra en la cadena pasada
+	 * Devuelve un número en formato Float si se encuentra en la cadena pasada
 	 * 
 	 * @param data
 	 * @return

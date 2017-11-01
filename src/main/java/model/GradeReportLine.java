@@ -28,17 +28,17 @@ public class GradeReportLine {
 	private Activity activity;
 
 	/**
-	 * Constructor GRL con 4 par�metros. Se le a�aden a posteriori los elementos
+	 * Constructor GRL con 4 parámetros. Se le añaden a posteriori los elementos
 	 * de su suma de calificaciones
 	 * 
 	 * @param id
-	 *            id de la categor�a
+	 *            id de la categoría
 	 * @param name
-	 *            nombre de la categor�a
+	 *            nombre de la categoría
 	 * @param level
 	 *            nivel de profundidad
 	 * @param type
-	 *            categor�a o item
+	 *            categoría o item
 	 */
 	public GradeReportLine(int id, String name, int level, boolean type) {
 		this.id = id;
@@ -49,22 +49,22 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Constructor de GRL con 7 par�metros.
+	 * Constructor de GRL con 7 parámetros.
 	 * 
 	 * @param id
-	 *            id de la categor�a
+	 *            id de la categoría
 	 * @param name
-	 *            nombre de la categor�a
+	 *            nombre de la categoría
 	 * @param level
 	 *            nivel de profundidad
 	 * @param type
-	 *            categor�a o item
+	 *            categoría o item
 	 * @param weight
 	 *            peso
 	 * @param rangeMin
-	 *            rango m�nimo de calificaci�n
+	 *            rango mínimo de calificaciín
 	 * @param rangeMax
-	 *            rango m�ximo de calificaci�n
+	 *            rango máximo de calificaciín
 	 */
 	public GradeReportLine(int id, String name, int level, boolean type, float weight, String rangeMin, String rangeMax,
 			String grade, float percentage, String nameType) {
@@ -118,7 +118,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Devuelve el nivel del GradeReportLine en el �rbol del calificador
+	 * Devuelve el nivel del GradeReportLine en el árbol del calificador
 	 * 
 	 * @return level
 	 */
@@ -127,7 +127,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Modifica el nivel del GradeReportLine en el �rbol del calificador
+	 * Modifica el nivel del GradeReportLine en el árbol del calificador
 	 * 
 	 * @param level
 	 */
@@ -172,7 +172,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Devuelve el rango m�ximo de nota
+	 * Devuelve el rango máximo de nota
 	 * 
 	 * @return rangeMax
 	 */
@@ -183,7 +183,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Modifica el rango m�ximo de nota
+	 * Modifica el rango máximo de nota
 	 * 
 	 * @param rangeMax
 	 */
@@ -192,7 +192,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Devuelve el rango m�nimo de nota
+	 * Devuelve el rango mínimo de nota
 	 * 
 	 * @return rangeMin
 	 */
@@ -201,7 +201,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * Modifica el rango m�nimo de nota
+	 * Modifica el rango mínimo de nota
 	 * 
 	 * @param rangeMin
 	 */
@@ -289,7 +289,7 @@ public class GradeReportLine {
 	}
 
 	/**
-	 * A�ade un hijo al GradeReportLine
+	 * Añade un hijo al GradeReportLine
 	 * 
 	 * @param kid
 	 */

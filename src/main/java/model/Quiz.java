@@ -70,16 +70,16 @@ public class Quiz extends Activity {
 	}
 
 	/**
-	 * Devuelve la contrase�a del cuestionario
+	 * Devuelve la contraseña del cuestionario
 	 * 
-	 * @return contrase�a
+	 * @return contraseña
 	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/**
-	 * Modifica la contrase�a del usuario
+	 * Modifica la contraseña del usuario
 	 * 
 	 * @param password
 	 */

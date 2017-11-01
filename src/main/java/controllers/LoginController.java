@@ -43,7 +43,7 @@ public class LoginController {
 	private ProgressBar progressBar;
 	
 	/**
-	 * Hace el login de usuario al pulsar el bot�n Entrar. Si el usuario es
+	 * Hace el login de usuario al pulsar el botón Entrar. Si el usuario es
 	 * incorrecto, muestra un mensaje de error.
 	 * 
 	 * @param event
@@ -53,7 +53,7 @@ public class LoginController {
 		String nombre = "profesor";
 		String pass = "1Qwerty--";
 
-		// Almacenamos los par�metros introducidos por el usuario:
+		// Almacenamos los parámetros introducidos por el usuario:
 		UBULog.init.getScene().setCursor(Cursor.WAIT);
 		UBULog.host = "http://localhost/moodle";
 				//txtHost.getText(); //TODO cambiar para ubu virtual
@@ -146,7 +146,7 @@ public class LoginController {
 	}
 
 	/**
-	 * Borra los par�metros introducidos en los campos
+	 * Borra los parámetros introducidos en los campos
 	 * 
 	 * @param event
 	 * @throws Exception

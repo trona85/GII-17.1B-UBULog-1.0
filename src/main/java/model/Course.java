@@ -223,7 +223,7 @@ public class Course {
 		for (int i = 0; i < users.size(); i++) {
 			// sacamos el rol del usuario
 			ArrayList<Role> roleArray = users.get(i).getRoles();
-			// cada rol nuevo se a�ade al set roles
+			// cada rol nuevo se añade al set roles
 			for (int j = 0; j < roleArray.size(); j++) {
 				roles.add(roleArray.get(j).getName());
 			}
@@ -248,7 +248,7 @@ public class Course {
 
 	/**
 	 * Almacena en una lista los grupos que hay en un curso, a partir de los
-	 * usuarios que est�n matriculados.
+	 * usuarios que están matriculados.
 	 * 
 	 * @param users
 	 *            usuarios del curso
@@ -260,7 +260,7 @@ public class Course {
 		for (int i = 0; i < users.size(); i++) {
 			// Sacamos el grupo del usuario
 			ArrayList<Group> groupsArray = users.get(i).getGroups();
-			// Cada grupo nuevo se a�ade al set de grupos
+			// Cada grupo nuevo se añade al set de grupos
 			for (int j = 0; j < groupsArray.size(); j++) {
 				groups.add(groupsArray.get(j).getName());
 			}
@@ -344,7 +344,7 @@ public class Course {
 		Course course = null;
 
 		ArrayList<Course> courses = (ArrayList<Course>) UBULog.user.getCourses();
-		// logger.info(" N� de cursos: " + courses.size());
+		// logger.info(" Número de cursos: " + courses.size());
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).getFullName().equals(courseName)) {
 				course = courses.get(i);

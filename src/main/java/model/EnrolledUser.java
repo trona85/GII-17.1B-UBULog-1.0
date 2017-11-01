@@ -240,7 +240,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Devuelve el pa�s del usuario
+	 * Devuelve el país del usuario
 	 * 
 	 * @return country
 	 */
@@ -249,7 +249,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Modifica el pa�s del usuario
+	 * Modifica el país del usuario
 	 * 
 	 * @param country
 	 */
@@ -315,7 +315,7 @@ public class EnrolledUser {
 	}
 
 	/**
-	 * Devuelve la lista de grupos en los que est� el usuario
+	 * Devuelve la lista de grupos en los que esté el usuario
 	 * 
 	 * @return groups
 	 */

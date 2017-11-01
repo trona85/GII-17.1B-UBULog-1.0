@@ -170,14 +170,14 @@ public class MainController implements Initializable {
 			// En principio se van a mostrar todos los participantes en
 			// cualquier grupo
 			mi = (new MenuItem("Todos"));
-			// A�adimos el manejador de eventos al primer MenuItem
+			// Añadimos el manejador de eventos al primer MenuItem
 			mi.setOnAction(actionActivity);
 			nameActivityItemsList.add(mi);
 
 			for (int i = 0; i < nameActivityList.size(); i++) {
 				String nameActivity = nameActivityList.get(i);
 				mi = (new MenuItem(nameActivity));
-				// A�adimos el manejador de eventos a cada MenuItem
+				// Añadimos el manejador de eventos a cada MenuItem
 				mi.setOnAction(actionActivity);
 				nameActivityItemsList.add(mi);
 			}
@@ -193,7 +193,7 @@ public class MainController implements Initializable {
 			tfdItems.setOnAction(inputCalification());
 
 		} catch (Exception e) {
-			logger.error("Error en la inicializaci�n. {}", e);
+			logger.error("Error en la inicialización. {}", e);
 			e.printStackTrace();
 		}
 
@@ -210,7 +210,7 @@ public class MainController implements Initializable {
 						.getSelectedItems();
 				ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
 						.getSelectedItems();
-				// Al seleccionar un participante reiniciamos el gr�fico
+				// Al seleccionar un participante reiniciamos el gráfico
 				lineChart.getData().clear();
 
 				// Recalculamos la tabla
@@ -219,7 +219,7 @@ public class MainController implements Initializable {
 				int countA = 0;
 				// Por cada usuario seleccionado
 				for (EnrolledUser actualUser : selectedParticipants) {
-					// A�adimos el usuario a la tabla
+					// Añadimos el usuario a la tabla
 					String htmlRow = "<th style='color:#066db3; background: white; border: 1.0 solid grey;'>"
 							+ actualUser.getFullName() + " </th>";
 					try {
@@ -310,12 +310,12 @@ public class MainController implements Initializable {
 		tvwGradeReport.setOnMouseClicked(new EventHandler<Event>() {
 			// Manejador que llama a la función de mostrar gráfico
 			@Override
-			public void handle(Event event) { // (1� clik en el calificador)
+			public void handle(Event event) { // (1er clik en el calificador)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
 						.getSelectedItems();
 				ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
 						.getSelectedItems();
-				// Se reinicia el gráfico por cada nuevo �tem seleccionado
+				// Se reinicia el gráfico por cada nuevo ítem seleccionado
 				lineChart.getData().clear();
 				String htmlTitle = "<tr><th style='background:#066db3; border: 1.0 solid grey; color:white;'> Alumno </th>";
 				String content = "";
@@ -331,12 +331,12 @@ public class MainController implements Initializable {
 						CourseWS.setGradeReportLines(UBULog.session.getToken(), actualUser.getId(),
 								UBULog.session.getActualCourse());
 					} catch (Exception e) {
-						logger.error("Error de conexi�n. {}", e);
+						logger.error("Error de conexión. {}", e);
 						e.printStackTrace();
 						errorDeConexion();
 					}
 
-					// A�adimos elementos al gráfico
+					// Añadimos elementos al gráfico
 					XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 					series.setName(actualUser.getLastName() + ", " + actualUser.getFirstName());
 					int countB = 1;
@@ -375,7 +375,7 @@ public class MainController implements Initializable {
 									}
 								}
 							} catch (Exception e) {
-								logger.error("Error en la construcci�n del �rbol/tabla. {}", e);
+								logger.error("Error en la construcción del árbol/tabla. {}", e);
 							}
 						}
 					}
@@ -426,7 +426,7 @@ public class MainController implements Initializable {
 		ArrayList<MenuItem> groupsItemsList = new ArrayList<MenuItem>();
 		// En principio mostrarán todos los usuarios en cualquier grupo
 		mi = (new MenuItem("Todos"));
-		// A�adimos el manejador de eventos al primer MenuItem
+		// Añadimos el manejador de eventos al primer MenuItem
 		mi.setOnAction(actionGroup);
 		groupsItemsList.add(mi);
 
@@ -471,7 +471,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Manejador de eventos para el bot�n de filtro por roles. Devuelve un
+	 * Manejador de eventos para el botón de filtro por roles. Devuelve un
 	 * manejador de eventos para cada item.
 	 * 
 	 * @return manejador de eventos de roles
@@ -496,7 +496,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Manejador de eventos para el bot�n de filtro por grupos. Devuelve un
+	 * Manejador de eventos para el botón de filtro por grupos. Devuelve un
 	 * manejador de eventos para cada item.
 	 * 
 	 * @return manejador de eventos de grupos
@@ -708,7 +708,7 @@ public class MainController implements Initializable {
 			MainController.setIcon(root);
 			// Llamamos recursivamente para llenar el Treeview
 			if (filterType.equals("Todos") && patternCalifications.equals("")) {
-				// Sin filtro y sin patr�n
+				// Sin filtro y sin patrón
 				for (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
 					TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
 					MainController.setIcon(item);
@@ -822,7 +822,7 @@ public class MainController implements Initializable {
 		File file = new File("chart.png");
 
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Guardar gr�fico");
+		fileChooser.setTitle("Guardar gráfico");
 
 		fileChooser.setInitialFileName("chart");
 		fileChooser.setInitialDirectory(file.getParentFile());
@@ -882,7 +882,7 @@ public class MainController implements Initializable {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/Login.fxml"));
 		UBULog.stage.close();
-		logger.info("Cerrando sesi�n de usuario");
+		logger.info("Cerrando sesión de usuario");
 		UBULog.stage = new Stage();
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
