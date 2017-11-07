@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author oscar
+ *
+ */
+package UBULogException;

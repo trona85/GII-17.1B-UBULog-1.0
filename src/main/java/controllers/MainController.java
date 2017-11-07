@@ -18,6 +18,8 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import UBULogException.UBULogError;
+import UBULogException.UBULogException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -924,14 +926,19 @@ public class MainController implements Initializable {
 	 * @param actionEvent
 	 * @throws Exception
 	 */
-	public void cargaDocumento(ActionEvent actionEvent) throws Exception {
-
+	public void cargaDocumento(ActionEvent actionEvent) {
+		try {
 		FileChooser fileChooser = new FileChooser();
 		//// TODO comparar documentos
 		//// System.err.println(getFile().contains(".csv")); saveTable puede
 		//// ayidar al control errores
 		File file = fileChooser.showOpenDialog(UBULog.stage);
-
+		if(!file.toString().contains(".csv")){
+			
+				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
+			
+		}
+		
 		CsvParser logs = new CsvParser(file.toString());
 		logs.readDocument();
 
@@ -946,6 +953,11 @@ public class MainController implements Initializable {
 
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 		listLogs.setItems(enrLog);
+		} catch (UBULogException e) {
+			logger.error(e.getMessage());
+			cargaDocumento(actionEvent);
+
+		}
 
 	}
 
