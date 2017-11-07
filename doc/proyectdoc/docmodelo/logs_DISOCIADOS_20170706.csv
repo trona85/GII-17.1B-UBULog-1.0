@@ -1,0 +1,115 @@
+Nombre evento,Componente,Descripción
+Actividad reciente vista,null,The user with id '35065' viewed the recent activity report in the course with id '8354'.
+Algún contenido ha sido publicado.,null,The user with id '7243' has posted content in the forum post with id '114492' in the discussion '44135' located in the forum with course module id '2174355'.
+Calificación borrada,null,The user with id '7243' deleted the grade with id '1373643' for the user with id '7047' for the grade item with id '66519'.
+Carpeta actualizada,null,The user with id '7243' updated the folder activity with course module id '2411693'.
+Categoría de preguntas creada,null,The user with id '7243' created the question category with id '11549'.
+Comentario creado,null,The user with id '7243' added the comment with id '32839' to the submission with id '360360' for the assignment with course module id '2838698'.
+Comentario eliminado,null,The user with id '13881' deleted the comment with id '25367' from the submission with id '271247' for the assignment with course module id '2226064'.
+Consulta respondida,null,"The user with id '35078' made the choice with id '468' in the choice activity
+            with course module id '2835325'."
+Curso actualizado,null,The user with id '7243' updated the course with id '8354'.
+Curso buscado,null,"The user with id '35065' has searched the course with id '8354' for forum posts containing ""defensa""."
+Curso restaurado,null,The user with id '7243' restored the course with id '8354'.
+Curso visto,null,The user with id '7243' viewed the course with id '8354'.
+,,The user with id '7243' viewed the section number '1' of the course with id '8354'.
+Directorio descargado en formato Zip,null,The user with id '35065' downloaded a zip archive containing all the files from the folder activity with course module id '2411690'.
+Elemento borrado,null,El elemento con ID 23575 ha sido borrado.
+Elemento creado,null,Elementos creado con ID 16294.
+Entrega creada.,null,The user with id '35065' created a file submission and uploaded '1' file/s in the assignment with course module id '2411685'.
+Envío actualizado.,null,The user with id '35379' updated a file submission and uploaded '1' file/s in the assignment with course module id '2335529'.
+Evento de calendario actualizado,null,The user with id '7243' updated the event '[E-MP] Entrega Práctica Obligatoria 2 - EPO2-2C' with id '78082'.
+Evento de calendario borrado,null,The user with id '7243' deleted the event '[E-MP] Segunda prueba-1C' with id '67088'.
+Evento de calendario creado,null,The user with id '7243' created the event 'Feedback Cuestionario de evaluación de la asignatura Metodología de la Programación closes' with id '79807'.
+Finalización de curso actualizado,null,The user with id '35078' updated the completion state for the course module with id '2377055' for the user with id '35078'.
+Formulario de calificaciones visto,null,The user with id '7243' viewed the grading form for the user with id '35067' for the assignment with course module id '2226064'.
+Formulario de confirmación de entrega visto.,null,The user with id '35065' viewed the submission confirmation form for the assignment with course module id '2226071'.
+Formulario de entrega visto.,null,The user with id '35065' viewed their submission for the assignment with course module id '2411685'.
+Ha comenzado el intento,null,The user with id '35379' has started the attempt with id '233733' for the quiz with course module id '2454971'.
+Informe de actividad visto,null,The user with id '7243' viewed the outline activity report for the course with id '8354'.
+Informe de calificación de vista simple visto.,null,The user with id '7243' viewed the singleview report in the gradebook.
+Informe de Consulta visto,null,"The user with id '7243' has viewed the report for the choice activity with course module id
+            '2835325'"
+Informe de cuestionario visto,null,The user with id '2' viewed the report 'overview' for the quiz with course module id '2226047'.
+Informe de estadísticas de usuarios visto,null,The user with id '7243' viewed the user statistics report for the user with id '34000'.
+Informe de estadísticas visto,null,The user with id '7243' viewed the statistics report for the course with id '8354'.
+Informe de notas de usuario visto,null,The user with id '7243' viewed the user report in the gradebook.
+Informe de participación visto,null,The user with id '7243' viewed the course participation report for the course with id '8354'.
+Informe de registros de usuario visto,null,The user with id '7243' viewed the user log report for the user with id '32303'.
+Informe de registros visto,null,The user with id '7243' viewed the log report for the course with id '8354'.
+Informe de resultados visto,null,The user with id '7243' viewed the outcomes report in the gradebook.
+Informe de resumen de notas visto,null,The user with id '32089' viewed the overview report in the gradebook.
+Informe del examinador visto,null,The user with id '7243' viewed the grader report in the gradebook.
+Informe del usuario visualizado,null,The user with id '7243' has viewed the user report for the user with id '35228' in the course with id '8354' with viewing mode 'posts'.
+Informe usuario del curso visto,null,The user with id '31195' viewed the user report for the course with id '8354' for user with id '31195'.
+Instancia de inscripción creada,null,The user with id '0' created the instance of enrolment method 'database' with id '29120'.
+Instancia del módulo del curso visualizada,null,The user with id '7243' viewed the instance list for the module 'choice' in the course with id '8354'.
+,,The user with id '34000' viewed the list of resources in the course with id '8354'.
+Intento abandonado,null,The user with id '7047' has had their attempt with id '158981' marked as abandoned for the quiz with course module id '2226054'.
+Intento de cuestionario visualizado,null,The user with id '32089' has viewed the attempt with id '233730' belonging to the user with id '32089' for the quiz with course module id '2454971'.
+Intento del cuestionario eliminado,null,The user with id '7243' deleted the attempt with id '181779' belonging to the quiz with course module id '2399593' for the user with id '7243'.
+Intento del cuestionario revisado,null,The user with id '7243' has had their attempt with id '233730' reviewed by the user with id '32089' for the quiz with course module id '2454971'.
+Intento enviado,null,The user with id '35379' has submitted the attempt with id '233733' for the quiz with course module id '2454971'.
+Lector de registros en tiempo real visto,null,The user with id '7243' viewed the live log report for the course with id '8354'.
+Limite de intentos excedido,null,The quiz attempt with id '229770' belonging to the quiz with course module id '2399593' for the user with id '35065' became overdue.
+Lista de usuarios vista,null,The user with id '7243' viewed the list of users in the course with id '8354'.
+Mensaje actualizado,null,The user with id '7243' has updated the post with id '106880' in the discussion with id '41405' in the forum with course module id '2174355'.
+Mensaje borrado,null,The user with id '32303' has deleted the post with id '68604' in the discussion with id '27412' in the forum with course module id '2358620'.
+Mensaje creado,null,The user with id '7243' has created the post with id '108489' in the discussion with id '41779' in the forum with course module id '2174355'.
+Mensaje enviado,null,"The user with id '35078' has sent a message in the chat with course module id
+            '2411683'."
+Módulo de curso actualizado,null,The user with id '7243' updated the 'feedback' activity with course module id '2848147'.
+Módulo de curso creado,null,The user with id '7243' created the 'glossary' activity with course module id '2835328'.
+Módulo de curso eliminado,null,The user with id '7243' deleted the 'label' activity with course module id '2293930'.
+Módulo de curso visto,null,The user with id '6785' viewed the 'glossary' activity with course module id '2835328'.
+Notas vistas,null,The user with id '7243' viewed the notes for the user with id '35228'.
+Outline report viewed,null,The user with id '7243' viewed the outline report for the user with id '34160' for the course with id '8354'.
+Página de edición del cuestionario visitada,null,The user with id '7243' viewed the edit page for the quiz with course module id '2454971'.
+Perfil de usuario visto,null,The user with id '7243' viewed the profile for the user with id '39332' in the course with id '8354'.
+Pregunta calificada manualmente,null,The user with id '7243' manually graded the question with id '292177' for the attempt with id '233731' for the quiz with course module id '2454971'.
+Reinicio de curso finalizado,null,The reset of the course with id '8354' has ended.
+Reinicio de curso iniciado,null,The user with id '0' started the reset of the course with id '8354'.
+Reporte visualizado,null,The user with id '7243' viewed the scorm report 'basic' for the scorm with course module id '2295519'.
+Respuesta enviada,null,The user with id '35379' submitted response for 'feedback' activity with course module id '2808038'.
+Resumen del intento de cuestionario visualizado,null,The user with id '32089' has viewed the summary for the attempt with id '233724' belonging to the user with id '32089' for the quiz with course module id '2454969'.
+Retroalimentación vista,null,The user with id '7243' viewed the feedback for the user with id '31195' for the assignment with course module id '2226057'.
+Rol asignado,null,The user with id '0' assigned the role with id '5' to the user with id '35065'.
+Rol sin asignar,null,The user with id '2' unassigned the role with id '3' from the user with id '7262'.
+Sco iniciado,null,The user with id '7243' launched the sco with id '1972' for the scorm with course module id '2295519'.
+Se ha calificado el envío.,null,The user with id '7243' has graded the submission '166409' for the user with id '35078' for the assignment with course module id '2235696'.
+Se ha enviado una entrega,null,The user with id '35379' has submitted the submission with id '344031' for the assignment with course module id '2381936'.
+Se ha visualizado el estado de la entrega.,null,The user with id '35065' has viewed the submission status page for the assignment with course module id '2838699'.
+Sección de curso actualizado,null,The user with id '7243' updated section number '7' for the course with id '8354'
+Seguimiento de lectura deshabilitado,null,The user with id '7243' has disabled read tracking for the user with id '7243' in the forum with course module id '2318003'.
+Sesiones vistas,null,"The user with id '34000' has viewed the sessions of the chat with course module id
+            '2251790'."
+Suscripción activada,null,The user with id '7243' subscribed the user with id '7262' to the forum with course module id '2235688'.
+Suscriptores visualizados,null,The user with id '7243' has viewed the subscribers list for the forum with course module id '2174356'.
+Tema borrado,null,The user with id '7243' has deleted the discussion with id '34849' in the forum with course module id '2174355'.
+Tema creado,null,The user with id '7243' has created the discussion with id '41997' in the forum with course module id '2386718'.
+Tema movido,null,The user with id '7243' has moved the discussion with id '22862' from the forum with id '7676' to the forum with id '7675'.
+Tema visto,null,The user with id '7243' has viewed the discussion with id '44135' in the forum with course module id '2174355'.
+Todos los envíos se están descargando.,null,The user with id '7243' has downloaded all the submissions for the assignment with course module id '2235696'.
+Un fichero ha sido subido.,null,The user with id '35065' has uploaded a file to the submission with id '324933' in the assignment activity with course module id '2381936'.
+Usuario calificado,null,The user with id '7243' updated the grade with id '2141992' for the user with id '40030' for the grade item with id '68712'.
+Usuario matriculado en curso,null,The user with id '0' unenrolled the user with id '39332' using the enrolment method 'database' from the course with id '8354'.
+,,The user with id '7243' enrolled the user with id '6539' using the enrolment method 'manual' in the course with id '8354'.
+,,The user with id '2' updated the enrolment for the user with id '6785' using the enrolment method 'manual' in the course with id '8354'.
+Vista previa del intento iniciada,null,The user with id '7243' has had their attempt with id '229735' previewed by the user with id '7243' for the quiz with course module id '2399593'.
+Visualización de las Calificaciones,null,The user with id '7243' viewed the grading table for the assignment with course module id '2411687'.
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
+,null,
