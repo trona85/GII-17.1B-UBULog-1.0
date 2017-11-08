@@ -5,6 +5,8 @@ package parserdocument;
 
 import java.util.ArrayList;
 
+import UBULogException.UBULogException;
+
 /**
  * Clase abstracta para documentos.
  * @author Oscar Fernández Armengol
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 public abstract class DocumentParser implements IDocumentParser {
 
 	private String file;
+	private String extension;
 	private ArrayList<Log> logs;
 	private ArrayList<Log> logsFilter;
 
@@ -22,7 +25,8 @@ public abstract class DocumentParser implements IDocumentParser {
 		logsFilter = new ArrayList<Log>();
 	}
 	
-	public abstract void readDocument();
+	public abstract void readDocument() throws UBULogException;
+	public abstract boolean isDocumentValid(String [] fields);
 
 	public String getFile() {
 		return file;
@@ -70,6 +74,14 @@ public abstract class DocumentParser implements IDocumentParser {
 			
 		}
 		
+	}
+
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
 	}
 
 }

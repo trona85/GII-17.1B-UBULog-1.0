@@ -848,30 +848,27 @@ public class MainController implements Initializable {
 	 * 
 	 */
 	public void saveTable(ActionEvent actionEvent) throws Exception {
-		
-		//TODO Arreglar para exportar el log resultante si se quiere.
-		/*WritableImage image = webView.snapshot(new SnapshotParameters(), null);
 
-		File file = new File("table.png");
-
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Guardar tabla");
-		fileChooser.setInitialFileName("table");
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".png", "*.*"),
-				new FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new FileChooser.ExtensionFilter("*.png", "*.png"));
-		try {
-			file = fileChooser.showSaveDialog(UBULog.stage);
-			logger.info(file.getAbsolutePath());
-			if (file != null) {
-				try {
-					ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-				} catch (IOException ex) {
-					logger.info(ex.getMessage());
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		// TODO Arreglar para exportar el log resultante si se quiere.
+		/*
+		 * WritableImage image = webView.snapshot(new SnapshotParameters(),
+		 * null);
+		 * 
+		 * File file = new File("table.png");
+		 * 
+		 * FileChooser fileChooser = new FileChooser();
+		 * fileChooser.setTitle("Guardar tabla");
+		 * fileChooser.setInitialFileName("table");
+		 * fileChooser.getExtensionFilters().addAll(new
+		 * FileChooser.ExtensionFilter(".png", "*.*"), new
+		 * FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new
+		 * FileChooser.ExtensionFilter("*.png", "*.png")); try { file =
+		 * fileChooser.showSaveDialog(UBULog.stage);
+		 * logger.info(file.getAbsolutePath()); if (file != null) { try {
+		 * ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file); }
+		 * catch (IOException ex) { logger.info(ex.getMessage()); } } } catch
+		 * (Exception e) { e.printStackTrace(); }
+		 */
 	}
 
 	/**
@@ -917,45 +914,46 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void aboutUBULog(ActionEvent actionEvent) throws Exception {
-		Desktop.getDesktop().browse(new URL("https://github.com/claumartinezh/TFG_UBULog").toURI());
+		Desktop.getDesktop().browse(new URL("https://github.com/trona85/GII-17.1B-UBULog-1.0").toURI());
 	}
 
 	/**
 	 * Boton para cargar documento
 	 * 
 	 * @param actionEvent
-	 * @throws Exception
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) {
 		try {
-		FileChooser fileChooser = new FileChooser();
-		//// TODO comparar documentos
-		//// System.err.println(getFile().contains(".csv")); saveTable puede
-		//// ayidar al control errores
-		File file = fileChooser.showOpenDialog(UBULog.stage);
-		if(!file.toString().contains(".csv")){
-			
-				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
-			
-		}
-		
-		CsvParser logs = new CsvParser(file.toString());
-		logs.readDocument();
+			FileChooser fileChooser = new FileChooser();
+			File file = fileChooser.showOpenDialog(UBULog.stage);
 
-		for (int i = 0; i < logs.getLogs().size(); ++i) {
-			for (int j = 0; j < users.size(); j++) {
-				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
-					logs.getLogs().get(i).setUser(users.get(j));
-					break;
+			if (file == null) {
+				throw new UBULogException(UBULogError.FICHERO_CANCELADO);
+			}
+			if (!file.toString().contains(".csv")) {
+				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
+			}
+
+			CsvParser logs = new CsvParser(file.toString());
+			logs.readDocument();
+
+			for (int i = 0; i < logs.getLogs().size(); ++i) {
+				for (int j = 0; j < users.size(); j++) {
+					if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
+						logs.getLogs().get(i).setUser(users.get(j));
+						break;
+					}
 				}
 			}
-		}
 
-		enrLog = FXCollections.observableArrayList(logs.getLogs());
-		listLogs.setItems(enrLog);
+			enrLog = FXCollections.observableArrayList(logs.getLogs());
+			listLogs.setItems(enrLog);
 		} catch (UBULogException e) {
-			logger.error(e.getMessage());
-			cargaDocumento(actionEvent);
+			logger.info(e.getMessage());
+			if (e.getError() != UBULogError.FICHERO_CANCELADO) {
+				cargaDocumento(actionEvent);
+
+			}
 
 		}
 

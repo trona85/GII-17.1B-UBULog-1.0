@@ -10,6 +10,9 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import UBULogException.UBULogError;
+import UBULogException.UBULogException;
+
 /**
  * 
  * Clase para el parseo de csv.
@@ -19,48 +22,71 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  */
 public class CsvParser extends DocumentParser {
-	
+
 	static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
-	
+
 	public CsvParser(String file) {
 		super();
 		this.setFile(file);
 	}
 
 	@Override
-	public void readDocument() {
+	public void readDocument() throws UBULogException {
 		BufferedReader br = null;
 		Integer cont = 0;
-	      
-	      try {
-	         br =new BufferedReader(new FileReader(this.getFile()));
-	         String line = br.readLine();
-	         line = br.readLine();
-	         
-	         while (null!=line) {
-	            String [] fields = line.split(",");
 
-	            this.setLogs(new Log(fields));
-	            
-	            line = br.readLine();
-	            cont +=1;
-	         }
-	         
-	      } catch (Exception e) {
-	    	  // TODO hacer errores concretos
-	         System.err.println("no existe");
-	         e.printStackTrace();
+		try {
+			br = new BufferedReader(new FileReader(this.getFile()));
+			String line = br.readLine();
+			String[] fields = line.split(",");
 
-	      } finally {
-	         if (null!=br) {
-	            try {
+			if (!isDocumentValid(fields)) {
+				throw new Exception();
+			}
+			line = br.readLine();
+
+			while (null != line) {
+				fields = line.split(",");
+
+				this.setLogs(new Log(fields));
+
+				line = br.readLine();
+				cont += 1;
+			}
+
+		} catch (Exception e) {
+			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
+
+		} finally {
+			if (null != br) {
+				try {
 					br.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	         }
-	      }
+			}
+		}
 
+	}
+
+	@Override
+	public boolean isDocumentValid(String[] fields) {
+		if (fields.length != 9) {
+			return false;
+		} else {
+			for (int i = 0; i < fields.length; i++) {
+				if (!(fields[i].contains("Hora") || fields[i].contains("Nombre completo del usuario")
+						|| fields[i].contains("Usuario afectado") || fields[i].contains("Contexto del evento")
+						|| fields[i].contains("Componente") || fields[i].contains("Nombre evento")
+						|| fields[i].contains("Descripción") || fields[i].contains("Origen")
+						|| fields[i].contains("Dirección IP"))) {
+					return false;
+
+				}
+			}
+		}
+
+		return true;
 	}
 }
