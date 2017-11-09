@@ -4,8 +4,11 @@
 package parserdocument;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import UBULogException.UBULogException;
+import model.Event;
+import model.Log;
 
 /**
  * Clase abstracta para documentos.
@@ -18,11 +21,13 @@ public abstract class DocumentParser implements IDocumentParser {
 	private String file;
 	private String extension;
 	private ArrayList<Log> logs;
-	private ArrayList<Log> logsFilter;
-
+	//private ArrayList<Log> logsFilter;
+	private HashMap<String,Event> events;
+// TODO create evento metodo con su clase tal....
 	public DocumentParser() {
 		logs = new ArrayList<Log>();
-		logsFilter = new ArrayList<Log>();
+		events =new HashMap<String,Event>();
+		//logsFilter = new ArrayList<Log>();
 	}
 	
 	public abstract void readDocument() throws UBULogException;
@@ -44,13 +49,13 @@ public abstract class DocumentParser implements IDocumentParser {
 		this.logs.add( log);
 	}
 	
-	public ArrayList<Log> getLogFilter() {
+	/*public ArrayList<Log> getLogFilter() {
 		return logsFilter;
 	}
 
 	public void setLogFilter(ArrayList<Log> logsFilter) {
 		this.logsFilter = logsFilter;
-	}
+	}*/
 	
 	public void filter(String [] fields, String [] vals){
 		/*boolean comp=true;
@@ -69,10 +74,10 @@ public abstract class DocumentParser implements IDocumentParser {
 			}
 			comp=true;
 		}*/
-		for (int i = 0 ; i< logsFilter.size() ; i++) {
+		/*for (int i = 0 ; i< logsFilter.size() ; i++) {
 			System.out.println(logsFilter.get(i) + "salida total"); //TODO
 			
-		}
+		}*/
 		
 	}
 
@@ -82,6 +87,10 @@ public abstract class DocumentParser implements IDocumentParser {
 
 	public void setExtension(String extension) {
 		this.extension = extension;
+	}
+
+	public HashMap<String,Event> getEvents() {
+		return events;
 	}
 
 }

@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import UBULogException.UBULogError;
 import UBULogException.UBULogException;
+import model.Event;
+import model.Log;
 
 /**
  * 
@@ -47,13 +49,16 @@ public class CsvParser extends DocumentParser {
 
 			while (null != line) {
 				fields = line.split(",");
-
-				this.setLogs(new Log(fields));
+				Log log =new Log(fields);
+				this.setLogs(log);
+				
+				// asignamos los eventos con sus log correspondientes
+				asigEvents(log);
 
 				line = br.readLine();
 				cont += 1;
 			}
-
+			
 		} catch (Exception e) {
 			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
 
@@ -68,6 +73,21 @@ public class CsvParser extends DocumentParser {
 			}
 		}
 
+	}
+
+	/**
+	 * @param log
+	 */
+	private void asigEvents(Log log) {
+		if(getEvents().get(log.getEvent()) == null){
+			Event event = new Event(log.getEvent()); 
+			event.setLogsEvent(log);
+			getEvents().put(log.getEvent(), event);
+			
+		}else{
+			getEvents().get(log.getEvent()).setLogsEvent(log);
+			
+		}
 	}
 
 	@Override

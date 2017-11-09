@@ -56,9 +56,9 @@ import javafx.stage.Stage;
 import model.EnrolledUser;
 import model.GradeReportLine;
 import model.Group;
+import model.Log;
 import model.Role;
 import parserdocument.CsvParser;
-import parserdocument.Log;
 import webservice.CourseWS;
 
 /**
@@ -106,7 +106,7 @@ public class MainController implements Initializable {
 	String patternParticipants = "";
 
 	@FXML // Vista en árbol de actividades
-	public TreeView<GradeReportLine> tvwGradeReport;
+	//public TreeView<GradeReportLine> tvwGradeReport;
 	ArrayList<GradeReportLine> gradeReportList;
 
 	@FXML // Entrada de filtro de actividades por patrón
@@ -210,8 +210,8 @@ public class MainController implements Initializable {
 			public void handle(Event event) { // (1er click en participantes)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
 						.getSelectedItems();
-				ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
-						.getSelectedItems();
+				//ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
+					//	.getSelectedItems();
 				// Al seleccionar un participante reiniciamos el gráfico
 				lineChart.getData().clear();
 
@@ -241,7 +241,7 @@ public class MainController implements Initializable {
 
 					int countB = 1;
 					// Por cada actividad seleccionada
-					for (TreeItem<GradeReportLine> structTree : selectedGRL) {
+					/*for (TreeItem<GradeReportLine> structTree : selectedGRL) {
 						countA++;
 						for (GradeReportLine actualLine : UBULog.session.getActualCourse().getGradeReportLines()) {
 
@@ -276,7 +276,7 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-					}
+					}*/
 					htmlTitle += "</tr>";
 					// Mostramos el gráfico
 					lineChart.getData().add(series);
@@ -304,14 +304,14 @@ public class MainController implements Initializable {
 			setTreeview(item, grcl.get(0).getChildren().get(k));
 		}
 		// Establecemos la raiz en el TreeView
-		tvwGradeReport.setRoot(root);
-		tvwGradeReport.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		//tvwGradeReport.setRoot(root);
+		//tvwGradeReport.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// Asignamos el manejador de eventos de la lista
 		// Al clickar en la lista, se recalcula el número de elementos
 		// seleccionados
-		tvwGradeReport.setOnMouseClicked(new EventHandler<Event>() {
+		//tvwGradeReport.setOnMouseClicked(new EventHandler<Event>() {
 			// Manejador que llama a la función de mostrar gráfico
-			@Override
+			/*@Override
 			public void handle(Event event) { // (1er clik en el calificador)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
 						.getSelectedItems();
@@ -387,7 +387,7 @@ public class MainController implements Initializable {
 					content += htmlRow;
 				}
 			}
-		});
+		});*/
 
 		// Mostramos número participantes
 		lblCountParticipants
@@ -742,7 +742,7 @@ public class MainController implements Initializable {
 				}
 			}
 			// Establecemos la raiz del treeview
-			tvwGradeReport.setRoot(root);
+			//tvwGradeReport.setRoot(root);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -899,7 +899,7 @@ public class MainController implements Initializable {
 	 */
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		listParticipants.getSelectionModel().clearSelection();
-		tvwGradeReport.getSelectionModel().clearSelection();
+		//tvwGradeReport.getSelectionModel().clearSelection();
 		clearData();
 	}
 

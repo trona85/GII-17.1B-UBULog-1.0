@@ -1,12 +1,10 @@
 /**
  * 
  */
-package parserdocument;
+package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import model.EnrolledUser;
 
 /**
  * Clase para generar cada tipo de log.
@@ -48,7 +46,11 @@ public class Log {
 			setOrigin(fields[7]);
 			setIp(fields[8]);
 			String[] fieldDescription = fields[6].split("'");
-			setIdUser(Integer.parseInt(fieldDescription[1]));
+			if(fieldDescription[0].contains("The user with id")){
+				setIdUser(Integer.parseInt(fieldDescription[1]));
+			}else{
+				setIdUser(-1);
+			}
 			// TODO hacer funcion para filtrar los campos descripcion, se
 			// necesitara un switch
 
