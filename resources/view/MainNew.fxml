@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="613.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <top>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane prefHeight="46.0" prefWidth="879.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
@@ -16,7 +16,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MenuBar stylesheets="@../css/style.css">
+            <MenuBar prefHeight="66.0" prefWidth="440.0" stylesheets="@../css/style.css">
               <menus>
                 <Menu mnemonicParsing="false" text="Archivo">
                   <items>
@@ -72,7 +72,7 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <GridPane>
@@ -156,7 +156,7 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
          </children>
