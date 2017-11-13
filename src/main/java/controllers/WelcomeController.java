@@ -83,7 +83,7 @@ public class WelcomeController implements Initializable {
 
 			// Accedemos a la siguiente ventana:
 			System.err.println(getClass());
-			FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/view/Main.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/view/MainNew.fxml"));
 
 			UBULog.stage.close();
 			UBULog.stage = new Stage();
