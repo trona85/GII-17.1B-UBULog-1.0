@@ -45,7 +45,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -86,6 +85,11 @@ public class MainController implements Initializable {
 	@FXML // lista de participantes
 	public ListView<EnrolledUser> listParticipants;
 	ObservableList<EnrolledUser> enrList;
+	
+	@FXML // lista de eventos
+	public ListView<model.Event> listEvents;
+	ObservableList<model.Event> eventList;
+	
 
 	@FXML // lista de participantes
 	public ListView<Log> listLogs;
@@ -105,9 +109,9 @@ public class MainController implements Initializable {
 	public TextField tfdParticipants;
 	String patternParticipants = "";
 
-	@FXML // Vista en árbol de actividades
+	//@FXML // Vista en árbol de actividades
 	//public TreeView<GradeReportLine> tvwGradeReport;
-	ArrayList<GradeReportLine> gradeReportList;
+	//ArrayList<GradeReportLine> gradeReportList;
 
 	@FXML // Entrada de filtro de actividades por patrón
 	public TextField tfdItems;
@@ -199,8 +203,9 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 		}
 
-		// Activamos la selección múltiple en la lista de participantes
+		// Activamos la selección múltiple en la lista de participantes y eventos
 		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// Asignamos el manejador de eventos de la lista
 		// Al clickar en la lista, se recalcula el número de elementos
 		// seleccionados
@@ -286,8 +291,9 @@ public class MainController implements Initializable {
 			}
 		});
 
-		/// Mostramos la lista de participantes
+		/// Mostramos la lista de participantes y eventos
 		listParticipants.setItems(enrList);
+		listEvents.setItems(eventList);
 
 		// Establecemos la estructura en árbol del calificador
 		ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>) UBULog.session.getActualCourse()
@@ -899,6 +905,7 @@ public class MainController implements Initializable {
 	 */
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		listParticipants.getSelectionModel().clearSelection();
+		listEvents.getSelectionModel().clearSelection();
 		//tvwGradeReport.getSelectionModel().clearSelection();
 		clearData();
 	}
@@ -948,6 +955,9 @@ public class MainController implements Initializable {
 
 			enrLog = FXCollections.observableArrayList(logs.getLogs());
 			listLogs.setItems(enrLog);
+			eventList = FXCollections.observableArrayList(logs.getEvents().values());
+			//TODO vienen desordenados
+			listEvents.setItems(eventList);
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
 			if (e.getError() != UBULogError.FICHERO_CANCELADO) {
