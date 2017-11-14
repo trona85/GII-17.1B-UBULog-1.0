@@ -50,22 +50,39 @@ public class LoginController {
 	 * @throws Exception
 	 */
 	public void login(ActionEvent event) throws Exception {
-		String nombre = "profesor";
-		String pass = "1Qwerty--";
 
+		String nombre;
+		String pass ;
 		// Almacenamos los parámetros introducidos por el usuario:
 		UBULog.init.getScene().setCursor(Cursor.WAIT);
+		//TODO inicios de sesion pruebas y pre.
 		UBULog.host = "http://localhost/moodle";
-				//txtHost.getText(); //TODO cambiar para ubu virtual
-		//UBULog.session = new Session(txtUsername.getText(), txtPassword.getText());
+		nombre = "profesor";
+		pass = "1Qwerty--";
 		UBULog.session = new Session(nombre, pass);
+		/*UBULog.host = "https://ubuvirtual.ubu.es/";
+		nombre = "ofa0007@alu.ubu.es";
+		UBULog.session = new Session(nombre, txtPassword.getText());*/
+		/*if(txtHost.getText().toString().isEmpty()){
+			//TODO cambiar para ubu virtual y revisar que es correcto para producción
+			//UBULog.host = "http://localhost/moodle";
+		}else{
+			UBULog.host = txtHost.getText();
+		}
+		if(txtUsername.getText().toString().isEmpty()  || txtPassword.getText().toString().isEmpty()){
+			nombre = "profesor";
+			pass = "1Qwerty--";
+			UBULog.session = new Session(nombre, pass);
+		}else{
+			UBULog.session = new Session(txtUsername.getText(), txtPassword.getText());
+		}*/
+
 		Boolean correcto = true;
 		progressBar.visibleProperty().set(false);
 
 		try { // Establecemos el token
 			UBULog.session.setToken();
-			//System.err.println(UBULog.session.getToken());
-			//System.err.println("aqi llego");
+			
 		} catch (Exception e) {
 			correcto = false;
 			logger.error("No se ha podido establecer el token d usuario. {}", e);
