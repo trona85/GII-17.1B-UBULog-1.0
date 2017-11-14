@@ -85,11 +85,10 @@ public class MainController implements Initializable {
 	@FXML // lista de participantes
 	public ListView<EnrolledUser> listParticipants;
 	ObservableList<EnrolledUser> enrList;
-	
+
 	@FXML // lista de eventos
 	public ListView<model.Event> listEvents;
 	ObservableList<model.Event> eventList;
-	
 
 	@FXML // lista de participantes
 	public ListView<Log> listLogs;
@@ -109,18 +108,13 @@ public class MainController implements Initializable {
 	public TextField tfdParticipants;
 	String patternParticipants = "";
 
-	//@FXML // Vista en árbol de actividades
-	//public TreeView<GradeReportLine> tvwGradeReport;
-	//ArrayList<GradeReportLine> gradeReportList;
+	// @FXML // Vista en árbol de actividades
+	// public TreeView<GradeReportLine> tvwGradeReport;
+	// ArrayList<GradeReportLine> gradeReportList;
 
 	@FXML // Entrada de filtro de actividades por patrón
 	public TextField tfdItems;
 	String patternCalifications = "";
-
-	@FXML // Botón filtro por tipo de actividad
-	public MenuButton slcType;
-	MenuItem[] typeMenuItems;
-	String filterType = "Todos";
 
 	@FXML // Gráfico
 	private LineChart<String, Number> lineChart;
@@ -138,74 +132,35 @@ public class MainController implements Initializable {
 
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
+			
 			// Establecemos calificador del curso
+			//TODO quitando esto no abre la aplicación.
 			CourseWS.setGradeReportLines(UBULog.session.getToken(),
 					UBULog.session.getActualCourse().getEnrolledUsers().get(0).getId(),
 					UBULog.session.getActualCourse());
 
 			// Almacenamos todos los participantes en una lista
 			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
+			
 			// insertamos los usuarios ficticios.
 			insertUserFicticios();
 
-			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
-
 			//////////////////////////////////////////////////////////////////////////
-			// Manejo de roles (MenuButton Rol):
-			MenuItem mi;
+			// Manejo de roles 
 			manejoRoles();
 
 			//////////////////////////////////////////////////////////////////////////
 			// Manejo de grupos (MenuButton Grupo):
 			manejoGrupos();
 
-			////////////////////////////////////////////////////////
-			// Añadimos todos los participantes a la lista de visualización
-			for (int j = 0; j < users.size(); j++) {
-				nameUsers.add(users.get(j));
-			}
-			enrList = FXCollections.observableArrayList(nameUsers);
-
-			//////////////////////////////////////////////////////////////////////////
-			// Manejo de actividades (TreeView<GradeReportLine>):
-			EventHandler<ActionEvent> actionActivity = selectNameActivity();
-			// Cargamos una lista de los nombres de los grupos
-			ArrayList<String> nameActivityList = UBULog.session.getActualCourse().getActivities();
-			// Convertimos la lista a una lista de MenuItems para el MenuButton
-			ArrayList<MenuItem> nameActivityItemsList = new ArrayList<MenuItem>();
-			// En principio se van a mostrar todos los participantes en
-			// cualquier grupo
-			mi = (new MenuItem("Todos"));
-			// Añadimos el manejador de eventos al primer MenuItem
-			mi.setOnAction(actionActivity);
-			nameActivityItemsList.add(mi);
-
-			for (int i = 0; i < nameActivityList.size(); i++) {
-				String nameActivity = nameActivityList.get(i);
-				mi = (new MenuItem(nameActivity));
-				// Añadimos el manejador de eventos a cada MenuItem
-				mi.setOnAction(actionActivity);
-				nameActivityItemsList.add(mi);
-			}
-
-			// Asignamos la lista de grupos al MenuButton "Grupo"
-			slcType.getItems().addAll(nameActivityItemsList);
-			slcType.setText("Todos");
-
 			// Inicializamos el listener del textField de participantes
 			tfdParticipants.setOnAction(inputParticipant());
-
-			// Inicializamos el listener del textField del calificador
-			tfdItems.setOnAction(inputCalification());
 
 		} catch (Exception e) {
 			logger.error("Error en la inicialización. {}", e);
 			e.printStackTrace();
 		}
 
-		// Activamos la selección múltiple en la lista de participantes y eventos
-		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// Asignamos el manejador de eventos de la lista
 		// Al clickar en la lista, se recalcula el número de elementos
 		// seleccionados
@@ -215,8 +170,7 @@ public class MainController implements Initializable {
 			public void handle(Event event) { // (1er click en participantes)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
 						.getSelectedItems();
-				//ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
-					//	.getSelectedItems();
+
 				// Al seleccionar un participante reiniciamos el gráfico
 				lineChart.getData().clear();
 
@@ -232,6 +186,8 @@ public class MainController implements Initializable {
 					try {
 						// Establecemos el calificador del curso con este
 						// usuario
+						// TODO contar logs, si no se ha cargado el log no
+						// deberia filtrar nada.
 						CourseWS.setGradeReportLines(UBULog.session.getToken(), actualUser.getId(),
 								UBULog.session.getActualCourse());
 					} catch (Exception e) {
@@ -244,44 +200,6 @@ public class MainController implements Initializable {
 					XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 					series.setName(actualUser.getLastName() + ", " + actualUser.getFirstName());
 
-					int countB = 1;
-					// Por cada actividad seleccionada
-					/*for (TreeItem<GradeReportLine> structTree : selectedGRL) {
-						countA++;
-						for (GradeReportLine actualLine : UBULog.session.getActualCourse().getGradeReportLines()) {
-
-							// Buscamos la actividad en la estructura y
-							// obtenemos
-							// los valores necesarios
-							if (structTree.getValue().getId() == actualLine.getId()) {
-								String calculatedGrade = actualLine.getGrade();
-								// logger.info(actualLine.getName() + ":" +
-								// actualLine.getGrade());
-
-								// Añadimos la actividad a la tabla
-								if (countA == countB) {
-									htmlTitle += "<th style='border: 1.0 solid grey'> " + actualLine.getName()
-											+ " </th>";
-									countB++;
-								}
-								// Si es numérico lo graficamos (calculamos
-								// sobre 10) y lo mostramos en la tabla
-								if (!Float.isNaN(CourseWS.getFloat(calculatedGrade))) {
-
-									series.getData()
-											.add(new XYChart.Data<String, Number>(actualLine.getName(),
-													(CourseWS.getFloat(calculatedGrade)
-															/ Float.valueOf(actualLine.getRangeMax())) * 10));
-
-									htmlRow += "<td style='border: 1.0 solid grey'> "
-											+ Math.round(CourseWS.getFloat(calculatedGrade) * 100.0) / 100.0
-											+ "/<b style='color:#ab263c'>" + actualLine.getRangeMax() + "</b> </td>";
-								} else { // Si no, sólo lo mostramos en la tabla
-									htmlRow += "<td style='border: 1.0 solid grey'> " + calculatedGrade + " </td>";
-								}
-							}
-						}
-					}*/
 					htmlTitle += "</tr>";
 					// Mostramos el gráfico
 					lineChart.getData().add(series);
@@ -290,10 +208,6 @@ public class MainController implements Initializable {
 				}
 			}
 		});
-
-		/// Mostramos la lista de participantes y eventos
-		listParticipants.setItems(enrList);
-		listEvents.setItems(eventList);
 
 		// Establecemos la estructura en árbol del calificador
 		ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>) UBULog.session.getActualCourse()
@@ -309,96 +223,14 @@ public class MainController implements Initializable {
 			root.setExpanded(true);
 			setTreeview(item, grcl.get(0).getChildren().get(k));
 		}
-		// Establecemos la raiz en el TreeView
-		//tvwGradeReport.setRoot(root);
-		//tvwGradeReport.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		// Asignamos el manejador de eventos de la lista
-		// Al clickar en la lista, se recalcula el número de elementos
-		// seleccionados
-		//tvwGradeReport.setOnMouseClicked(new EventHandler<Event>() {
-			// Manejador que llama a la función de mostrar gráfico
-			/*@Override
-			public void handle(Event event) { // (1er clik en el calificador)
-				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
-						.getSelectedItems();
-				ObservableList<TreeItem<GradeReportLine>> selectedGRL = tvwGradeReport.getSelectionModel()
-						.getSelectedItems();
-				// Se reinicia el gráfico por cada nuevo ítem seleccionado
-				lineChart.getData().clear();
-				String htmlTitle = "<tr><th style='background:#066db3; border: 1.0 solid grey; color:white;'> Alumno </th>";
-				String content = "";
-				int countA = 0;
-				// Por cada usuario seleccionado
-				for (EnrolledUser actualUser : selectedParticipants) {
-					// Se añade el usuario a la tabla
-					String htmlRow = "<th style='color:#066db3; background:white; border: 1.0 solid grey;'> "
-							+ actualUser.getFullName() + " </th>";
-					try {
-						// Establecemos el calificador del curso con este
-						// usuario
-						CourseWS.setGradeReportLines(UBULog.session.getToken(), actualUser.getId(),
-								UBULog.session.getActualCourse());
-					} catch (Exception e) {
-						logger.error("Error de conexión. {}", e);
-						e.printStackTrace();
-						errorDeConexion();
-					}
 
-					// Añadimos elementos al gráfico
-					XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-					series.setName(actualUser.getLastName() + ", " + actualUser.getFirstName());
-					int countB = 1;
+		dataUserLoger();
+	}
 
-					// Por cada ítem seleccionado
-					for (TreeItem<GradeReportLine> structTree : selectedGRL) {
-						countA++;
-						for (GradeReportLine actualLine : UBULog.session.getActualCourse().getGradeReportLines()) {
-							try {
-								if (structTree.getValue().getId() == actualLine.getId()) {
-									String calculatedGrade = actualLine.getGrade();
-									// logger.info(actualLine.getName()+":
-									// "+actualLine.getGrade());
-
-									if (countA == countB) {
-										// Añadimos la actividad a la tabla
-										htmlTitle += "<th style='border: 1.0 solid grey'> " + actualLine.getName()
-												+ " </th>";
-										countB++;
-									}
-									// Si es numérico lo graficamos y lo
-									// mostramos en la tabla
-									if (!Float.isNaN(CourseWS.getFloat(calculatedGrade))) {
-										series.getData()
-												.add(new XYChart.Data<String, Number>(actualLine.getName(),
-														(CourseWS.getFloat(calculatedGrade)
-																/ Float.valueOf(actualLine.getRangeMax())) * 10));
-
-										htmlRow += "<td style='border: 1.0 solid grey'> "
-												+ Math.round(CourseWS.getFloat(calculatedGrade) * 100.0) / 100.0
-												+ "/<b style='color:#ab263c'>" + actualLine.getRangeMax()
-												+ "</b> </td>";
-									} else { // Si no, sólo lo mostramos en la
-												// tabla
-										htmlRow += "<td style='border: 1.0 solid grey'> " + calculatedGrade + " </td>";
-									}
-								}
-							} catch (Exception e) {
-								logger.error("Error en la construcción del árbol/tabla. {}", e);
-							}
-						}
-					}
-					htmlTitle += "</tr>";
-					lineChart.getData().add(series);
-					htmlRow += "</tr>";
-					content += htmlRow;
-				}
-			}
-		});*/
-
-		// Mostramos número participantes
-		lblCountParticipants
-				.setText("Participantes: " + String.valueOf(UBULog.session.getActualCourse().getEnrolledUsersCount()));
-
+	/**
+	 * Establecemos los valores de los lavel que hacen referencia a los datos del usuario logeado.
+	 */
+	private void dataUserLoger() {
 		// Mostramos Usuario logeado
 		lblActualUser.setText("Usuario: " + UBULog.user.getFullName());
 
@@ -662,22 +494,23 @@ public class MainController implements Initializable {
 	 * 
 	 * @return manejador de eventos para las actividades
 	 */
-	private EventHandler<ActionEvent> selectNameActivity() {
+	/*private EventHandler<ActionEvent> selectNameActivity() {
 		return new EventHandler<ActionEvent>() {
 			/**
 			 * Recibe un evento (relacionado con un MenuItem) y responde en
 			 * consecuencia. El usuario elige un menuItem y filtra la lista de
 			 * participantes
 			 */
-			public void handle(ActionEvent event) {
+			/*public void handle(ActionEvent event) {
 				// Obtenemos el item que se ha seleccionado
 				MenuItem mItem = (MenuItem) event.getSource();
 				// Obtenemos el valor (rol) para filtrar la lista de
 				// participantes
-				filterType = mItem.getText();
-				logger.info("-> Filtrando calificador por tipo: " + filterType);
-				filterCalifications();
-				slcType.setText(filterType);
+				// filterType = mItem.getText();
+				// logger.info("-> Filtrando calificador por tipo: " +
+				// filterType);
+			//	filterCalifications();
+				// slcType.setText(filterType);
 			}
 		};
 	}
@@ -687,26 +520,26 @@ public class MainController implements Initializable {
 	 * 
 	 * @return manejador de eventos para el patrón de filtro de actividades
 	 */
-	public EventHandler<ActionEvent> inputCalification() {
+	/*public EventHandler<ActionEvent> inputCalification() {
 		return new EventHandler<ActionEvent>() {
 			/**
 			 * Recibe un evento (relacionado con un TreeItem) y responde en
 			 * consecuencia. El usuario elige un menuItem y filtra la lista de
 			 * participantes
 			 */
-			public void handle(ActionEvent event) {
+		/*	public void handle(ActionEvent event) {
 				patternCalifications = tfdItems.getText();
 				logger.info("-> Filtrando calificador por nombre: " + patternCalifications);
 				filterCalifications();
 			}
 		};
-	}
+	}*/
 
 	/**
 	 * Filtra la lista de actividades del calificador según el tipo y el patrón
 	 * introducidos.
 	 */
-	public void filterCalifications() {
+	/*public void filterCalifications() {
 		try {
 			clearData();
 			ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>) UBULog.session.getActualCourse()
@@ -715,41 +548,35 @@ public class MainController implements Initializable {
 			TreeItem<GradeReportLine> root = new TreeItem<GradeReportLine>(grcl.get(0));
 			MainController.setIcon(root);
 			// Llamamos recursivamente para llenar el Treeview
-			if (filterType.equals("Todos") && patternCalifications.equals("")) {
-				// Sin filtro y sin patrón
-				for (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
-					TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
-					MainController.setIcon(item);
-					root.getChildren().add(item);
-					root.setExpanded(true);
-					setTreeview(item, grcl.get(0).getChildren().get(k));
-				}
-			} else { // Con filtro
-				for (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
-					TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
-					boolean activityYes = false;
-					if (grcl.get(0).getChildren().get(k).getNameType().equals(filterType)
-							|| filterType.equals("Todos")) {
-						activityYes = true;
-					}
-					Pattern pattern = Pattern.compile(patternCalifications);
-					// logger.info(grcl.get(0).getChildren().get(k).getName());
-					Matcher match = pattern.matcher(grcl.get(0).getChildren().get(k).getName());
-					boolean patternYes = false;
-					if (patternCalifications.equals("") || match.find()) {
-						patternYes = true;
-					}
-					if (activityYes && patternYes) {
-						MainController.setIcon(item);
-						root.getChildren().add(item);
-					}
-					root.setExpanded(true);
-					setTreeviewFilter(root, item, grcl.get(0).getChildren().get(k));
-				}
-			}
+			/*
+			 * if (filterType.equals("Todos") &&
+			 * patternCalifications.equals("")) { // Sin filtro y sin patrón for
+			 * (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
+			 * TreeItem<GradeReportLine> item = new
+			 * TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
+			 * MainController.setIcon(item); root.getChildren().add(item);
+			 * root.setExpanded(true); setTreeview(item,
+			 * grcl.get(0).getChildren().get(k)); } } else { // Con filtro for
+			 * (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
+			 * TreeItem<GradeReportLine> item = new
+			 * TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
+			 * boolean activityYes = false; if
+			 * (grcl.get(0).getChildren().get(k).getNameType().equals(
+			 * filterType) || filterType.equals("Todos")) { activityYes = true;
+			 * } Pattern pattern = Pattern.compile(patternCalifications); //
+			 * logger.info(grcl.get(0).getChildren().get(k).getName()); Matcher
+			 * match =
+			 * pattern.matcher(grcl.get(0).getChildren().get(k).getName());
+			 * boolean patternYes = false; if (patternCalifications.equals("")
+			 * || match.find()) { patternYes = true; } if (activityYes &&
+			 * patternYes) { MainController.setIcon(item);
+			 * root.getChildren().add(item); } root.setExpanded(true);
+			 * setTreeviewFilter(root, item, grcl.get(0).getChildren().get(k));
+			 * } }
+			 */
 			// Establecemos la raiz del treeview
-			//tvwGradeReport.setRoot(root);
-		} catch (Exception e) {
+			// tvwGradeReport.setRoot(root);
+		/*} catch (Exception e) {
 			e.printStackTrace();
 		}
 		listParticipants.setItems(enrList);
@@ -763,20 +590,21 @@ public class MainController implements Initializable {
 	 * @param parent
 	 * @param line
 	 */
-	public void setTreeviewFilter(TreeItem<GradeReportLine> root, TreeItem<GradeReportLine> parent,
+	/*public void setTreeviewFilter(TreeItem<GradeReportLine> root, TreeItem<GradeReportLine> parent,
 			GradeReportLine line) {
 		/*
 		 * Obtiene los hijos de la linea pasada por parametro Los transforma en
 		 * treeitems y los establece como hijos del elemento treeItem
 		 * equivalente de line
 		 */
-		for (int j = 0; j < line.getChildren().size(); j++) {
+		/*for (int j = 0; j < line.getChildren().size(); j++) {
 			TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(line.getChildren().get(j));
 			boolean activityYes = false;
-			if (line.getChildren().get(j).getNameType().equals(filterType) || filterType.equals("Todos")) {
-				activityYes = true;
-			}
-			Pattern pattern = Pattern.compile(patternCalifications);
+			/*
+			 * if (line.getChildren().get(j).getNameType().equals(filterType) ||
+			 * filterType.equals("Todos")) { activityYes = true; }
+			 */
+			/*Pattern pattern = Pattern.compile(patternCalifications);
 			Matcher match = pattern.matcher(line.getChildren().get(j).getName());
 			boolean patternYes = false;
 			if (patternCalifications.equals("") || match.find()) {
@@ -791,7 +619,7 @@ public class MainController implements Initializable {
 			setTreeviewFilter(root, item, line.getChildren().get(j));
 		}
 
-	}
+	}*/
 
 	/**
 	 * Cambia la asignatura actual y carga otra
@@ -906,7 +734,7 @@ public class MainController implements Initializable {
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		listParticipants.getSelectionModel().clearSelection();
 		listEvents.getSelectionModel().clearSelection();
-		//tvwGradeReport.getSelectionModel().clearSelection();
+		// tvwGradeReport.getSelectionModel().clearSelection();
 		clearData();
 	}
 
@@ -953,11 +781,7 @@ public class MainController implements Initializable {
 				}
 			}
 
-			enrLog = FXCollections.observableArrayList(logs.getLogs());
-			listLogs.setItems(enrLog);
-			eventList = FXCollections.observableArrayList(logs.getEvents().values());
-			//TODO vienen desordenados
-			listEvents.setItems(eventList);
+			initializeDataSet(logs);
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
 			if (e.getError() != UBULogError.FICHERO_CANCELADO) {
@@ -966,6 +790,41 @@ public class MainController implements Initializable {
 			}
 
 		}
+
+	}
+
+	/**
+	 * Inicializamos los datos necesarios
+	 * 
+	 * @param logs
+	 */
+	private void initializeDataSet(CsvParser logs) {
+
+		ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
+
+		////////////////////////////////////////////////////////
+		// Añadimos todos los participantes a la lista de visualización
+		/*
+		 * for (int j = 0; j < users.size(); j++) { nameUsers.add(users.get(j));
+		 * }
+		 */
+		// Activamos la selección múltiple en la lista de participantes y
+		// eventos
+		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		/// Mostramos la lista de participantes y eventos
+		enrList = FXCollections.observableArrayList(users);
+		enrLog = FXCollections.observableArrayList(logs.getLogs());
+		eventList = FXCollections.observableArrayList(logs.getEvents().values());
+
+		listParticipants.setItems(enrList);
+		listLogs.setItems(enrLog);
+		// TODO vienen desordenados
+		listEvents.setItems(eventList);
+
+		// Mostramos número participantes
+		lblCountParticipants
+				.setText("Participantes: " + String.valueOf(UBULog.session.getActualCourse().getEnrolledUsersCount()));
 
 	}
 
