@@ -748,7 +748,11 @@ public class MainController implements Initializable {
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		listParticipants.getSelectionModel().clearSelection();
 		listEvents.getSelectionModel().clearSelection();
-		// tvwGradeReport.getSelectionModel().clearSelection();
+		
+		//TODO asi recupero el log completo, quizas no haga falta ya que al filtrar lo tengo que comprobar con el completo siempre.
+		enrLog = FXCollections.observableArrayList(logs.getLogs());
+		listLogs.setItems(enrLog);
+		
 		clearData();
 	}
 
