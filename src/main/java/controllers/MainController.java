@@ -58,6 +58,7 @@ import model.Group;
 import model.Log;
 import model.Role;
 import parserdocument.CsvParser;
+import parserdocument.DocumentParser;
 import webservice.CourseWS;
 
 /**
@@ -120,6 +121,8 @@ public class MainController implements Initializable {
 	private LineChart<String, Number> lineChart;
 
 	private ArrayList<EnrolledUser> users;
+	private CsvParser logs;
+	private ArrayList<Log> filterLogs;
 
 	/**
 	 * Muestra los usuarios matriculados en el curso, así como las actividades
@@ -170,8 +173,19 @@ public class MainController implements Initializable {
 			public void handle(Event event) { // (1er click en participantes)
 				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
 						.getSelectedItems();
-
+				filterLogs = new ArrayList<Log>();
+				//TODO al borrar selección no se obtiene el original.
 				// Al seleccionar un participante reiniciamos el gráfico
+				for (EnrolledUser actualUser : selectedParticipants) {
+					for (Log actualLog : logs.getLogs()) {
+						if(actualLog.getUser().equals(actualUser)){
+							filterLogs.add(actualLog);
+						}
+					}
+				}
+				enrLog = FXCollections.observableArrayList(filterLogs);
+				listLogs.setItems(enrLog);
+				//////////////////////// TODO empieza codigo claudia.
 				lineChart.getData().clear();
 
 				// Recalculamos la tabla
@@ -258,14 +272,14 @@ public class MainController implements Initializable {
 	 * 
 	 */
 	private void manejoGrupos() {
-		MenuItem mi;
+		
 		EventHandler<ActionEvent> actionGroup = selectGroup();
 		// Cargamos una lista de los nombres de los grupos
 		ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
 		ArrayList<MenuItem> groupsItemsList = new ArrayList<MenuItem>();
 		// En principio mostrarán todos los usuarios en cualquier grupo
-		mi = (new MenuItem("Todos"));
+		MenuItem mi = (new MenuItem("Todos"));
 		// Añadimos el manejador de eventos al primer MenuItem
 		mi.setOnAction(actionGroup);
 		groupsItemsList.add(mi);
@@ -769,7 +783,7 @@ public class MainController implements Initializable {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
 
-			CsvParser logs = new CsvParser(file.toString());
+			this.logs = new CsvParser(file.toString());
 			logs.readDocument();
 
 			for (int i = 0; i < logs.getLogs().size(); ++i) {
