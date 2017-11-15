@@ -129,27 +129,30 @@ public class MainController implements Initializable {
 	 * de las que se compone.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
+		filterLogs = new ArrayList<>();
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
 
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
-			
+
 			// Establecemos calificador del curso
-			//TODO quitando esto no abre la aplicación.
+			// TODO quitando esto no abre la aplicación.
 			CourseWS.setGradeReportLines(UBULog.session.getToken(),
 					UBULog.session.getActualCourse().getEnrolledUsers().get(0).getId(),
 					UBULog.session.getActualCourse());
 
 			// Almacenamos todos los participantes en una lista
 			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
-			
+
 			// insertamos los usuarios ficticios.
 			insertUserFicticios();
+			enrList = FXCollections.observableArrayList(users);
+			listParticipants.setItems(enrList);
 
 			//////////////////////////////////////////////////////////////////////////
-			// Manejo de roles 
+			// Manejo de roles
 			manejoRoles();
 
 			//////////////////////////////////////////////////////////////////////////
@@ -166,60 +169,47 @@ public class MainController implements Initializable {
 
 		// Asignamos el manejador de eventos de la lista
 		// Al clickar en la lista, se recalcula el número de elementos
-		// seleccionados
+		// seleccionados de participantes.
 		listParticipants.setOnMouseClicked(new EventHandler<Event>() {
 			// Manejador que llama a la función de mostrar gráfico
 			@Override
 			public void handle(Event event) { // (1er click en participantes)
-				ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel()
-						.getSelectedItems();
-				filterLogs = new ArrayList<Log>();
-				//TODO al borrar selección no se obtiene el original.
-				// Al seleccionar un participante reiniciamos el gráfico
-				for (EnrolledUser actualUser : selectedParticipants) {
-					for (Log actualLog : logs.getLogs()) {
-						if(actualLog.getUser().equals(actualUser)){
-							filterLogs.add(actualLog);
-						}
-					}
-				}
-				enrLog = FXCollections.observableArrayList(filterLogs);
-				listLogs.setItems(enrLog);
-				//////////////////////// TODO empieza codigo claudia.
-				lineChart.getData().clear();
+				/*
+				 * ObservableList<EnrolledUser> selectedParticipants =
+				 * listParticipants.getSelectionModel() .getSelectedItems();
+				 * filterLogs.clear(); // Al seleccionar un participante
+				 * reiniciamos el gráfico for (EnrolledUser actualUser :
+				 * selectedParticipants) { for (Log actualLog : logs.getLogs())
+				 * { if (actualLog.getUser().equals(actualUser)) {
+				 * filterLogs.add(actualLog); } } } enrLog =
+				 * FXCollections.observableArrayList(filterLogs);
+				 * listLogs.setItems(enrLog);
+				 */
+				filterLogs();
 
-				// Recalculamos la tabla
-				String htmlTitle = "<tr><th style='background:#066db3; border: 1.0 solid grey; color:white;'> Alumno </th>";
-				String content = "";
-				int countA = 0;
-				// Por cada usuario seleccionado
-				for (EnrolledUser actualUser : selectedParticipants) {
-					// Añadimos el usuario a la tabla
-					String htmlRow = "<th style='color:#066db3; background: white; border: 1.0 solid grey;'>"
-							+ actualUser.getFullName() + " </th>";
-					try {
-						// Establecemos el calificador del curso con este
-						// usuario
-						// TODO contar logs, si no se ha cargado el log no
-						// deberia filtrar nada.
-						CourseWS.setGradeReportLines(UBULog.session.getToken(), actualUser.getId(),
-								UBULog.session.getActualCourse());
-					} catch (Exception e) {
-						logger.error("Error de conexión. {}", e);
-						e.printStackTrace();
-						errorDeConexion();
-					}
+			}
+		});
 
-					// Añadimos valores al gráfico
-					XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-					series.setName(actualUser.getLastName() + ", " + actualUser.getFirstName());
+		// Asignamos el manejador de eventos de la lista
+		// Al clickar en la lista, se recalcula el número de elementos
+		// seleccionados de eventos.
+		listEvents.setOnMouseClicked(new EventHandler<Event>() {
+			// Manejador que llama a la función de mostrar gráfico
+			@Override
+			public void handle(Event event) { // (1er click en participantes)
+				/*
+				 * ObservableList<model.Event> selectedEvents =
+				 * listEvents.getSelectionModel().getSelectedItems();
+				 * filterLogs.clear(); // Al seleccionar un participante
+				 * reiniciamos el gráfico for (model.Event actualEvent :
+				 * selectedEvents) {
+				 * filterLogs.addAll(actualEvent.getLogsEvent());
+				 * 
+				 * } enrLog = FXCollections.observableArrayList(filterLogs);
+				 * listLogs.setItems(enrLog);
+				 */
+				filterLogs();
 
-					htmlTitle += "</tr>";
-					// Mostramos el gráfico
-					lineChart.getData().add(series);
-					htmlRow += "</tr>";
-					content += htmlRow;
-				}
 			}
 		});
 
@@ -241,8 +231,52 @@ public class MainController implements Initializable {
 		dataUserLoger();
 	}
 
+	private void filterLogs() {
+		ObservableList<model.Event> selectedEvents = listEvents.getSelectionModel().getSelectedItems();
+		ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel().getSelectedItems();
+		filterLogs.clear();
+
+		if (!selectedEvents.isEmpty()) {
+			for (model.Event actualEvent : selectedEvents) {
+				filterLogs.addAll(actualEvent.getLogsEvent());
+
+			}
+			if (!selectedParticipants.isEmpty()) {
+				boolean control = false;
+				ArrayList<Log> filterAux = new ArrayList<>();
+				filterAux.addAll(filterLogs);
+				for (Log actualLog : filterAux) {
+					for (EnrolledUser participant : selectedParticipants) {
+						if (actualLog.getUser().equals(participant)) {
+							control = true;
+						}
+					}
+					if (control == false) {
+						filterLogs.remove(actualLog);
+
+					}
+					control = false;
+				}
+			}
+
+		} else {
+			// TODO funciona bien si se selecciona solo usuario
+			for (EnrolledUser actualUser : selectedParticipants) {
+				for (Log actualLog : logs.getLogs()) {
+					if (actualLog.getUser().equals(actualUser)) {
+						filterLogs.add(actualLog);
+					}
+				}
+			}
+
+		}
+		enrLog = FXCollections.observableArrayList(filterLogs);
+		listLogs.setItems(enrLog);
+	}
+
 	/**
-	 * Establecemos los valores de los lavel que hacen referencia a los datos del usuario logeado.
+	 * Establecemos los valores de los lavel que hacen referencia a los datos
+	 * del usuario logeado.
 	 */
 	private void dataUserLoger() {
 		// Mostramos Usuario logeado
@@ -260,19 +294,28 @@ public class MainController implements Initializable {
 	 * tener interacciones en el.
 	 */
 	private void insertUserFicticios() {
-		users.add(new EnrolledUser("Administrador", 2));
-
-		users.add(new EnrolledUser("Invitado", 1));
-
-		users.add(new EnrolledUser("Sistema", 0));
-		users.add(new EnrolledUser("Desconocido", -1));
+		EnrolledUser userCreate = new EnrolledUser("Administrador", 2);
+		userCreate.setlastName("Administrador");
+		users.add(userCreate);
+		
+		userCreate = new EnrolledUser("Invitado", 1);
+		userCreate.setlastName("Invitado");
+		users.add(userCreate);
+		
+		userCreate = new EnrolledUser("Sistema", 0);
+		userCreate.setlastName("Sistema");
+		users.add(userCreate);
+		
+		userCreate = new EnrolledUser("Desconocido", -1);
+		userCreate.setlastName("Desconocido");
+		users.add(userCreate);
 	}
 
 	/**
 	 * 
 	 */
 	private void manejoGrupos() {
-		
+
 		EventHandler<ActionEvent> actionGroup = selectGroup();
 		// Cargamos una lista de los nombres de los grupos
 		ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
@@ -404,6 +447,7 @@ public class MainController implements Initializable {
 			boolean groupYes;
 			boolean patternYes;
 			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
+			//insertUserFicticios();
 			// Cargamos la lista de los roles
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
 			// Obtenemos los participantes que tienen el rol elegido
@@ -412,7 +456,7 @@ public class MainController implements Initializable {
 				roleYes = false;
 				ArrayList<Role> roles = users.get(i).getRoles();
 				// Si no tiene rol
-				if (roles.size() == 0 && filterRole.equals("Todos")) {
+				if ((roles == null || roles.size() == 0) && filterRole.equals("Todos")) {
 					roleYes = true;
 				} else {
 					for (int j = 0; j < roles.size(); j++) {
@@ -425,7 +469,7 @@ public class MainController implements Initializable {
 				// Filtrado por grupo:
 				groupYes = false;
 				ArrayList<Group> groups = users.get(i).getGroups();
-				if (groups.size() == 0 && filterGroup.equals("Todos")) {
+				if ((groups == null || groups.size() == 0 )&& filterGroup.equals("Todos")) {
 					groupYes = true;
 				} else {
 					for (int k = 0; k < groups.size(); k++) {
@@ -508,132 +552,109 @@ public class MainController implements Initializable {
 	 * 
 	 * @return manejador de eventos para las actividades
 	 */
-	/*private EventHandler<ActionEvent> selectNameActivity() {
-		return new EventHandler<ActionEvent>() {
-			/**
-			 * Recibe un evento (relacionado con un MenuItem) y responde en
-			 * consecuencia. El usuario elige un menuItem y filtra la lista de
-			 * participantes
-			 */
-			/*public void handle(ActionEvent event) {
-				// Obtenemos el item que se ha seleccionado
-				MenuItem mItem = (MenuItem) event.getSource();
-				// Obtenemos el valor (rol) para filtrar la lista de
-				// participantes
-				// filterType = mItem.getText();
-				// logger.info("-> Filtrando calificador por tipo: " +
-				// filterType);
-			//	filterCalifications();
-				// slcType.setText(filterType);
-			}
-		};
-	}
-
-	/**
-	 * Manejador de eventos para el textField de filtro de actividades.
+	/*
+	 * private EventHandler<ActionEvent> selectNameActivity() { return new
+	 * EventHandler<ActionEvent>() { /** Recibe un evento (relacionado con un
+	 * MenuItem) y responde en consecuencia. El usuario elige un menuItem y
+	 * filtra la lista de participantes
+	 */
+	/*
+	 * public void handle(ActionEvent event) { // Obtenemos el item que se ha
+	 * seleccionado MenuItem mItem = (MenuItem) event.getSource(); // Obtenemos
+	 * el valor (rol) para filtrar la lista de // participantes // filterType =
+	 * mItem.getText(); // logger.info("-> Filtrando calificador por tipo: " +
+	 * // filterType); // filterCalifications(); // slcType.setText(filterType);
+	 * } }; }
+	 * 
+	 * /** Manejador de eventos para el textField de filtro de actividades.
 	 * 
 	 * @return manejador de eventos para el patrón de filtro de actividades
 	 */
-	/*public EventHandler<ActionEvent> inputCalification() {
-		return new EventHandler<ActionEvent>() {
-			/**
-			 * Recibe un evento (relacionado con un TreeItem) y responde en
-			 * consecuencia. El usuario elige un menuItem y filtra la lista de
-			 * participantes
-			 */
-		/*	public void handle(ActionEvent event) {
-				patternCalifications = tfdItems.getText();
-				logger.info("-> Filtrando calificador por nombre: " + patternCalifications);
-				filterCalifications();
-			}
-		};
-	}*/
+	/*
+	 * public EventHandler<ActionEvent> inputCalification() { return new
+	 * EventHandler<ActionEvent>() { /** Recibe un evento (relacionado con un
+	 * TreeItem) y responde en consecuencia. El usuario elige un menuItem y
+	 * filtra la lista de participantes
+	 */
+	/*
+	 * public void handle(ActionEvent event) { patternCalifications =
+	 * tfdItems.getText(); logger.info("-> Filtrando calificador por nombre: " +
+	 * patternCalifications); filterCalifications(); } }; }
+	 */
 
 	/**
 	 * Filtra la lista de actividades del calificador según el tipo y el patrón
 	 * introducidos.
 	 */
-	/*public void filterCalifications() {
-		try {
-			clearData();
-			ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>) UBULog.session.getActualCourse()
-					.getGradeReportLines();
-			// Establecemos la raiz del Treeview
-			TreeItem<GradeReportLine> root = new TreeItem<GradeReportLine>(grcl.get(0));
-			MainController.setIcon(root);
-			// Llamamos recursivamente para llenar el Treeview
-			/*
-			 * if (filterType.equals("Todos") &&
-			 * patternCalifications.equals("")) { // Sin filtro y sin patrón for
-			 * (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
-			 * TreeItem<GradeReportLine> item = new
-			 * TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
-			 * MainController.setIcon(item); root.getChildren().add(item);
-			 * root.setExpanded(true); setTreeview(item,
-			 * grcl.get(0).getChildren().get(k)); } } else { // Con filtro for
-			 * (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
-			 * TreeItem<GradeReportLine> item = new
-			 * TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
-			 * boolean activityYes = false; if
-			 * (grcl.get(0).getChildren().get(k).getNameType().equals(
-			 * filterType) || filterType.equals("Todos")) { activityYes = true;
-			 * } Pattern pattern = Pattern.compile(patternCalifications); //
-			 * logger.info(grcl.get(0).getChildren().get(k).getName()); Matcher
-			 * match =
-			 * pattern.matcher(grcl.get(0).getChildren().get(k).getName());
-			 * boolean patternYes = false; if (patternCalifications.equals("")
-			 * || match.find()) { patternYes = true; } if (activityYes &&
-			 * patternYes) { MainController.setIcon(item);
-			 * root.getChildren().add(item); } root.setExpanded(true);
-			 * setTreeviewFilter(root, item, grcl.get(0).getChildren().get(k));
-			 * } }
-			 */
-			// Establecemos la raiz del treeview
-			// tvwGradeReport.setRoot(root);
-		/*} catch (Exception e) {
-			e.printStackTrace();
-		}
-		listParticipants.setItems(enrList);
-	}
-
-	/**
-	 * Crea un árbol filtrado en el que los hijos del root(raíz) son elementos
-	 * de cualquier nivel que cumplen el filtro
+	/*
+	 * public void filterCalifications() { try { clearData();
+	 * ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>)
+	 * UBULog.session.getActualCourse() .getGradeReportLines(); // Establecemos
+	 * la raiz del Treeview TreeItem<GradeReportLine> root = new
+	 * TreeItem<GradeReportLine>(grcl.get(0)); MainController.setIcon(root); //
+	 * Llamamos recursivamente para llenar el Treeview /* if
+	 * (filterType.equals("Todos") && patternCalifications.equals("")) { // Sin
+	 * filtro y sin patrón for (int k = 0; k < grcl.get(0).getChildren().size();
+	 * k++) { TreeItem<GradeReportLine> item = new
+	 * TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
+	 * MainController.setIcon(item); root.getChildren().add(item);
+	 * root.setExpanded(true); setTreeview(item,
+	 * grcl.get(0).getChildren().get(k)); } } else { // Con filtro for (int k =
+	 * 0; k < grcl.get(0).getChildren().size(); k++) { TreeItem<GradeReportLine>
+	 * item = new TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
+	 * boolean activityYes = false; if
+	 * (grcl.get(0).getChildren().get(k).getNameType().equals( filterType) ||
+	 * filterType.equals("Todos")) { activityYes = true; } Pattern pattern =
+	 * Pattern.compile(patternCalifications); //
+	 * logger.info(grcl.get(0).getChildren().get(k).getName()); Matcher match =
+	 * pattern.matcher(grcl.get(0).getChildren().get(k).getName()); boolean
+	 * patternYes = false; if (patternCalifications.equals("") || match.find())
+	 * { patternYes = true; } if (activityYes && patternYes) {
+	 * MainController.setIcon(item); root.getChildren().add(item); }
+	 * root.setExpanded(true); setTreeviewFilter(root, item,
+	 * grcl.get(0).getChildren().get(k)); } }
+	 */
+	// Establecemos la raiz del treeview
+	// tvwGradeReport.setRoot(root);
+	/*
+	 * } catch (Exception e) { e.printStackTrace(); }
+	 * listParticipants.setItems(enrList); }
+	 * 
+	 * /** Crea un árbol filtrado en el que los hijos del root(raíz) son
+	 * elementos de cualquier nivel que cumplen el filtro
 	 * 
 	 * @param root
+	 * 
 	 * @param parent
+	 * 
 	 * @param line
 	 */
-	/*public void setTreeviewFilter(TreeItem<GradeReportLine> root, TreeItem<GradeReportLine> parent,
-			GradeReportLine line) {
-		/*
-		 * Obtiene los hijos de la linea pasada por parametro Los transforma en
-		 * treeitems y los establece como hijos del elemento treeItem
-		 * equivalente de line
-		 */
-		/*for (int j = 0; j < line.getChildren().size(); j++) {
-			TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(line.getChildren().get(j));
-			boolean activityYes = false;
-			/*
-			 * if (line.getChildren().get(j).getNameType().equals(filterType) ||
-			 * filterType.equals("Todos")) { activityYes = true; }
-			 */
-			/*Pattern pattern = Pattern.compile(patternCalifications);
-			Matcher match = pattern.matcher(line.getChildren().get(j).getName());
-			boolean patternYes = false;
-			if (patternCalifications.equals("") || match.find()) {
-				patternYes = true;
-			}
-			if (activityYes && patternYes) {
-				MainController.setIcon(item);
-				root.getChildren().add(item);
-			}
-
-			parent.setExpanded(true);
-			setTreeviewFilter(root, item, line.getChildren().get(j));
-		}
-
-	}*/
+	/*
+	 * public void setTreeviewFilter(TreeItem<GradeReportLine> root,
+	 * TreeItem<GradeReportLine> parent, GradeReportLine line) { /* Obtiene los
+	 * hijos de la linea pasada por parametro Los transforma en treeitems y los
+	 * establece como hijos del elemento treeItem equivalente de line
+	 */
+	/*
+	 * for (int j = 0; j < line.getChildren().size(); j++) {
+	 * TreeItem<GradeReportLine> item = new
+	 * TreeItem<GradeReportLine>(line.getChildren().get(j)); boolean activityYes
+	 * = false; /* if
+	 * (line.getChildren().get(j).getNameType().equals(filterType) ||
+	 * filterType.equals("Todos")) { activityYes = true; }
+	 */
+	/*
+	 * Pattern pattern = Pattern.compile(patternCalifications); Matcher match =
+	 * pattern.matcher(line.getChildren().get(j).getName()); boolean patternYes
+	 * = false; if (patternCalifications.equals("") || match.find()) {
+	 * patternYes = true; } if (activityYes && patternYes) {
+	 * MainController.setIcon(item); root.getChildren().add(item); }
+	 * 
+	 * parent.setExpanded(true); setTreeviewFilter(root, item,
+	 * line.getChildren().get(j)); }
+	 * 
+	 * }
+	 */
 
 	/**
 	 * Cambia la asignatura actual y carga otra
@@ -748,11 +769,13 @@ public class MainController implements Initializable {
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		listParticipants.getSelectionModel().clearSelection();
 		listEvents.getSelectionModel().clearSelection();
-		
-		//TODO asi recupero el log completo, quizas no haga falta ya que al filtrar lo tengo que comprobar con el completo siempre.
+		filterLogs.clear();
+
+		// TODO asi recupero el log completo, quizas no haga falta ya que al
+		// filtrar lo tengo que comprobar con el completo siempre.resistac
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 		listLogs.setItems(enrLog);
-		
+
 		clearData();
 	}
 
@@ -818,24 +841,17 @@ public class MainController implements Initializable {
 	 */
 	private void initializeDataSet(CsvParser logs) {
 
-		ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
-
-		////////////////////////////////////////////////////////
-		// Añadimos todos los participantes a la lista de visualización
-		/*
-		 * for (int j = 0; j < users.size(); j++) { nameUsers.add(users.get(j));
-		 * }
-		 */
+		// dejamos seleccionar participantes
+		listParticipants.setDisable(false);
 		// Activamos la selección múltiple en la lista de participantes y
 		// eventos
+
 		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		/// Mostramos la lista de participantes y eventos
-		enrList = FXCollections.observableArrayList(users);
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
 
-		listParticipants.setItems(enrList);
 		listLogs.setItems(enrLog);
 		// TODO vienen desordenados
 		listEvents.setItems(eventList);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -118,7 +119,7 @@
                   </GridPane>
                   <AnchorPane GridPane.rowIndex="1">
                      <children>
-                        <ListView fx:id="listParticipants" layoutY="14.0" prefWidth="300.0" styleClass="list-view-main" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="listParticipants" disable="true" layoutY="14.0" prefWidth="300.0" styleClass="list-view-main" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -153,6 +154,9 @@
                </rowConstraints>
             </GridPane>
          </children>
+         <padding>
+            <Insets left="8.0" />
+         </padding>
       </GridPane>
    </left>
    <bottom>
