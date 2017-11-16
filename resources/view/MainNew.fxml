@@ -129,7 +129,7 @@
                   <GridPane>
                      <children>
                         <Label prefHeight="15.0" prefWidth="120.0" styleClass="label-lists" stylesheets="@../css/style.css" text="Eventos" />
-                        <TextField fx:id="tfdItems" styleClass="text-field-main" stylesheets="@../css/style.css" text="Filtro..." GridPane.rowIndex="1" />
+                        <TextField fx:id="tfdEvents" styleClass="text-field-main" stylesheets="@../css/style.css" text="Filtro..." GridPane.rowIndex="1" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
