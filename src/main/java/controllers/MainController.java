@@ -34,7 +34,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -49,6 +48,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -58,8 +59,9 @@ import model.Group;
 import model.Log;
 import model.Role;
 import parserdocument.CsvParser;
-import parserdocument.DocumentParser;
 import webservice.CourseWS;
+
+
 
 /**
  * Clase controlador de la ventana principal
@@ -119,6 +121,10 @@ public class MainController implements Initializable {
 
 	@FXML // Gráfico
 	private LineChart<String, Number> lineChart;
+	
+	@FXML // chart
+	private WebView chart;
+	private WebEngine engine;
 
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
@@ -134,6 +140,9 @@ public class MainController implements Initializable {
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
 
+			engine = chart.getEngine();
+			System.err.println(getClass().getResource("/chart/index.html"));
+			engine.loadContent(new Chart().toString());
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
@@ -200,6 +201,7 @@
                                     <NumberAxis side="LEFT" />
                                  </yAxis>
                               </LineChart>
+                              <WebView fx:id="chart" prefHeight="484.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </content>
