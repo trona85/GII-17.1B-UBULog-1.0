@@ -163,7 +163,7 @@
    <bottom>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="239.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="239.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="201.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -175,6 +175,7 @@
             <Button fx:id="btnExport" mnemonicParsing="false" onAction="#saveChart" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Exportar gráfico" GridPane.columnIndex="1" />
             <Button fx:id="btncarga" layoutX="160.0" layoutY="13.0" mnemonicParsing="false" onAction="#cargaDocumento" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Cargar documento" GridPane.columnIndex="2" />
             <Button fx:id="btnExit" layoutX="310.0" layoutY="13.0" mnemonicParsing="false" onAction="#closeApplication" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Salir" GridPane.columnIndex="3" />
+            <Button fx:id="btnchart" layoutX="303.0" layoutY="13.0" mnemonicParsing="false" onAction="#generateChart" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Generar grafica" />
          </children>
       </GridPane>
    </bottom>
@@ -193,14 +194,6 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <LineChart fx:id="lineChart" layoutX="-65.0" layoutY="-62.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </LineChart>
                               <WebView fx:id="chart" prefHeight="484.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>

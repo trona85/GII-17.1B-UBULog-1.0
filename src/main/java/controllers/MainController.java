@@ -36,6 +36,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -60,8 +61,6 @@ import model.Log;
 import model.Role;
 import parserdocument.CsvParser;
 import webservice.CourseWS;
-
-
 
 /**
  * Clase controlador de la ventana principal
@@ -111,6 +110,8 @@ public class MainController implements Initializable {
 	public TextField tfdParticipants;
 	String patternParticipants = "";
 
+	@FXML // Entrada de filtro de usuarios por patrón
+	public  Button btnchart;
 	// @FXML // Vista en árbol de actividades
 	// public TreeView<GradeReportLine> tvwGradeReport;
 	// ArrayList<GradeReportLine> gradeReportList;
@@ -121,7 +122,7 @@ public class MainController implements Initializable {
 
 	@FXML // Gráfico
 	private LineChart<String, Number> lineChart;
-	
+
 	@FXML // chart
 	private WebView chart;
 	private WebEngine engine;
@@ -139,7 +140,7 @@ public class MainController implements Initializable {
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
-
+			btnchart.setDisable(true);
 			engine = chart.getEngine();
 			System.err.println(getClass().getResource("/chart/index.html"));
 			engine.loadContent(new Chart().toString());
@@ -679,6 +680,19 @@ public class MainController implements Initializable {
 	}
 
 	/**
+	 * @param actionEvent
+	 * @throws Exception
+	 */
+	public void generateChart(ActionEvent actionEvent) throws Exception {
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * 
 	 */
 	public void saveTable(ActionEvent actionEvent) throws Exception {
@@ -808,6 +822,7 @@ public class MainController implements Initializable {
 
 		// dejamos seleccionar participantes
 		listParticipants.setDisable(false);
+		btnchart.setDisable(false);
 		// Activamos la selección múltiple en la lista de participantes y
 		// eventos
 
