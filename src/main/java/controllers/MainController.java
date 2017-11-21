@@ -54,6 +54,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Chart;
 import model.EnrolledUser;
 import model.GradeReportLine;
 import model.Group;
@@ -130,6 +131,7 @@ public class MainController implements Initializable {
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
 	private ArrayList<Log> filterLogs;
+	private Chart viewchart;
 
 	/**
 	 * Muestra los usuarios matriculados en el curso, así como las actividades
@@ -140,10 +142,13 @@ public class MainController implements Initializable {
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
+			
+			viewchart = new Chart();
 			btnchart.setDisable(true);
+			
 			engine = chart.getEngine();
-			System.err.println(getClass().getResource("/chart/index.html"));
-			engine.loadContent(new Chart().toString());
+			
+			viewChart();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 
@@ -247,10 +252,21 @@ public class MainController implements Initializable {
 		dataUserLoger();
 	}
 
+	/**
+	 * 
+	 */
+	private void viewChart() {
+		System.err.println(getClass().getResource("/chart/index.html"));
+		engine.loadContent(viewchart.toString());
+	}
+
 	private void filterLogs() {
 		ObservableList<model.Event> selectedEvents = listEvents.getSelectionModel().getSelectedItems();
 		ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel().getSelectedItems();
+		
 		filterLogs.clear();
+		viewchart.getLabel().clear();
+		
 
 		if (!selectedEvents.isEmpty()) {
 			for (model.Event actualEvent : selectedEvents) {
@@ -286,6 +302,8 @@ public class MainController implements Initializable {
 			}
 
 		}
+		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
+		
 		enrLog = FXCollections.observableArrayList(filterLogs);
 		listLogs.setItems(enrLog);
 	}
@@ -759,7 +777,8 @@ public class MainController implements Initializable {
 	}
 
 	public void clearData() {
-		lineChart.getData().clear();
+		// TODO eliminar referencias. no existe linechart
+		//lineChart.getData().clear();
 	}
 
 	/**
@@ -798,6 +817,9 @@ public class MainController implements Initializable {
 						logs.getLogs().get(i).setUser(users.get(j));
 						break;
 					}
+					// TODO comprovar meses con una cifra
+					System.err.println(logs.getLogs().get(i).getDate().substring(3, 5) + "\n");
+					viewchart.setDate(logs.getLogs().get(i).getDate().substring(3, 5));
 				}
 			}
 
