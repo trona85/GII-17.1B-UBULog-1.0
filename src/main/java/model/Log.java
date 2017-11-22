@@ -5,6 +5,8 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Clase para generar cada tipo de log.
@@ -14,7 +16,7 @@ import java.text.SimpleDateFormat;
  * @version 1.0
  */
 public class Log {
-	private String date;
+	private Calendar date;
 	private String nameUser;
 	private String userAffected;
 	private String context;
@@ -28,11 +30,13 @@ public class Log {
 
 	public Log(String[] fields) {
 		if (fields.length > 0) {
-			// TODO problemas con formateo de fecha dara igual asi?????
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy H:m");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 			try {
-				// System.out.println(formatter.format(formatter.parse(fields[0])).toString());
-				this.setDate(formatter.format(formatter.parse(fields[0])));
+				String [] fecha =  formatter.format(formatter.parse(fields[0])).split("/");
+				date = GregorianCalendar.getInstance();
+				date.set(Integer.parseInt(fecha[2])+ 2000, Integer.parseInt(fecha[1])-1, Integer.parseInt(fecha[0]));
+				//System.err.println(date.get(date.YEAR));
+				this.setDate(date);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -51,8 +55,6 @@ public class Log {
 			}else{
 				setIdUser(-1);
 			}
-			// TODO hacer funcion para filtrar los campos descripcion, se
-			// necesitara un switch
 
 		}
 
@@ -71,11 +73,11 @@ public class Log {
 				+ getOrigin() + "\n ip: " + getIp() + "\n usuario: " + getUser();
 	}
 
-	public String getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(String string) {
+	public void setDate(Calendar string) {
 		this.date = string;
 	}
 

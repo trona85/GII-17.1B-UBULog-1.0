@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -147,6 +148,7 @@ public class MainController implements Initializable {
 			btnchart.setDisable(true);
 			
 			engine = chart.getEngine();
+			viewchart.generarGrafica();
 			
 			viewChart();
 			// Establecemos los usuarios matriculados
@@ -256,8 +258,7 @@ public class MainController implements Initializable {
 	 * 
 	 */
 	private void viewChart() {
-		System.err.println(getClass().getResource("/chart/index.html"));
-		engine.loadContent(viewchart.toString());
+		engine.load(getClass().getResource("/chart/html/chart.html").toString());
 	}
 
 	private void filterLogs() {
@@ -303,6 +304,7 @@ public class MainController implements Initializable {
 
 		}
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
+		viewchart.generarGrafica();
 		
 		enrLog = FXCollections.observableArrayList(filterLogs);
 		listLogs.setItems(enrLog);
@@ -817,9 +819,9 @@ public class MainController implements Initializable {
 						logs.getLogs().get(i).setUser(users.get(j));
 						break;
 					}
-					// TODO comprovar meses con una cifra
-					System.err.println(logs.getLogs().get(i).getDate().substring(3, 5) + "\n");
-					viewchart.setDate(logs.getLogs().get(i).getDate().substring(3, 5));
+					// TODO comprobar meses con una cifra
+					//System.err.println(logs.getLogs().get(i).getDate().substring(3, 5) + "\n");
+					viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
 				}
 			}
 
