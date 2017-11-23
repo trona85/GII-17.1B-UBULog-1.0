@@ -149,6 +149,7 @@ public class MainController implements Initializable {
 			
 			engine = chart.getEngine();
 			viewchart.generarGrafica();
+			engine.reload();
 			
 			viewChart();
 			// Establecemos los usuarios matriculados
@@ -305,6 +306,7 @@ public class MainController implements Initializable {
 		}
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
 		viewchart.generarGrafica();
+		engine.reload();
 		
 		enrLog = FXCollections.observableArrayList(filterLogs);
 		listLogs.setItems(enrLog);

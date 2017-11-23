@@ -3,6 +3,7 @@ package model;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javafx.collections.ObservableList;
@@ -12,7 +13,8 @@ public class Chart {
 	private ArrayList<String> dates;
 	private HashMap<String, ArrayList<Integer>> label;
 	private String javaScriptChart;
-	private final String[] MONTH = {"Enero", "Febrero","Marzo","Abril", "Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+	private final String[] MONTH = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+			"Septiembre", "Octubre", "Noviembre", "Diciembre" };
 
 	// TODO para generar los graficos, construiremos los html correspondientes
 
@@ -27,9 +29,9 @@ public class Chart {
 
 	public void setDate(int month) {
 		// Calenddar los meses los cuenta desde 0
-		if(dates.contains(MONTH[month])){
+		if (dates.contains(MONTH[month])) {
 			return;
-		}else{
+		} else {
 			dates.add(MONTH[month]);
 		}
 	}
@@ -51,20 +53,24 @@ public class Chart {
 	 */
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
 			ArrayList<Log> filterLogs) {
-		// TODO falta contar por meses o semanas si se hace.
 		int cont = 0;
 
 		if (selectedEvents.isEmpty()) {
 			for (EnrolledUser participant : selectedParticipants) {
 				ArrayList<Integer> cantidad = new ArrayList<>();
-				for (Log log : filterLogs) {
-					if (log.getUser().getFullName().equals(participant.toString())) {
-						cont += 1;
+				for (int i = 0; i < dates.size(); i++) {
+					for (Log log : filterLogs) {
+						System.err.println(MONTH[log.getDate().get(Calendar.MONTH)]);
+						if (log.getUser().getFullName().equals(participant.toString())
+								&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
+							cont += 1;
+						}
 					}
+					cantidad.add(cont);
+					cont = 0;
+					this.label.put("evento " + participant.getFullName(), cantidad);
+
 				}
-				cantidad.add(cont);
-				cont = 0;
-				this.label.put("evento " + participant.getFullName(), cantidad);
 
 			}
 		} else {
@@ -72,29 +78,37 @@ public class Chart {
 
 				for (Event event : selectedEvents) {
 					ArrayList<Integer> cantidad = new ArrayList<>();
-					for (Log log : filterLogs) {
-						if (log.getEvent().equals(event.toString())) {
-							cont += 1;
+					for (int i = 0; i < dates.size(); i++) {
+						for (Log log : filterLogs) {
+							if (log.getEvent().equals(event.toString())
+									&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
+								cont += 1;
+							}
 						}
+						cantidad.add(cont);
+						cont = 0;
+						this.label.put("evento " + event.getNameEvent(), cantidad);
+
 					}
-					cantidad.add(cont);
-					cont = 0;
-					this.label.put("evento " + event.getNameEvent(), cantidad);
 
 				}
 			} else {
 				for (EnrolledUser participant : selectedParticipants) {
 					for (Event event : selectedEvents) {
 						ArrayList<Integer> cantidad = new ArrayList<>();
-						for (Log log : filterLogs) {
-							if (log.getEvent().equals(event.toString())
-									&& log.getUser().getFullName().equals(participant.toString())) {
-								cont += 1;
+						for (int i = 0; i < dates.size(); i++) {
+							for (Log log : filterLogs) {
+								if (log.getEvent().equals(event.toString())
+										&& log.getUser().getFullName().equals(participant.toString())
+										&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
+									cont += 1;
+								}
 							}
+							cantidad.add(cont);
+							cont = 0;
+							this.label.put(participant.getFullName() + " en evento " + event.getNameEvent(), cantidad);
+
 						}
-						cantidad.add(cont);
-						cont = 0;
-						this.label.put(participant.getFullName() + " en evento " + event.getNameEvent(), cantidad);
 
 					}
 				}
@@ -113,59 +127,60 @@ public class Chart {
 		try {
 			ficheroJS = new FileWriter("bin/chart/js/Chart.js");
 			pw = new PrintWriter(ficheroJS);
-			pw.println("var MONTHS = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];");
+			pw.println(
+					"var MONTHS = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];");
 
 			pw.println("var color = Chart.helpers.color;");
 			pw.println("var barChartData = {");
-			// Fechas 
-			
+			// Fechas
+
 			pw.print("\tlabels: [");
-			for (int i = 0; i < dates.size(); i++) {
+			for (int i = dates.size(); i > 0 ; i--) {
 				if (dates.size() != i + 1) {
-					pw.print("\"" +dates.get(i) + "\",");
-					
+					pw.print("\"" + dates.get(i -1) + "\",");
+
 				} else {
-					pw.print("\"" +dates.get(i) + "\"");
+					pw.print("\"" + dates.get(i -1) + "\"");
 				}
-				
+
 			}
 			pw.println("],");
 			pw.print("\t\tdatasets: [");
 			// Valores de los datos
-			
+
 			int tam = label.size();
 			int cont = 0;
-			for (String dataset : label.keySet()){
+			for (String dataset : label.keySet()) {
 				pw.println("{");
 				pw.print("\t\t\tlabel:");
-				pw.println("'"+ dataset + "',");
-				
+				pw.println("'" + dataset + "',");
+
 				pw.println("\t\t\tbackgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),");
 				pw.println("\t\t\tborderColor: window.chartColors.red,");
 				pw.println("\t\t\tborderWidth: 1,");
-				
+
 				pw.println("\t\t\tdata: [");
-				for (int i = 0; i < label.get(dataset).size(); i++) {
-					if (label.get(dataset).size() != i +1) {
-						pw.println("\t\t\t\t"+ label.get(dataset).get(i) + ",");
-						
+				for (int i = label.get(dataset).size(); i > 0; i--) {
+					if (label.get(dataset).size() != i + 1) {
+						pw.println("\t\t\t\t" + label.get(dataset).get(i -1) + ",");
+
 					} else {
-						pw.println("\t\t\t\t"+label.get(dataset).get(i));
+						pw.println("\t\t\t\t" + label.get(dataset).get(i -1));
 					}
-					
+
 				}
 				cont++;
 				pw.println("\t\t\t]");
-				if (cont != tam){
+				if (cont != tam) {
 					pw.print("\t\t},");
-					
-				}else{
+
+				} else {
 					pw.print("\t\t}");
 				}
 			}
 			pw.println("\t]");
 			pw.println("};");
-			
+
 			pw.println("window.onload = function() {");
 			pw.println("\tvar ctx = document.getElementById(\"canvas\").getContext(\"2d\");");
 			pw.println("\twindow.myBar = new Chart(ctx, {");
@@ -183,9 +198,6 @@ public class Chart {
 			pw.println("\t\t}");
 			pw.println("\t});");
 			pw.println("};");
-			
-			//pw.println("}]");
-			//pw.println("]");
 
 		} catch (Exception e) {
 			e.printStackTrace();
