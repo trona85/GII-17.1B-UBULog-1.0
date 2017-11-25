@@ -60,7 +60,6 @@ public class Chart {
 				ArrayList<Integer> cantidad = new ArrayList<>();
 				for (int i = 0; i < dates.size(); i++) {
 					for (Log log : filterLogs) {
-						System.err.println(MONTH[log.getDate().get(Calendar.MONTH)]);
 						if (log.getUser().getFullName().equals(participant.toString())
 								&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
 							cont += 1;
@@ -129,7 +128,7 @@ public class Chart {
 			pw = new PrintWriter(ficheroJS);
 			pw.println(
 					"var MONTHS = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];");
-
+			pw.println("var colorNames = Object.keys(window.chartColors);");
 			pw.println("var color = Chart.helpers.color;");
 			pw.println("var barChartData = {");
 			// Fechas
@@ -155,7 +154,7 @@ public class Chart {
 				pw.print("\t\t\tlabel:");
 				pw.println("'" + dataset + "',");
 
-				pw.println("\t\t\tbackgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),");
+				pw.println("\t\t\tbackgroundColor: color(window.chartColors[colorDataSet(" +cont+ ")]).alpha(0.5).rgbString(),");
 				pw.println("\t\t\tborderColor: window.chartColors.red,");
 				pw.println("\t\t\tborderWidth: 1,");
 
@@ -198,6 +197,11 @@ public class Chart {
 			pw.println("\t\t}");
 			pw.println("\t});");
 			pw.println("};");
+			
+			pw.println("function colorDataSet( num){");
+			pw.println("\treturn colorNames[num % colorNames.length];");
+			pw.println("};");
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
