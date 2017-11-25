@@ -5,7 +5,6 @@ package controllers;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,8 +13,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +20,6 @@ import UBULogException.UBULogError;
 import UBULogException.UBULogException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -33,8 +29,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -48,7 +42,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -122,8 +115,8 @@ public class MainController implements Initializable {
 	public TextField tfdEvents;
 	String patternEvents = "";
 
-	@FXML // Gráfico
-	private LineChart<String, Number> lineChart;
+	//@FXML // Gráfico
+	//private LineChart<String, Number> lineChart;
 
 	@FXML // chart
 	private WebView chart;
@@ -154,12 +147,6 @@ public class MainController implements Initializable {
 			viewChart();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
-
-			// Establecemos calificador del curso
-			// TODO quitando esto no abre la aplicación.
-			CourseWS.setGradeReportLines(UBULog.session.getToken(),
-					UBULog.session.getActualCourse().getEnrolledUsers().get(0).getId(),
-					UBULog.session.getActualCourse());
 
 			// Almacenamos todos los participantes en una lista
 			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
@@ -195,20 +182,8 @@ public class MainController implements Initializable {
 		// Al clickar en la lista, se recalcula el número de elementos
 		// seleccionados de participantes.
 		listParticipants.setOnMouseClicked(new EventHandler<Event>() {
-			// Manejador que llama a la función de mostrar gráfico
 			@Override
-			public void handle(Event event) { // (1er click en participantes)
-				/*
-				 * ObservableList<EnrolledUser> selectedParticipants =
-				 * listParticipants.getSelectionModel() .getSelectedItems();
-				 * filterLogs.clear(); // Al seleccionar un participante
-				 * reiniciamos el gráfico for (EnrolledUser actualUser :
-				 * selectedParticipants) { for (Log actualLog : logs.getLogs())
-				 * { if (actualLog.getUser().equals(actualUser)) {
-				 * filterLogs.add(actualLog); } } } enrLog =
-				 * FXCollections.observableArrayList(filterLogs);
-				 * listLogs.setItems(enrLog);
-				 */
+			public void handle(Event event) { 
 				filterLogs();
 
 			}
@@ -218,39 +193,13 @@ public class MainController implements Initializable {
 		// Al clickar en la lista, se recalcula el número de elementos
 		// seleccionados de eventos.
 		listEvents.setOnMouseClicked(new EventHandler<Event>() {
-			// Manejador que llama a la función de mostrar gráfico
 			@Override
-			public void handle(Event event) { // (1er click en participantes)
-				/*
-				 * ObservableList<model.Event> selectedEvents =
-				 * listEvents.getSelectionModel().getSelectedItems();
-				 * filterLogs.clear(); // Al seleccionar un participante
-				 * reiniciamos el gráfico for (model.Event actualEvent :
-				 * selectedEvents) {
-				 * filterLogs.addAll(actualEvent.getLogsEvent());
-				 * 
-				 * } enrLog = FXCollections.observableArrayList(filterLogs);
-				 * listLogs.setItems(enrLog);
-				 */
+			public void handle(Event event) { 
+				
 				filterLogs();
 
 			}
 		});
-
-		// Establecemos la estructura en árbol del calificador
-		ArrayList<GradeReportLine> grcl = (ArrayList<GradeReportLine>) UBULog.session.getActualCourse()
-				.getGradeReportLines();
-		// Establecemos la raiz del Treeview
-		TreeItem<GradeReportLine> root = new TreeItem<GradeReportLine>(grcl.get(0));
-		MainController.setIcon(root);
-		// Llamamos recursivamente para llenar el Treeview
-		for (int k = 0; k < grcl.get(0).getChildren().size(); k++) {
-			TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(grcl.get(0).getChildren().get(k));
-			MainController.setIcon(item);
-			root.getChildren().add(item);
-			root.setExpanded(true);
-			setTreeview(item, grcl.get(0).getChildren().get(k));
-		}
 
 		dataUserLoger();
 	}
@@ -294,7 +243,6 @@ public class MainController implements Initializable {
 			}
 
 		} else {
-			// TODO funciona bien si se selecciona solo usuario
 			for (EnrolledUser actualUser : selectedParticipants) {
 				for (Log actualLog : logs.getLogs()) {
 					if (actualLog.getUser().equals(actualUser)) {
@@ -480,7 +428,6 @@ public class MainController implements Initializable {
 	 */
 	public void filterParticipants() {
 		try {
-			clearData();
 			boolean roleYes;
 			boolean groupYes;
 			boolean patternYes;
@@ -569,7 +516,6 @@ public class MainController implements Initializable {
 	 */
 	public void filterEvents() {
 		try {
-			clearData();
 			boolean patternYes;
 			ArrayList<model.Event> filterevents = new ArrayList<>();
 			eventList = FXCollections.observableArrayList(logs.getEvents().values());
@@ -623,7 +569,7 @@ public class MainController implements Initializable {
 	 * @param item
 	 */
 	public static void setIcon(TreeItem<GradeReportLine> item) {
-		// logger.info(item.getValue().getNameType());
+		//TODO igual me vale para algo, si no quitar
 		switch (item.getValue().getNameType()) {
 		case "Assignment":
 			item.setGraphic((Node) new ImageView(new Image("/img/assignment.png")));
@@ -676,7 +622,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void saveChart(ActionEvent actionEvent) throws Exception {
-		WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
+		/*WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
 
 		File file = new File("chart.png");
 
@@ -698,7 +644,7 @@ public class MainController implements Initializable {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
@@ -719,7 +665,7 @@ public class MainController implements Initializable {
 	 */
 	public void saveTable(ActionEvent actionEvent) throws Exception {
 
-		// TODO Arreglar para exportar el log resultante si se quiere.
+		// TODO revisar en java fx antes de eliminar.
 		/*
 		 * WritableImage image = webView.snapshot(new SnapshotParameters(),
 		 * null);
@@ -776,14 +722,9 @@ public class MainController implements Initializable {
 		// filtrar lo tengo que comprobar con el completo siempre.resistac
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 		listLogs.setItems(enrLog);
-
-		clearData();
 	}
 
-	public void clearData() {
-		// TODO eliminar referencias. no existe linechart
-		//lineChart.getData().clear();
-	}
+	
 
 	/**
 	 * Abre en el navegador el repositorio del proyecto.
@@ -821,8 +762,7 @@ public class MainController implements Initializable {
 						logs.getLogs().get(i).setUser(users.get(j));
 						break;
 					}
-					// TODO comprobar meses con una cifra
-					//System.err.println(logs.getLogs().get(i).getDate().substring(3, 5) + "\n");
+
 					viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
 				}
 			}
