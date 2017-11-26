@@ -8,6 +8,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -107,16 +108,10 @@ public class MainController implements Initializable {
 
 	@FXML // Entrada de filtro de usuarios por patrón
 	public  Button btnchart;
-	// @FXML // Vista en árbol de actividades
-	// public TreeView<GradeReportLine> tvwGradeReport;
-	// ArrayList<GradeReportLine> gradeReportList;
 
 	@FXML // Entrada de filtro de actividades por patrón
 	public TextField tfdEvents;
 	String patternEvents = "";
-
-	//@FXML // Gráfico
-	//private LineChart<String, Number> lineChart;
 
 	@FXML // chart
 	private WebView chart;
@@ -149,7 +144,7 @@ public class MainController implements Initializable {
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 
 			// Almacenamos todos los participantes en una lista
-			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
+			users = UBULog.session.getActualCourse().getEnrolledUsers();
 
 			// insertamos los usuarios ficticios.
 			insertUserFicticios();
@@ -796,8 +791,9 @@ public class MainController implements Initializable {
 		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		/// Mostramos la lista de participantes y eventos
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
+		
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
-
+		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
 		listLogs.setItems(enrLog);
 		// TODO vienen desordenados
 		listEvents.setItems(eventList);
