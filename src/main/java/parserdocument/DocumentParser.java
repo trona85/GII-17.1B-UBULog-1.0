@@ -6,7 +6,7 @@ package parserdocument;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import UBULogException.UBULogException;
+import UBULogPersonalException.UBULogException;
 import model.Event;
 import model.Log;
 
@@ -17,78 +17,65 @@ import model.Log;
  * @version 1.0
  */
 public abstract class DocumentParser implements IDocumentParser {
-
+	/**
+	 * Ruta del fichero
+	 */
 	private String file;
-	private String extension;
+	/**
+	 * Lista de logs.
+	 */
 	private ArrayList<Log> logs;
-	//private ArrayList<Log> logsFilter;
+	/**
+	 * 
+	 */
 	private HashMap<String,Event> events;
-// TODO create evento metodo con su clase tal....
+	/**
+	 * Constructor.
+	 */
 	public DocumentParser() {
 		logs = new ArrayList<Log>();
 		events =new HashMap<String,Event>();
-		//logsFilter = new ArrayList<Log>();
 	}
 	
 	public abstract void readDocument() throws UBULogException;
 	public abstract boolean isDocumentValid(String [] fields);
 
+	/**
+	 * devuelve la ruta del fichero.
+	 * @return file.
+	 */
 	public String getFile() {
 		return file;
 	}
+	/**
+	 * Asigna la ruta del fichero.
+	 * @param file, ruta del fichero.
+	 */
 
 	public void setFile(String file) {
 		this.file = file;
 	}
 
+	/**
+	 * Recoge los logs.
+	 * @return logs.
+	 */
 	public ArrayList<Log> getLogs() {
 		return logs;
 	}
 
+	/**
+	 * Añade un log.
+	 * @param log, log.
+	 */
 	public void setLogs( Log log) {
 		this.logs.add( log);
 	}
-	
-	/*public ArrayList<Log> getLogFilter() {
-		return logsFilter;
-	}
 
-	public void setLogFilter(ArrayList<Log> logsFilter) {
-		this.logsFilter = logsFilter;
-	}*/
-	
-	public void filter(String [] fields, String [] vals){
-		/*boolean comp=true;
-		int contador = 0;
-
-		for (int i = 0 ; i< logs.size() ; i++) {
-			for (int j = 0 ; j< fields.length ; j++) {
-				if(!logs.get(i).getLog().get( fields[j]).equals(vals[j])){
-					comp=false;
-				}
-			}
-			if(comp == true){
-				System.out.println(logs.get(i)+ "prueba");
-				logsFilter.put(contador, logs.get(i));
-				contador++;
-			}
-			comp=true;
-		}*/
-		/*for (int i = 0 ; i< logsFilter.size() ; i++) {
-			System.out.println(logsFilter.get(i) + "salida total"); //TODO
-			
-		}*/
-		
-	}
-
-	public String getExtension() {
-		return extension;
-	}
-
-	public void setExtension(String extension) {
-		this.extension = extension;
-	}
-
+	/**
+	 * Recoge los eventos diferentes que hay en el log.
+	 * @return events.
+	 */
 	public HashMap<String,Event> getEvents() {
 		return events;
 	}

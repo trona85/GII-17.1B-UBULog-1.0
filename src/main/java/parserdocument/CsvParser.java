@@ -7,11 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import UBULogException.UBULogError;
-import UBULogException.UBULogException;
+import UBULogPersonalException.UBULogError;
+import UBULogPersonalException.UBULogException;
 import model.Event;
 import model.Log;
 
@@ -25,13 +22,17 @@ import model.Log;
  */
 public class CsvParser extends DocumentParser {
 
-	static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
-
+	/**
+	 * Constructor.
+	 * @param file, Fichero.
+	 */
 	public CsvParser(String file) {
 		super();
 		this.setFile(file);
 	}
-
+	/**
+	 * Leemos el documento cargado y generamos los logs
+	 */
 	@Override
 	public void readDocument() throws UBULogException {
 		BufferedReader br = null;
@@ -76,9 +77,11 @@ public class CsvParser extends DocumentParser {
 	}
 
 	/**
+	 * Asignamos los eventos
 	 * @param log
 	 */
 	private void asigEvents(Log log) {
+		//TODO igual no deberia esta aqui
 		if(getEvents().get(log.getEvent()) == null){
 			Event event = new Event(log.getEvent()); 
 			event.setLogsEvent(log);
@@ -90,6 +93,10 @@ public class CsvParser extends DocumentParser {
 		}
 	}
 
+	/**
+	 * Comprobamos que existan todas las columnas esperadas.
+	 * @param fields, campos que hay en el documento cargado.
+	 */
 	@Override
 	public boolean isDocumentValid(String[] fields) {
 		if (fields.length != 9) {

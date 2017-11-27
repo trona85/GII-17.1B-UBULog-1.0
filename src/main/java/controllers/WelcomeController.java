@@ -82,7 +82,6 @@ public class WelcomeController implements Initializable {
 			logger.info(" Curso seleccionado: " + UBULog.session.getActualCourse().getFullName());
 
 			// Accedemos a la siguiente ventana:
-			System.err.println(getClass());
 			FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/view/MainNew.fxml"));
 
 			UBULog.stage.close();

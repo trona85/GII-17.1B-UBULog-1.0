@@ -3,7 +3,7 @@
  */
 package parserdocument;
 
-import UBULogException.UBULogException;
+import UBULogPersonalException.UBULogException;
 
 /**
  * Interfaz para documentos.
@@ -16,6 +16,5 @@ public interface IDocumentParser {
 
 	public void readDocument() throws UBULogException;
 	public boolean isDocumentValid(String [] fields);
-	public void filter(String [] fields, String [] vals);
 
 }

@@ -17,8 +17,8 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import UBULogException.UBULogError;
-import UBULogException.UBULogException;
+import UBULogPersonalException.UBULogError;
+import UBULogPersonalException.UBULogException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -1,11 +1,10 @@
-/**
- * 
- */
-package UBULogException;
+package UBULogPersonalException;
 
 /**
- * @author oscar
- *
+ * clase UBULogError. clase tipo enum para almacenar errores..
+ * @author oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public enum UBULogError {
 		

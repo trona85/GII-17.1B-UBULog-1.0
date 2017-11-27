@@ -25,6 +25,12 @@ import model.MoodleUser;
 import webservice.MoodleUserWS;
 import webservice.Session;
 
+/**
+ * clase LoginController. Inicio de sesión.
+ * @author oscar Fernández Armengol
+ * 
+ * @version 1.0
+ */
 public class LoginController {
 
 	static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -143,19 +149,13 @@ public class LoginController {
 		return new Task<Object>() {
 			@Override
 			protected Object call() throws Exception {
-				logger.info("entramos 1");
 				MoodleUserWS.setMoodleUser(UBULog.session.getToken(), UBULog.session.getUserName(),
 						UBULog.user = new MoodleUser());
-				logger.info("entramos 2");
 				updateProgress(1, 3);
-				logger.info("entramos 3");
 				MoodleUserWS.setCourses(UBULog.session.getToken(), UBULog.user);
-				logger.info("entramos 4");
 				updateProgress(2, 3);
 				updateProgress(3, 3);
-				logger.info("entramos 5");
 				Thread.sleep(50);
-				logger.info("entramos 6");
 				updateMessage("end");
 				return true;
 			}

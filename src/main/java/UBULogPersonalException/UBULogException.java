@@ -1,8 +1,10 @@
-package UBULogException;
+package UBULogPersonalException;
 
 /**
- * @author oscar
- *
+ * clase UBULogException. Gestion de los errores..
+ * @author oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class UBULogException extends Exception {
 	/**

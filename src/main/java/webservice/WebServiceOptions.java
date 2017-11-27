@@ -1,6 +1,3 @@
-/**
- * 
- */
 package webservice;
 
 /**
@@ -12,6 +9,7 @@ package webservice;
  */
 public class WebServiceOptions {
 
+	//TODO hay servicios que no se utilizan, revisar
 	// Devuelve token de usuario
 	public static final String SERVICIO_WEB_MOODLE = "moodle_mobile_app";
 	// Devuelve id de usuario y atributos
