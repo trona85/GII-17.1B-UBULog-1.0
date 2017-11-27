@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -18,28 +19,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MenuBar prefHeight="66.0" prefWidth="440.0" stylesheets="@../css/style.css">
-              <menus>
-                <Menu mnemonicParsing="false" text="Archivo">
-                  <items>
-                        <MenuItem fx:id="MIExit" mnemonicParsing="false" onAction="#closeApplication" text="Salir" />
-                    <MenuItem fx:id="MIChangeCourse" mnemonicParsing="false" onAction="#changeCourse" text="Cambiar asignatura" />
-                        <MenuItem fx:id="MISaveChart" mnemonicParsing="false" onAction="#saveChart" text="Guardar gráfico como..." />
-                        <MenuItem fx:id="MILogOut" mnemonicParsing="false" onAction="#logOut" text="Cerrar sesión" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Editar">
-                  <items>
-                    <MenuItem fx:id="MIClearSelection" mnemonicParsing="false" onAction="#clearSelection" text="Borrar selección" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Ayuda">
-                  <items>
-                    <MenuItem fx:id="MIAboutUBULog" mnemonicParsing="false" onAction="#aboutUBULog" text="Acerca de UBULog" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
             <GridPane GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,6 +32,40 @@
                   <Label fx:id="lblActualCourse" text="Curso actual: " />
                   <Label fx:id="lblActualUser" text="Usuario:" GridPane.rowIndex="1" />
                   <Label fx:id="lblActualHost" text="Host actual: " GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <MenuBar prefHeight="66.0" prefWidth="440.0" stylesheets="@../css/style.css">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Archivo">
+                        <items>
+                              <MenuItem fx:id="MIExit" mnemonicParsing="false" onAction="#closeApplication" text="Salir" />
+                          <MenuItem fx:id="MIChangeCourse" mnemonicParsing="false" onAction="#changeCourse" text="Cambiar asignatura" />
+                              <MenuItem fx:id="MISaveChart" mnemonicParsing="false" onAction="#saveChart" text="Guardar gráfico como..." />
+                              <MenuItem fx:id="MILogOut" mnemonicParsing="false" onAction="#logOut" text="Cerrar sesión" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Editar">
+                        <items>
+                          <MenuItem fx:id="MIClearSelection" mnemonicParsing="false" onAction="#clearSelection" text="Borrar selección" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Ayuda">
+                        <items>
+                          <MenuItem fx:id="MIAboutUBULog" mnemonicParsing="false" onAction="#aboutUBULog" text="Acerca de UBULog" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <WebView fx:id="imageLoger" maxHeight="50.0" maxWidth="50.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
          </children>
