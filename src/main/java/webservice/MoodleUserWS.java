@@ -69,6 +69,10 @@ public class MoodleUserWS {
 							mUser.setFirstAccess(new Date(jsonObject.getLong("firstaccess") * 1000));
 						if (jsonObject.has("lastaccess"))
 							mUser.setLastAccess(new Date(jsonObject.getLong("lastaccess") * 1000));
+						if (jsonObject.has("profileimageurlsmall"))
+							mUser.setProfileImageUrlSmall(jsonObject.getString("profileimageurlsmall"));
+						if (jsonObject.has("profileimageurl"))
+							mUser.setProfileImageUrl(jsonObject.getString("profileimageurl"));
 					}
 				}
 				//System.out.println("final moodle");

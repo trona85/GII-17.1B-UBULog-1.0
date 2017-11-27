@@ -113,9 +113,12 @@ public class MainController implements Initializable {
 	public TextField tfdEvents;
 	String patternEvents = "";
 
-	@FXML // chart
+	@FXML // chart ,imagen log
 	private WebView chart;
 	private WebEngine engine;
+	@FXML
+	private WebView imageLoger;
+	private WebEngine engineImagen;
 
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
@@ -167,6 +170,8 @@ public class MainController implements Initializable {
 
 			// Inicializamos el listener del textField del calificador
 			tfdEvents.setOnAction(inputEvent());
+			
+			dataUserLoger();
 
 		} catch (Exception e) {
 			logger.error("Error en la inicialización. {}", e);
@@ -195,8 +200,6 @@ public class MainController implements Initializable {
 
 			}
 		});
-
-		dataUserLoger();
 	}
 
 	/**
@@ -268,6 +271,15 @@ public class MainController implements Initializable {
 
 		// Mostramos Host actual
 		lblActualHost.setText("Host: " + UBULog.host);
+		
+		// imagen del logeado
+		// Revisas no me pasa la imagen correspondiente al logeado
+		//imageLoger = new WebView();
+		
+		//TODO falta si no existe ponerle un icono nuestro
+		engineImagen = imageLoger.getEngine();
+		engineImagen.load(UBULog.user.getProfileImageUrlSmall());
+			
 	}
 
 	/**
