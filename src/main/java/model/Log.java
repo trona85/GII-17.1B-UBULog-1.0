@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.apache.commons.csv.CSVRecord;
+
 /**
  * Clase para generar cada tipo de log.
  * 
@@ -28,28 +30,27 @@ public class Log {
 	private EnrolledUser user = null;
 	private int idUser;
 
-	public Log(String[] fields) {
-		if (fields.length > 0) {
+	public Log(CSVRecord csvRecord) {
+		if (csvRecord.size() > 0) {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 			try {
-				String [] fecha =  formatter.format(formatter.parse(fields[0])).split("/");
+				String [] fecha =  formatter.format(formatter.parse(csvRecord.get("Hora"))).split("/");
 				date = GregorianCalendar.getInstance();
 				date.set(Integer.parseInt(fecha[2])+ 2000, Integer.parseInt(fecha[1])-1, Integer.parseInt(fecha[0]));
 				//System.err.println(date.get(date.YEAR));
 				this.setDate(date);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			setNameUser(fields[1]);
-			setUserAffected(fields[2]);
-			setContext(fields[3]);
-			setComponent(fields[4]);
-			setEvent(fields[5]);
-			setDescription(fields[6]);
-			setOrigin(fields[7]);
-			setIp(fields[8]);
-			String[] fieldDescription = fields[6].split("'");
+			setNameUser(csvRecord.get("Nombre completo del usuario"));
+			setUserAffected(csvRecord.get("Usuario afectado"));
+			setContext(csvRecord.get("Contexto del evento"));
+			setComponent(csvRecord.get("Componente"));
+			setEvent(csvRecord.get("Nombre evento"));
+			setDescription(csvRecord.get("Descripción"));
+			setOrigin(csvRecord.get("Origen"));
+			setIp(csvRecord.get("Dirección IP"));
+			String[] fieldDescription = getDescription().split("'");
 			if(fieldDescription[0].contains("The user with id")){
 				setIdUser(Integer.parseInt(fieldDescription[1]));
 			}else{

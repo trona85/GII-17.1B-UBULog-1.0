@@ -6,6 +6,8 @@ package parserdocument;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.csv.CSVParser;
+
 import UBULogPersonalException.UBULogException;
 import model.Event;
 import model.Log;
@@ -38,7 +40,6 @@ public abstract class DocumentParser implements IDocumentParser {
 	}
 	
 	public abstract void readDocument() throws UBULogException;
-	public abstract boolean isDocumentValid(String [] fields);
 
 	/**
 	 * devuelve la ruta del fichero.

@@ -3,6 +3,8 @@
  */
 package parserdocument;
 
+import org.apache.commons.csv.CSVParser;
+
 import UBULogPersonalException.UBULogException;
 
 /**
@@ -15,6 +17,5 @@ import UBULogPersonalException.UBULogException;
 public interface IDocumentParser {
 
 	public void readDocument() throws UBULogException;
-	public boolean isDocumentValid(String [] fields);
 
 }

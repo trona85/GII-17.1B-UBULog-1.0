@@ -125,6 +125,8 @@ public class MainController implements Initializable {
 	private ArrayList<Log> filterLogs;
 	private Chart viewchart;
 
+	private EnrolledUser userDesconocido;
+
 	/**
 	 * Muestra los usuarios matriculados en el curso, así como las actividades
 	 * de las que se compone.
@@ -299,9 +301,9 @@ public class MainController implements Initializable {
 		userCreate.setlastName("Sistema");
 		users.add(userCreate);
 
-		userCreate = new EnrolledUser("Desconocido", -1);
-		userCreate.setlastName("Desconocido");
-		users.add(userCreate);
+		userDesconocido = new EnrolledUser("Desconocido", -1);
+		userDesconocido.setlastName("Desconocido");
+		users.add(userDesconocido);
 	}
 
 	/**
@@ -759,18 +761,23 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
-
+			//leemos csv y lo parseamos
 			this.logs = new CsvParser(file.toString());
 			logs.readDocument();
-
+			
 			for (int i = 0; i < logs.getLogs().size(); ++i) {
+				// insetamos fecha
+				viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
+				
+				//comprobamos la existencia de usaer y la insertamos
 				for (int j = 0; j < users.size(); j++) {
 					if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
 						logs.getLogs().get(i).setUser(users.get(j));
-						break;
 					}
 
-					viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
+					if(j == users.size() -1 && logs.getLogs().get(i).getUser() == null){
+						logs.getLogs().get(i).setUser(userDesconocido);
+					}
 				}
 			}
 

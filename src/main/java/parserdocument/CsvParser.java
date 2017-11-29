@@ -3,9 +3,11 @@
  */
 package parserdocument;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import UBULogPersonalException.UBULogError;
 import UBULogPersonalException.UBULogException;
@@ -24,96 +26,61 @@ public class CsvParser extends DocumentParser {
 
 	/**
 	 * Constructor.
-	 * @param file, Fichero.
+	 * 
+	 * @param file,
+	 *            Fichero.
 	 */
 	public CsvParser(String file) {
 		super();
 		this.setFile(file);
 	}
+
 	/**
 	 * Leemos el documento cargado y generamos los logs
 	 */
 	@Override
 	public void readDocument() throws UBULogException {
-		BufferedReader br = null;
-		Integer cont = 0;
 
 		try {
-			br = new BufferedReader(new FileReader(this.getFile()));
-			String line = br.readLine();
-			String[] fields = line.split(",");
 
-			if (!isDocumentValid(fields)) {
-				throw new Exception();
-			}
-			line = br.readLine();
+			FileReader fileReader = new FileReader(getFile());
+			CSVParser parser = CSVParser.parse(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
 
-			while (null != line) {
-				fields = line.split(",");
-				Log log =new Log(fields);
-				this.setLogs(log);
-				
-				// asignamos los eventos con sus log correspondientes
-				asigEvents(log);
-
-				line = br.readLine();
-				cont += 1;
-			}
 			
+			for (CSVRecord csvRecord : parser) {
+
+				Log log = new Log(csvRecord);
+				this.setLogs(log);
+				asigEvents(log);
+			}
+
 		} catch (Exception e) {
 			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
 
 		} finally {
-			if (null != br) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			/*
+			 * if (null != fileReader) { try { br.close(); } catch (IOException
+			 * e) { // TODO Auto-generated catch block e.printStackTrace(); } }
+			 */
 		}
 
 	}
 
 	/**
 	 * Asignamos los eventos
+	 * 
 	 * @param log
 	 */
 	private void asigEvents(Log log) {
-		//TODO igual no deberia esta aqui
-		if(getEvents().get(log.getEvent()) == null){
-			Event event = new Event(log.getEvent()); 
+		// TODO igual no deberia esta aqui
+		if (getEvents().get(log.getEvent()) == null) {
+			Event event = new Event(log.getEvent());
 			event.setLogsEvent(log);
 			getEvents().put(log.getEvent(), event);
-			
-		}else{
-			getEvents().get(log.getEvent()).setLogsEvent(log);
-			
-		}
-	}
 
-	/**
-	 * Comprobamos que existan todas las columnas esperadas.
-	 * @param fields, campos que hay en el documento cargado.
-	 */
-	@Override
-	public boolean isDocumentValid(String[] fields) {
-		if (fields.length != 9) {
-			return false;
 		} else {
-			for (int i = 0; i < fields.length; i++) {
-				if (!(fields[i].contains("Hora") || fields[i].contains("Nombre completo del usuario")
-						|| fields[i].contains("Usuario afectado") || fields[i].contains("Contexto del evento")
-						|| fields[i].contains("Componente") || fields[i].contains("Nombre evento")
-						|| fields[i].contains("Descripción") || fields[i].contains("Origen")
-						|| fields[i].contains("Dirección IP"))) {
-					return false;
+			getEvents().get(log.getEvent()).setLogsEvent(log);
 
-				}
-			}
 		}
-
-		return true;
 	}
 }
