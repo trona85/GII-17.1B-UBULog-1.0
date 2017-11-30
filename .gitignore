@@ -9,3 +9,19 @@ bin/
 
 # Log file
 *.log
+
+
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.bbl
+*.blg
+*.log
+*.lof
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
