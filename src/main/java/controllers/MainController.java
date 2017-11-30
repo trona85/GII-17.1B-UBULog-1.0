@@ -838,6 +838,8 @@ public class MainController implements Initializable {
 		FileWriter ficheroHTML = null;
 		PrintWriter pw = null;
 		try {
+			
+			// TODO los filtros no funcionan bien
 			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
 			pw = new PrintWriter(ficheroHTML);
 			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
@@ -849,15 +851,15 @@ public class MainController implements Initializable {
 
 			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
 			pw.println("\t\t<tr> \n" +
-				"\t\t<th>Fecha <input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"myInput\" onkeyup=\"myFunction()\"></th>");
-			pw.println("\t\t<th>Nombre completo del usuario</th>");
-			pw.println("\t\t<th>Usuario afectado</th>");
-			pw.println("\t\t<th>Contexto del evento</th>");
-			pw.println("\t\t<th>Componente</th>");
-			pw.println("\t\t<th>Nombre evento</th>");
-			pw.println("\t\t<th>Descripción</th>");
-			pw.println("\t\t<th>Origen</th>");
-			pw.println("\t\t<th>Dirección IP</th>");
+				"\t\t<th>Fecha <input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"inputfecha\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Nombre completo del usuario<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreA\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Usuario afectado<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreB\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Contexto del evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por contexto\" id=\"inputcontexto\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Componente<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por componente\" id=\"inputcomponente\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Nombre evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por evento \" id=\"inputevento\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Descripción<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por descripción\" id=\"inputdescripcion\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Origen<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por origen\" id=\"inputorigen\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<th>Dirección IP<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
 			pw.println("\t</tr>");
 			
 			for (Log log : logs.getLogs()) {
