@@ -117,10 +117,15 @@ public class MainController implements Initializable {
 
 	@FXML // chart ,imagen log
 	private WebView chart;
-	private WebEngine engine;
+	private WebEngine engineChart;
+	
+	@FXML // chart ,imagen log
+	private WebView tableLogs;
+	private WebEngine engineTableLogs;
 	@FXML
 	private WebView imageLoger;
 	private WebEngine engineImagen;
+	
 
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
@@ -142,11 +147,12 @@ public class MainController implements Initializable {
 			viewchart = new Chart();
 			btnchart.setDisable(true);
 
-			engine = chart.getEngine();
-			viewchart.generarGrafica();
-			engine.reload();
+			engineChart = chart.getEngine();
+			engineTableLogs = tableLogs.getEngine();
 
-			viewChart();
+			loadHTML();
+
+			viewHTML();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
 
@@ -209,8 +215,20 @@ public class MainController implements Initializable {
 	/**
 	 * 
 	 */
-	private void viewChart() {
-		engine.load(getClass().getResource("/chart/html/chart.html").toString());
+	private void loadHTML() {
+		viewchart.generarGrafica();
+		engineChart.reload();
+		
+		generarTablaLogs();
+		engineTableLogs.reload();
+	}
+
+	/**
+	 * 
+	 */
+	private void viewHTML() {
+		engineChart.load(getClass().getResource("/chart/html/chart.html").toString());
+		engineTableLogs.load(getClass().getResource("/tablelogs/html/tablelogs.html").toString());
 	}
 
 	private void filterLogs() {
@@ -254,8 +272,7 @@ public class MainController implements Initializable {
 
 		}
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
-		viewchart.generarGrafica();
-		engine.reload();
+		loadHTML();
 
 		enrLog = FXCollections.observableArrayList(filterLogs);
 		listLogs.setItems(enrLog);
@@ -846,15 +863,15 @@ public class MainController implements Initializable {
 			for (Log log : logs.getLogs()) {
 				pw.println("\t<tr>");
 				
-				pw.println("\t\t<th>" +log.getDate().get(Calendar.DATE) + "</th>");
-				pw.println("\t\t<th>" +log.getNameUser() + "</th>");
-				pw.println("\t\t<th>" +log.getUserAffected() + "</th>");
-				pw.println("\t\t<th>" +log.getContext() + "</th>");
-				pw.println("\t\t<th>" +log.getComponent() + "</th>");
-				pw.println("\t\t<th>" +log.getEvent() + "</th>");
-				pw.println("\t\t<th>" +log.getDescription() + "</th>");
-				pw.println("\t\t<th>" +log.getOrigin() + "</th>");
-				pw.println("\t\t<th>" +log.getIp() + "</th>");
+				pw.println("\t\t<td>" +log.getDate().get(Calendar.DATE) + "</th>");
+				pw.println("\t\t<td>" +log.getNameUser() + "</th>");
+				pw.println("\t\t<td>" +log.getUserAffected() + "</th>");
+				pw.println("\t\t<td>" +log.getContext() + "</th>");
+				pw.println("\t\t<td>" +log.getComponent() + "</th>");
+				pw.println("\t\t<td>" +log.getEvent() + "</th>");
+				pw.println("\t\t<td>" +log.getDescription() + "</th>");
+				pw.println("\t\t<td>" +log.getOrigin() + "</th>");
+				pw.println("\t\t<td>" +log.getIp() + "</th>");
 				
 				pw.println("\t</tr>");
 			}
