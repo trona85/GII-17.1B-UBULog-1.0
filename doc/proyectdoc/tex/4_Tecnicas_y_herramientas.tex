@@ -1,6 +1,213 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto. Si se han estudiado diferentes alternativas de metodologías, herramientas, bibliotecas se puede hacer un resumen de los aspectos más destacados de cada alternativa, incluyendo comparativas entre las distintas opciones y una justificación de las elecciones realizadas. 
-No se pretende que este apartado se convierta en un capítulo de un libro dedicado a cada una de las alternativas, sino comentar los aspectos más destacados de cada opción, con un repaso somero a los fundamentos esenciales y referencias bibliográficas para que el lector pueda ampliar su conocimiento sobre el tema.
+\section{Metodologías}\label{metodologias}
+
+\subsection{Scrum}\label{scrum}
+
+Scrum es un marco de trabajo para el desarrollo de \emph{software} que se
+engloba dentro de las metodologías ágiles.En el se define un conjunto de practicas y roles durante el desarrollo del proyecto.Es una estrategia de trabajo iterativa e incremental a través de iteraciones (\emph{sprints})
+y revisiones. 
+Durante el proyecto se han hecho reuniones semanales con el tutor (\emph{sprints}) y según se iban terminando las tareas (\emph{issue}) se sincronizaba con el repositorio, lo que conlleva, que el tutor y el alumno tuvieran siempre el mismo código y se pudieran solucionar los problemas de forma rápida. %\citep{art:scrum}.
+
+\section{Patrones de diseño}\label{patrones-de-diseno}
+
+\subsection{\emph{Model-View-Presenter} (MVP)}\label{model-view-presenter-mvp}
+
+MVP es un patrón de arquitectura derivado del
+\emph{Model--View--Controller} (MVC).Fue de los primeros patrones relacionados con las vistas gráficas de interfaz de usuario. Permite separar los datos de nuestra aplicación en un modelo y enlazarlos con un controlador a las vistas que serán lo que ve el usuario.%\citep{art:mvc}. 
+Se compone de las tres capas con las que lleva su nombre:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textit{\textbf{Modelo}}: Los diferentes tipos de datos en los que se compone la aplicación.
+	\item
+	\textit{\textbf{View}}: Como el usuario va a visualizar los datos, una vista no tiene por que ser general para todos, cada usuario puede tener la suya propia.
+	\item
+	\textit{\textbf{Controlador}}: Comunica la capa modelo con las vistas. Comunica datos del modelo para mostrárselos al usuario.
+\end{itemize}
+
+\imagen{mvc}{Patrón MVP.}
+
+\section{Control de versiones}\label{control-de-versiones}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas: \href{https://git-scm.com/}{Git} y
+	\href{https://subversion.apache.org/}{Subversion}.
+	\item
+	Herramienta elegida: \href{https://git-scm.com/}{Git}.
+\end{itemize}
+
+Git es un sistema de control de versiones distribuido. Nos permite tener un repositorio remoto, que sera nuestro \emph{master} en el cual, cuando los cambios que hagamos en nuestro repositorio \emph{local} y consideremos que se pueden subir al \emph{master}, poder subirlo para compartirlo con el equipo. No nos hace falta estar permanentemente conectados a una red como con Subversion.Como no requiere de conexión, nos podríamos retraer a un commit anterior, ya que tenemos el historial de log en nuestro repositorio \emph{local}. 
+
+Git se distribuye bajo la licencia de \emph{software} libre GNU LGPL v2.1.
+
+\section{\emph{Hosting} del repositorio}\label{hosting-del-repositorio}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas: \href{https://github.com/}{GitHub},
+	\href{https://bitbucket.org/}{Bitbucket} y
+	\href{https://gitlab.com/}{GitLab}.
+	\item
+	Herramienta elegida: \href{https://github.com/}{GitHub}.
+\end{itemize}
+
+GitHub es una plataforma web donde podemos hospedar nuestro repositorios del proyecto.
+Nos permite todas las  funcionalidades de Git, revisión de commit, revisión de código,
+documentación, gestión de tareas,... . Es
+gratuita cuando los proyectos son \emph{open source}.
+
+Con el plugin de Chrome Zedhub, en Github, nos permite tener la funcionalidad de canvas para la organización de tareas, como la plataforma Trello. Como estamos utilizando servicios de integración continua, teniendo el repositorio en Github, nos permite la sincronización solo con nuestra cuenta de Github.
+
+\section{Gestión del proyecto}\label{gestion-del-proyecto}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas: \href{https://www.zenhub.com/}{ZenHub},
+	\href{https://trello.com/}{Trello}, \href{https://waffle.io/}{Waffle},
+	\href{https://www.versionone.com/}{VersionOne},
+	\href{https://xp-dev.com/}{XP-Dev} y \href{https://github.com/}{GitHub
+		Projects}.
+	\item
+	Herramienta elegida: \href{https://www.zenhub.com/}{ZenHub}.
+\end{itemize}
+
+ZenHub es un plugin para los diferentes exploradores, en nuestro caso Chrome, de gestión de proyectos para su integración
+en GitHub. Proporciona un tablero canvas en donde cada tarea representada se corresponde con un \emph{issue} o tarea nativo de GitHub. Cada tarea puede ser organizada en un el \emph{sprint} al que pertenece con la asignación de ella, su tiempo estimado de realización, etc.Si el proyecto tiene menos de 5 colaboradores es \emph{open source}.
 
 
+\section{Entorno de desarrollo integrado
+	(IDE)}\label{entorno-de-desarrollo-integrado-ide}
+
+\subsection{Java}\label{java}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas:
+	\href{https://www.jetbrains.com/idea/}{IntelliJ IDEA} y
+	\href{https://eclipse.org/}{Eclipse}.
+	\item
+	Herramienta elegida: \href{https://eclipse.org/}{Eclipse}.
+\end{itemize}
+
+
+
+\subsection{LaTeX}\label{latex}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas:
+	\item
+	Herramienta elegida:
+\end{itemize}
+
+
+
+\section{Documentación}\label{documentacion}
+
+\begin{itemize}
+	\tightlist
+	\item
+\end{itemize}
+
+
+\section{Servicios de integración
+	continua}\label{servicios-de-integraciuxf3n-continua}
+
+\subsection{Compilación y testeo}\label{compilacion-y-testeo}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas: \href{https://travis-ci.org/}{TravisCI} y
+	\href{https://circleci.com/}{CircleCI}.
+	\item
+	Herramienta elegida: \href{https://travis-ci.org/}{TravisCI}.
+\end{itemize}
+
+
+
+\subsection{Cobertura de código}\label{cobertura-de-codigo}
+
+\begin{itemize}
+	\tightlist
+	\item
+\end{itemize}
+
+
+
+\subsection{Calidad del código}\label{calidad-del-codigo}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas:
+	\href{https://codeclimate.com/}{Codeclimate},
+	\href{https://sonarqube.com/}{SonarQube} y
+	\href{https://www.codacy.com/}{Codacy}.
+	\item
+	Herramientas elegidas: \href{https://codeclimate.com/}{Codeclimate} y
+	\href{https://sonarqube.com/}{SonarQube}.
+\end{itemize}
+
+
+
+\subsection{Revisión de dependencias}\label{revision-de-dependencias}
+
+
+
+\subsection{Documentación continua}\label{documentacion-continua}
+
+
+
+\section{Sistemas de construcción automática del
+	\emph{software}}\label{sistemas-de-construccion-automuxe1tica-del-software}
+
+
+
+\subsection{Gradle}\label{gradle}
+
+
+
+\section{Librerías}\label{libreruxedas}
+
+\subsection{\texorpdfstring{\emph{Android Support
+			Library}}{Android Support Library}}\label{android-support-library}
+
+
+\subsection{JavaFX}\label{javafx}
+
+
+
+\subsection{JUnit}\label{junit}
+
+
+\subsection{Mockito}\label{mockito}
+
+
+\newpage
+\section{Desarrollo web}\label{pagina-web}
+
+\subsection{GitHub Pages}\label{github-pages}
+
+
+
+\subsection{Bootstrap}\label{bootstrap}
+
+
+
+\section{Otras herramientas}\label{otras-herramientas}
+
+\subsection{Mendeley}\label{mendeley}
+
+
+
+
+ $
