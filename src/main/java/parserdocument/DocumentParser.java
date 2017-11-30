@@ -6,8 +6,6 @@ package parserdocument;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.csv.CSVParser;
-
 import UBULogPersonalException.UBULogException;
 import model.Event;
 import model.Log;

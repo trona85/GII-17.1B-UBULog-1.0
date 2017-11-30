@@ -15,6 +15,7 @@ bin/
 *.aux
 *.bbl
 *.blg
+*.gz
 *.log
 *.lof
 *.lot

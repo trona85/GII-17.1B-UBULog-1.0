@@ -3,8 +3,6 @@
  */
 package parserdocument;
 
-import org.apache.commons.csv.CSVParser;
-
 import UBULogPersonalException.UBULogException;
 
 /**
