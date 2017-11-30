@@ -5,6 +5,8 @@ package controllers;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -107,7 +109,7 @@ public class MainController implements Initializable {
 	String patternParticipants = "";
 
 	@FXML // Entrada de filtro de usuarios por patrón
-	public  Button btnchart;
+	public Button btnchart;
 
 	@FXML // Entrada de filtro de actividades por patrón
 	public TextField tfdEvents;
@@ -136,14 +138,14 @@ public class MainController implements Initializable {
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
-			
+
 			viewchart = new Chart();
 			btnchart.setDisable(true);
-			
+
 			engine = chart.getEngine();
 			viewchart.generarGrafica();
 			engine.reload();
-			
+
 			viewChart();
 			// Establecemos los usuarios matriculados
 			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
@@ -172,7 +174,7 @@ public class MainController implements Initializable {
 
 			// Inicializamos el listener del textField del calificador
 			tfdEvents.setOnAction(inputEvent());
-			
+
 			dataUserLoger();
 
 		} catch (Exception e) {
@@ -185,7 +187,7 @@ public class MainController implements Initializable {
 		// seleccionados de participantes.
 		listParticipants.setOnMouseClicked(new EventHandler<Event>() {
 			@Override
-			public void handle(Event event) { 
+			public void handle(Event event) {
 				filterLogs();
 
 			}
@@ -196,8 +198,8 @@ public class MainController implements Initializable {
 		// seleccionados de eventos.
 		listEvents.setOnMouseClicked(new EventHandler<Event>() {
 			@Override
-			public void handle(Event event) { 
-				
+			public void handle(Event event) {
+
 				filterLogs();
 
 			}
@@ -214,10 +216,9 @@ public class MainController implements Initializable {
 	private void filterLogs() {
 		ObservableList<model.Event> selectedEvents = listEvents.getSelectionModel().getSelectedItems();
 		ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel().getSelectedItems();
-		
+
 		filterLogs.clear();
 		viewchart.getLabel().clear();
-		
 
 		if (!selectedEvents.isEmpty()) {
 			for (model.Event actualEvent : selectedEvents) {
@@ -255,7 +256,7 @@ public class MainController implements Initializable {
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
 		viewchart.generarGrafica();
 		engine.reload();
-		
+
 		enrLog = FXCollections.observableArrayList(filterLogs);
 		listLogs.setItems(enrLog);
 	}
@@ -273,15 +274,15 @@ public class MainController implements Initializable {
 
 		// Mostramos Host actual
 		lblActualHost.setText("Host: " + UBULog.host);
-		
+
 		// imagen del logeado
 		// Revisas no me pasa la imagen correspondiente al logeado
-		//imageLoger = new WebView();
-		
-		//TODO falta si no existe ponerle un icono nuestro
+		// imageLoger = new WebView();
+
+		// TODO falta si no existe ponerle un icono nuestro
 		engineImagen = imageLoger.getEngine();
 		engineImagen.load(UBULog.user.getProfileImageUrlSmall());
-			
+
 	}
 
 	/**
@@ -578,7 +579,7 @@ public class MainController implements Initializable {
 	 * @param item
 	 */
 	public static void setIcon(TreeItem<GradeReportLine> item) {
-		//TODO igual me vale para algo, si no quitar
+		// TODO igual me vale para algo, si no quitar
 		switch (item.getValue().getNameType()) {
 		case "Assignment":
 			item.setGraphic((Node) new ImageView(new Image("/img/assignment.png")));
@@ -631,29 +632,26 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void saveChart(ActionEvent actionEvent) throws Exception {
-		/*WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
-
-		File file = new File("chart.png");
-
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Guardar gráfico");
-
-		fileChooser.setInitialFileName("chart");
-		fileChooser.setInitialDirectory(file.getParentFile());
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".png", "*.*"),
-				new FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new FileChooser.ExtensionFilter("*.png", "*.png"));
-		try {
-			file = fileChooser.showSaveDialog(UBULog.stage);
-			if (file != null) {
-				try {
-					ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-				} catch (IOException ex) {
-					logger.info(ex.getMessage());
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		/*
+		 * WritableImage image = lineChart.snapshot(new SnapshotParameters(),
+		 * null);
+		 * 
+		 * File file = new File("chart.png");
+		 * 
+		 * FileChooser fileChooser = new FileChooser();
+		 * fileChooser.setTitle("Guardar gráfico");
+		 * 
+		 * fileChooser.setInitialFileName("chart");
+		 * fileChooser.setInitialDirectory(file.getParentFile());
+		 * fileChooser.getExtensionFilters().addAll(new
+		 * FileChooser.ExtensionFilter(".png", "*.*"), new
+		 * FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new
+		 * FileChooser.ExtensionFilter("*.png", "*.png")); try { file =
+		 * fileChooser.showSaveDialog(UBULog.stage); if (file != null) { try {
+		 * ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file); }
+		 * catch (IOException ex) { logger.info(ex.getMessage()); } } } catch
+		 * (Exception e) { e.printStackTrace(); }
+		 */
 	}
 
 	/**
@@ -733,8 +731,6 @@ public class MainController implements Initializable {
 		listLogs.setItems(enrLog);
 	}
 
-	
-
 	/**
 	 * Abre en el navegador el repositorio del proyecto.
 	 * 
@@ -761,21 +757,21 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
-			//leemos csv y lo parseamos
+			// leemos csv y lo parseamos
 			this.logs = new CsvParser(file.toString());
 			logs.readDocument();
-			
+
 			for (int i = 0; i < logs.getLogs().size(); ++i) {
 				// insetamos fecha
 				viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
-				
-				//comprobamos la existencia de usaer y la insertamos
+
+				// comprobamos la existencia de usaer y la insertamos
 				for (int j = 0; j < users.size(); j++) {
 					if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
 						logs.getLogs().get(i).setUser(users.get(j));
 					}
 
-					if(j == users.size() -1 && logs.getLogs().get(i).getUser() == null){
+					if (j == users.size() - 1 && logs.getLogs().get(i).getUser() == null) {
 						logs.getLogs().get(i).setUser(userDesconocido);
 					}
 				}
@@ -810,13 +806,72 @@ public class MainController implements Initializable {
 		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		/// Mostramos la lista de participantes y eventos
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
-		
+
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
+		generarTablaLogs();
 		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
 		listLogs.setItems(enrLog);
 		// TODO vienen desordenados
 		listEvents.setItems(eventList);
 
+	}
+
+	private void generarTablaLogs() {
+
+		FileWriter ficheroHTML = null;
+		PrintWriter pw = null;
+		try {
+			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
+			pw = new PrintWriter(ficheroHTML);
+			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
+					+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> \n"
+					+ "<meta charset=\"utf-8\"> \n"
+					+ "<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n"
+					+ "<script type=\"text/javascript\" src=\"../js/tablelogs.js\"></script> \n" + "<body>\n"
+					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
+
+			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
+			pw.println("\t\t<tr> \n" +
+				"\t\t<th>Fecha <input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"myInput\" onkeyup=\"myFunction()\"></th>");
+			pw.println("\t\t<th>Nombre completo del usuario</th>");
+			pw.println("\t\t<th>Usuario afectado</th>");
+			pw.println("\t\t<th>Contexto del evento</th>");
+			pw.println("\t\t<th>Componente</th>");
+			pw.println("\t\t<th>Nombre evento</th>");
+			pw.println("\t\t<th>Descripción</th>");
+			pw.println("\t\t<th>Origen</th>");
+			pw.println("\t\t<th>Dirección IP</th>");
+			pw.println("\t</tr>");
+			
+			for (Log log : logs.getLogs()) {
+				pw.println("\t<tr>");
+				
+				pw.println("\t\t<th>" +log.getDate().get(Calendar.DATE) + "</th>");
+				pw.println("\t\t<th>" +log.getNameUser() + "</th>");
+				pw.println("\t\t<th>" +log.getUserAffected() + "</th>");
+				pw.println("\t\t<th>" +log.getContext() + "</th>");
+				pw.println("\t\t<th>" +log.getComponent() + "</th>");
+				pw.println("\t\t<th>" +log.getEvent() + "</th>");
+				pw.println("\t\t<th>" +log.getDescription() + "</th>");
+				pw.println("\t\t<th>" +log.getOrigin() + "</th>");
+				pw.println("\t\t<th>" +log.getIp() + "</th>");
+				
+				pw.println("\t</tr>");
+			}
+			
+			pw.println("\t</table>");
+			pw.println("</div> \n" + "</body>\n" + "</html>");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != ficheroHTML)
+					ficheroHTML.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 
 	/**

@@ -12,7 +12,6 @@ public class Chart {
 	// TODO no estoy seguro que venga ordenado en orden de insercion
 	private ArrayList<String> dates;
 	private HashMap<String, ArrayList<Integer>> label;
-	private String javaScriptChart;
 	private final String[] MONTH = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
 			"Septiembre", "Octubre", "Noviembre", "Diciembre" };
 
@@ -115,10 +114,6 @@ public class Chart {
 		}
 	}
 
-	public String getJavaScriptChart() {
-		return javaScriptChart;
-	}
-
 	public void generarGrafica() {
 
 		FileWriter ficheroJS = null;
@@ -207,17 +202,12 @@ public class Chart {
 			e.printStackTrace();
 		} finally {
 			try {
-				// Nuevamente aprovechamos el finally para
-				// asegurarnos que se cierra el fichero.
 				if (null != ficheroJS)
 					ficheroJS.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
-
-		// var MONTHS =
-		this.javaScriptChart = "";
 	}
 
 }
