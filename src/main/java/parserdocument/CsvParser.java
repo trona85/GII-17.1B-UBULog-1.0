@@ -4,6 +4,7 @@
 package parserdocument;
 
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -41,12 +42,12 @@ public class CsvParser extends DocumentParser {
 	@Override
 	public void readDocument() throws UBULogException {
 
+		FileReader fileReader = null;
 		try {
 
-			FileReader fileReader = new FileReader(getFile());
+			fileReader = new FileReader(getFile());
 			CSVParser parser = CSVParser.parse(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
 
-			
 			for (CSVRecord csvRecord : parser) {
 
 				Log log = new Log(csvRecord);
@@ -58,13 +59,19 @@ public class CsvParser extends DocumentParser {
 			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
 
 		} finally {
-			/*
-			 * if (null != fileReader) { try { br.close(); } catch (IOException
-			 * e) { // TODO Auto-generated catch block e.printStackTrace(); } }
-			 */
+
+			if (null != fileReader) {
+				try {
+					fileReader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
+
 
 	/**
 	 * Asignamos los eventos

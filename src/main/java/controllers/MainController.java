@@ -795,6 +795,7 @@ public class MainController implements Initializable {
 			}
 
 			initializeDataSet(logs);
+			
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
 			if (e.getError() != UBULogError.FICHERO_CANCELADO) {
@@ -825,7 +826,7 @@ public class MainController implements Initializable {
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
-		generarTablaLogs();
+		loadHTML();
 		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
 		listLogs.setItems(enrLog);
 		// TODO vienen desordenados
@@ -865,7 +866,7 @@ public class MainController implements Initializable {
 			for (Log log : logs.getLogs()) {
 				pw.println("\t<tr>");
 				
-				pw.println("\t\t<td>" +log.getDate().get(Calendar.DATE) + "</th>");
+				pw.println("\t\t<td>" +log.getDate().get(Calendar.DAY_OF_MONTH)+"-"+ log.getDate().get(Calendar.MONTH) +"-"+ log.getDate().get(Calendar.YEAR) + "</th>");
 				pw.println("\t\t<td>" +log.getNameUser() + "</th>");
 				pw.println("\t\t<td>" +log.getUserAffected() + "</th>");
 				pw.println("\t\t<td>" +log.getContext() + "</th>");
