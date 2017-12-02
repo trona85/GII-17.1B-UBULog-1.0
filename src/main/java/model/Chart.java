@@ -130,7 +130,7 @@ public class Chart {
 
 			pw.print("\tlabels: [");
 			for (int i = dates.size(); i > 0 ; i--) {
-				if (dates.size() != i + 1) {
+				if (0 != i - 1) {
 					pw.print("\"" + dates.get(i -1) + "\",");
 
 				} else {
@@ -155,7 +155,7 @@ public class Chart {
 
 				pw.println("\t\t\tdata: [");
 				for (int i = label.get(dataset).size(); i > 0; i--) {
-					if (label.get(dataset).size() != i + 1) {
+					if (0 != i - 1) {
 						pw.println("\t\t\t\t" + label.get(dataset).get(i -1) + ",");
 
 					} else {

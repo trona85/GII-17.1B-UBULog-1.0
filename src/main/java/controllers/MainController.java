@@ -150,7 +150,7 @@ public class MainController implements Initializable {
 			engineChart = chart.getEngine();
 			engineTableLogs = tableLogs.getEngine();
 
-			loadHTML();
+			loadHTML(null);
 
 			viewHTML();
 			// Establecemos los usuarios matriculados
@@ -215,11 +215,11 @@ public class MainController implements Initializable {
 	/**
 	 * 
 	 */
-	private void loadHTML() {
+	private void loadHTML(ArrayList<Log> l) {
 		viewchart.generarGrafica();
 		engineChart.reload();
 		
-		generarTablaLogs();
+		generarTablaLogs(l);
 		engineTableLogs.reload();
 	}
 
@@ -272,7 +272,7 @@ public class MainController implements Initializable {
 
 		}
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
-		loadHTML();
+		loadHTML(filterLogs);
 
 		enrLog = FXCollections.observableArrayList(filterLogs);
 		listLogs.setItems(enrLog);
@@ -826,7 +826,7 @@ public class MainController implements Initializable {
 		enrLog = FXCollections.observableArrayList(logs.getLogs());
 
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
-		loadHTML();
+		loadHTML(logs.getLogs());
 		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
 		listLogs.setItems(enrLog);
 		// TODO vienen desordenados
@@ -834,7 +834,7 @@ public class MainController implements Initializable {
 
 	}
 
-	private void generarTablaLogs() {
+	private void generarTablaLogs(ArrayList<Log> generateLogs) {
 
 		FileWriter ficheroHTML = null;
 		PrintWriter pw = null;
@@ -863,7 +863,7 @@ public class MainController implements Initializable {
 			pw.println("\t\t<th>Dirección IP<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
 			pw.println("\t</tr>");
 			
-			for (Log log : logs.getLogs()) {
+			for (Log log : generateLogs) {
 				pw.println("\t<tr>");
 				
 				pw.println("\t\t<td>" +log.getDate().get(Calendar.DAY_OF_MONTH)+"-"+ log.getDate().get(Calendar.MONTH) +"-"+ log.getDate().get(Calendar.YEAR) + "</th>");
