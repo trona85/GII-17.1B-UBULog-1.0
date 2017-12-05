@@ -6,9 +6,9 @@ package parserdocument;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import UBULogPersonalException.UBULogException;
 import model.Event;
 import model.Log;
+import ubulogexception.UBULogException;
 
 /**
  * Clase abstracta para documentos.

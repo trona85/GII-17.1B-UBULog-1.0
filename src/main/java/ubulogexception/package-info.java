@@ -5,4 +5,4 @@
  * @author oscar
  *
  */
-package UBULogPersonalException;
+package ubulogexception;

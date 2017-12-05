@@ -19,8 +19,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import UBULogPersonalException.UBULogError;
-import UBULogPersonalException.UBULogException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,6 +56,8 @@ import model.Group;
 import model.Log;
 import model.Role;
 import parserdocument.CsvParser;
+import ubulogexception.UBULogError;
+import ubulogexception.UBULogException;
 import webservice.CourseWS;
 
 /**
@@ -118,14 +118,13 @@ public class MainController implements Initializable {
 	@FXML // chart ,imagen log
 	private WebView chart;
 	private WebEngine engineChart;
-	
+
 	@FXML // chart ,imagen log
 	private WebView tableLogs;
 	private WebEngine engineTableLogs;
 	@FXML
 	private WebView imageLoger;
 	private WebEngine engineImagen;
-	
 
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
@@ -140,6 +139,7 @@ public class MainController implements Initializable {
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		filterLogs = new ArrayList<>();
+		this.logs = new CsvParser();
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
@@ -150,7 +150,7 @@ public class MainController implements Initializable {
 			engineChart = chart.getEngine();
 			engineTableLogs = tableLogs.getEngine();
 
-			loadHTML(null);
+			loadHTML(new ArrayList<Log>());
 
 			viewHTML();
 			// Establecemos los usuarios matriculados
@@ -218,7 +218,7 @@ public class MainController implements Initializable {
 	private void loadHTML(ArrayList<Log> l) {
 		viewchart.generarGrafica();
 		engineChart.reload();
-		
+
 		generarTablaLogs(l);
 		engineTableLogs.reload();
 	}
@@ -738,14 +738,19 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
-		listParticipants.getSelectionModel().clearSelection();
-		listEvents.getSelectionModel().clearSelection();
-		filterLogs.clear();
+		if (!logs.getLogs().isEmpty()) {
+			listParticipants.getSelectionModel().clearSelection();
+			listEvents.getSelectionModel().clearSelection();
+			filterLogs.clear();
+			viewchart.getDate().clear();
+			viewchart.getLabel().clear();
+			loadHTML(new ArrayList<Log>());
+			// TODO asi recupero el log completo, quizas no haga falta ya que al
+			// filtrar lo tengo que comprobar con el completo siempre.resistac
+			enrLog = FXCollections.observableArrayList(logs.getLogs());
+			listLogs.setItems(enrLog);
+		}
 
-		// TODO asi recupero el log completo, quizas no haga falta ya que al
-		// filtrar lo tengo que comprobar con el completo siempre.resistac
-		enrLog = FXCollections.observableArrayList(logs.getLogs());
-		listLogs.setItems(enrLog);
 	}
 
 	/**
@@ -775,7 +780,8 @@ public class MainController implements Initializable {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
 			// leemos csv y lo parseamos
-			this.logs = new CsvParser(file.toString());
+
+			logs.setFile(file.toString());
 			logs.readDocument();
 
 			for (int i = 0; i < logs.getLogs().size(); ++i) {
@@ -795,7 +801,7 @@ public class MainController implements Initializable {
 			}
 
 			initializeDataSet(logs);
-			
+
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
 			if (e.getError() != UBULogError.FICHERO_CANCELADO) {
@@ -839,7 +845,7 @@ public class MainController implements Initializable {
 		FileWriter ficheroHTML = null;
 		PrintWriter pw = null;
 		try {
-			
+
 			// TODO los filtros no funcionan bien
 			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
 			pw = new PrintWriter(ficheroHTML);
@@ -851,34 +857,30 @@ public class MainController implements Initializable {
 					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
 
 			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
-			pw.println("\t\t<tr> \n" +
-				"\t\t<th>Fecha <input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"inputfecha\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Nombre completo del usuario<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreA\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Usuario afectado<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreB\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Contexto del evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por contexto\" id=\"inputcontexto\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Componente<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por componente\" id=\"inputcomponente\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Nombre evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por evento \" id=\"inputevento\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Descripción<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por descripción\" id=\"inputdescripcion\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Origen<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por origen\" id=\"inputorigen\" onkeyup=\"filter()\"></th>");
-			pw.println("\t\t<th>Dirección IP<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
+			pw.println("\t\t<tr> \n"
+					+ "\t\t<th>Fecha <input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"inputfecha\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Nombre completo del usuario<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreA\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Usuario afectado<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreB\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Contexto del evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por contexto\" id=\"inputcontexto\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Componente<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por componente\" id=\"inputcomponente\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Nombre evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por evento \" id=\"inputevento\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Descripción<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por descripción\" id=\"inputdescripcion\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Origen<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por origen\" id=\"inputorigen\" onkeyup=\"filter()\"></th>");
+			pw.println(
+					"\t\t<th>Dirección IP<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
 			pw.println("\t</tr>");
-			
+
 			for (Log log : generateLogs) {
-				pw.println("\t<tr>");
-				
-				pw.println("\t\t<td>" +log.getDate().get(Calendar.DAY_OF_MONTH)+"-"+ log.getDate().get(Calendar.MONTH) +"-"+ log.getDate().get(Calendar.YEAR) + "</th>");
-				pw.println("\t\t<td>" +log.getNameUser() + "</th>");
-				pw.println("\t\t<td>" +log.getUserAffected() + "</th>");
-				pw.println("\t\t<td>" +log.getContext() + "</th>");
-				pw.println("\t\t<td>" +log.getComponent() + "</th>");
-				pw.println("\t\t<td>" +log.getEvent() + "</th>");
-				pw.println("\t\t<td>" +log.getDescription() + "</th>");
-				pw.println("\t\t<td>" +log.getOrigin() + "</th>");
-				pw.println("\t\t<td>" +log.getIp() + "</th>");
-				
-				pw.println("\t</tr>");
+				dataTableLog(pw, log);
 			}
-			
+
 			pw.println("\t</table>");
 			pw.println("</div> \n" + "</body>\n" + "</html>");
 
@@ -888,10 +890,34 @@ public class MainController implements Initializable {
 			try {
 				if (null != ficheroHTML)
 					ficheroHTML.close();
+				if (pw != null) {
+					pw.close();
+				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * @param pw
+	 * @param log
+	 */
+	private void dataTableLog(PrintWriter pw, Log log) {
+		pw.println("\t<tr>");
+
+		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "-" + log.getDate().get(Calendar.MONTH) + "-"
+				+ log.getDate().get(Calendar.YEAR) + "</th>");
+		pw.println("\t\t<td>" + log.getNameUser() + "</th>");
+		pw.println("\t\t<td>" + log.getUserAffected() + "</th>");
+		pw.println("\t\t<td>" + log.getContext() + "</th>");
+		pw.println("\t\t<td>" + log.getComponent() + "</th>");
+		pw.println("\t\t<td>" + log.getEvent() + "</th>");
+		pw.println("\t\t<td>" + log.getDescription() + "</th>");
+		pw.println("\t\t<td>" + log.getOrigin() + "</th>");
+		pw.println("\t\t<td>" + log.getIp() + "</th>");
+
+		pw.println("\t</tr>");
 	}
 
 	/**

@@ -3,7 +3,7 @@
  */
 package parserdocument;
 
-import UBULogPersonalException.UBULogException;
+import ubulogexception.UBULogException;
 
 /**
  * Interfaz para documentos.

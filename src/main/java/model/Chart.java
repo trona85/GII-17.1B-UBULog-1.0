@@ -204,6 +204,9 @@ public class Chart {
 			try {
 				if (null != ficheroJS)
 					ficheroJS.close();
+				if (pw != null){
+					pw.close();
+				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

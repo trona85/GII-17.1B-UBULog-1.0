@@ -1,4 +1,4 @@
-package UBULogPersonalException;
+package ubulogexception;
 
 /**
  * clase UBULogError. clase tipo enum para almacenar errores..

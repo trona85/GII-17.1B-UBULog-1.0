@@ -1,4 +1,4 @@
-package UBULogPersonalException;
+package ubulogexception;
 
 /**
  * clase UBULogException. Gestion de los errores..

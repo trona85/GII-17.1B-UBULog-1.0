@@ -10,10 +10,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import UBULogPersonalException.UBULogError;
-import UBULogPersonalException.UBULogException;
 import model.Event;
 import model.Log;
+import ubulogexception.UBULogError;
+import ubulogexception.UBULogException;
 
 /**
  * 
@@ -31,9 +31,8 @@ public class CsvParser extends DocumentParser {
 	 * @param file,
 	 *            Fichero.
 	 */
-	public CsvParser(String file) {
+	public CsvParser() {
 		super();
-		this.setFile(file);
 	}
 
 	/**
