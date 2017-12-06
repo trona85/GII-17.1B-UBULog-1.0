@@ -115,6 +115,42 @@ public class MainController implements Initializable {
 	public TextField tfdEvents;
 	String patternEvents = "";
 
+	@FXML // Entrada de filtro de actividades por patrón
+	public TextField tfdDate;
+	String patternDate = "";
+
+	@FXML
+	public TextField tfdNameUser;
+	String patternNameUser = "";
+
+	@FXML
+	public TextField tfdUserAffected;
+	String patternUserAffected = "";
+
+	@FXML
+	public TextField tfdContext;
+	String patternContext = "";
+
+	@FXML
+	public TextField tfdComponent;
+	String patternComponent = "";
+
+	@FXML
+	public TextField tfdEvent;
+	String patternEvent = "";
+
+	@FXML
+	public TextField tfdDescription;
+	String patternDescription = "";
+
+	@FXML
+	public TextField tfdPOrigin;
+	String patternOrigin = "";
+
+	@FXML
+	public TextField tfdIp;
+	String patternIp = "";
+
 	@FXML // chart ,imagen log
 	private WebView chart;
 	private WebEngine engineChart;
@@ -180,6 +216,17 @@ public class MainController implements Initializable {
 
 			// Inicializamos el listener del textField del calificador
 			tfdEvents.setOnAction(inputEvent());
+
+			// Inicializamos el listener del textField filtros de la tabla log
+			tfdDate.setOnAction(inputTable());
+			tfdNameUser.setOnAction(inputTable());
+			tfdUserAffected.setOnAction(inputTable());
+			tfdContext.setOnAction(inputTable());
+			tfdComponent.setOnAction(inputTable());
+			tfdEvent.setOnAction(inputTable());
+			tfdDescription.setOnAction(inputTable());
+			tfdPOrigin.setOnAction(inputTable());
+			tfdIp.setOnAction(inputTable());
 
 			dataUserLoger();
 
@@ -516,6 +563,33 @@ public class MainController implements Initializable {
 		listParticipants.setItems(enrList);
 	}
 
+	public EventHandler<ActionEvent> inputTable() {
+		return new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent event) {
+				patternDate = tfdDate.getText();
+				patternNameUser = tfdNameUser.getText();
+				patternUserAffected = tfdUserAffected.getText();
+				patternContext = tfdContext.getText();
+				patternComponent = tfdComponent.getText();
+				patternEvent = tfdEvent.getText();
+				patternDescription = tfdDescription.getText();
+				patternOrigin = tfdPOrigin.getText();
+				patternIp = tfdIp.getText();
+				logger.info("-> Filtrando tabla: \n Fecha :" + patternDate + "\n Usuario afectado: " + patternNameUser
+						+ "\n usuario afectado: " + patternUserAffected + "\n contexto: " + patternContext
+						+ "\n Componente: " + patternComponent + "\n Evento: " + patternEvent + "\n Descripción: "
+						+ patternEvent + "\n Origen: " + patternOrigin + "\n ip: " + patternIp);
+				filterTable();
+			}
+		};
+	}
+
+	protected void filterTable() {
+		// TODO si filterlogs esta vacio hacer filtro desde logs total si no desde filter log y crear grafica
+
+	}
+
 	/**
 	 * Manejador de eventos para las actividades. Devuelve un manejador de
 	 * eventos para cada item.
@@ -835,7 +909,6 @@ public class MainController implements Initializable {
 		loadHTML(logs.getLogs());
 		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
 		listLogs.setItems(enrLog);
-		// TODO vienen desordenados
 		listEvents.setItems(eventList);
 
 	}
@@ -845,8 +918,6 @@ public class MainController implements Initializable {
 		FileWriter ficheroHTML = null;
 		PrintWriter pw = null;
 		try {
-
-			// TODO los filtros no funcionan bien
 			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
 			pw = new PrintWriter(ficheroHTML);
 			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
@@ -857,24 +928,35 @@ public class MainController implements Initializable {
 					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
 
 			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
+			pw.println("\t\t<tr> \n" + "\t\t<th>Fecha </th>");
+			pw.println("\t\t<th>Nombre completo del usuario</th>");
+			pw.println("\t\t<th>Usuario afectado</th>");
+			pw.println("\t\t<th>Contexto del evento</th>");
+			pw.println("\t\t<th>Componente</th>");
+			pw.println("\t\t<th>Nombre evento</th>");
+			pw.println("\t\t<th>Descripción</th>");
+			pw.println("\t\t<th>Origen</th>");
+			pw.println("\t\t<th>Dirección IP</th>");
+			pw.println("\t</tr>");
+
 			pw.println("\t\t<tr> \n"
-					+ "\t\t<th>Fecha <input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"inputfecha\" onkeyup=\"filter()\"></th>");
+					+ "\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"inputfecha\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Nombre completo del usuario<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreA\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreA\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Usuario afectado<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreB\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreB\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Contexto del evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por contexto\" id=\"inputcontexto\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por contexto\" id=\"inputcontexto\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Componente<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por componente\" id=\"inputcomponente\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por componente\" id=\"inputcomponente\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Nombre evento<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por evento \" id=\"inputevento\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por evento \" id=\"inputevento\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Descripción<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por descripción\" id=\"inputdescripcion\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por descripción\" id=\"inputdescripcion\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Origen<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por origen\" id=\"inputorigen\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por origen\" id=\"inputorigen\" onkeyup=\"filter()\"></th>");
 			pw.println(
-					"\t\t<th>Dirección IP<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
+					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
 			pw.println("\t</tr>");
 
 			for (Log log : generateLogs) {
@@ -907,15 +989,15 @@ public class MainController implements Initializable {
 		pw.println("\t<tr>");
 
 		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "-" + log.getDate().get(Calendar.MONTH) + "-"
-				+ log.getDate().get(Calendar.YEAR) + "</th>");
-		pw.println("\t\t<td>" + log.getNameUser() + "</th>");
-		pw.println("\t\t<td>" + log.getUserAffected() + "</th>");
-		pw.println("\t\t<td>" + log.getContext() + "</th>");
-		pw.println("\t\t<td>" + log.getComponent() + "</th>");
-		pw.println("\t\t<td>" + log.getEvent() + "</th>");
-		pw.println("\t\t<td>" + log.getDescription() + "</th>");
-		pw.println("\t\t<td>" + log.getOrigin() + "</th>");
-		pw.println("\t\t<td>" + log.getIp() + "</th>");
+				+ log.getDate().get(Calendar.YEAR) + "</td>");
+		pw.println("\t\t<td>" + log.getNameUser() + "</td>");
+		pw.println("\t\t<td>" + log.getUserAffected() + "</td>");
+		pw.println("\t\t<td>" + log.getContext() + "</td>");
+		pw.println("\t\t<td>" + log.getComponent() + "</td>");
+		pw.println("\t\t<td>" + log.getEvent() + "</td>");
+		pw.println("\t\t<td>" + log.getDescription() + "</td>");
+		pw.println("\t\t<td>" + log.getOrigin() + "</td>");
+		pw.println("\t\t<td>" + log.getIp() + "</td>");
 
 		pw.println("\t</tr>");
 	}

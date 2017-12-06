@@ -142,36 +142,7 @@ public class Chart {
 			pw.print("\t\tdatasets: [");
 			// Valores de los datos
 
-			int tam = label.size();
-			int cont = 0;
-			for (String dataset : label.keySet()) {
-				pw.println("{");
-				pw.print("\t\t\tlabel:");
-				pw.println("'" + dataset + "',");
-
-				pw.println("\t\t\tbackgroundColor: color(window.chartColors[colorDataSet(" +cont+ ")]).alpha(0.5).rgbString(),");
-				pw.println("\t\t\tborderColor: window.chartColors.red,");
-				pw.println("\t\t\tborderWidth: 1,");
-
-				pw.println("\t\t\tdata: [");
-				for (int i = label.get(dataset).size(); i > 0; i--) {
-					if (0 != i - 1) {
-						pw.println("\t\t\t\t" + label.get(dataset).get(i -1) + ",");
-
-					} else {
-						pw.println("\t\t\t\t" + label.get(dataset).get(i -1));
-					}
-
-				}
-				cont++;
-				pw.println("\t\t\t]");
-				if (cont != tam) {
-					pw.print("\t\t},");
-
-				} else {
-					pw.print("\t\t}");
-				}
-			}
+			setDataSetJavaScript(pw);
 			pw.println("\t]");
 			pw.println("};");
 
@@ -209,6 +180,42 @@ public class Chart {
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * @param pw
+	 */
+	private void setDataSetJavaScript(PrintWriter pw) {
+		int tam = label.size();
+		int cont = 0;
+		for (String dataset : label.keySet()) {
+			pw.println("{");
+			pw.print("\t\t\tlabel:");
+			pw.println("'" + dataset + "',");
+
+			pw.println("\t\t\tbackgroundColor: color(window.chartColors[colorDataSet(" +cont+ ")]).alpha(0.5).rgbString(),");
+			pw.println("\t\t\tborderColor: window.chartColors.red,");
+			pw.println("\t\t\tborderWidth: 1,");
+
+			pw.println("\t\t\tdata: [");
+			for (int i = label.get(dataset).size(); i > 0; i--) {
+				if (0 != i - 1) {
+					pw.println("\t\t\t\t" + label.get(dataset).get(i -1) + ",");
+
+				} else {
+					pw.println("\t\t\t\t" + label.get(dataset).get(i -1));
+				}
+
+			}
+			cont++;
+			pw.println("\t\t\t]");
+			if (cont != tam) {
+				pw.print("\t\t},");
+
+			} else {
+				pw.print("\t\t}");
 			}
 		}
 	}

@@ -233,47 +233,47 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="tfdParticipants1" promptText="Fecha" styleClass="text-field-main" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfdDate" promptText="Fecha" styleClass="text-field-main" stylesheets="@../css/style.css">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants11" promptText="Nombre completo del usuario" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="1">
+                                    <TextField fx:id="tfdNameUser" promptText="Nombre completo del usuario" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="1">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants12" promptText="Usuario afectado" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="2">
+                                    <TextField fx:id="tfdUserAffected" promptText="Usuario afectado" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="2">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants121" promptText="Contexto del evento" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="3">
+                                    <TextField fx:id="tfdContext" promptText="Contexto del evento" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="3">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants122" promptText="Componente" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="4">
+                                    <TextField fx:id="tfdComponent" promptText="Componente" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="4">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants123" promptText="Nombre evento" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="5">
+                                    <TextField fx:id="tfdEvent" promptText="Nombre evento" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="5">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants111" layoutX="99.0" layoutY="17.0" promptText="Descripción" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="6">
+                                    <TextField fx:id="tfdDescription" layoutX="99.0" layoutY="17.0" promptText="Descripción" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="6">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants1111" promptText="Origen" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="7">
+                                    <TextField fx:id="tfdPOrigin" promptText="Origen" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="7">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
                                     </TextField>
-                                    <TextField fx:id="tfdParticipants1112" promptText="Dirección IP" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="8">
+                                    <TextField fx:id="tfdIp" promptText="Dirección IP" styleClass="text-field-main" stylesheets="@../css/style.css" GridPane.columnIndex="8">
                                        <padding>
                                           <Insets left="4.0" right="4.0" />
                                        </padding>
