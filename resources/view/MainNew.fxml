@@ -188,7 +188,7 @@
             <Button fx:id="btnExport" mnemonicParsing="false" onAction="#saveChart" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Exportar gráfico" GridPane.columnIndex="1" />
             <Button fx:id="btncarga" layoutX="160.0" layoutY="13.0" mnemonicParsing="false" onAction="#cargaDocumento" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Cargar documento" GridPane.columnIndex="2" />
             <Button fx:id="btnExit" layoutX="310.0" layoutY="13.0" mnemonicParsing="false" onAction="#closeApplication" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Salir" GridPane.columnIndex="3" />
-            <Button fx:id="btnchart" layoutX="303.0" layoutY="13.0" mnemonicParsing="false" onAction="#generateChart" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Generar grafica" />
+            <Button fx:id="btnchart" layoutX="303.0" layoutY="13.0" mnemonicParsing="false" onAction="#generateChart" style="-fx-font-size: 13;" stylesheets="@../css/style.css" text="Generar grafica a partir de filtros de tabla" />
          </children>
       </GridPane>
    </bottom>

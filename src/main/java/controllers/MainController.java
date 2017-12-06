@@ -4,7 +4,6 @@
 package controllers;
 
 import java.awt.Desktop;
-import java.awt.FontFormatException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -168,6 +167,8 @@ public class MainController implements Initializable {
 	private ArrayList<Log> filterLogs;
 	private ArrayList<Log> filterTableLogs;
 	private Chart viewchart;
+	private ObservableList<model.Event> selectedEvents = null;
+	private ObservableList<EnrolledUser> selectedParticipants = null;
 
 	private EnrolledUser userDesconocido;
 
@@ -282,8 +283,8 @@ public class MainController implements Initializable {
 	}
 
 	private void filterLogs() {
-		ObservableList<model.Event> selectedEvents = listEvents.getSelectionModel().getSelectedItems();
-		ObservableList<EnrolledUser> selectedParticipants = listParticipants.getSelectionModel().getSelectedItems();
+		selectedEvents = listEvents.getSelectionModel().getSelectedItems();
+		selectedParticipants = listParticipants.getSelectionModel().getSelectedItems();
 
 		filterLogs.clear();
 		viewchart.getLabel().clear();
@@ -855,7 +856,9 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void generateChart(ActionEvent actionEvent) throws Exception {
-
+		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);;
+		viewchart.generarGrafica();
+		engineChart.reload();
 		try {
 
 		} catch (Exception e) {
