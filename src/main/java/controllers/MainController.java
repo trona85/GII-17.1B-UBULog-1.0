@@ -4,6 +4,7 @@
 package controllers;
 
 import java.awt.Desktop;
+import java.awt.FontFormatException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -165,6 +166,7 @@ public class MainController implements Initializable {
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
 	private ArrayList<Log> filterLogs;
+	private ArrayList<Log> filterTableLogs;
 	private Chart viewchart;
 
 	private EnrolledUser userDesconocido;
@@ -175,6 +177,7 @@ public class MainController implements Initializable {
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		filterLogs = new ArrayList<>();
+		filterTableLogs = new ArrayList<>();
 		this.logs = new CsvParser();
 
 		try {
@@ -567,27 +570,129 @@ public class MainController implements Initializable {
 		return new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent event) {
-				patternDate = tfdDate.getText();
-				patternNameUser = tfdNameUser.getText();
-				patternUserAffected = tfdUserAffected.getText();
-				patternContext = tfdContext.getText();
-				patternComponent = tfdComponent.getText();
-				patternEvent = tfdEvent.getText();
-				patternDescription = tfdDescription.getText();
-				patternOrigin = tfdPOrigin.getText();
-				patternIp = tfdIp.getText();
-				logger.info("-> Filtrando tabla: \n Fecha :" + patternDate + "\n Usuario afectado: " + patternNameUser
-						+ "\n usuario afectado: " + patternUserAffected + "\n contexto: " + patternContext
-						+ "\n Componente: " + patternComponent + "\n Evento: " + patternEvent + "\n Descripción: "
-						+ patternEvent + "\n Origen: " + patternOrigin + "\n ip: " + patternIp);
-				filterTable();
+				ArrayList<String> patternFilter = new ArrayList<>();
+				patternFilter.add(tfdDate.getText());
+				patternFilter.add(tfdNameUser.getText());
+				patternFilter.add(tfdUserAffected.getText());
+				patternFilter.add(tfdContext.getText());
+				patternFilter.add(tfdComponent.getText());
+				patternFilter.add(tfdEvent.getText());
+				patternFilter.add(tfdDescription.getText());
+				patternFilter.add(tfdPOrigin.getText());
+				patternFilter.add(tfdIp.getText());
+				logger.info("-> Filtrando tabla: \n Fecha :" + patternFilter.get(0) + "\n Usuario afectado: "
+						+ patternFilter.get(1) + "\n usuario afectado: " + patternFilter.get(2) + "\n contexto: "
+						+ patternFilter.get(3) + "\n Componente: " + patternFilter.get(4) + "\n Evento: "
+						+ patternFilter.get(5) + "\n Descripción: " + patternFilter.get(6) + "\n Origen: "
+						+ patternFilter.get(7) + "\n ip: " + patternFilter.get(8));
+				filterTable(patternFilter);
 			}
 		};
 	}
 
-	protected void filterTable() {
-		// TODO si filterlogs esta vacio hacer filtro desde logs total si no desde filter log y crear grafica
+	protected void filterTable(ArrayList<String> patternFilter) {
+		// TODO si filterlogs esta vacio hacer filtro desde logs total si no
+		// desde filter log y crear grafica
 
+		// TODO desabilitar filtros si no se ha cargado log
+		ArrayList<Boolean> patterncomp = new ArrayList<>();
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		patterncomp.add(false);
+		filterTableLogs.clear();
+		try {
+			if (filterLogs.isEmpty()) {
+				// buscar en log completo
+
+				filtroTableLogs(patternFilter, patterncomp, logs.getLogs());
+
+			} else {
+				// buscar en filterlog
+				filtroTableLogs(patternFilter, patterncomp, filterLogs);
+			}
+			
+			generarTablaLogs(filterTableLogs);
+			engineTableLogs.reload();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * @param patternFilter
+	 * @param patterncomp
+	 * @param ftLogs
+	 */
+	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp,
+			ArrayList<Log> ftLogs) {
+
+		for (int i = 0; i < ftLogs.size(); i++) {
+			for (int j = 0; j < patternFilter.size(); j++) {
+				if (patternFilter.get(j).equals("")) {
+					// igual no funciona
+					patterncomp.set(j, true);
+				} else {
+
+					Pattern pattern = Pattern.compile(patternFilter.get(j));
+					Matcher match = null;
+					switch (j) {
+					case 0:
+						match = pattern.matcher(ftLogs.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
+								+ ftLogs.get(i).getDate().get(Calendar.MONTH) + "/"
+								+ ftLogs.get(i).getDate().get(Calendar.YEAR));
+
+						break;
+					case 1:
+						match = pattern.matcher(ftLogs.get(i).getNameUser());
+
+						break;
+					case 2:
+						match = pattern.matcher(ftLogs.get(i).getUserAffected());
+						break;
+					case 3:
+						match = pattern.matcher(ftLogs.get(i).getContext());
+						break;
+					case 4:
+						match = pattern.matcher(ftLogs.get(i).getComponent());
+						break;
+					case 5:
+						match = pattern.matcher(ftLogs.get(i).getEvent());
+						break;
+					case 6:
+						match = pattern.matcher(ftLogs.get(i).getDescription());
+						break;
+					case 7:
+						match = pattern.matcher(ftLogs.get(i).getOrigin());
+						break;
+					case 8:
+						match = pattern.matcher(ftLogs.get(i).getIp());
+						break;
+
+					default:
+						break;
+					}
+					if (match.find()) {
+						patterncomp.set(j, true);
+					}
+				}
+			}
+			if (patterncomp.get(0) == true && patterncomp.get(1) == true && patterncomp.get(2) == true
+					&& patterncomp.get(3) == true && patterncomp.get(4) == true && patterncomp.get(5) == true
+					&& patterncomp.get(6) == true && patterncomp.get(7) == true && patterncomp.get(8) == true) {
+				filterTableLogs.add(ftLogs.get(i));
+			}
+			for (int k = 0; k < patterncomp.size(); k++) {
+				patterncomp.set(k, false);
+			}
+		}
 	}
 
 	/**
@@ -939,26 +1044,6 @@ public class MainController implements Initializable {
 			pw.println("\t\t<th>Dirección IP</th>");
 			pw.println("\t</tr>");
 
-			pw.println("\t\t<tr> \n"
-					+ "\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por fecha\" id=\"inputfecha\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreA\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por nombre\" id=\"inputnombreB\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por contexto\" id=\"inputcontexto\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por componente\" id=\"inputcomponente\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por evento \" id=\"inputevento\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por descripción\" id=\"inputdescripcion\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por origen\" id=\"inputorigen\" onkeyup=\"filter()\"></th>");
-			pw.println(
-					"\t\t<th><input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Buscar por ip\" id=\"inputip\" onkeyup=\"filter()\"></th>");
-			pw.println("\t</tr>");
-
 			for (Log log : generateLogs) {
 				dataTableLog(pw, log);
 			}
@@ -988,7 +1073,7 @@ public class MainController implements Initializable {
 	private void dataTableLog(PrintWriter pw, Log log) {
 		pw.println("\t<tr>");
 
-		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "-" + log.getDate().get(Calendar.MONTH) + "-"
+		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "/" + log.getDate().get(Calendar.MONTH) + "/"
 				+ log.getDate().get(Calendar.YEAR) + "</td>");
 		pw.println("\t\t<td>" + log.getNameUser() + "</td>");
 		pw.println("\t\t<td>" + log.getUserAffected() + "</td>");
