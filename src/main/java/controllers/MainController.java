@@ -1004,6 +1004,16 @@ public class MainController implements Initializable {
 	}
 
 	/**
+	 * Boton para cargar documento online
+	 * 
+	 * @param actionEvent
+	 */
+	public void cargaDocumentoOnline(ActionEvent actionEvent) {
+		
+
+
+	}
+	/**
 	 * Inicializamos los datos necesarios
 	 * 
 	 * @param logs
