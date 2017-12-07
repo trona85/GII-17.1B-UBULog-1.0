@@ -32,16 +32,11 @@ public class Log {
 
 	public Log(CSVRecord csvRecord) {
 		if (csvRecord.size() > 0) {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-			try {
-				String [] fecha =  formatter.format(formatter.parse(csvRecord.get("Hora"))).split("/");
-				date = GregorianCalendar.getInstance();
-				date.set(Integer.parseInt(fecha[2])+ 2000, Integer.parseInt(fecha[1])-1, Integer.parseInt(fecha[0]));
-				//System.err.println(date.get(date.YEAR));
-				this.setDate(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			String[] fecha = csvRecord.get(0).split("/");
+			date = GregorianCalendar.getInstance();
+			date.set(Integer.parseInt(fecha[2].split(" ")[0]) + 2000, Integer.parseInt(fecha[1]) - 1,
+					Integer.parseInt(fecha[0]));
+			this.setDate(date);
 			setNameUser(csvRecord.get("Nombre completo del usuario"));
 			setUserAffected(csvRecord.get("Usuario afectado"));
 			setContext(csvRecord.get("Contexto del evento"));
@@ -51,9 +46,9 @@ public class Log {
 			setOrigin(csvRecord.get("Origen"));
 			setIp(csvRecord.get("Dirección IP"));
 			String[] fieldDescription = getDescription().split("'");
-			if(fieldDescription[0].contains("The user with id")){
+			if (fieldDescription[0].contains("The user with id")) {
 				setIdUser(Integer.parseInt(fieldDescription[1]));
-			}else{
+			} else {
 				setIdUser(-1);
 			}
 

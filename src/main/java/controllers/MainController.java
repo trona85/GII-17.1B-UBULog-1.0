@@ -7,6 +7,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,8 +20,15 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -185,7 +193,7 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		filterLogs = new ArrayList<>();
 		filterTableLogs = new ArrayList<>();
-		this.logs = new CsvParser();
+		
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
@@ -961,6 +969,7 @@ public class MainController implements Initializable {
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) {
 		try {
+			this.logs = new CsvParser();
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(UBULog.stage);
 			if (file == null) {
@@ -969,26 +978,13 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
+			
 			// leemos csv y lo parseamos
 
 			logs.setFile(file.toString());
 			logs.readDocument();
 
-			for (int i = 0; i < logs.getLogs().size(); ++i) {
-				// insetamos fecha
-				viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
-
-				// comprobamos la existencia de usaer y la insertamos
-				for (int j = 0; j < users.size(); j++) {
-					if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
-						logs.getLogs().get(i).setUser(users.get(j));
-					}
-
-					if (j == users.size() - 1 && logs.getLogs().get(i).getUser() == null) {
-						logs.getLogs().get(i).setUser(userDesconocido);
-					}
-				}
-			}
+			asignedUserMonth();
 
 			initializeDataSet(logs);
 
@@ -1004,15 +1000,89 @@ public class MainController implements Initializable {
 	}
 
 	/**
+	 * 
+	 */
+	private void asignedUserMonth() {
+		for (int i = 0; i < logs.getLogs().size(); ++i) {
+			// insetamos fecha
+			viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
+
+			// comprobamos la existencia de usaer y la insertamos
+			for (int j = 0; j < users.size(); j++) {
+				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
+					logs.getLogs().get(i).setUser(users.get(j));
+				}
+
+				if (j == users.size() - 1 && logs.getLogs().get(i).getUser() == null) {
+					logs.getLogs().get(i).setUser(userDesconocido);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Boton para cargar documento online
 	 * 
 	 * @param actionEvent
+	 * @throws IOException 
 	 */
-	public void cargaDocumentoOnline(ActionEvent actionEvent) {
-		
+	public void cargaDocumentoOnline(ActionEvent actionEvent) throws IOException {
+		WebClient client = null;
+		this.logs = new CsvParser();
 
+		HtmlPage page = null;
+		FileWriter fileWriter = null;
+		File file= null;
+		try {
+			System.out.println(new File ("tempcsv.csv").getAbsolutePath ());
+			client = new WebClient(BrowserVersion.CHROME);
+			page = client.getPage(UBULog.host + "/login/index.php");
+			HtmlForm form = (HtmlForm) page.getElementById("login");
+
+			form.getInputByName("username").setValueAttribute(UBULog.session.getUserName());
+			form.getInputByName("password").setValueAttribute(UBULog.session.getPassword());
+
+			page.getElementById("loginbtn").click();
+			page = client.getPage(UBULog.host + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
+					+ UBULog.session.getActualCourse().getId()
+					+ "&user=&date=&modid=&modaction=&origin=&edulevel=-1&logreader=logstore_standard");
+
+			page.getElementsByTagName("button").get(1).click().getWebResponse().getContentAsStream();
+			InputStream dataDownload = page.getElementsByTagName("button").get(1).click().getWebResponse()
+					.getContentAsStream();
+			String csvtxt = IOUtils.toString(dataDownload, "UTF-8");
+			fileWriter = new FileWriter("./tempcsv.csv");
+			fileWriter.write(csvtxt);
+
+			file = new File ("tempcsv.csv");
+			logs.setFile(file.getAbsolutePath());
+			logs.readDocument();
+			file.delete();
+			asignedUserMonth();
+
+			initializeDataSet(logs);
+
+		} catch (FailingHttpStatusCodeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UBULogException e) {
+			logger.info(e.getMessage());
+			
+		} finally {
+			if (client != null) {
+				client.close();
+			}
+			if (fileWriter != null) {
+				fileWriter.close();
+			}
+			
+		}
 
 	}
+
 	/**
 	 * Inicializamos los datos necesarios
 	 * 
@@ -1039,7 +1109,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * @param disable 
+	 * @param disable
 	 * 
 	 */
 	private void setDisableComponentInterfaz(boolean disable) {
@@ -1069,8 +1139,7 @@ public class MainController implements Initializable {
 			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
 					+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> \n"
 					+ "<meta charset=\"utf-8\"> \n"
-					+ "<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n"
-					+ "<body>\n"
+					+ "<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n" + "<body>\n"
 					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
 
 			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");

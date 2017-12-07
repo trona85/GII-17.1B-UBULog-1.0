@@ -110,4 +110,7 @@ public class Session {
 	public void setActualCourse(Course course) {
 		this.actualCourse = course;
 	}
+	public String getPassword(){
+		return this.password;
+	}
 }
