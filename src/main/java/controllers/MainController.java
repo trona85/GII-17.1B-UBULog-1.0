@@ -1060,7 +1060,7 @@ public class MainController implements Initializable {
 					+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> \n"
 					+ "<meta charset=\"utf-8\"> \n"
 					+ "<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n"
-					+ "<script type=\"text/javascript\" src=\"../js/tablelogs.js\"></script> \n" + "<body>\n"
+					+ "<body>\n"
 					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
 
 			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
