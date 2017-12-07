@@ -6,6 +6,7 @@ package controllers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,11 +17,14 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.imageio.ImageIO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -30,6 +34,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -43,6 +48,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -185,7 +191,7 @@ public class MainController implements Initializable {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
 
 			viewchart = new Chart();
-			btnchart.setDisable(true);
+			setDisableComponentInterfaz(true);
 
 			engineChart = chart.getEngine();
 			engineTableLogs = tableLogs.getEngine();
@@ -617,7 +623,7 @@ public class MainController implements Initializable {
 				// buscar en filterlog
 				filtroTableLogs(patternFilter, patterncomp, filterLogs);
 			}
-			
+
 			generarTablaLogs(filterTableLogs);
 			engineTableLogs.reload();
 
@@ -829,26 +835,28 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void saveChart(ActionEvent actionEvent) throws Exception {
-		/*
-		 * WritableImage image = lineChart.snapshot(new SnapshotParameters(),
-		 * null);
-		 * 
-		 * File file = new File("chart.png");
-		 * 
-		 * FileChooser fileChooser = new FileChooser();
-		 * fileChooser.setTitle("Guardar gráfico");
-		 * 
-		 * fileChooser.setInitialFileName("chart");
-		 * fileChooser.setInitialDirectory(file.getParentFile());
-		 * fileChooser.getExtensionFilters().addAll(new
-		 * FileChooser.ExtensionFilter(".png", "*.*"), new
-		 * FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new
-		 * FileChooser.ExtensionFilter("*.png", "*.png")); try { file =
-		 * fileChooser.showSaveDialog(UBULog.stage); if (file != null) { try {
-		 * ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file); }
-		 * catch (IOException ex) { logger.info(ex.getMessage()); } } } catch
-		 * (Exception e) { e.printStackTrace(); }
-		 */
+
+		WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+		File file = new File("chart.png");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Guardar gráfico");
+		fileChooser.setInitialFileName("chart");
+		fileChooser.setInitialDirectory(file.getParentFile());
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".png", "*.*"),
+				new FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new FileChooser.ExtensionFilter("*.png", "*.png"));
+		try {
+			file = fileChooser.showSaveDialog(UBULog.stage);
+			if (file != null) {
+				try {
+					ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+				} catch (IOException ex) {
+					logger.info(ex.getMessage());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -856,7 +864,8 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void generateChart(ActionEvent actionEvent) throws Exception {
-		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);;
+		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);
+		;
 		viewchart.generarGrafica();
 		engineChart.reload();
 		try {
@@ -954,7 +963,6 @@ public class MainController implements Initializable {
 		try {
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(UBULog.stage);
-
 			if (file == null) {
 				throw new UBULogException(UBULogError.FICHERO_CANCELADO);
 			}
@@ -1003,8 +1011,7 @@ public class MainController implements Initializable {
 	private void initializeDataSet(CsvParser logs) {
 
 		// dejamos seleccionar participantes
-		listParticipants.setDisable(false);
-		btnchart.setDisable(false);
+		setDisableComponentInterfaz(false);
 		// Activamos la selección múltiple en la lista de participantes y
 		// eventos
 
@@ -1019,6 +1026,27 @@ public class MainController implements Initializable {
 		listLogs.setItems(enrLog);
 		listEvents.setItems(eventList);
 
+	}
+
+	/**
+	 * @param disable 
+	 * 
+	 */
+	private void setDisableComponentInterfaz(boolean disable) {
+		listParticipants.setDisable(disable);
+		tfdParticipants.setDisable(disable);
+		tfdEvents.setDisable(disable);
+		listEvents.setDisable(disable);
+		btnchart.setDisable(disable);
+		tfdDate.setDisable(disable);
+		tfdNameUser.setDisable(disable);
+		tfdUserAffected.setDisable(disable);
+		tfdContext.setDisable(disable);
+		tfdComponent.setDisable(disable);
+		tfdEvent.setDisable(disable);
+		tfdDescription.setDisable(disable);
+		tfdPOrigin.setDisable(disable);
+		tfdIp.setDisable(disable);
 	}
 
 	private void generarTablaLogs(ArrayList<Log> generateLogs) {
