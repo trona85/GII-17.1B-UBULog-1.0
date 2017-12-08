@@ -42,7 +42,6 @@ public class UBULog extends Application {
 			init.show();
 		} catch (Exception e) {
 			logger.error("Error al iniciar UBULog");
-			e.printStackTrace();
 		}
 	}
 

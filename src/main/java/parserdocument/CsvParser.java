@@ -9,6 +9,8 @@ import java.io.IOException;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import model.Event;
 import model.Log;
@@ -24,6 +26,8 @@ import ubulogexception.UBULogException;
  * @version 1.0
  */
 public class CsvParser extends DocumentParser {
+	
+	static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
 
 	/**
 	 * Constructor.
@@ -55,6 +59,7 @@ public class CsvParser extends DocumentParser {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
 
 		} finally {
@@ -63,8 +68,7 @@ public class CsvParser extends DocumentParser {
 				try {
 					fileReader.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error("Error IOException \"FileReader\", {}", e);
 				}
 			}
 		}

@@ -6,16 +6,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.collections.ObservableList;
 
 public class Chart {
-	// TODO no estoy seguro que venga ordenado en orden de insercion
+	
+	static final Logger logger = LoggerFactory.getLogger(Chart.class);
+	
 	private ArrayList<String> dates;
 	private HashMap<String, ArrayList<Integer>> label;
 	private final String[] MONTH = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
 			"Septiembre", "Octubre", "Noviembre", "Diciembre" };
-
-	// TODO para generar los graficos, construiremos los html correspondientes
 
 	public Chart() {
 		dates = new ArrayList<>();
@@ -27,7 +30,6 @@ public class Chart {
 	}
 
 	public void setDate(int month) {
-		// Calenddar los meses los cuenta desde 0
 		if (dates.contains(MONTH[month])) {
 			return;
 		} else {
@@ -170,14 +172,14 @@ public class Chart {
 			
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error al generar gráfica. {}", e);
 		} finally {
+			if (pw != null){
+				pw.close();
+			}
 			try {
 				if (null != ficheroJS)
 					ficheroJS.close();
-				if (pw != null){
-					pw.close();
-				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

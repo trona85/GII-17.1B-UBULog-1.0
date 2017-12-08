@@ -122,7 +122,7 @@ public class LoginController {
 							UBULog.stage.show();
 							lblStatus.setText("");
 						} catch (Exception e) {
-							e.printStackTrace();
+							logger.error("Error en la carga de Welcome. {}", e);
 							throw new RuntimeException("Loading Welcome.fxml");
 						}
 					} else {

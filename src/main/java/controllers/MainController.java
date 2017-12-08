@@ -250,7 +250,6 @@ public class MainController implements Initializable {
 
 		} catch (Exception e) {
 			logger.error("Error en la inicialización. {}", e);
-			e.printStackTrace();
 		}
 
 		// Asignamos el manejador de eventos de la lista
@@ -576,7 +575,7 @@ public class MainController implements Initializable {
 			lblCountParticipants.setText("Participantes: " + nameUsers.size());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error en el filtro participantes. {}", e);
 		}
 		listParticipants.setItems(enrList);
 	}
@@ -606,11 +605,8 @@ public class MainController implements Initializable {
 	}
 
 	protected void filterTable(ArrayList<String> patternFilter) {
-		// TODO si filterlogs esta vacio hacer filtro desde logs total si no
-		// desde filter log y crear grafica
-
-		// TODO desabilitar filtros si no se ha cargado log
 		ArrayList<Boolean> patterncomp = new ArrayList<>();
+		// TODO mejorar código
 		patterncomp.add(false);
 		patterncomp.add(false);
 		patterncomp.add(false);
@@ -636,7 +632,7 @@ public class MainController implements Initializable {
 			engineTableLogs.reload();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error en el filtro de tabla. {}", e);
 		}
 
 	}
@@ -761,7 +757,7 @@ public class MainController implements Initializable {
 			eventList = FXCollections.observableArrayList(filterevents);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error en filtro de eventos {}", e);
 		}
 		listEvents.setItems(eventList);
 	}
@@ -862,7 +858,7 @@ public class MainController implements Initializable {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error en guardado de gráfico. {}", e);
 		}
 
 	}
@@ -871,16 +867,10 @@ public class MainController implements Initializable {
 	 * @param actionEvent
 	 * @throws Exception
 	 */
-	public void generateChart(ActionEvent actionEvent) throws Exception {
+	public void generateChart(ActionEvent actionEvent) {
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);
-		;
 		viewchart.generarGrafica();
 		engineChart.reload();
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1162,14 +1152,14 @@ public class MainController implements Initializable {
 			pw.println("</div> \n" + "</body>\n" + "</html>");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error al generar tabla logs. {}", e);
 		} finally {
+			if (pw != null) {
+				pw.close();
+			}
 			try {
 				if (null != ficheroHTML)
 					ficheroHTML.close();
-				if (pw != null) {
-					pw.close();
-				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

@@ -61,7 +61,7 @@ public class WelcomeController implements Initializable {
 
 			list = FXCollections.observableArrayList(nameCourses);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error en la carga de cursos");
 		}
 		listCourses.setItems(list);
 	}
@@ -97,7 +97,6 @@ public class WelcomeController implements Initializable {
 			lblNoSelect.setText("");
 			 logger.info("-- Entrando al curso");
 		} catch (Exception e) {
-			e.getStackTrace();
 			lblNoSelect.setText("Debe seleccionar un curso");
 			logger.info("Debe seleccionar un curso");
 		}
