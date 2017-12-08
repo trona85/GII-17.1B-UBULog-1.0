@@ -1,83 +1,34 @@
 \capitulo{3}{Conceptos teóricos}
 
-En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
+CITAR TFG CLAUDIA APARTADO CONCEPTOS TEORICOS PAG 6 A 13.
 
-Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
+NUEVO CONTENIDO ......
 
-\section{Secciones}
+\section{API Rest}\label{api-rest}
 
-Las secciones se incluyen con el comando section.
+\section{Token}\label{token}
+\section{Json}\label{json}
+\section{Web Scraping}\label{web-scraping}
 
-\subsection{Subsecciones}
+Web Scraping es una manera de interaccionar con una web y automatizar las interacciones. Su uso habitual es para  el testeo de webs, probar campos, botones, etc.... Pero también podemos utilizarlo para el tratamiento de datos. Hay veces que la web no proporciona una api rest o un archivo con el cual podamos tratar ciertos datos para hacer "x" cosa. En nuestro caso, lo tenemos que utilizar para la descarga automática de un log, en el que si no estamos logeados no podríamos descargar.
 
-Además de secciones tenemos subsecciones.
+El usuario podría ir al registro sin ningún problema y descargarlo, pero también nos interesa, que si el usuario no sabe donde esta el registro o le resulta dificultoso el proceso de descargarlo manualmente, podamos automatizarlo para el.
+ 
+Lo que hemos hecho es automatizar el proceso que haría el usuario de forma manual. 
+ \begin{enumerate}
+ 	\item 
+ 	Nos iremos a la url de logueo.
+ 	\item 
+ 	Rellenamos usuario y contraseña y inmediatamente hacemos click en aceptar.
+ 	\item 
+ 	Construimos la url para ir al registro con los filtros para que salgan todos, se puede poner en la url porque moodle, esa búsqueda, hace una petición GET.
+ 	\item 
+ 	Una vez estemos en la ventana con todos los log del registro hacemos click en descargar, como por defecto el archivo descarga es csv no consideramos ese movimiento.
+ 	\item 
+ 	Recogemos la respuesta que nos da la web y la convertimos en String, en este paso ya tenemos todo el registro almacenado en nuestra aplicación.
+ \end{enumerate}
+ 
+Aunque en nuestra aplicación ya nos logeamos al principio, para este proceso hay que volver a logearse, ya que, es token que nos proporciona el web service de moodle, no es el mismo.
 
-\subsubsection{Subsubsecciones}
-
-Y subsecciones. 
-
-
-\section{Referencias}
-
-Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
-
-
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
-\begin{itemize}
-	\item primer item.
-	\item segundo item.
-\end{itemize}
-
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
-
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
-\begin{itemize}
-\item 
-\end{itemize}
-
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
+Es importante destacar, que este proceso, para el usuario, es transparente. Lo único que va a notar, es que, le cuesta cargar el log mas. En el equipo que se ha desarrollado el proyecto un log de 100 registros es imperceptible pero hacer que se lo descargue automáticamente, todo el proceso son unos 6 segundos aproximadamente.
+ 
