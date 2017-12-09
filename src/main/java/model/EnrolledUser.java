@@ -23,7 +23,7 @@ public class EnrolledUser {
 	private String fullName;
 	private Date firstAccess;
 	private Date lastAccess;
-	public String description;
+	private String description;
 	private String city;
 	private String country;
 	private String profileImageUrlSmall;
@@ -357,22 +357,7 @@ public class EnrolledUser {
 	}
 
 	public String toString() {
-		
-		return getFullName()
-				/*"id: "+ getId() + "\n"+
-		"firstName: "+ getFirstName() + "\n"+
-		"lastName: "+ getLastName() + "\n"+
-		"fullName: "+ getFullName() + "\n"+
-		"firstAccess: "+ getFirstAccess() + "\n"+
-		"lastAccess: "+ getLastAccess() + "\n"+
-		"description: "+ getDescription() + "\n"+
-		"city: "+ getCity() + "\n"+
-		"country: "+ getCountry() + "\n"+
-		"profileImageUrlSmall: "+ getProfileImageUrlSmall()+ "\n"+
-		"profileImageUrl: "+ getProfileImageUrl() + "\n"+
-		"roles: "+ getRoles() + "\n"+
-		"groups: "+ getGroups() + "\n"+
-		"courses: "+ getEnrolledCourses() + "\n"*/;
+		return getFullName();
 	}
 
 }

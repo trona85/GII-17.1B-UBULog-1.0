@@ -43,11 +43,9 @@ public class MoodleUserWS {
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
-			System.out.println("entramos set moodle user");
 			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_INFO_USUARIO
 					+ "&field=username&values[0]=" + userName);
-			System.out.println("entramos httpget: "+ httpget.toString());
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
 				String respuesta = EntityUtils.toString(response.getEntity());
@@ -75,7 +73,6 @@ public class MoodleUserWS {
 							mUser.setProfileImageUrl(jsonObject.getString("profileimageurl"));
 					}
 				}
-				//System.out.println("final moodle");
 			} finally {
 				response.close();
 			}
@@ -110,7 +107,6 @@ public class MoodleUserWS {
 						JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 						if (jsonObject != null) {
 							courses.add(new Course(jsonObject));
-							//System.out.println(courses.get(i));
 						}
 					}
 				}

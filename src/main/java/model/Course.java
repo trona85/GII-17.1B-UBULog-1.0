@@ -32,14 +32,10 @@ public class Course {
 	private int enrolledUsersCount;
 	private String idNumber;
 	private String summary;
-	private String lang;
-	// private Date startDate;
-	// private Date endDate;
-	public ArrayList<EnrolledUser> enrolledUsers;
-	public Set<String> roles; // roles que hay en el curso
-	public Set<String> groups; // grupos que hay en el curso
-	public ArrayList<GradeReportLine> gradeReportLines;
-	public Set<String> typeActivities;
+	private ArrayList<EnrolledUser> enrolledUsers;
+	private Set<String> roles; 
+	private Set<String> groups;
+	private Set<String> typeActivities;
 
 	static final Logger logger = LoggerFactory.getLogger(Course.class);
 
@@ -59,7 +55,6 @@ public class Course {
 		this.enrolledUsersCount = obj.getInt("enrolledusercount");
 		this.idNumber = obj.getString("idnumber");
 		this.summary = obj.getString("summary");
-		this.lang = obj.getString("lang");
 		this.enrolledUsers = new ArrayList<EnrolledUser>();
 
 	}
@@ -268,28 +263,6 @@ public class Course {
 	}
 
 	/**
-	 * Devuelve la lista de gradeReportLines que hay en el curso. (El
-	 * calificador)
-	 * 
-	 * @return lista de gradeReportConfigurationLines
-	 */
-	public ArrayList<GradeReportLine> getGradeReportLines() {
-		return this.gradeReportLines;
-	}
-
-	/**
-	 * Establece la lista de gradeReportLines del curso (el calificador)
-	 * 
-	 * @param grcl
-	 */
-	public void setGradeReportLines(ArrayList<GradeReportLine> grcl) {
-		this.gradeReportLines.clear();
-		for (GradeReportLine gl : grcl) {
-			this.gradeReportLines.add(gl);
-		}
-	}
-
-	/**
 	 * Devuelve las actividades que hay en el curso.
 	 * 
 	 * @return lista de actividades
@@ -303,35 +276,6 @@ public class Course {
 				result.add(data);
 		}
 		return result;
-	}
-
-	/**
-	 * Almacena en un set las actividades que hay en el curso.
-	 * 
-	 * @param grcl
-	 *            gradeReportConfigurationLines
-	 */
-	public void setActivities(ArrayList<GradeReportLine> grcl) {
-		// Creamos el set de roles
-		typeActivities = new HashSet<String>();
-		// Recorremos la lista de usuarios matriculados en el curso
-		for (int i = 0; i < grcl.size(); i++) {
-			typeActivities.add(grcl.get(i).getNameType());
-		}
-	}
-
-	/**
-	 * Sustituimos el elemento de la lista que es una cabecera por el elemento
-	 * que es una categoria completa con todos sus atributos
-	 * 
-	 * @param line
-	 */
-	public void updateGRLList(GradeReportLine line) {
-		for (int i = 0; i < this.gradeReportLines.size(); i++) {
-			if (this.gradeReportLines.get(i).getId() == line.getId()) {
-				this.gradeReportLines.set(i, line);
-			}
-		}
 	}
 
 	/**
@@ -354,21 +298,8 @@ public class Course {
 		return course;
 	}
 
-	// TODO algo no funciona bien
 	public String toString() {
 		return getFullName();
-				/*"id: " + getId() 
-								 * + "\n" + "shortName: " + getShortName() +
-								 * "\n" + "fullName: " + getFullName() + "\n" +
-								 * "enrolledUsersCount: " +
-								 * getEnrolledUsersCount() + "\n" + "idNumber: "
-								 * + getIdNumber() + "\n" + "summary: " +
-								 * getSummary() + "\n" + "lang: " + getLang() +
-								 * "\n" + "enrolledUsers: " + getEnrolledUsers()
-								 * + "\n" + "roles: " + getRoles() + "\n" +
-								 * "groups: " + getGroups() + "\n" +
-								 * "typeActivities: " + getActivities() + "\n"
-								 */
 	}
 
 }

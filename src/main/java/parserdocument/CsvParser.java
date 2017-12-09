@@ -59,7 +59,6 @@ public class CsvParser extends DocumentParser {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
 
 		} finally {

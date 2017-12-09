@@ -38,7 +38,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
@@ -52,9 +51,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
@@ -64,7 +61,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Chart;
 import model.EnrolledUser;
-import model.GradeReportLine;
 import model.Group;
 import model.Log;
 import model.Role;
@@ -761,51 +757,6 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Rellena el árbol de actividades (GradeReportLines). Obtiene los hijos de
-	 * la línea pasada por parámetro, los transforma en treeitems y los
-	 * establece como hijos del elemento treeItem equivalente de line
-	 * 
-	 * @param parent
-	 * @param line
-	 */
-	public void setTreeview(TreeItem<GradeReportLine> parent, GradeReportLine line) {
-		for (int j = 0; j < line.getChildren().size(); j++) {
-			TreeItem<GradeReportLine> item = new TreeItem<GradeReportLine>(line.getChildren().get(j));
-			MainController.setIcon(item);
-			parent.getChildren().add(item);
-			parent.setExpanded(true);
-			setTreeview(item, line.getChildren().get(j));
-		}
-	}
-
-	/**
-	 * Añade un icono a cada elemento del árbol según su tipo de actividad
-	 * 
-	 * @param item
-	 */
-	public static void setIcon(TreeItem<GradeReportLine> item) {
-		// TODO igual me vale para algo, si no quitar
-		switch (item.getValue().getNameType()) {
-		case "Assignment":
-			item.setGraphic((Node) new ImageView(new Image("/img/assignment.png")));
-			break;
-		case "Quiz":
-			item.setGraphic((Node) new ImageView(new Image("/img/quiz.png")));
-			break;
-		case "ManualItem":
-			item.setGraphic((Node) new ImageView(new Image("/img/manual_item.png")));
-			break;
-		case "Category":
-			item.setGraphic((Node) new ImageView(new Image("/img/folder.png")));
-			break;
-		case "Forum":
-			item.setGraphic((Node) new ImageView(new Image("/img/forum.png")));
-		default:
-			break;
-		}
-	}
-
-	/**
 	 * Cambia la asignatura actual y carga otra
 	 * 
 	 * @param actionEvent
@@ -1023,8 +974,7 @@ public class MainController implements Initializable {
 		PrintWriter pw = null;
 		File file = null;
 		try {
-			System.out.println(new File("tempcsv.csv").getAbsolutePath());
-			client = new WebClient(BrowserVersion.CHROME);
+			client = new WebClient(BrowserVersion.getDefault());
 			page = client.getPage(UBULog.host + "/login/index.php");
 			HtmlForm form = (HtmlForm) page.getElementById("login");
 
