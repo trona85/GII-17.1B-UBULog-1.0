@@ -7,7 +7,6 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,13 +19,13 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -193,7 +192,6 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		filterLogs = new ArrayList<>();
 		filterTableLogs = new ArrayList<>();
-		
 
 		try {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
@@ -968,7 +966,7 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
-			
+
 			// leemos csv y lo parseamos
 
 			logs.setFile(file.toString());
@@ -1014,7 +1012,7 @@ public class MainController implements Initializable {
 	 * Boton para cargar documento online
 	 * 
 	 * @param actionEvent
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void cargaDocumentoOnline(ActionEvent actionEvent) throws IOException {
 		WebClient client = null;
@@ -1022,9 +1020,10 @@ public class MainController implements Initializable {
 
 		HtmlPage page = null;
 		FileWriter fileWriter = null;
-		File file= null;
+		PrintWriter pw = null;
+		File file = null;
 		try {
-			System.out.println(new File ("tempcsv.csv").getAbsolutePath ());
+			System.out.println(new File("tempcsv.csv").getAbsolutePath());
 			client = new WebClient(BrowserVersion.CHROME);
 			page = client.getPage(UBULog.host + "/login/index.php");
 			HtmlForm form = (HtmlForm) page.getElementById("login");
@@ -1038,13 +1037,28 @@ public class MainController implements Initializable {
 					+ "&user=&date=&modid=&modaction=&origin=&edulevel=-1&logreader=logstore_standard");
 
 			page.getElementsByTagName("button").get(1).click().getWebResponse().getContentAsStream();
-			InputStream dataDownload = page.getElementsByTagName("button").get(1).click().getWebResponse()
-					.getContentAsStream();
-			String csvtxt = IOUtils.toString(dataDownload, "UTF-8");
-			fileWriter = new FileWriter("./tempcsv.csv");
-			fileWriter.write(csvtxt);
+			WebResponse dataDownload = page.getElementsByTagName("button").get(1).click().getWebResponse();
+			String csvtxt = dataDownload.getContentAsString();
+			
+			try {
+				fileWriter = new FileWriter("./tempcsv.csv");
 
-			file = new File ("tempcsv.csv");
+				pw = new PrintWriter(fileWriter);
+				// TODO el String esta completo pero no lo copia en el
+				// fichero....
+
+				pw.print(csvtxt);
+				
+			} finally {
+				if (pw != null){
+					pw.close();
+					
+				}
+				if(fileWriter != null)
+					fileWriter.close();
+			}
+
+			file = new File("tempcsv.csv");
 			logs.setFile(file.getAbsolutePath());
 			logs.readDocument();
 			file.delete();
@@ -1055,20 +1069,14 @@ public class MainController implements Initializable {
 		} catch (FailingHttpStatusCodeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
-			
+
 		} finally {
 			if (client != null) {
 				client.close();
 			}
-			if (fileWriter != null) {
-				fileWriter.close();
-			}
-			
+
 		}
 
 	}

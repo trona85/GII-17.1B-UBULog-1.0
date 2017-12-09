@@ -32,7 +32,7 @@ public class Log {
 		if (csvRecord.size() > 0) {
 			String[] fecha = csvRecord.get(0).split("/");
 			date = GregorianCalendar.getInstance();
-			date.set(Integer.parseInt(fecha[2].split(" ")[0]) + 2000, Integer.parseInt(fecha[1]) - 1,
+			date.set(Integer.parseInt(fecha[2].split(" ")[0]), Integer.parseInt(fecha[1]) - 1,
 					Integer.parseInt(fecha[0]));
 			this.setDate(date);
 			setNameUser(csvRecord.get("Nombre completo del usuario"));
