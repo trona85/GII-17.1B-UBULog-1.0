@@ -4,13 +4,29 @@ CITAR TFG CLAUDIA APARTADO CONCEPTOS TEORICOS PAG 6 A 13.
 
 NUEVO CONTENIDO ......
 
-\section{API Rest}\label{api-rest}
+%\section{API Rest}\label{api-rest}
+
+
 
 \section{Token}\label{token}
+
+Token para la autenticación en web, que es como lo estamos utilizando nosotros. Es un código único, en algunos casos temporal, que se le asocia a un usuario para mantenerle su sesión abierta, mientras ese token sea correcto. En nuestro caso, se genera un token permanente, dado que estamos en pruebas. el token que nos genera moodle es: "9a5e85d1e61c1c42509d77b34f26643a"
+
 \section{Json}\label{json}
+
+JavaScript Object Notation (\emph{Json}) es una estructura en formato texto, con el cual, podemos enviar y recibir datos de un servidor, de forma rápida y sencilla. 
+
+Su estructura seria tal que así:
+
+\imagen{json}{Extructura Json.}
+
+La imagen representa una respuesta del servidor de moodle haciéndole una petición a su WebService.
+
+Para su tratamiento de los datos es similar a un array de objetos, nos podemos mover por el y y almacenar esos datos para nuestro uso futuro, igualmente podemos crear un Json y enviarlo al servidor para que lo trate el, en el caso de que estuviera permitido.
+
 \section{Web Scraping}\label{web-scraping}
 
-Web Scraping es una manera de interaccionar con una web y automatizar las interacciones. Su uso habitual es para  el testeo de webs, probar campos, botones, etc.... Pero también podemos utilizarlo para el tratamiento de datos. Hay veces que la web no proporciona una api rest o un archivo con el cual podamos tratar ciertos datos para hacer "x" cosa. En nuestro caso, lo tenemos que utilizar para la descarga automática de un log, en el que si no estamos logeados no podríamos descargar.
+Web Scraping es una manera de interaccionar con una web y automatizar las interacciones. Su uso habitual es para  el testeo de webs, probar campos, botones, etc.... Pero también podemos utilizarlo para el tratamiento de datos. Hay veces que la web no proporciona una api rest o un archivo con el cual podamos tratar ciertos datos para hacer "x" cosa. En nuestro caso, lo tenemos que utilizar para la descarga automática de un log, en el que si no estamos logeados, no podríamos descargar.
 
 El usuario podría ir al registro sin ningún problema y descargarlo, pero también nos interesa, que si el usuario no sabe donde esta el registro o le resulta dificultoso el proceso de descargarlo manualmente, podamos automatizarlo para el.
  
