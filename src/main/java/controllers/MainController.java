@@ -169,7 +169,6 @@ public class MainController implements Initializable {
 	private WebEngine engineTableLogs;
 	@FXML
 	private WebView imageLoger;
-	private WebEngine engineImagen;
 
 	private ArrayList<EnrolledUser> users;
 	private CsvParser logs;
@@ -311,7 +310,7 @@ public class MainController implements Initializable {
 							control = true;
 						}
 					}
-					if (control == false) {
+					if (!control) {
 						filterLogs.remove(actualLog);
 
 					}
@@ -341,6 +340,8 @@ public class MainController implements Initializable {
 	 * del usuario logeado.
 	 */
 	private void dataUserLoger() {
+
+		WebEngine engineImagen;
 		// Mostramos Usuario logeado
 		lblActualUser.setText("Usuario: " + UBULog.user.getFullName());
 
@@ -391,7 +392,7 @@ public class MainController implements Initializable {
 		// Cargamos una lista de los nombres de los grupos
 		ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
-		ArrayList<MenuItem> groupsItemsList = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> groupsItemsList = new ArrayList<>();
 		// En principio mostrarán todos los usuarios en cualquier grupo
 		MenuItem mi = (new MenuItem("Todos"));
 		// Añadimos el manejador de eventos al primer MenuItem
@@ -418,7 +419,7 @@ public class MainController implements Initializable {
 		// Cargamos una lista con los nombres de los roles
 		ArrayList<String> rolesList = UBULog.session.getActualCourse().getRoles();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
-		ArrayList<MenuItem> rolesItemsList = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> rolesItemsList = new ArrayList<>();
 		// En principio se mostrarón todos los usuarios con cualquier rol
 		MenuItem mi = (new MenuItem("Todos"));
 		// Añadimos el manejador de eventos al primer MenuItem
@@ -516,17 +517,17 @@ public class MainController implements Initializable {
 			boolean roleYes;
 			boolean groupYes;
 			boolean patternYes;
-			users = (ArrayList<EnrolledUser>) UBULog.session.getActualCourse().getEnrolledUsers();
-			// insertUserFicticios();
+			users = UBULog.session.getActualCourse().getEnrolledUsers();
+
 			// Cargamos la lista de los roles
-			ArrayList<EnrolledUser> nameUsers = new ArrayList<EnrolledUser>();
+			ArrayList<EnrolledUser> nameUsers = new ArrayList<>();
 			// Obtenemos los participantes que tienen el rol elegido
 			for (int i = 0; i < users.size(); i++) {
 				// Filtrado por rol:
 				roleYes = false;
 				ArrayList<Role> roles = users.get(i).getRoles();
 				// Si no tiene rol
-				if ((roles == null || roles.size() == 0) && filterRole.equals("Todos")) {
+				if ((roles == null || roles.isEmpty()) && filterRole.equals("Todos")) {
 					roleYes = true;
 				} else {
 					for (int j = 0; j < roles.size(); j++) {
@@ -539,7 +540,7 @@ public class MainController implements Initializable {
 				// Filtrado por grupo:
 				groupYes = false;
 				ArrayList<Group> groups = users.get(i).getGroups();
-				if ((groups == null || groups.size() == 0) && filterGroup.equals("Todos")) {
+				if ((groups == null || groups.isEmpty()) && filterGroup.equals("Todos")) {
 					groupYes = true;
 				} else {
 					for (int k = 0; k < groups.size(); k++) {
@@ -689,9 +690,9 @@ public class MainController implements Initializable {
 					}
 				}
 			}
-			if (patterncomp.get(0) == true && patterncomp.get(1) == true && patterncomp.get(2) == true
-					&& patterncomp.get(3) == true && patterncomp.get(4) == true && patterncomp.get(5) == true
-					&& patterncomp.get(6) == true && patterncomp.get(7) == true && patterncomp.get(8) == true) {
+			if (patterncomp.get(0) && patterncomp.get(1) && patterncomp.get(2) && patterncomp.get(3)
+					&& patterncomp.get(4) && patterncomp.get(5) && patterncomp.get(6) && patterncomp.get(7)
+					&& patterncomp.get(8)) {
 				filterTableLogs.add(ftLogs.get(i));
 			}
 			for (int k = 0; k < patterncomp.size(); k++) {
@@ -767,12 +768,11 @@ public class MainController implements Initializable {
 		// Accedemos a la siguiente ventana
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/Welcome.fxml"));
-		// UBULog.stage.getScene() setCursor(Cursor.WAIT);
 		UBULog.stage.close();
 		logger.info("Accediendo a UBULog...");
 		UBULog.stage = new Stage();
 		Parent root = loader.load();
-		// root.setCursor(Cursor.WAIT);
+
 		Scene scene = new Scene(root);
 		UBULog.stage.setScene(scene);
 		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
@@ -823,33 +823,6 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * 
-	 */
-	public void saveTable(ActionEvent actionEvent) throws Exception {
-
-		// TODO revisar en java fx antes de eliminar.
-		/*
-		 * WritableImage image = webView.snapshot(new SnapshotParameters(),
-		 * null);
-		 * 
-		 * File file = new File("table.png");
-		 * 
-		 * FileChooser fileChooser = new FileChooser();
-		 * fileChooser.setTitle("Guardar tabla");
-		 * fileChooser.setInitialFileName("table");
-		 * fileChooser.getExtensionFilters().addAll(new
-		 * FileChooser.ExtensionFilter(".png", "*.*"), new
-		 * FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new
-		 * FileChooser.ExtensionFilter("*.png", "*.png")); try { file =
-		 * fileChooser.showSaveDialog(UBULog.stage);
-		 * logger.info(file.getAbsolutePath()); if (file != null) { try {
-		 * ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file); }
-		 * catch (IOException ex) { logger.info(ex.getMessage()); } } } catch
-		 * (Exception e) { e.printStackTrace(); }
-		 */
-	}
-
-	/**
 	 * Vuelve a la ventana de login de usuario
 	 * 
 	 * @param actionEvent
@@ -882,7 +855,9 @@ public class MainController implements Initializable {
 			filterLogs.clear();
 			viewchart.getDate().clear();
 			viewchart.getLabel().clear();
-			loadHTML(new ArrayList<Log>());
+			asignedUserMonth();
+			//viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
+			loadHTML(logs.getLogs());
 			// TODO asi recupero el log completo, quizas no haga falta ya que al
 			// filtrar lo tengo que comprobar con el completo siempre.resistac
 			enrLog = FXCollections.observableArrayList(logs.getLogs());
@@ -942,6 +917,7 @@ public class MainController implements Initializable {
 	 * 
 	 */
 	private void asignedUserMonth() {
+		// TODO pasar a chart
 		for (int i = 0; i < logs.getLogs().size(); ++i) {
 			// insetamos fecha
 			viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
@@ -989,22 +965,19 @@ public class MainController implements Initializable {
 			page.getElementsByTagName("button").get(1).click().getWebResponse().getContentAsStream();
 			WebResponse dataDownload = page.getElementsByTagName("button").get(1).click().getWebResponse();
 			String csvtxt = dataDownload.getContentAsString();
-			
+
 			try {
 				fileWriter = new FileWriter("./tempcsv.csv");
 
 				pw = new PrintWriter(fileWriter);
-				// TODO el String esta completo pero no lo copia en el
-				// fichero....
-
 				pw.print(csvtxt);
-				
+
 			} finally {
-				if (pw != null){
+				if (pw != null) {
 					pw.close();
-					
+
 				}
-				if(fileWriter != null)
+				if (fileWriter != null)
 					fileWriter.close();
 			}
 
@@ -1038,10 +1011,7 @@ public class MainController implements Initializable {
 	 */
 	private void initializeDataSet(CsvParser logs) {
 
-		// dejamos seleccionar participantes
 		setDisableComponentInterfaz(false);
-		// Activamos la selección múltiple en la lista de participantes y
-		// eventos
 
 		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
