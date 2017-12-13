@@ -10,11 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.collections.ObservableList;
+import parserdocument.CsvParser;
 
 public class Chart {
-	
+
 	static final Logger logger = LoggerFactory.getLogger(Chart.class);
-	
+
 	private ArrayList<String> dates;
 	private HashMap<String, ArrayList<Integer>> label;
 	private final String[] MONTH = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
@@ -42,6 +43,28 @@ public class Chart {
 	 */
 	public HashMap<String, ArrayList<Integer>> getLabel() {
 		return label;
+	}
+
+	/**
+	 * 
+	 */
+	public void asignedUserMonth(CsvParser logs, ArrayList<EnrolledUser> users, EnrolledUser userDesconocido) {
+		// TODO pasar a chart
+		for (int i = 0; i < logs.getLogs().size(); ++i) {
+			// insetamos fecha
+			setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
+
+			// comprobamos la existencia de usaer y la insertamos
+			for (int j = 0; j < users.size(); j++) {
+				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
+					logs.getLogs().get(i).setUser(users.get(j));
+				}
+
+				if (j == users.size() - 1 && logs.getLogs().get(i).getUser() == null) {
+					logs.getLogs().get(i).setUser(userDesconocido);
+				}
+			}
+		}
 	}
 
 	/**
@@ -131,12 +154,12 @@ public class Chart {
 			// Fechas
 
 			pw.print("\tlabels: [");
-			for (int i = dates.size(); i > 0 ; i--) {
+			for (int i = dates.size(); i > 0; i--) {
 				if (0 != i - 1) {
-					pw.print("\"" + dates.get(i -1) + "\",");
+					pw.print("\"" + dates.get(i - 1) + "\",");
 
 				} else {
-					pw.print("\"" + dates.get(i -1) + "\"");
+					pw.print("\"" + dates.get(i - 1) + "\"");
 				}
 
 			}
@@ -165,16 +188,15 @@ public class Chart {
 			pw.println("\t\t}");
 			pw.println("\t});");
 			pw.println("};");
-			
+
 			pw.println("function colorDataSet( num){");
 			pw.println("\treturn colorNames[num % colorNames.length];");
 			pw.println("};");
-			
 
 		} catch (Exception e) {
 			logger.error("Error al generar gráfica. {}", e);
 		} finally {
-			if (pw != null){
+			if (pw != null) {
 				pw.close();
 			}
 			try {
@@ -197,17 +219,18 @@ public class Chart {
 			pw.print("\t\t\tlabel:");
 			pw.println("'" + dataset + "',");
 
-			pw.println("\t\t\tbackgroundColor: color(window.chartColors[colorDataSet(" +cont+ ")]).alpha(0.5).rgbString(),");
+			pw.println("\t\t\tbackgroundColor: color(window.chartColors[colorDataSet(" + cont
+					+ ")]).alpha(0.5).rgbString(),");
 			pw.println("\t\t\tborderColor: window.chartColors.red,");
 			pw.println("\t\t\tborderWidth: 1,");
 
 			pw.println("\t\t\tdata: [");
 			for (int i = label.get(dataset).size(); i > 0; i--) {
 				if (0 != i - 1) {
-					pw.println("\t\t\t\t" + label.get(dataset).get(i -1) + ",");
+					pw.println("\t\t\t\t" + label.get(dataset).get(i - 1) + ",");
 
 				} else {
-					pw.println("\t\t\t\t" + label.get(dataset).get(i -1));
+					pw.println("\t\t\t\t" + label.get(dataset).get(i - 1));
 				}
 
 			}

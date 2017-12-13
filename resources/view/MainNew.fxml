@@ -286,15 +286,6 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Logs">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <ListView fx:id="listLogs" layoutX="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
                </tabs>
             </TabPane>
          </children>

@@ -53,7 +53,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -64,6 +63,7 @@ import model.EnrolledUser;
 import model.Group;
 import model.Log;
 import model.Role;
+import model.TableLog;
 import parserdocument.CsvParser;
 import ubulogexception.UBULogError;
 import ubulogexception.UBULogException;
@@ -80,8 +80,6 @@ public class MainController implements Initializable {
 
 	static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-	@FXML
-	public AnchorPane canvas;
 	@FXML // Curso actual
 	public Label lblActualCourse;
 	@FXML // Usuario actual
@@ -98,10 +96,6 @@ public class MainController implements Initializable {
 	@FXML // lista de eventos
 	public ListView<model.Event> listEvents;
 	ObservableList<model.Event> eventList;
-
-	@FXML // lista de participantes
-	public ListView<Log> listLogs;
-	ObservableList<Log> enrLog;
 
 	@FXML // Botón filtro por rol
 	public MenuButton slcRole;
@@ -175,6 +169,7 @@ public class MainController implements Initializable {
 	private ArrayList<Log> filterLogs;
 	private ArrayList<Log> filterTableLogs;
 	private Chart viewchart;
+	private TableLog viewTableLog;
 	private ObservableList<model.Event> selectedEvents = null;
 	private ObservableList<EnrolledUser> selectedParticipants = null;
 
@@ -192,6 +187,7 @@ public class MainController implements Initializable {
 			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
 
 			viewchart = new Chart();
+			viewTableLog = new TableLog();
 			setDisableComponentInterfaz(true);
 
 			engineChart = chart.getEngine();
@@ -276,7 +272,7 @@ public class MainController implements Initializable {
 		viewchart.generarGrafica();
 		engineChart.reload();
 
-		generarTablaLogs(l);
+		viewTableLog.generarTablaLogs(l);
 		engineTableLogs.reload();
 	}
 
@@ -330,9 +326,6 @@ public class MainController implements Initializable {
 		}
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
 		loadHTML(filterLogs);
-
-		enrLog = FXCollections.observableArrayList(filterLogs);
-		listLogs.setItems(enrLog);
 	}
 
 	/**
@@ -601,16 +594,10 @@ public class MainController implements Initializable {
 
 	protected void filterTable(ArrayList<String> patternFilter) {
 		ArrayList<Boolean> patterncomp = new ArrayList<>();
-		// TODO mejorar código
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
-		patterncomp.add(false);
+		
+		for(int i = 0 ; i<9 ; ++i){
+			patterncomp.add(false);
+		}
 		filterTableLogs.clear();
 		try {
 			if (filterLogs.isEmpty()) {
@@ -623,7 +610,7 @@ public class MainController implements Initializable {
 				filtroTableLogs(patternFilter, patterncomp, filterLogs);
 			}
 
-			generarTablaLogs(filterTableLogs);
+			viewTableLog.generarTablaLogs(filterTableLogs);
 			engineTableLogs.reload();
 
 		} catch (Exception e) {
@@ -643,7 +630,6 @@ public class MainController implements Initializable {
 		for (int i = 0; i < ftLogs.size(); i++) {
 			for (int j = 0; j < patternFilter.size(); j++) {
 				if (patternFilter.get(j).equals("")) {
-					// igual no funciona
 					patterncomp.set(j, true);
 				} else {
 
@@ -683,6 +669,7 @@ public class MainController implements Initializable {
 						break;
 
 					default:
+						match = pattern.matcher("*");
 						break;
 					}
 					if (match.find()) {
@@ -855,13 +842,9 @@ public class MainController implements Initializable {
 			filterLogs.clear();
 			viewchart.getDate().clear();
 			viewchart.getLabel().clear();
-			asignedUserMonth();
-			//viewchart.setLabel(selectedParticipants, selectedEvents, filterLogs);
+			viewchart.asignedUserMonth(logs, users, userDesconocido);
+
 			loadHTML(logs.getLogs());
-			// TODO asi recupero el log completo, quizas no haga falta ya que al
-			// filtrar lo tengo que comprobar con el completo siempre.resistac
-			enrLog = FXCollections.observableArrayList(logs.getLogs());
-			listLogs.setItems(enrLog);
 		}
 
 	}
@@ -873,6 +856,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 */
 	public void aboutUBULog(ActionEvent actionEvent) throws Exception {
+		// TODO no parece funcionar
 		Desktop.getDesktop().browse(new URL("https://github.com/trona85/GII-17.1B-UBULog-1.0").toURI());
 	}
 
@@ -898,7 +882,7 @@ public class MainController implements Initializable {
 			logs.setFile(file.toString());
 			logs.readDocument();
 
-			asignedUserMonth();
+			viewchart.asignedUserMonth(logs, users, userDesconocido);
 
 			initializeDataSet(logs);
 
@@ -911,28 +895,6 @@ public class MainController implements Initializable {
 
 		}
 
-	}
-
-	/**
-	 * 
-	 */
-	private void asignedUserMonth() {
-		// TODO pasar a chart
-		for (int i = 0; i < logs.getLogs().size(); ++i) {
-			// insetamos fecha
-			viewchart.setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
-
-			// comprobamos la existencia de usaer y la insertamos
-			for (int j = 0; j < users.size(); j++) {
-				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
-					logs.getLogs().get(i).setUser(users.get(j));
-				}
-
-				if (j == users.size() - 1 && logs.getLogs().get(i).getUser() == null) {
-					logs.getLogs().get(i).setUser(userDesconocido);
-				}
-			}
-		}
 	}
 
 	/**
@@ -985,6 +947,74 @@ public class MainController implements Initializable {
 			logs.setFile(file.getAbsolutePath());
 			logs.readDocument();
 			file.delete();
+			viewchart.asignedUserMonth(logs, users, userDesconocido);
+
+			initializeDataSet(logs);
+
+		} catch (FailingHttpStatusCodeException e) {
+			logger.error(e.getMessage());
+		} catch (UBULogException e) {
+			logger.info(e.getMessage());
+
+		} finally {
+			if (client != null) {
+				client.close();
+			}
+
+		}
+		/*
+		 WebClient client = null;
+		this.logs = new CsvParser();
+
+		HtmlPage page = null;
+		FileWriter fileWriter = null;
+		PrintWriter pw = null;
+		File file = null;
+		try {
+			client = new WebClient(BrowserVersion.getDefault());
+			page = client.getPage(UBULog.host + "/login/index.php");
+			HtmlForm form = (HtmlForm) page.getElementById("login");
+
+			form.getInputByName("username").setValueAttribute(UBULog.session.getUserName());
+			form.getInputByName("password").setValueAttribute(UBULog.session.getPassword());
+
+			page.getElementById("loginbtn").click();
+			page = client.getPage(UBULog.host + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
+					+ UBULog.session.getActualCourse().getId()
+					+ "&user=&date=&modid=&modaction=&origin=&edulevel=-1&logreader=logstore_standard");
+			
+			DomNodeList<DomElement> inputs = page.getElementsByTagName("input");
+			int valbtn = -1;
+			for (int i=0 ;i<inputs.getLength(); i++) {
+				System.err.println(inputs.get(i));
+				System.err.println(inputs.get(i).getAttribute("type"));
+				if(inputs.get(i).getAttribute("type").equals("submit")){
+					valbtn = i;
+					System.err.println(valbtn+ "list boton");
+				}
+			}
+			WebResponse dataDownload = inputs.get(valbtn).click().getWebResponse();
+			String csvtxt = dataDownload.getContentAsString();
+
+			try {
+				fileWriter = new FileWriter("./tempcsv.csv");
+
+				pw = new PrintWriter(fileWriter);
+				pw.print(csvtxt);
+
+			} finally {
+				if (pw != null) {
+					pw.close();
+
+				}
+				if (fileWriter != null)
+					fileWriter.close();
+			}
+
+			file = new File("tempcsv.csv");
+			logs.setFile(file.getAbsolutePath());
+			logs.readDocument();
+			file.delete();
 			asignedUserMonth();
 
 			initializeDataSet(logs);
@@ -995,12 +1025,15 @@ public class MainController implements Initializable {
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
 
+		}catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (client != null) {
 				client.close();
 			}
 
 		}
+		 */
 
 	}
 
@@ -1015,14 +1048,13 @@ public class MainController implements Initializable {
 
 		listParticipants.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		/// Mostramos la lista de participantes y eventos
-		enrLog = FXCollections.observableArrayList(logs.getLogs());
 
+		/// Mostramos la lista de participantes y eventos
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
-		loadHTML(logs.getLogs());
 		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
-		listLogs.setItems(enrLog);
 		listEvents.setItems(eventList);
+		
+		loadHTML(logs.getLogs());
 
 	}
 
@@ -1045,74 +1077,6 @@ public class MainController implements Initializable {
 		tfdDescription.setDisable(disable);
 		tfdPOrigin.setDisable(disable);
 		tfdIp.setDisable(disable);
-	}
-
-	private void generarTablaLogs(ArrayList<Log> generateLogs) {
-
-		FileWriter ficheroHTML = null;
-		PrintWriter pw = null;
-		try {
-			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
-			pw = new PrintWriter(ficheroHTML);
-			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
-					+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> \n"
-					+ "<meta charset=\"utf-8\"> \n"
-					+ "<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n" + "<body>\n"
-					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
-
-			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
-			pw.println("\t\t<tr> \n" + "\t\t<th>Fecha </th>");
-			pw.println("\t\t<th>Nombre completo del usuario</th>");
-			pw.println("\t\t<th>Usuario afectado</th>");
-			pw.println("\t\t<th>Contexto del evento</th>");
-			pw.println("\t\t<th>Componente</th>");
-			pw.println("\t\t<th>Nombre evento</th>");
-			pw.println("\t\t<th>Descripción</th>");
-			pw.println("\t\t<th>Origen</th>");
-			pw.println("\t\t<th>Dirección IP</th>");
-			pw.println("\t</tr>");
-
-			for (Log log : generateLogs) {
-				dataTableLog(pw, log);
-			}
-
-			pw.println("\t</table>");
-			pw.println("</div> \n" + "</body>\n" + "</html>");
-
-		} catch (Exception e) {
-			logger.error("Error al generar tabla logs. {}", e);
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
-			try {
-				if (null != ficheroHTML)
-					ficheroHTML.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-	}
-
-	/**
-	 * @param pw
-	 * @param log
-	 */
-	private void dataTableLog(PrintWriter pw, Log log) {
-		pw.println("\t<tr>");
-
-		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "/" + log.getDate().get(Calendar.MONTH) + "/"
-				+ log.getDate().get(Calendar.YEAR) + "</td>");
-		pw.println("\t\t<td>" + log.getNameUser() + "</td>");
-		pw.println("\t\t<td>" + log.getUserAffected() + "</td>");
-		pw.println("\t\t<td>" + log.getContext() + "</td>");
-		pw.println("\t\t<td>" + log.getComponent() + "</td>");
-		pw.println("\t\t<td>" + log.getEvent() + "</td>");
-		pw.println("\t\t<td>" + log.getDescription() + "</td>");
-		pw.println("\t\t<td>" + log.getOrigin() + "</td>");
-		pw.println("\t\t<td>" + log.getIp() + "</td>");
-
-		pw.println("\t</tr>");
 	}
 
 	/**
