@@ -56,7 +56,7 @@ public class CsvParser extends DocumentParser {
 			}
 
 		} catch (Exception e) {
-			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA);
+			throw new UBULogException(UBULogError.FICHERO_CON_EXTENSION_CORRECTA_PERO_ESTRUCTURA_INCORRECTA);
 
 		} finally {
 

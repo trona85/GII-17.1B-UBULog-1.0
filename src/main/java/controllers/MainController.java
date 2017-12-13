@@ -22,12 +22,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -595,8 +590,8 @@ public class MainController implements Initializable {
 
 	protected void filterTable(ArrayList<String> patternFilter) {
 		ArrayList<Boolean> patterncomp = new ArrayList<>();
-		
-		for(int i = 0 ; i<9 ; ++i){
+
+		for (int i = 0; i < 9; ++i) {
 			patterncomp.add(false);
 		}
 		filterTableLogs.clear();
@@ -622,9 +617,13 @@ public class MainController implements Initializable {
 
 	/**
 	 * Método que filtra los log de la tabla.
-	 * @param patternFilter, Lista del contenido puesto en los filtros
-	 * @param patterncomp, lista de booleanos.
-	 * @param ftLogs, logs filtrados.
+	 * 
+	 * @param patternFilter,
+	 *            Lista del contenido puesto en los filtros
+	 * @param patterncomp,
+	 *            lista de booleanos.
+	 * @param ftLogs,
+	 *            logs filtrados.
 	 */
 	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp,
 			ArrayList<Log> ftLogs) {
@@ -749,8 +748,10 @@ public class MainController implements Initializable {
 	/**
 	 * Cambia la asignatura actual y carga otra
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws Exception , escepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws Exception
+	 *             , escepción.
 	 */
 	public void changeCourse(ActionEvent actionEvent) throws Exception {
 		logger.info("Cambiando de asignatura...");
@@ -773,8 +774,10 @@ public class MainController implements Initializable {
 	 * Exporta el gráfico. El usuario podrá elegir entre el formato .png o .jpg
 	 * para guardar la imagen.
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws Exception, excepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws Exception,
+	 *             excepción.
 	 */
 	public void saveChart(ActionEvent actionEvent) throws Exception {
 
@@ -803,8 +806,11 @@ public class MainController implements Initializable {
 
 	/**
 	 * Método para generar gráfica dependiente de la tabla.
-	 * @param actionEvent, accion del evento.
-	 * @throws Exception, excepción.
+	 * 
+	 * @param actionEvent,
+	 *            accion del evento.
+	 * @throws Exception,
+	 *             excepción.
 	 */
 	public void generateChart(ActionEvent actionEvent) {
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);
@@ -815,8 +821,10 @@ public class MainController implements Initializable {
 	/**
 	 * Vuelve a la ventana de login de usuario
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws Exception, excepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws Exception,
+	 *             excepción.
 	 */
 	public void logOut(ActionEvent actionEvent) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
@@ -835,8 +843,10 @@ public class MainController implements Initializable {
 	/**
 	 * Deja de seleccionar los participantes/actividades y borra el gráfico.
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws Exception, excepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws Exception,
+	 *             excepción.
 	 */
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		if (!logs.getLogs().isEmpty()) {
@@ -855,8 +865,10 @@ public class MainController implements Initializable {
 	/**
 	 * Abre en el navegador el repositorio del proyecto.
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws Exception, excepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws Exception,
+	 *             excepción.
 	 */
 	public void aboutUBULog(ActionEvent actionEvent) throws Exception {
 		// TODO no parece funcionar
@@ -866,7 +878,8 @@ public class MainController implements Initializable {
 	/**
 	 * Boton para cargar documento
 	 * 
-	 * @param actionEvent, acción del evento.
+	 * @param actionEvent,
+	 *            acción del evento.
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) {
 		try {
@@ -903,39 +916,29 @@ public class MainController implements Initializable {
 	/**
 	 * Boton para cargar documento online.
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws IOException, excepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws IOException,
+	 *             excepción.
 	 */
 	public void cargaDocumentoOnline(ActionEvent actionEvent) throws IOException {
-		WebClient client = null;
-		this.logs = new CsvParser();
 
-		HtmlPage page = null;
+		this.logs = new CsvParser();
+		WebScripting webScripting = null;
 		FileWriter fileWriter = null;
 		PrintWriter pw = null;
 		File file = null;
 		try {
-			client = new WebClient(BrowserVersion.getDefault());
-			page = client.getPage(UBULog.host + "/login/index.php");
-			HtmlForm form = (HtmlForm) page.getElementById("login");
-
-			form.getInputByName("username").setValueAttribute(UBULog.session.getUserName());
-			form.getInputByName("password").setValueAttribute(UBULog.session.getPassword());
-
-			page.getElementById("loginbtn").click();
-			page = client.getPage(UBULog.host + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
-					+ UBULog.session.getActualCourse().getId()
-					+ "&user=&date=&modid=&modaction=&origin=&edulevel=-1&logreader=logstore_standard");
-
-			page.getElementsByTagName("button").get(1).click().getWebResponse().getContentAsStream();
-			WebResponse dataDownload = page.getElementsByTagName("button").get(1).click().getWebResponse();
-			String csvtxt = dataDownload.getContentAsString();
+			
+			//TODO avisar al usuario por la duración
+			webScripting = new WebScripting();
+			webScripting.getResponsiveWeb();
 
 			try {
 				fileWriter = new FileWriter("./tempcsv.csv");
 
 				pw = new PrintWriter(fileWriter);
-				pw.print(csvtxt);
+				pw.print(webScripting.getResponsive());
 
 			} finally {
 				if (pw != null) {
@@ -949,10 +952,11 @@ public class MainController implements Initializable {
 			file = new File("tempcsv.csv");
 			logs.setFile(file.getAbsolutePath());
 			logs.readDocument();
-			file.delete();
 			viewchart.asignedUserMonth(logs, users, userDesconocido);
 
 			initializeDataSet(logs);
+
+			file.delete();
 
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error(e.getMessage());
@@ -960,90 +964,16 @@ public class MainController implements Initializable {
 			logger.info(e.getMessage());
 
 		} finally {
-			if (client != null) {
-				client.close();
-			}
-
+			webScripting.close();
 		}
-		/*
-		 WebClient client = null;
-		this.logs = new CsvParser();
-
-		HtmlPage page = null;
-		FileWriter fileWriter = null;
-		PrintWriter pw = null;
-		File file = null;
-		try {
-			client = new WebClient(BrowserVersion.getDefault());
-			page = client.getPage(UBULog.host + "/login/index.php");
-			HtmlForm form = (HtmlForm) page.getElementById("login");
-
-			form.getInputByName("username").setValueAttribute(UBULog.session.getUserName());
-			form.getInputByName("password").setValueAttribute(UBULog.session.getPassword());
-
-			page.getElementById("loginbtn").click();
-			page = client.getPage(UBULog.host + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
-					+ UBULog.session.getActualCourse().getId()
-					+ "&user=&date=&modid=&modaction=&origin=&edulevel=-1&logreader=logstore_standard");
-			
-			DomNodeList<DomElement> inputs = page.getElementsByTagName("input");
-			int valbtn = -1;
-			for (int i=0 ;i<inputs.getLength(); i++) {
-				System.err.println(inputs.get(i));
-				System.err.println(inputs.get(i).getAttribute("type"));
-				if(inputs.get(i).getAttribute("type").equals("submit")){
-					valbtn = i;
-					System.err.println(valbtn+ "list boton");
-				}
-			}
-			WebResponse dataDownload = inputs.get(valbtn).click().getWebResponse();
-			String csvtxt = dataDownload.getContentAsString();
-
-			try {
-				fileWriter = new FileWriter("./tempcsv.csv");
-
-				pw = new PrintWriter(fileWriter);
-				pw.print(csvtxt);
-
-			} finally {
-				if (pw != null) {
-					pw.close();
-
-				}
-				if (fileWriter != null)
-					fileWriter.close();
-			}
-
-			file = new File("tempcsv.csv");
-			logs.setFile(file.getAbsolutePath());
-			logs.readDocument();
-			file.delete();
-			asignedUserMonth();
-
-			initializeDataSet(logs);
-
-		} catch (FailingHttpStatusCodeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UBULogException e) {
-			logger.info(e.getMessage());
-
-		}catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (client != null) {
-				client.close();
-			}
-
-		}
-		 */
 
 	}
 
 	/**
 	 * Inicializamos los datos necesarios.
 	 * 
-	 * @param logs, logs.
+	 * @param logs,
+	 *            logs.
 	 */
 	private void initializeDataSet(CsvParser logs) {
 
@@ -1056,14 +986,16 @@ public class MainController implements Initializable {
 		eventList = FXCollections.observableArrayList(logs.getEvents().values());
 		Collections.sort(eventList, (o1, o2) -> o1.getNameEvent().compareTo(o2.getNameEvent()));
 		listEvents.setItems(eventList);
-		
+
 		loadHTML(logs.getLogs());
 
 	}
 
 	/**
 	 * Método para desactivar o activar botones de la interfaz.
-	 * @param disable, booleano.
+	 * 
+	 * @param disable,
+	 *            booleano.
 	 * 
 	 */
 	private void setDisableComponentInterfaz(boolean disable) {
@@ -1087,8 +1019,10 @@ public class MainController implements Initializable {
 	 * 
 	 * Botón "Salir". Cierra la aplicación.
 	 * 
-	 * @param actionEvent, acción del evento.
-	 * @throws Exception, excepción.
+	 * @param actionEvent,
+	 *            acción del evento.
+	 * @throws Exception,
+	 *             excepción.
 	 */
 	public void closeApplication(ActionEvent actionEvent) throws Exception {
 		logger.info("Cerrando aplicación");

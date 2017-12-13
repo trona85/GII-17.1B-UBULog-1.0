@@ -85,7 +85,6 @@ public class Log {
 				setIdUser(Integer.parseInt(fieldDescription[1]));
 			} else {
 				setIdUser(-1);
-				//TODO añadir usuario desconocido.
 			}
 
 		}

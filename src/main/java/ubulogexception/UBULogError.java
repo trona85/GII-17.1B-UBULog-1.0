@@ -10,7 +10,7 @@ public enum UBULogError {
 		
 		FICHERO_NO_VALIDO("El fichero seleccionado no es valido"),
 		FICHERO_CANCELADO("Cancelación de selección de fichero"),
-		FICHERO_CON_EXTENSION_CORRECTA_PERO_EXTRUCTURA_INCORRECTA("El fichero seleccionado tiene una extructura que no se asemeja a la esperada");
+		FICHERO_CON_EXTENSION_CORRECTA_PERO_ESTRUCTURA_INCORRECTA("El fichero seleccionado tiene una extructura que no se asemeja a la esperada");
 		
 		/** Texto. */
 		private String text;
