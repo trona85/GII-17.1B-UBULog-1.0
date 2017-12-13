@@ -7,6 +7,7 @@ package model;
  * Clase Group para distinguir los grupos que hay en un curso, así como los grupos en los que se encuentra un usuario.
  * 
  * @author Oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */

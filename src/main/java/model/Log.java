@@ -16,18 +16,55 @@ import org.apache.commons.csv.CSVRecord;
  * @version 1.0
  */
 public class Log {
+	/**
+	 * Fecha del log.
+	 */
 	private Calendar date;
+	/**
+	 * Usuario que realiza la acción.
+	 */
 	private String nameUser;
+	/**
+	 * Usuario afectado.
+	 */
 	private String userAffected;
+	/**
+	 * Contexto.
+	 */
 	private String context;
+	/**
+	 * Componente.
+	 */
 	private String component;
+	/**
+	 * Evento.
+	 */
 	private String event;
+	/**
+	 * Descripción.
+	 */
 	private String description;
+	/**
+	 * Origen de la conexión.
+	 */
 	private String origin;
+	/**
+	 * Ip de donde se realiza la acción.
+	 */
 	private String ip;
+	/**
+	 * objeto usuario, usuario que realiza la acción. 
+	 */
 	private EnrolledUser user = null;
+	/**
+	 * id del usuario que realiza la acción.
+	 */
 	private int idUser;
 
+	/**
+	 * Constructor de clase. Construimos un log.
+	 * @param csvRecord, fila del csv parseado.
+	 */
 	public Log(CSVRecord csvRecord) {
 		if (csvRecord.size() > 0) {
 			String[] fecha = csvRecord.get(0).split("/");
@@ -48,16 +85,13 @@ public class Log {
 				setIdUser(Integer.parseInt(fieldDescription[1]));
 			} else {
 				setIdUser(-1);
+				//TODO añadir usuario desconocido.
 			}
 
 		}
 
 	}
-
-	public Log() {
-		// TODO Auto-generated constructor stub
-	}
-
+	// TODO ya no hace falta el toString
 	@Override
 	public String toString() {
 
@@ -67,90 +101,178 @@ public class Log {
 				+ getOrigin() + "\n ip: " + getIp() + "\n usuario: " + getUser();
 	}
 
+	/**
+	 * Método que recoge la fecha.
+	 * @return date
+	 */
 	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar string) {
-		this.date = string;
+	/**
+	 * Método que asigna un valor a date
+	 * @param date, fecha.
+	 */
+	public void setDate(Calendar date) {
+		this.date = date;
 	}
 
+	/**
+	 * Método que recoge el nameUser.
+	 * @return nameUser
+	 */
 	public String getNameUser() {
 		return nameUser;
 	}
 
-	public void setNameUser(String fields) {
-		this.nameUser = fields;
+	/**
+	 * Método que asigna un valor a nameUser.
+	 * @param nameUser, nombre usuario.
+	 */
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
 	}
 
+	/**
+	 * Método que recoge el userAffected.
+	 * @return userAffected
+	 */
 	public String getUserAffected() {
 		return userAffected;
 	}
 
-	public void setUserAffected(String fields) {
-		this.userAffected = fields;
+	/**
+	 * Método que asigna un valor a userAffected
+	 * @param userAffected, usuario afectado.
+	 */
+	public void setUserAffected(String userAffected) {
+		this.userAffected = userAffected;
 	}
 
+	/**
+	 * Método que recoge el context.
+	 * @return context
+	 */
 	public String getContext() {
 		return context;
 	}
 
+	/**
+	 * Método que asigna un valor a context.
+	 * @param context, contexto.
+	 */
 	public void setContext(String context) {
 		this.context = context;
 	}
 
+	/**
+	 * Método que recoge el component.
+	 * @return component
+	 */
 	public String getComponent() {
 		return component;
 	}
 
+	/**
+	 * Método que asigna un valor a component.
+	 * @param component, componente.
+	 */
 	public void setComponent(String component) {
 		this.component = component;
 	}
 
+	/**
+	 * Método que recoge el event.
+	 * @return event
+	 */
 	public String getEvent() {
 		return event;
 	}
 
+	/**
+	 * Método que asigna un valor a event.
+	 * @param event, evento.
+	 */
 	public void setEvent(String event) {
 		this.event = event;
 	}
 
+	/**
+	 * Método que recoge el description.
+	 * @return description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Método que asigna un valor a description.
+	 * @param description, descripción.
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Método que recoge el origin.
+	 * @return origin
+	 */
 	public String getOrigin() {
 		return origin;
 	}
 
+	/**
+	 * Método que asigna un valor a origin
+	 * @param origin, origen.
+	 */
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
 
+	/**
+	 * Método que recoge el ip.
+	 * @return ip
+	 */
 	public String getIp() {
 		return ip;
 	}
 
+	/**
+	 * Método que asigna un valor a ip.
+	 * @param ip, ip.
+	 */
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
 
+	/**
+	 * Método que recoge el user.
+	 * @return user
+	 */
 	public EnrolledUser getUser() {
 		return user;
 	}
 
+	/**
+	 * Método que asigna un valor a enrolledUser
+	 * @param enrolledUser, usuario matriculado.
+	 */
 	public void setUser(EnrolledUser enrolledUser) {
 		this.user = enrolledUser;
 	}
 
+	/**
+	 * Método que recoge el idUser.
+	 * @return idUser
+	 */
 	public int getIdUser() {
 		return idUser;
 	}
 
+	/**
+	 * Método que asigna un valor a idUser
+	 * @param idUser, id usuario.
+	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}

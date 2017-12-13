@@ -31,6 +31,8 @@ import model.Course;
  * cursos del usuario logueado.
  * 
  * @author oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
+ * 
  * @version 1.0
  *
  */

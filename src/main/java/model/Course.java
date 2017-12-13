@@ -19,6 +19,7 @@ import controllers.UBULog;
  * Clase curso. Tiene las propiedades de curso.
  * 
  * @author Oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */
@@ -298,6 +299,9 @@ public class Course {
 		return course;
 	}
 
+	/**
+	 * Método que imprime el nombre completo del curso.
+	 */
 	public String toString() {
 		return getFullName();
 	}

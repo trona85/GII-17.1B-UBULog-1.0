@@ -28,6 +28,7 @@ import webservice.Session;
 /**
  * clase LoginController. Inicio de sesión.
  * @author oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */
@@ -52,8 +53,8 @@ public class LoginController {
 	 * Hace el login de usuario al pulsar el botón Entrar. Si el usuario es
 	 * incorrecto, muestra un mensaje de error.
 	 * 
-	 * @param event
-	 * @throws Exception
+	 * @param event, evento.
+	 * @throws Exception, excepcion.
 	 */
 	public void login(ActionEvent event) throws Exception {
 
@@ -165,8 +166,8 @@ public class LoginController {
 	/**
 	 * Borra los parámetros introducidos en los campos
 	 * 
-	 * @param event
-	 * @throws Exception
+	 * @param event, evento
+	 * @throws Exception, excepción
 	 */
 	public void clear(ActionEvent event) throws Exception {
 		txtUsername.setText("");

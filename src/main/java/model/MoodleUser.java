@@ -6,13 +6,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import model.Course;
 
 /**
  * clase MoodleUser. para guardar el usuario logeado.
  * @author oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */

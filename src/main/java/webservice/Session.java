@@ -17,6 +17,7 @@ import model.Course;
  *  Clase sesión. Obtiene el token de usuario y guarda sus parámetros. Establece la sesión.
  *  
  * @author Oscar Fernández Armengol
+ *  @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */

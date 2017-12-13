@@ -73,6 +73,7 @@ import webservice.CourseWS;
  * Clase controlador de la ventana principal
  * 
  * @author Oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */
@@ -266,7 +267,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * 
+	 * Método que recarga de nuevo el gráfico y la tabla.
 	 */
 	private void loadHTML(ArrayList<Log> l) {
 		viewchart.generarGrafica();
@@ -277,7 +278,7 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * 
+	 * Método que carga los html de la gráfica y la tabla de logs.
 	 */
 	private void viewHTML() {
 		engineChart.load(getClass().getResource("/chart/html/chart.html").toString());
@@ -620,9 +621,10 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * @param patternFilter
-	 * @param patterncomp
-	 * @param ftLogs
+	 * Método que filtra los log de la tabla.
+	 * @param patternFilter, Lista del contenido puesto en los filtros
+	 * @param patterncomp, lista de booleanos.
+	 * @param ftLogs, logs filtrados.
 	 */
 	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp,
 			ArrayList<Log> ftLogs) {
@@ -747,8 +749,8 @@ public class MainController implements Initializable {
 	/**
 	 * Cambia la asignatura actual y carga otra
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
+	 * @param actionEvent, acción del evento.
+	 * @throws Exception , escepción.
 	 */
 	public void changeCourse(ActionEvent actionEvent) throws Exception {
 		logger.info("Cambiando de asignatura...");
@@ -771,8 +773,8 @@ public class MainController implements Initializable {
 	 * Exporta el gráfico. El usuario podrá elegir entre el formato .png o .jpg
 	 * para guardar la imagen.
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
+	 * @param actionEvent, acción del evento.
+	 * @throws Exception, excepción.
 	 */
 	public void saveChart(ActionEvent actionEvent) throws Exception {
 
@@ -800,8 +802,9 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * @param actionEvent
-	 * @throws Exception
+	 * Método para generar gráfica dependiente de la tabla.
+	 * @param actionEvent, accion del evento.
+	 * @throws Exception, excepción.
 	 */
 	public void generateChart(ActionEvent actionEvent) {
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);
@@ -812,8 +815,8 @@ public class MainController implements Initializable {
 	/**
 	 * Vuelve a la ventana de login de usuario
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
+	 * @param actionEvent, acción del evento.
+	 * @throws Exception, excepción.
 	 */
 	public void logOut(ActionEvent actionEvent) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
@@ -832,8 +835,8 @@ public class MainController implements Initializable {
 	/**
 	 * Deja de seleccionar los participantes/actividades y borra el gráfico.
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
+	 * @param actionEvent, acción del evento.
+	 * @throws Exception, excepción.
 	 */
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		if (!logs.getLogs().isEmpty()) {
@@ -852,8 +855,8 @@ public class MainController implements Initializable {
 	/**
 	 * Abre en el navegador el repositorio del proyecto.
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
+	 * @param actionEvent, acción del evento.
+	 * @throws Exception, excepción.
 	 */
 	public void aboutUBULog(ActionEvent actionEvent) throws Exception {
 		// TODO no parece funcionar
@@ -863,7 +866,7 @@ public class MainController implements Initializable {
 	/**
 	 * Boton para cargar documento
 	 * 
-	 * @param actionEvent
+	 * @param actionEvent, acción del evento.
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) {
 		try {
@@ -898,10 +901,10 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Boton para cargar documento online
+	 * Boton para cargar documento online.
 	 * 
-	 * @param actionEvent
-	 * @throws IOException
+	 * @param actionEvent, acción del evento.
+	 * @throws IOException, excepción.
 	 */
 	public void cargaDocumentoOnline(ActionEvent actionEvent) throws IOException {
 		WebClient client = null;
@@ -1038,9 +1041,9 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * Inicializamos los datos necesarios
+	 * Inicializamos los datos necesarios.
 	 * 
-	 * @param logs
+	 * @param logs, logs.
 	 */
 	private void initializeDataSet(CsvParser logs) {
 
@@ -1059,7 +1062,8 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * @param disable
+	 * Método para desactivar o activar botones de la interfaz.
+	 * @param disable, booleano.
 	 * 
 	 */
 	private void setDisableComponentInterfaz(boolean disable) {
@@ -1083,8 +1087,8 @@ public class MainController implements Initializable {
 	 * 
 	 * Botón "Salir". Cierra la aplicación.
 	 * 
-	 * @param actionEvent
-	 * @throws Exception
+	 * @param actionEvent, acción del evento.
+	 * @throws Exception, excepción.
 	 */
 	public void closeApplication(ActionEvent actionEvent) throws Exception {
 		logger.info("Cerrando aplicación");

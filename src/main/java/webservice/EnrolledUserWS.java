@@ -20,6 +20,7 @@ import model.EnrolledUser;
  * Clase EnrolledUser para webservices.Recoge funciones útiles para servicios web relacionados con un EnrolledUser.
  * 
  * @author Oscar Fernández Armengol
+ *  @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */

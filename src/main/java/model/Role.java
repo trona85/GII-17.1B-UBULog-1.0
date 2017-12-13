@@ -7,6 +7,7 @@ package model;
  * Clase Role para distinguir el rol de los usuarios matriculados en un curso.
  *  
  * @author Oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */

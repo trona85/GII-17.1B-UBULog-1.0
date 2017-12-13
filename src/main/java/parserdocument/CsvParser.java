@@ -30,10 +30,8 @@ public class CsvParser extends DocumentParser {
 	static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
 
 	/**
-	 * Constructor.
+	 * Constructor de clase.
 	 * 
-	 * @param file,
-	 *            Fichero.
 	 */
 	public CsvParser() {
 		super();
@@ -76,9 +74,9 @@ public class CsvParser extends DocumentParser {
 
 
 	/**
-	 * Asignamos los eventos
+	 * Asignamos los eventos.
 	 * 
-	 * @param log
+	 * @param log, log.
 	 */
 	private void asigEvents(Log log) {
 		// TODO igual no deberia esta aqui

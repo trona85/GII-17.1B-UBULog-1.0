@@ -13,23 +13,66 @@ import org.json.JSONObject;
  * Clase que representa un usuario matriculado en una asignatura.
  * 
  * @author Oscar Fernández Armengol
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */
 public class EnrolledUser {
+	/**
+	 * Id usuario.
+	 */
 	private int id;
+	/**
+	 * Nombre.
+	 */
 	private String firstName;
+	/**
+	 * Apellido.
+	 */
 	private String lastName;
+	/**
+	 * Nombre completo.
+	 */
 	private String fullName;
+	/**
+	 * Primer acceso.
+	 */
 	private Date firstAccess;
+	/**
+	 * Ultimo acceso.
+	 */
 	private Date lastAccess;
+	/**
+	 * Descripción.
+	 */
 	private String description;
+	/**
+	 * Ciudad.
+	 */
 	private String city;
+	/**
+	 * País
+	 */
 	private String country;
+	/**
+	 * Imagen del usuario pequeña.
+	 */
 	private String profileImageUrlSmall;
+	/**
+	 * Imagen del usuario.
+	 */
 	private String profileImageUrl;
+	/**
+	 * Roles del usuario.
+	 */
 	private ArrayList<Role> roles;
+	/**
+	 * Grupos del usuario.
+	 */
 	private ArrayList<Group> groups;
+	/**
+	 * Cursos del usuario.
+	 */
 	private ArrayList<Integer> courses;
 
 	/**
@@ -93,6 +136,7 @@ public class EnrolledUser {
 	public EnrolledUser(String nombreCompleto, int id){
 		setFullName(nombreCompleto);
 		setId(id);
+		//TODO añadir roles y grupos para no hacer null en filtros mainController
 		
 	}
 	/**
@@ -356,6 +400,9 @@ public class EnrolledUser {
 		}
 	}
 
+	/**
+	 * Método que imprime el nombre completo del usuario.
+	 */
 	public String toString() {
 		return getFullName();
 	}

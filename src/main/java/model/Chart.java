@@ -12,25 +12,52 @@ import org.slf4j.LoggerFactory;
 import javafx.collections.ObservableList;
 import parserdocument.CsvParser;
 
+/**
+ * Clase que genera el gráfico.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
+ */
 public class Chart {
 
 	static final Logger logger = LoggerFactory.getLogger(Chart.class);
 
+	/**
+	 * lista de meses.
+	 */
 	private ArrayList<String> dates;
+	/**
+	 * HasMap de clave combinación selecionada, valor lista de cuantas veces aparece por cada mes.
+	 */
 	private HashMap<String, ArrayList<Integer>> label;
+	/**
+	 * Lista de meses del año.
+	 */
 	private final String[] MONTH = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
 			"Septiembre", "Octubre", "Noviembre", "Diciembre" };
 
+	/**
+	 * Constructor de clase.
+	 */
 	public Chart() {
 		dates = new ArrayList<>();
 		label = new HashMap<String, ArrayList<Integer>>();
 	}
 
+	/**
+	 * Método que devuelve lista de meses del log.
+	 * @return date.
+	 */
 	public ArrayList<String> getDate() {
 		return dates;
 	}
 
-	public void setDate(int month) {
+	/**
+	 * Método que añade un mes a la lista si no existe ya en la lista
+	 * @param month, mes del log.
+	 */
+	private void setDate(int month) {
 		if (dates.contains(MONTH[month])) {
 			return;
 		} else {
@@ -39,22 +66,27 @@ public class Chart {
 	}
 
 	/**
-	 * @return the label
+	 * Devuelve HasMap de clave combinación selecionada, valor lista de cuantas veces aparece por cada mes.
+	 * @return label
 	 */
 	public HashMap<String, ArrayList<Integer>> getLabel() {
 		return label;
 	}
 
 	/**
-	 * 
+	 * Método para asignamos los mese para la gráfica.
+	 * @param logs, logs cargados.
+	 * @param users, usuarios de la aplicación.
+	 * @param userDesconocido, usuario desconocido.
 	 */
 	public void asignedUserMonth(CsvParser logs, ArrayList<EnrolledUser> users, EnrolledUser userDesconocido) {
-		// TODO pasar a chart
+		
 		for (int i = 0; i < logs.getLogs().size(); ++i) {
 			// insetamos fecha
 			setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
 
 			// comprobamos la existencia de usaer y la insertamos
+			//TODO esto iria en log
 			for (int j = 0; j < users.size(); j++) {
 				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
 					logs.getLogs().get(i).setUser(users.get(j));
@@ -71,9 +103,9 @@ public class Chart {
 	 * Metodo para meter los diferentes eventos con participantes y el numero de
 	 * interacciones con ellos.
 	 * 
-	 * @param selectedParticipants
-	 * @param selectedEvents
-	 * @param filterLogs
+	 * @param selectedParticipants, participantes seleccionados.
+	 * @param selectedEvents, eventos seleccionados.
+	 * @param filterLogs, logs.
 	 */
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
 			ArrayList<Log> filterLogs) {
@@ -139,6 +171,9 @@ public class Chart {
 		}
 	}
 
+	/**
+	 * Método para crear el javaScript que nos cargara la gráfica.
+	 */
 	public void generarGrafica() {
 
 		FileWriter ficheroJS = null;
@@ -209,7 +244,8 @@ public class Chart {
 	}
 
 	/**
-	 * @param pw
+	 * Método para añadir los datos al javaScript.
+	 * @param pw, para escribir en el fichero.
 	 */
 	private void setDataSetJavaScript(PrintWriter pw) {
 		int tam = label.size();

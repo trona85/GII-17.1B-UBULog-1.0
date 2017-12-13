@@ -4,6 +4,7 @@ package webservice;
  * Clase para las funciones proporcionadas por el web service de moodle 3.3
  * 
  * @author Oscar Fernández Armengol
+ *  @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */

@@ -12,8 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author oscar Fernández Armengol
- *
+ * Clase que genera la tabla de logs.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.0
  */
 public class TableLog {
 	
