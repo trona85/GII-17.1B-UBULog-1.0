@@ -44,7 +44,6 @@ public class Event {
 	 * @param nameEvent, nombre del evento.
 	 */
 	public void setNameEvent(String nameEvent) {
-		//TODO si se lo paso por el constructor no me hara falta, comprobar
 		this.nameEvent = nameEvent;
 	}
 

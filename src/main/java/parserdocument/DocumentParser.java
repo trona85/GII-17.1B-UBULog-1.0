@@ -38,6 +38,24 @@ public abstract class DocumentParser implements IDocumentParser {
 	}
 	
 	public abstract void readDocument() throws UBULogException;
+	
+	/**
+	 * Asignamos los eventos.
+	 * 
+	 * @param log, log.
+	 */
+	public void asigEvents(Log log) {
+
+		if (getEvents().get(log.getEvent()) == null) {
+			Event event = new Event(log.getEvent());
+			event.setLogsEvent(log);
+			getEvents().put(log.getEvent(), event);
+
+		} else {
+			getEvents().get(log.getEvent()).setLogsEvent(log);
+
+		}
+	}
 
 	/**
 	 * devuelve la ruta del fichero.

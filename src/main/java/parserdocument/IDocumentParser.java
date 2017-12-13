@@ -3,6 +3,7 @@
  */
 package parserdocument;
 
+import model.Log;
 import ubulogexception.UBULogException;
 
 /**
@@ -15,5 +16,6 @@ import ubulogexception.UBULogException;
 public interface IDocumentParser {
 
 	public void readDocument() throws UBULogException;
+	public void asigEvents(Log log);
 
 }

@@ -12,7 +12,6 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import model.Event;
 import model.Log;
 import ubulogexception.UBULogError;
 import ubulogexception.UBULogException;
@@ -53,7 +52,7 @@ public class CsvParser extends DocumentParser {
 
 				Log log = new Log(csvRecord);
 				this.setLogs(log);
-				asigEvents(log);
+				this.asigEvents(log);
 			}
 
 		} catch (Exception e) {
@@ -70,24 +69,5 @@ public class CsvParser extends DocumentParser {
 			}
 		}
 
-	}
-
-
-	/**
-	 * Asignamos los eventos.
-	 * 
-	 * @param log, log.
-	 */
-	private void asigEvents(Log log) {
-		// TODO igual no deberia esta aqui
-		if (getEvents().get(log.getEvent()) == null) {
-			Event event = new Event(log.getEvent());
-			event.setLogsEvent(log);
-			getEvents().put(log.getEvent(), event);
-
-		} else {
-			getEvents().get(log.getEvent()).setLogsEvent(log);
-
-		}
 	}
 }
