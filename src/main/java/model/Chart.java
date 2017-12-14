@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.collections.ObservableList;
-import parserdocument.CsvParser;
 
 /**
  * Clase que genera el gráfico.
@@ -79,23 +78,10 @@ public class Chart {
 	 * @param users, usuarios de la aplicación.
 	 * @param userDesconocido, usuario desconocido.
 	 */
-	public void asignedUserMonth(CsvParser logs, ArrayList<EnrolledUser> users, EnrolledUser userDesconocido) {
-		
-		for (int i = 0; i < logs.getLogs().size(); ++i) {
-			// insetamos fecha
-			setDate(logs.getLogs().get(i).getDate().get(Calendar.MONTH));
-
-			// comprobamos la existencia de usaer y la insertamos
-			//TODO esto iria en log
-			for (int j = 0; j < users.size(); j++) {
-				if (logs.getLogs().get(i).getIdUser() == users.get(j).getId()) {
-					logs.getLogs().get(i).setUser(users.get(j));
-				}
-
-				if (j == users.size() - 1 && logs.getLogs().get(i).getUser() == null) {
-					logs.getLogs().get(i).setUser(userDesconocido);
-				}
-			}
+	private void asignedUserMonth(ArrayList<Log> logs) {
+		getDate().clear();
+		for (int i = 0; i < logs.size(); ++i) {
+			setDate(logs.get(i).getDate().get(Calendar.MONTH));
 		}
 	}
 
@@ -110,7 +96,7 @@ public class Chart {
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
 			ArrayList<Log> filterLogs) {
 		int cont = 0;
-
+		asignedUserMonth(filterLogs);
 		if (selectedEvents.isEmpty()) {
 			for (EnrolledUser participant : selectedParticipants) {
 				ArrayList<Integer> cantidad = new ArrayList<>();

@@ -855,7 +855,6 @@ public class MainController implements Initializable {
 			filterLogs.clear();
 			viewchart.getDate().clear();
 			viewchart.getLabel().clear();
-			viewchart.asignedUserMonth(logs, users, userDesconocido);
 
 			loadHTML(logs.getLogs());
 		}
@@ -899,8 +898,6 @@ public class MainController implements Initializable {
 			logs.setFile(file.toString());
 			logs.readDocument();
 
-			viewchart.asignedUserMonth(logs, users, userDesconocido);
-
 			initializeDataSet(logs);
 			alert.close();
 
@@ -925,7 +922,7 @@ public class MainController implements Initializable {
 
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.initOwner(UBULog.stage);
-		alert.getButtonTypes().remove(0);
+		//alert.getButtonTypes().remove(0);
 		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"+ UBULog.session.getActualCourse().getFullName() + "\nPuede tardar unos minutos");
 		alert.show();
 		return alert;
@@ -970,7 +967,6 @@ public class MainController implements Initializable {
 			file = new File("tempcsv.csv");
 			logs.setFile(file.getAbsolutePath());
 			logs.readDocument();
-			viewchart.asignedUserMonth(logs, users, userDesconocido);
 
 			initializeDataSet(logs);
 

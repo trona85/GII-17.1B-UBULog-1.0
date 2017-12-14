@@ -3,10 +3,13 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.csv.CSVRecord;
+
+import controllers.UBULog;
 
 /**
  * Clase para generar cada tipo de log.
@@ -69,6 +72,8 @@ public class Log {
 	 */
 	public Log(CSVRecord csvRecord) {
 		if (csvRecord.size() > 0) {
+			
+			System.out.println(UBULog.session.getActualCourse().getEnrolledUsers());
 			String[] fecha = csvRecord.get(0).split("/");
 			date = GregorianCalendar.getInstance();
 			date.set(Integer.parseInt(fecha[2].split(" ")[0]), Integer.parseInt(fecha[1]) - 1,
@@ -88,6 +93,23 @@ public class Log {
 				setIdUser(Integer.parseInt(fieldDescription[1]));
 			} else {
 				setIdUser(-1);
+			}
+			EnrolledUser desconocido = null;
+			ArrayList<EnrolledUser> listUsers =UBULog.session.getActualCourse().getEnrolledUsers();
+			for (EnrolledUser us : listUsers) {
+				if(us.getId() == -1){
+					desconocido = us;
+				}
+				
+			}
+			for (int j = 0; j < listUsers.size(); j++) {
+				if (getIdUser() == listUsers.get(j).getId()) {
+					setUser(listUsers.get(j));
+				}
+
+				if (j == listUsers.size() - 1 && getUser() == null) {
+					setUser(desconocido);
+				}
 			}
 
 		}
