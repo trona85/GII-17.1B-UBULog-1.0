@@ -640,7 +640,9 @@ public class MainController implements Initializable {
 					case 0:
 						match = pattern.matcher(ftLogs.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
 								+ ftLogs.get(i).getDate().get(Calendar.MONTH) + "/"
-								+ ftLogs.get(i).getDate().get(Calendar.YEAR));
+								+ ftLogs.get(i).getDate().get(Calendar.YEAR) + " "
+								+ ftLogs.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
+								+ ftLogs.get(i).getDate().get(Calendar.MINUTE));
 
 						break;
 					case 1:
@@ -882,7 +884,6 @@ public class MainController implements Initializable {
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) {
 		try {
-			
 
 			this.logs = new CsvParser();
 			FileChooser fileChooser = new FileChooser();
@@ -914,6 +915,7 @@ public class MainController implements Initializable {
 
 	/**
 	 * Método que carga un modal.
+	 * 
 	 * @return alert.
 	 */
 	private Alert modalOpen() {
@@ -923,7 +925,8 @@ public class MainController implements Initializable {
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.initOwner(UBULog.stage);
 
-		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"+ UBULog.session.getActualCourse().getFullName() + "\nPuede tardar unos minutos");
+		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"
+				+ UBULog.session.getActualCourse().getFullName() + "\nPuede tardar unos minutos");
 		alert.show();
 		return alert;
 	}
@@ -944,7 +947,7 @@ public class MainController implements Initializable {
 		PrintWriter pw = null;
 		File file = null;
 		try {
-			
+
 			Alert alert = modalOpen();
 			webScripting = new WebScripting();
 			webScripting.getResponsiveWeb();
@@ -971,7 +974,7 @@ public class MainController implements Initializable {
 			initializeDataSet(logs);
 
 			file.delete();
-			
+
 			alert.close();
 
 		} catch (FailingHttpStatusCodeException e) {

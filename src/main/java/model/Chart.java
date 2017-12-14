@@ -75,8 +75,6 @@ public class Chart {
 	/**
 	 * Método para asignamos los mese para la gráfica.
 	 * @param logs, logs cargados.
-	 * @param users, usuarios de la aplicación.
-	 * @param userDesconocido, usuario desconocido.
 	 */
 	private void asignedUserMonth(ArrayList<Log> logs) {
 		getDate().clear();
@@ -96,7 +94,9 @@ public class Chart {
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
 			ArrayList<Log> filterLogs) {
 		int cont = 0;
+		
 		asignedUserMonth(filterLogs);
+		
 		if (selectedEvents.isEmpty()) {
 			for (EnrolledUser participant : selectedParticipants) {
 				ArrayList<Integer> cantidad = new ArrayList<>();
