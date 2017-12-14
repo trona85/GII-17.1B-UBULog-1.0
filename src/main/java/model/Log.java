@@ -53,7 +53,7 @@ public class Log {
 	 */
 	private String ip;
 	/**
-	 * objeto usuario, usuario que realiza la acción. 
+	 * objeto usuario, usuario que realiza la acción.
 	 */
 	private EnrolledUser user = null;
 	/**
@@ -63,14 +63,17 @@ public class Log {
 
 	/**
 	 * Constructor de clase. Construimos un log.
-	 * @param csvRecord, fila del csv parseado.
+	 * 
+	 * @param csvRecord,
+	 *            fila del csv parseado.
 	 */
 	public Log(CSVRecord csvRecord) {
 		if (csvRecord.size() > 0) {
 			String[] fecha = csvRecord.get(0).split("/");
 			date = GregorianCalendar.getInstance();
 			date.set(Integer.parseInt(fecha[2].split(" ")[0]), Integer.parseInt(fecha[1]) - 1,
-					Integer.parseInt(fecha[0]));
+					Integer.parseInt(fecha[0]), Integer.parseInt(fecha[2].split(" ")[1].split(":")[0]),
+					Integer.parseInt(fecha[2].split(" ")[1].split(":")[1]));
 			this.setDate(date);
 			setNameUser(csvRecord.get("Nombre completo del usuario"));
 			setUserAffected(csvRecord.get("Usuario afectado"));
@@ -90,6 +93,7 @@ public class Log {
 		}
 
 	}
+
 	// TODO ya no hace falta el toString
 	@Override
 	public String toString() {
@@ -102,6 +106,7 @@ public class Log {
 
 	/**
 	 * Método que recoge la fecha.
+	 * 
 	 * @return date
 	 */
 	public Calendar getDate() {
@@ -110,7 +115,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a date
-	 * @param date, fecha.
+	 * 
+	 * @param date,
+	 *            fecha.
 	 */
 	public void setDate(Calendar date) {
 		this.date = date;
@@ -118,6 +125,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el nameUser.
+	 * 
 	 * @return nameUser
 	 */
 	public String getNameUser() {
@@ -126,7 +134,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a nameUser.
-	 * @param nameUser, nombre usuario.
+	 * 
+	 * @param nameUser,
+	 *            nombre usuario.
 	 */
 	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
@@ -134,6 +144,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el userAffected.
+	 * 
 	 * @return userAffected
 	 */
 	public String getUserAffected() {
@@ -142,7 +153,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a userAffected
-	 * @param userAffected, usuario afectado.
+	 * 
+	 * @param userAffected,
+	 *            usuario afectado.
 	 */
 	public void setUserAffected(String userAffected) {
 		this.userAffected = userAffected;
@@ -150,6 +163,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el context.
+	 * 
 	 * @return context
 	 */
 	public String getContext() {
@@ -158,7 +172,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a context.
-	 * @param context, contexto.
+	 * 
+	 * @param context,
+	 *            contexto.
 	 */
 	public void setContext(String context) {
 		this.context = context;
@@ -166,6 +182,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el component.
+	 * 
 	 * @return component
 	 */
 	public String getComponent() {
@@ -174,7 +191,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a component.
-	 * @param component, componente.
+	 * 
+	 * @param component,
+	 *            componente.
 	 */
 	public void setComponent(String component) {
 		this.component = component;
@@ -182,6 +201,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el event.
+	 * 
 	 * @return event
 	 */
 	public String getEvent() {
@@ -190,7 +210,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a event.
-	 * @param event, evento.
+	 * 
+	 * @param event,
+	 *            evento.
 	 */
 	public void setEvent(String event) {
 		this.event = event;
@@ -198,6 +220,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el description.
+	 * 
 	 * @return description
 	 */
 	public String getDescription() {
@@ -206,7 +229,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a description.
-	 * @param description, descripción.
+	 * 
+	 * @param description,
+	 *            descripción.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -214,6 +239,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el origin.
+	 * 
 	 * @return origin
 	 */
 	public String getOrigin() {
@@ -222,7 +248,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a origin
-	 * @param origin, origen.
+	 * 
+	 * @param origin,
+	 *            origen.
 	 */
 	public void setOrigin(String origin) {
 		this.origin = origin;
@@ -230,6 +258,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el ip.
+	 * 
 	 * @return ip
 	 */
 	public String getIp() {
@@ -238,7 +267,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a ip.
-	 * @param ip, ip.
+	 * 
+	 * @param ip,
+	 *            ip.
 	 */
 	public void setIp(String ip) {
 		this.ip = ip;
@@ -246,6 +277,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el user.
+	 * 
 	 * @return user
 	 */
 	public EnrolledUser getUser() {
@@ -254,7 +286,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a enrolledUser
-	 * @param enrolledUser, usuario matriculado.
+	 * 
+	 * @param enrolledUser,
+	 *            usuario matriculado.
 	 */
 	public void setUser(EnrolledUser enrolledUser) {
 		this.user = enrolledUser;
@@ -262,6 +296,7 @@ public class Log {
 
 	/**
 	 * Método que recoge el idUser.
+	 * 
 	 * @return idUser
 	 */
 	public int getIdUser() {
@@ -270,7 +305,9 @@ public class Log {
 
 	/**
 	 * Método que asigna un valor a idUser
-	 * @param idUser, id usuario.
+	 * 
+	 * @param idUser,
+	 *            id usuario.
 	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;

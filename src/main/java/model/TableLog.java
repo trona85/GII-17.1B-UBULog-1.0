@@ -81,7 +81,7 @@ public class TableLog {
 		pw.println("\t<tr>");
 
 		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "/" + log.getDate().get(Calendar.MONTH) + "/"
-				+ log.getDate().get(Calendar.YEAR) + "</td>");
+				+ log.getDate().get(Calendar.YEAR) + " "+ log.getDate().get(Calendar.HOUR_OF_DAY)+ ":"+log.getDate().get(Calendar.MINUTE)+  "</td>");
 		pw.println("\t\t<td>" + log.getNameUser() + "</td>");
 		pw.println("\t\t<td>" + log.getUserAffected() + "</td>");
 		pw.println("\t\t<td>" + log.getContext() + "</td>");

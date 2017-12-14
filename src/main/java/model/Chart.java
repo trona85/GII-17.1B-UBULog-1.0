@@ -161,7 +161,7 @@ public class Chart {
 							}
 							cantidad.add(cont);
 							cont = 0;
-							this.label.put(participant.getFullName() + " en evento " + event.getNameEvent(), cantidad);
+							this.label.put(participant.getFullName() + "/" + event.getNameEvent(), cantidad);
 
 						}
 
