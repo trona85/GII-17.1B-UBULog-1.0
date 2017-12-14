@@ -883,6 +883,8 @@ public class MainController implements Initializable {
 	 */
 	public void cargaDocumento(ActionEvent actionEvent) {
 		try {
+			
+
 			this.logs = new CsvParser();
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(UBULog.stage);
@@ -892,8 +894,7 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
-
-			// leemos csv y lo parseamos
+			Alert alert = modalOpen();
 
 			logs.setFile(file.toString());
 			logs.readDocument();
@@ -901,6 +902,7 @@ public class MainController implements Initializable {
 			viewchart.asignedUserMonth(logs, users, userDesconocido);
 
 			initializeDataSet(logs);
+			alert.close();
 
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
@@ -911,6 +913,22 @@ public class MainController implements Initializable {
 
 		}
 
+	}
+
+	/**
+	 * @return
+	 */
+	private Alert modalOpen() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeight(300);
+		alert.setWidth(300);
+
+		alert.initModality(Modality.APPLICATION_MODAL);
+		alert.initOwner(UBULog.stage);
+		alert.getButtonTypes().remove(0);
+		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"+ UBULog.session.getActualCourse().getFullName() + "\nPuede tardar unos minutos");
+		alert.show();
+		return alert;
 	}
 
 	/**
@@ -930,7 +948,7 @@ public class MainController implements Initializable {
 		File file = null;
 		try {
 			
-			//TODO avisar al usuario por la duración
+			Alert alert = modalOpen();
 			webScripting = new WebScripting();
 			webScripting.getResponsiveWeb();
 
@@ -957,6 +975,8 @@ public class MainController implements Initializable {
 			initializeDataSet(logs);
 
 			file.delete();
+			
+			alert.close();
 
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error(e.getMessage());
