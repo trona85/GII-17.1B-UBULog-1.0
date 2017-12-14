@@ -913,16 +913,16 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * @return
+	 * Método que carga un modal.
+	 * @return alert.
 	 */
 	private Alert modalOpen() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeight(300);
 		alert.setWidth(300);
-
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.initOwner(UBULog.stage);
-		//alert.getButtonTypes().remove(0);
+
 		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"+ UBULog.session.getActualCourse().getFullName() + "\nPuede tardar unos minutos");
 		alert.show();
 		return alert;
