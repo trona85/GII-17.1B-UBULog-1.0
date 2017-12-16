@@ -639,7 +639,7 @@ public class MainController implements Initializable {
 					switch (j) {
 					case 0:
 						match = pattern.matcher(ftLogs.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
-								+ ftLogs.get(i).getDate().get(Calendar.MONTH) + "/"
+								+ (ftLogs.get(i).getDate().get(Calendar.MONTH)+1) + "/"
 								+ ftLogs.get(i).getDate().get(Calendar.YEAR) + " "
 								+ ftLogs.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
 								+ ftLogs.get(i).getDate().get(Calendar.MINUTE));
