@@ -73,7 +73,6 @@ public class Log {
 	public Log(CSVRecord csvRecord) {
 		if (csvRecord.size() > 0) {
 			
-			System.out.println(UBULog.session.getActualCourse().getEnrolledUsers());
 			String[] fecha = csvRecord.get(0).split("/");
 			date = GregorianCalendar.getInstance();
 			date.set(Integer.parseInt(fecha[2].split(" ")[0]), Integer.parseInt(fecha[1]) - 1,

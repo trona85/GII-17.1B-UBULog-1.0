@@ -33,6 +33,7 @@ public class WebScripting {
 	public WebScripting() {
 		try {
 			client = new WebClient(BrowserVersion.getDefault());
+			client.getOptions().setTimeout(0);
 			page = client.getPage(UBULog.host + "/login/index.php");
 			HtmlForm form = (HtmlForm) page.getElementById("login");
 
@@ -66,6 +67,7 @@ public class WebScripting {
 					valbtn = i;
 				}
 			}
+			
 			WebResponse dataDownload = inputs.get(valbtn).click().getWebResponse();
 			setResponsive(dataDownload.getContentAsString());
 
