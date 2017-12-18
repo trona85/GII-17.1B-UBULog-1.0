@@ -102,6 +102,9 @@ public class MainController implements Initializable {
 	public MenuButton slcGroup;
 	MenuItem[] groupMenuItems;
 	String filterGroup = "Todos";
+	
+	@FXML // Botón selector gráfico
+	public MenuButton slcChart;
 
 	@FXML // Entrada de filtro de usuarios por patrón
 	public TextField tfdParticipants;
@@ -230,6 +233,24 @@ public class MainController implements Initializable {
 			tfdDescription.setOnAction(inputTable());
 			tfdPOrigin.setOnAction(inputTable());
 			tfdIp.setOnAction(inputTable());
+			
+			EventHandler<ActionEvent> actionChart = selectChart();
+			// Cargamos una lista de los nombres de los grupos
+			//ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
+			// Convertimos la lista a una lista de MenuItems para el MenuButton
+			ArrayList<MenuItem> groupsItemsList = new ArrayList<>();
+			// En principio mostrarán todos los usuarios en cualquier grupo
+			MenuItem mi = (new MenuItem());
+			// Añadimos el manejador de eventos al primer MenuItem
+			
+			//TODO añadimos cada tipo de grafico
+			mi = typeChart(actionChart, groupsItemsList, mi, "vertical", "bar");
+			mi = typeChart(actionChart, groupsItemsList, mi, "hotizontal", "horizontalBar");
+			
+			// Asignamos la lista de MenuItems al MenuButton "Grupo"
+			slcChart.getItems().addAll(groupsItemsList);
+			//
+			viewchart.setTypeChart("bar");
 
 			dataUserLoger();
 
@@ -259,6 +280,21 @@ public class MainController implements Initializable {
 
 			}
 		});
+	}
+
+	/**
+	 * @param actionChart
+	 * @param groupsItemsList
+	 * @param mi
+	 * @return
+	 */
+	private MenuItem typeChart(EventHandler<ActionEvent> actionChart, ArrayList<MenuItem> groupsItemsList,
+			MenuItem mi, String value, String key) {
+		mi = new MenuItem(value);
+		mi.setId(key);
+		mi.setOnAction(actionChart);
+		groupsItemsList.add(mi);
+		return mi;
 	}
 
 	/**
@@ -494,6 +530,25 @@ public class MainController implements Initializable {
 				patternParticipants = tfdParticipants.getText();
 				logger.info("-> Filtrando participantes por nombre: " + patternParticipants);
 				filterParticipants();
+			}
+		};
+	}
+	
+	/**
+	 * Manejador de eventos para el botón selector de gráficos, selecciona un tipo de gráfico.
+	 * 
+	 * @return manejador de eventos de grupos
+	 */
+	private EventHandler<ActionEvent> selectChart() {
+		return new EventHandler<ActionEvent>() {
+			/**
+			 * Recibe un evento (relacionado con un MenuItem) y responde en
+			 * consecuencia. El usuario elige un menuItem y cambia el tipo de gráfico.
+			 */
+			public void handle(ActionEvent chart) {
+				
+				MenuItem mItem = (MenuItem) chart.getSource();
+				viewchart.setTypeChart(mItem.getId());
 			}
 		};
 	}

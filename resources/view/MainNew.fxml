@@ -210,6 +210,7 @@
                         <AnchorPane>
                            <children>
                               <WebView fx:id="chart" prefHeight="484.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <MenuButton fx:id="slcChart" layoutY="2.0" mnemonicParsing="false" text="Tipo gráfico" />
                            </children>
                         </AnchorPane>
                      </content>

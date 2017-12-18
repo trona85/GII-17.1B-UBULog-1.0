@@ -21,6 +21,8 @@ import javafx.collections.ObservableList;
 public class Chart {
 
 	static final Logger logger = LoggerFactory.getLogger(Chart.class);
+	
+	private String typeChart;
 
 	/**
 	 * lista de meses.
@@ -42,6 +44,7 @@ public class Chart {
 	public Chart() {
 		dates = new ArrayList<>();
 		label = new HashMap<String, ArrayList<Integer>>();
+		setTypeChart("bar");
 	}
 
 	/**
@@ -195,7 +198,7 @@ public class Chart {
 			pw.println("window.onload = function() {");
 			pw.println("\tvar ctx = document.getElementById(\"canvas\").getContext(\"2d\");");
 			pw.println("\twindow.myBar = new Chart(ctx, {");
-			pw.println("\t\ttype: 'bar',");
+			pw.println("\t\ttype: '" + typeChart + "',");
 			pw.println("\t\tdata: barChartData,");
 			pw.println("\t\toptions: {");
 			pw.println("\t\t\tresponsive: true,");
@@ -265,6 +268,14 @@ public class Chart {
 				pw.print("\t\t}");
 			}
 		}
+	}
+
+	public String getTypeChart() {
+		return typeChart;
+	}
+
+	public void setTypeChart(String typeChart) {
+		this.typeChart = typeChart;
 	}
 
 }
