@@ -3,15 +3,12 @@ package controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controllers.LoginController;
-import controllers.UBULog;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,33 +53,16 @@ public class LoginController {
 	 * @param event, evento.
 	 * @throws Exception, excepcion.
 	 */
-	public void login(ActionEvent event) throws Exception {
+	public void login(ActionEvent event) {
 
-		String nombre;
-		String pass ;
-		// Almacenamos los parámetros introducidos por el usuario:
-		UBULog.init.getScene().setCursor(Cursor.WAIT);
-		//TODO inicios de sesion pruebas y pre.
-		UBULog.host = "http://localhost/moodle";
-		nombre = "profesor";
-		pass = "1Qwerty--";
-		UBULog.session = new Session(nombre, pass);
-		/*UBULog.host = "https://ubuvirtual.ubu.es/";
-		nombre = "ofa0007@alu.ubu.es";
-		UBULog.session = new Session(nombre, txtPassword.getText());*/
-		/*if(txtHost.getText().toString().isEmpty()){
-			//TODO cambiar para ubu virtual y revisar que es correcto para producción
-			//UBULog.host = "http://localhost/moodle";
+		if(txtHost.getText().toString().isEmpty()){
+			UBULog.host = "https://ubuvirtual.ubu.es/";;
 		}else{
 			UBULog.host = txtHost.getText();
 		}
-		if(txtUsername.getText().toString().isEmpty()  || txtPassword.getText().toString().isEmpty()){
-			nombre = "profesor";
-			pass = "1Qwerty--";
-			UBULog.session = new Session(nombre, pass);
-		}else{
-			UBULog.session = new Session(txtUsername.getText(), txtPassword.getText());
-		}*/
+		System.out.println(UBULog.host);
+		
+		UBULog.session = new Session(txtUsername.getText(), txtPassword.getText());
 
 		Boolean correcto = true;
 		progressBar.visibleProperty().set(false);
