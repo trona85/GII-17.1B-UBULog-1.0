@@ -244,8 +244,9 @@ public class MainController implements Initializable {
 			// Añadimos el manejador de eventos al primer MenuItem
 			
 			//TODO añadimos cada tipo de grafico
-			mi = typeChart(actionChart, groupsItemsList, mi, "vertical", "bar");
-			mi = typeChart(actionChart, groupsItemsList, mi, "hotizontal", "horizontalBar");
+			mi = typeChart(actionChart, groupsItemsList, mi, "Vertical", "bar");
+			mi = typeChart(actionChart, groupsItemsList, mi, "Hotizontal", "horizontalBar");
+			mi = typeChart(actionChart, groupsItemsList, mi, "Lineas basicas", "line");
 			
 			// Asignamos la lista de MenuItems al MenuButton "Grupo"
 			slcChart.getItems().addAll(groupsItemsList);
