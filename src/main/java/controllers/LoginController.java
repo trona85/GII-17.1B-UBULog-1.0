@@ -51,7 +51,6 @@ public class LoginController {
 	 * incorrecto, muestra un mensaje de error.
 	 * 
 	 * @param event, evento.
-	 * @throws Exception, excepcion.
 	 */
 	public void login(ActionEvent event) {
 
@@ -147,9 +146,8 @@ public class LoginController {
 	 * Borra los parámetros introducidos en los campos
 	 * 
 	 * @param event, evento
-	 * @throws Exception, excepción
 	 */
-	public void clear(ActionEvent event) throws Exception {
+	public void clear(ActionEvent event){
 		txtUsername.setText("");
 		txtPassword.setText("");
 		txtHost.setText("");

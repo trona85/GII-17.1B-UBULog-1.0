@@ -44,7 +44,7 @@ public class Group {
 	/**
 	 * Modifica el id del grupo
 	 * 
-	 * @param id
+	 * @param id, id.
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -62,7 +62,7 @@ public class Group {
 	/**
 	 * Modifica el nombre del grupo
 	 * 
-	 * @param name
+	 * @param name, name.
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -80,12 +80,14 @@ public class Group {
 	/**
 	 * Modifica la descripción del grupo
 	 * 
-	 * @param description
+	 * @param description, description.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+	/**
+	 * Metodo para imprimir datos.
+	 */
 	public String toString(){
 		return "id: "+ getId() + "\n"+
 				"name: "+ getName() + "\n"+

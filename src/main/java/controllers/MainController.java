@@ -284,10 +284,13 @@ public class MainController implements Initializable {
 	}
 
 	/**
-	 * @param actionChart
-	 * @param groupsItemsList
-	 * @param mi
-	 * @return
+	 * Metodo para añadir tipo de gráfico al selector.
+	 * @param actionChart, actionChart.
+	 * @param groupsItemsList, groupsItemsList.
+	 * @param mi, item.
+	 * @param value, valor.
+	 * @param key, clave.
+	 * @return mi
 	 */
 	private MenuItem typeChart(EventHandler<ActionEvent> actionChart, ArrayList<MenuItem> groupsItemsList,
 			MenuItem mi, String value, String key) {
@@ -300,6 +303,7 @@ public class MainController implements Initializable {
 
 	/**
 	 * Método que recarga de nuevo el gráfico y la tabla.
+	 * @param l , lista de log.
 	 */
 	private void loadHTML(ArrayList<Log> l) {
 		viewchart.generarGrafica();
@@ -834,8 +838,8 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            acción del evento.
-	 * @throws Exception,
-	 *             excepción.
+	 * @throws Exception
+	 *             excepción
 	 */
 	public void saveChart(ActionEvent actionEvent) throws Exception {
 
@@ -867,8 +871,6 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            accion del evento.
-	 * @throws Exception,
-	 *             excepción.
 	 */
 	public void generateChart(ActionEvent actionEvent) {
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);
@@ -881,8 +883,8 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            acción del evento.
-	 * @throws Exception,
-	 *             excepción.
+	 * @throws Exception
+	 *             excepción
 	 */
 	public void logOut(ActionEvent actionEvent) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
@@ -903,8 +905,8 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            acción del evento.
-	 * @throws Exception,
-	 *             excepción.
+	 * @throws Exception
+	 *             excepción
 	 */
 	public void clearSelection(ActionEvent actionEvent) throws Exception {
 		if (!logs.getLogs().isEmpty()) {
@@ -924,8 +926,8 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            acción del evento.
-	 * @throws Exception,
-	 *             excepción.
+	 * @throws Exception
+	 *             excepción
 	 */
 	public void aboutUBULog(ActionEvent actionEvent) throws Exception {
 		// TODO no parece funcionar
@@ -992,8 +994,8 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            acción del evento.
-	 * @throws IOException,
-	 *             excepción.
+	 * @throws IOException
+	 *             excepción
 	 */
 	public void cargaDocumentoOnline(ActionEvent actionEvent) throws IOException {
 
@@ -1096,8 +1098,8 @@ public class MainController implements Initializable {
 	 * 
 	 * @param actionEvent,
 	 *            acción del evento.
-	 * @throws Exception,
-	 *             excepción.
+	 * @throws Exception
+	 *             excepción
 	 */
 	public void closeApplication(ActionEvent actionEvent) throws Exception {
 		logger.info("Cerrando aplicación");

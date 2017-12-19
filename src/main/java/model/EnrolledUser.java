@@ -82,7 +82,7 @@ public class EnrolledUser {
 	 *            token de usuario logueado
 	 * @param obj
 	 *            objeto JSON con la información del usuario
-	 * @throws Exception
+	 * @throws Exception excepción
 	 */
 	public EnrolledUser(String token, JSONObject obj) throws Exception {
 		this.id = obj.getInt("id");
@@ -132,6 +132,8 @@ public class EnrolledUser {
 
 	/**
 	 * Constructor para crear usuarios ficticios
+	 * @param nombreCompleto, nombre completo.
+	 * @param id, id.
 	 */
 	public EnrolledUser(String nombreCompleto, int id){
 		setFullName(nombreCompleto);
@@ -151,7 +153,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica el id del usuario
 	 * 
-	 * @param id
+	 * @param id, id.
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -169,7 +171,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica el nombre del usuario
 	 * 
-	 * @param firstName
+	 * @param firstName, firstName.
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -187,7 +189,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica el apellido del usuario
 	 * 
-	 * @param lastName
+	 * @param lastName, lastName.
 	 */
 	public void setlastName(String lastName) {
 		this.lastName = lastName;
@@ -205,7 +207,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica el nombre completo del usuario
 	 * 
-	 * @param fullName
+	 * @param fullName, fullName.
 	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
@@ -223,7 +225,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica el primer acceso del usuario a la plataforma
 	 * 
-	 * @param fisrtAccess
+	 * @param firstAccess, firstAccess.
 	 */
 	public void setFirstAccess(Date firstAccess) {
 		this.firstAccess = firstAccess;
@@ -241,7 +243,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la última fecha de acceso a la plataforma
 	 * 
-	 * @param lastAccess
+	 * @param lastAccess, lastAccess.
 	 */
 	public void setLastAccess(Date lastAccess) {
 		this.lastAccess = lastAccess;
@@ -259,7 +261,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la descripción del usuario
 	 * 
-	 * @param description
+	 * @param description, description.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -277,7 +279,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la ciudad del usuario
 	 * 
-	 * @param city
+	 * @param city, city.
 	 */
 	public void setCity(String city) {
 		this.city = city;
@@ -295,7 +297,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica el país del usuario
 	 * 
-	 * @param country
+	 * @param country, country.
 	 */
 	public void setCountry(String country) {
 		this.country = country;
@@ -313,7 +315,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la url de la foto de usuario en icono
 	 * 
-	 * @param profileImageUrlSmall
+	 * @param profileImageUrlSmall, profileImageUrlSmall.
 	 */
 	public void setProfileImageUrlSmall(String profileImageUrlSmall) {
 		this.profileImageUrlSmall = profileImageUrlSmall;
@@ -331,7 +333,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la url de la foto del usuario
 	 * 
-	 * @param profileImageUrl
+	 * @param profileImageUrl, profileImageUrl.
 	 */
 	public void setProfileImageUrl(String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
@@ -349,7 +351,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la lista de roles que tiene el usuario
 	 * 
-	 * @param roles
+	 * @param roles, roles.
 	 */
 	public void setRoles(ArrayList<Role> roles) {
 		this.roles.clear();
@@ -370,7 +372,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la lista de grupos en los que está el usuario
 	 * 
-	 * @param groups
+	 * @param groups, groups.
 	 */
 	public void setGroups(ArrayList<Group> groups) {
 		this.groups.clear();
@@ -391,7 +393,7 @@ public class EnrolledUser {
 	/**
 	 * Modifica la lista de cursos en los que está matriculado el usuario
 	 * 
-	 * @param courses
+	 * @param courses, courses.
 	 */
 	public void setEnrolledCourses(ArrayList<Integer> courses) {
 		this.courses.clear();

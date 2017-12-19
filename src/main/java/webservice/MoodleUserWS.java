@@ -36,7 +36,7 @@ public class MoodleUserWS {
 	 *            nombre de usuario
 	 * @param mUser
 	 *            moodleUser
-	 * @throws Exception
+	 * @throws Exception excepción
 	 */
 	public static void setMoodleUser(String token, String userName, MoodleUser mUser) throws Exception {
 		//TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_user_get_users_by_field&field=username&values[0]=profesor
@@ -89,7 +89,7 @@ public class MoodleUserWS {
 	 *            token de usuario
 	 * @param mUser
 	 *            usuario
-	 * @throws Exception
+	 * @throws Exception excepción
 	 */
 	public static void setCourses(String token, MoodleUser mUser) throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
