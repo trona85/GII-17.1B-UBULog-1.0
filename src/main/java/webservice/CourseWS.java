@@ -31,9 +31,9 @@ public class CourseWS {
 	 * 
 	 * @param token
 	 *            token de usuario
-	 * @param idCurso
+	 * @param course
 	 *            id del curso
-	 * @throws Exception
+	 * @throws Exception excepción
 	 */
 	public static void setEnrolledUsers(String token, Course course) throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();

@@ -74,8 +74,9 @@ public class TableLog {
 	}
 	
 	/**
-	 * @param pw
-	 * @param log
+	 * Método para construir la tabla de logs.
+	 * @param pw, printerWriter.
+	 * @param log, logs.
 	 */
 	private void dataTableLog(PrintWriter pw, Log log) {
 		pw.println("\t<tr>");

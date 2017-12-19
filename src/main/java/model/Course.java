@@ -46,7 +46,7 @@ public class Course {
 	 * 
 	 * @param obj
 	 *            objeto JSON con la información del curso
-	 * @throws Exception
+	 * @throws Exception excepción
 	 */
 	public Course(JSONObject obj) throws Exception {
 
@@ -72,7 +72,7 @@ public class Course {
 	/**
 	 * Modifica el id del curso
 	 * 
-	 * @param id
+	 * @param id, id
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -90,7 +90,7 @@ public class Course {
 	/**
 	 * Modifica el nombre corto del curso
 	 * 
-	 * @param shortName
+	 * @param shortName, shortName.
 	 */
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
@@ -108,7 +108,7 @@ public class Course {
 	/**
 	 * Modifica el nombre del curso
 	 * 
-	 * @param fullName
+	 * @param fullName, fullName.
 	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
@@ -126,7 +126,7 @@ public class Course {
 	/**
 	 * Modifica el no de usuarios del curso
 	 * 
-	 * @param enrolledUserCount
+	 * @param enrolledUserCount, enrolledUserCount.
 	 */
 	public void setEnrolledUsersCount(int enrolledUserCount) {
 		this.enrolledUsersCount = enrolledUserCount;
@@ -144,7 +144,7 @@ public class Course {
 	/**
 	 * Modifica el idNumber del curso
 	 * 
-	 * @param idNumber
+	 * @param idNumber, idNumber.
 	 */
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
@@ -162,7 +162,7 @@ public class Course {
 	/**
 	 * Modifica el resumen del curso
 	 * 
-	 * @param summary
+	 * @param summary, summary.
 	 */
 	public void setSummary(String summary) {
 		this.summary = summary;
@@ -181,7 +181,7 @@ public class Course {
 	/**
 	 * Modifica la lista de usuarios matriculados en el curso
 	 * 
-	 * @param eUsers
+	 * @param eUsers, eUsers.
 	 */
 	public void setEnrolledUsers(ArrayList<EnrolledUser> eUsers) {
 		this.enrolledUsers.clear();
@@ -282,8 +282,8 @@ public class Course {
 	/**
 	 * Devuelve el id de un curso a partir de su nombre
 	 * 
-	 * @param courseName
-	 * @return
+	 * @param courseName, courseName
+	 * @return course
 	 */
 	public static Course getCourseByString(String courseName) {
 		Course course = null;

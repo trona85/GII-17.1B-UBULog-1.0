@@ -44,7 +44,7 @@ public class Session {
 	/**
 	 * Obtiene el token de usuario
 	 * 
-	 * @return
+	 * @return tokenUser
 	 */
 	public String getToken() {
 		return this.tokenUser;
@@ -54,7 +54,7 @@ public class Session {
 	 * Establece el token del usuario a partir de usuario y contraseña. Se
 	 * realiza mediante una petición http al webservice de Moodle
 	 * 
-	 * @throws Exception
+	 * @throws Exception excepción
 	 */
 	public void setToken() throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -88,7 +88,7 @@ public class Session {
 	/**
 	 * Modifica el email del usuario
 	 * 
-	 * @param userName
+	 * @param userName, userName.
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -106,11 +106,16 @@ public class Session {
 	/**
 	 * Modifica el curso actual
 	 * 
-	 * @param course
+	 * @param course, course.
 	 */
 	public void setActualCourse(Course course) {
 		this.actualCourse = course;
 	}
+	
+	/**
+	 * Método que devuelve password.
+	 * @return password
+	 */
 	public String getPassword(){
 		return this.password;
 	}
