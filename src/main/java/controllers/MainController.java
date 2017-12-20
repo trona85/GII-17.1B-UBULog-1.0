@@ -1040,9 +1040,12 @@ public class MainController implements Initializable {
 
 			initializeDataSet(logs);
 
-			file.delete();
-
 			alert.close();
+			boolean del = file.delete();
+			if(del == false){
+				throw new UBULogException(UBULogError.FICHERO_NO_ELIMINADO);
+			}
+
 
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error(e.getMessage());

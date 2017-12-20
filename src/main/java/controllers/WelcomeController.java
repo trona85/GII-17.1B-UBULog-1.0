@@ -76,7 +76,7 @@ public class WelcomeController implements Initializable {
 	 */
 	public void enterCourse(ActionEvent event) throws Exception {
 		try {
-			UBULog.init.getScene().setCursor(Cursor.WAIT);
+			UBULog.getInit().getScene().setCursor(Cursor.WAIT);
 
 			// Guardamos en una variable el curso seleccionado por el usuario
 			String selectedCourse = listCourses.getSelectionModel().getSelectedItem();
@@ -95,7 +95,7 @@ public class WelcomeController implements Initializable {
 			UBULog.getStage().setTitle("UBULog");
 			UBULog.getStage().setResizable(true);
 			UBULog.getStage().show();
-			UBULog.init.getScene().setCursor(Cursor.DEFAULT);
+			UBULog.getInit().getScene().setCursor(Cursor.DEFAULT);
 			lblNoSelect.setText("");
 			 logger.info("-- Entrando al curso");
 		} catch (Exception e) {

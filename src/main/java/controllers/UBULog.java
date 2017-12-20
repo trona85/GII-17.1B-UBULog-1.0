@@ -24,7 +24,7 @@ import webservice.Session;
 public class UBULog extends Application {
 	private static String host = "";
 	private static Stage stage;
-	public static Stage init;
+	private static Stage init;
 	private static Session session;
 	private static MoodleUser user;
 
@@ -84,6 +84,22 @@ public class UBULog extends Application {
 	 */
 	public static void setStage(Stage stage) {
 		UBULog.stage = stage;
+	}
+	
+	/**
+	 * Recoge init.
+	 * @return init
+	 */
+	public static Stage getInit() {
+		return init;
+	}
+
+	/**
+	 * Guarda init.
+	 * @param init, init.
+	 */
+	public static void setInit(Stage init) {
+		UBULog.init = init;
 	}
 	
 	/**

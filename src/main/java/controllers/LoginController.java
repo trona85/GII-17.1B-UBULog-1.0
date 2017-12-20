@@ -95,7 +95,7 @@ public class LoginController {
 							UBULog.getStage().setScene(scene);
 							UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
 							UBULog.getStage().setTitle("UBULog");
-							UBULog.init.close();
+							UBULog.getInit().close();
 							UBULog.getStage().show();
 							lblStatus.setText("");
 						} catch (Exception e) {
