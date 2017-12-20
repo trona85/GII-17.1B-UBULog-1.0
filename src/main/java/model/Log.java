@@ -115,16 +115,6 @@ public class Log {
 
 	}
 
-	// TODO ya no hace falta el toString
-	@Override
-	public String toString() {
-
-		return "hora: " + getDate() + "\n nombre del usuario: " + getNameUser() + "\n usuario afectado: "
-				+ getUserAffected() + "\n contexto del evento: " + getContext() + "\n componentes: " + getComponent()
-				+ "\n nombre del evento: " + getEvent() + "\n descripcion: " + getDescription() + "\n origen: "
-				+ getOrigin() + "\n ip: " + getIp() + "\n usuario: " + getUser();
-	}
-
 	/**
 	 * Método que recoge la fecha.
 	 * 

@@ -113,7 +113,7 @@ public class Chart {
 					}
 					cantidad.add(cont);
 					cont = 0;
-					this.label.put("evento " + participant.getFullName(), cantidad);
+					this.label.put(participant.getFullName(), cantidad);
 
 				}
 
@@ -133,7 +133,7 @@ public class Chart {
 						}
 						cantidad.add(cont);
 						cont = 0;
-						this.label.put("evento " + event.getNameEvent(), cantidad);
+						this.label.put(event.getNameEvent(), cantidad);
 
 					}
 

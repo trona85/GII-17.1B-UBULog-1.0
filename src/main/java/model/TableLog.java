@@ -22,10 +22,6 @@ public class TableLog {
 	
 	static final Logger logger = LoggerFactory.getLogger(TableLog.class);
 	
-	public TableLog(){
-		
-	}
-	
 	public void generarTablaLogs(ArrayList<Log> generateLogs) {
 
 		FileWriter ficheroHTML = null;

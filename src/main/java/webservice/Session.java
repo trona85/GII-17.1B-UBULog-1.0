@@ -23,9 +23,21 @@ import model.Course;
  */
 public class Session {
 
+	/**
+	 * Nombre usuario.
+	 */
 	private String userName;
+	/**
+	 * Password.
+	 */
 	private String password;
+	/**
+	 * Token
+	 */
 	private String tokenUser;
+	/**
+	 * Curso actual.
+	 */
 	private Course actualCourse;
 
 	/**

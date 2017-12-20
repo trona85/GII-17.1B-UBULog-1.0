@@ -10,7 +10,6 @@ package webservice;
  */
 public class WebServiceOptions {
 
-	//TODO hay servicios que no se utilizan, revisar
 	// Devuelve token de usuario
 	public static final String SERVICIO_WEB_MOODLE = "moodle_mobile_app";
 	// Devuelve id de usuario y atributos
@@ -21,10 +20,4 @@ public class WebServiceOptions {
 	public static final String OBTENER_USUARIOS_MATRICULADOS = "core_enrol_get_enrolled_users";
 	// Devuelve todas las categorías y elementos evaluables de un curso
 	public static final String OBTENER_TABLA_NOTAS = "gradereport_user_get_grades_table";
-	// Devuelve información sobre los assignments (tareas) que hay en un curso
-	public static final String OBTENER_ASSIGNMENTS = "mod_assign_get_assignments";
-	// Devuelve información sobre los quizs (cuestionarios) que hay en un curso
-	public static final String OBTENER_QUIZZES = "mod_quiz_get_quizzes_by_courses";
-
-	// TODO los tipos de rol, no filtra por ellos
 }
