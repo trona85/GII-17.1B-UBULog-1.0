@@ -94,7 +94,7 @@ public class Log {
 				setIdUser(-1);
 			}
 			EnrolledUser desconocido = null;
-			ArrayList<EnrolledUser> listUsers =UBULog.session.getActualCourse().getEnrolledUsers();
+			ArrayList<EnrolledUser> listUsers =UBULog.getSession().getActualCourse().getEnrolledUsers();
 			for (EnrolledUser us : listUsers) {
 				if(us.getId() == -1){
 					desconocido = us;

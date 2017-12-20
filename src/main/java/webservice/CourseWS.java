@@ -40,7 +40,7 @@ public class CourseWS {
 		ArrayList<EnrolledUser> eUsers = new ArrayList<EnrolledUser>();
 		try {
 			//TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_enrolled_users&&courseid=3
-			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
+			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_USUARIOS_MATRICULADOS
 					+ "&courseid=" + course.getId());
 			CloseableHttpResponse response = httpclient.execute(httpget);

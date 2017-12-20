@@ -44,7 +44,7 @@ public class MoodleUserWS {
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
-			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
+			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_INFO_USUARIO
 					+ "&field=username&values[0]=" + userName);
 			CloseableHttpResponse response = httpclient.execute(httpget);
@@ -96,7 +96,7 @@ public class MoodleUserWS {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		try {
 			// TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&&userid=6
-			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
+			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_CURSOS + "&userid="
 					+ mUser.getId());
 			CloseableHttpResponse response = httpclient.execute(httpget);

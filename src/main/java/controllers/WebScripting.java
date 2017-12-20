@@ -34,11 +34,11 @@ public class WebScripting {
 		try {
 			client = new WebClient(BrowserVersion.getDefault());
 			client.getOptions().setTimeout(0);
-			page = client.getPage(UBULog.host + "/login/index.php");
+			page = client.getPage(UBULog.getHost() + "/login/index.php");
 			HtmlForm form = (HtmlForm) page.getElementById("login");
 
-			form.getInputByName("username").setValueAttribute(UBULog.session.getUserName());
-			form.getInputByName("password").setValueAttribute(UBULog.session.getPassword());
+			form.getInputByName("username").setValueAttribute(UBULog.getSession().getUserName());
+			form.getInputByName("password").setValueAttribute(UBULog.getSession().getPassword());
 
 			page.getElementById("loginbtn").click();
 
@@ -56,8 +56,8 @@ public class WebScripting {
 
 	public void getResponsiveWeb() {
 		try {
-			page = client.getPage(UBULog.host + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
-					+ UBULog.session.getActualCourse().getId()
+			page = client.getPage(UBULog.getHost() + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
+					+ UBULog.getSession().getActualCourse().getId()
 					+ "&user=&date=&modid=&modaction=&origin=&edulevel=-1&logreader=logstore_standard");
 
 			DomNodeList<DomElement> inputs = page.getElementsByTagName("input");

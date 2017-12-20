@@ -71,7 +71,7 @@ public class Session {
 	public void setToken() throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
-			HttpGet httpget = new HttpGet(UBULog.host + "/login/token.php?username=" + this.userName + "&password="
+			HttpGet httpget = new HttpGet(UBULog.getHost() + "/login/token.php?username=" + this.userName + "&password="
 					+ this.password + "&service=" + WebServiceOptions.SERVICIO_WEB_MOODLE);
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {

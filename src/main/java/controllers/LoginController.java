@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,32 +49,30 @@ public class LoginController {
 	 * Hace el login de usuario al pulsar el botón Entrar. Si el usuario es
 	 * incorrecto, muestra un mensaje de error.
 	 * 
-	 * @param event, evento.
 	 */
-	public void login(ActionEvent event) {
+	public void login() {
 
-		if(txtHost.getText().toString().isEmpty()){
-			UBULog.host = "https://ubuvirtual.ubu.es/";;
+		if(txtHost.getText().isEmpty()){
+			UBULog.setHost("https://ubuvirtual.ubu.es/");
 		}else{
-			UBULog.host = txtHost.getText();
+			UBULog.setHost(txtHost.getText());
 		}
-		System.out.println(UBULog.host);
 		
-		UBULog.session = new Session(txtUsername.getText(), txtPassword.getText());
+		UBULog.setSession(new Session(txtUsername.getText(), txtPassword.getText()));
 
 		Boolean correcto = true;
 		progressBar.visibleProperty().set(false);
 
-		try { // Establecemos el token
-			UBULog.session.setToken();
+		try {
+			UBULog.getSession().setToken();
 			
 		} catch (Exception e) {
 			correcto = false;
 			logger.error("No se ha podido establecer el token d usuario. {}", e);
 		}
-		// Si el login es correcto
+		
 		if (correcto) {
-			logger.info("el token es: " + UBULog.session.getToken().toString());
+			logger.info("el token es: " + UBULog.getSession().getToken());
 			logger.info(" Login Correcto");
 			progressBar.setProgress(0.0);
 			logger.info("progreso");
@@ -86,20 +83,20 @@ public class LoginController {
 			task.messageProperty().addListener(new ChangeListener<String>() {
 				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 					if (newValue.equals("end")) {
-						// Load GUI
+						
 						try {
-							// Accedemos a la siguiente ventana
+							
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Welcome.fxml"));
 							
-							UBULog.stage = new Stage();
+							UBULog.setStage(new Stage());
 
 							Parent root = loader.load();
 							Scene scene = new Scene(root);
-							UBULog.stage.setScene(scene);
-							UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
-							UBULog.stage.setTitle("UBULog");
+							UBULog.getStage().setScene(scene);
+							UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
+							UBULog.getStage().setTitle("UBULog");
 							UBULog.init.close();
-							UBULog.stage.show();
+							UBULog.getStage().show();
 							lblStatus.setText("");
 						} catch (Exception e) {
 							logger.error("Error en la carga de Welcome. {}", e);
@@ -129,10 +126,10 @@ public class LoginController {
 		return new Task<Object>() {
 			@Override
 			protected Object call() throws Exception {
-				MoodleUserWS.setMoodleUser(UBULog.session.getToken(), UBULog.session.getUserName(),
-						UBULog.user = new MoodleUser());
+				MoodleUserWS.setMoodleUser(UBULog.getSession().getToken(), UBULog.getSession().getUserName(),
+						UBULog.setUser(new MoodleUser()));
 				updateProgress(1, 3);
-				MoodleUserWS.setCourses(UBULog.session.getToken(), UBULog.user);
+				MoodleUserWS.setCourses(UBULog.getSession().getToken(), UBULog.getUser());
 				updateProgress(2, 3);
 				updateProgress(3, 3);
 				Thread.sleep(50);
@@ -145,9 +142,8 @@ public class LoginController {
 	/**
 	 * Borra los parámetros introducidos en los campos
 	 * 
-	 * @param event, evento
 	 */
-	public void clear(ActionEvent event){
+	public void clear(){
 		txtUsername.setText("");
 		txtPassword.setText("");
 		txtHost.setText("");

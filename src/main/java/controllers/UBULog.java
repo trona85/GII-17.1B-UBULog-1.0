@@ -22,11 +22,11 @@ import webservice.Session;
  *
  */
 public class UBULog extends Application {
-	public static String host = "";
-	public static Stage stage;
+	private static String host = "";
+	private static Stage stage;
 	public static Stage init;
-	public static Session session;
-	public static MoodleUser user;
+	private static Session session;
+	private static MoodleUser user;
 
 	static final Logger logger = LoggerFactory.getLogger(UBULog.class);
 
@@ -46,9 +46,79 @@ public class UBULog extends Application {
 			logger.error("Error al iniciar UBULog");
 		}
 	}
+	
+	
 
 	// Main comando
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	/**
+	 * Recoge host.
+	 * @return host
+	 */
+	public static String getHost() {
+		return host;
+	}
+	
+	/**
+	 * Guarda host.
+	 * @param host, host.
+	 */
+	public static void setHost(String host) {
+		UBULog.host = host;
+	}
+
+	/**
+	 * Recoge stage.
+	 * @return stage
+	 */
+	public static Stage getStage() {
+		return stage;
+	}
+
+	/**
+	 * Guarda stage.
+	 * @param stage, stage.
+	 */
+	public static void setStage(Stage stage) {
+		UBULog.stage = stage;
+	}
+	
+	/**
+	 * Recoge session
+	 * @return session
+	 */
+	public static Session getSession() {
+		return session;
+	}
+
+	/**
+	 * Guarda session.
+	 * @param session, session.
+	 */
+	public static void setSession(Session session) {
+		UBULog.session = session;
+	}
+
+	/**
+	 * Recoge user
+	 * @return user
+	 */
+	public static MoodleUser getUser() {
+		return user;
+	}
+
+/**
+ * Guarda el usuario.
+ * @param user, user.
+ * @return user
+ */
+	public static MoodleUser setUser(MoodleUser user) {
+		UBULog.user = user;
+		return user;
+	}
+
+
 }

@@ -75,6 +75,7 @@ import webservice.CourseWS;
 public class MainController implements Initializable {
 
 	static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	private String all ="Todos";
 
 	@FXML // Curso actual
 	public Label lblActualCourse;
@@ -96,12 +97,12 @@ public class MainController implements Initializable {
 	@FXML // Botón filtro por rol
 	public MenuButton slcRole;
 	MenuItem[] roleMenuItems;
-	String filterRole = "Todos";
+	String filterRole = all;
 
 	@FXML // Botón filtro por grupo
 	public MenuButton slcGroup;
 	MenuItem[] groupMenuItems;
-	String filterGroup = "Todos";
+	String filterGroup = all;
 
 	@FXML // Botón selector gráfico
 	public MenuButton slcChart;
@@ -181,7 +182,7 @@ public class MainController implements Initializable {
 		filterTableLogs = new ArrayList<>();
 
 		try {
-			logger.info(" Cargando curso '" + UBULog.session.getActualCourse().getFullName() + "'...");
+			logger.info(" Cargando curso '" + UBULog.getSession().getActualCourse().getFullName() + "'...");
 
 			viewchart = new Chart();
 			viewTableLog = new TableLog();
@@ -194,10 +195,10 @@ public class MainController implements Initializable {
 
 			viewHTML();
 			// Establecemos los usuarios matriculados
-			CourseWS.setEnrolledUsers(UBULog.session.getToken(), UBULog.session.getActualCourse());
+			CourseWS.setEnrolledUsers(UBULog.getSession().getToken(), UBULog.getSession().getActualCourse());
 
 			// Almacenamos todos los participantes en una lista
-			users = UBULog.session.getActualCourse().getEnrolledUsers();
+			users = UBULog.getSession().getActualCourse().getEnrolledUsers();
 
 			// insertamos los usuarios ficticios.
 			insertUserFicticios();
@@ -367,22 +368,15 @@ public class MainController implements Initializable {
 	private void dataUserLoger() {
 
 		WebEngine engineImagen;
-		// Mostramos Usuario logeado
-		lblActualUser.setText("Usuario: " + UBULog.user.getFullName());
 
-		// Mostramos Curso actual
-		lblActualCourse.setText("Curso actual: " + UBULog.session.getActualCourse().getFullName());
+		lblActualUser.setText("Usuario: " + UBULog.getUser().getFullName());
 
-		// Mostramos Host actual
-		lblActualHost.setText("Host: " + UBULog.host);
+		lblActualCourse.setText("Curso actual: " + UBULog.getSession().getActualCourse().getFullName());
 
-		// imagen del logeado
-		// Revisas no me pasa la imagen correspondiente al logeado
-		// imageLoger = new WebView();
+		lblActualHost.setText("Host: " + UBULog.getHost());
 
-		// TODO falta si no existe ponerle un icono nuestro
 		engineImagen = imageLoger.getEngine();
-		engineImagen.load(UBULog.user.getProfileImageUrlSmall());
+		engineImagen.load(UBULog.getUser().getProfileImageUrlSmall());
 
 	}
 
@@ -415,11 +409,11 @@ public class MainController implements Initializable {
 
 		EventHandler<ActionEvent> actionGroup = selectGroup();
 		// Cargamos una lista de los nombres de los grupos
-		ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
+		ArrayList<String> groupsList = UBULog.getSession().getActualCourse().getGroups();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
 		ArrayList<MenuItem> groupsItemsList = new ArrayList<>();
 		// En principio mostrarán todos los usuarios en cualquier grupo
-		MenuItem mi = (new MenuItem("Todos"));
+		MenuItem mi = (new MenuItem(all));
 		// Añadimos el manejador de eventos al primer MenuItem
 		mi.setOnAction(actionGroup);
 		groupsItemsList.add(mi);
@@ -433,7 +427,7 @@ public class MainController implements Initializable {
 		}
 		// Asignamos la lista de MenuItems al MenuButton "Grupo"
 		slcGroup.getItems().addAll(groupsItemsList);
-		slcGroup.setText("Todos");
+		slcGroup.setText(all);
 	}
 
 	/**
@@ -442,11 +436,11 @@ public class MainController implements Initializable {
 	private void manejoRoles() {
 		EventHandler<ActionEvent> actionRole = selectRole();
 		// Cargamos una lista con los nombres de los roles
-		ArrayList<String> rolesList = UBULog.session.getActualCourse().getRoles();
+		ArrayList<String> rolesList = UBULog.getSession().getActualCourse().getRoles();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
 		ArrayList<MenuItem> rolesItemsList = new ArrayList<>();
 		// En principio se mostrarón todos los usuarios con cualquier rol
-		MenuItem mi = (new MenuItem("Todos"));
+		MenuItem mi = (new MenuItem(all));
 		// Añadimos el manejador de eventos al primer MenuItem
 		mi.setOnAction(actionRole);
 		rolesItemsList.add(mi);
@@ -461,7 +455,7 @@ public class MainController implements Initializable {
 
 		// Asignamos la lista de MenuItems al MenuButton "Rol"
 		slcRole.getItems().addAll(rolesItemsList);
-		slcRole.setText("Todos");
+		slcRole.setText(all);
 	}
 
 	/**
@@ -564,7 +558,7 @@ public class MainController implements Initializable {
 			boolean roleYes;
 			boolean groupYes;
 			boolean patternYes;
-			users = UBULog.session.getActualCourse().getEnrolledUsers();
+			users = UBULog.getSession().getActualCourse().getEnrolledUsers();
 
 			// Cargamos la lista de los roles
 			ArrayList<EnrolledUser> nameUsers = new ArrayList<>();
@@ -574,12 +568,12 @@ public class MainController implements Initializable {
 				roleYes = false;
 				ArrayList<Role> roles = users.get(i).getRoles();
 				// Si no tiene rol
-				if (roles == null || (roles.isEmpty() && filterRole.equals("Todos"))) {
+				if (roles == null || (roles.isEmpty() && filterRole.equals(all))) {
 					roleYes = true;
 				} else {
 					for (int j = 0; j < roles.size(); j++) {
 						// Comprobamos si el usuario pasa el filtro de "rol"
-						if (roles.get(j).getName().equals(filterRole) || filterRole.equals("Todos")) {
+						if (roles.get(j).getName().equals(filterRole) || filterRole.equals(all)) {
 							roleYes = true;
 						}
 					}
@@ -587,12 +581,12 @@ public class MainController implements Initializable {
 				// Filtrado por grupo:
 				groupYes = false;
 				ArrayList<Group> groups = users.get(i).getGroups();
-				if (groups == null || (groups.isEmpty() && filterGroup.equals("Todos"))) {
+				if (groups == null || (groups.isEmpty() && filterGroup.equals(all))) {
 					groupYes = true;
 				} else {
 					for (int k = 0; k < groups.size(); k++) {
 						// Comprobamos si el usuario pasa el filtro de "grupo"
-						if (groups.get(k).getName().equals(filterGroup) || filterGroup.equals("Todos")) {
+						if (groups.get(k).getName().equals(filterGroup) || filterGroup.equals(all)) {
 							groupYes = true;
 						}
 					}
@@ -818,16 +812,16 @@ public class MainController implements Initializable {
 		// Accedemos a la siguiente ventana
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/Welcome.fxml"));
-		UBULog.stage.close();
+		UBULog.getStage().close();
 		logger.info("Accediendo a UBULog...");
-		UBULog.stage = new Stage();
+		UBULog.setStage(new Stage());
 		Parent root = loader.load();
 
 		Scene scene = new Scene(root);
-		UBULog.stage.setScene(scene);
-		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
-		UBULog.stage.setTitle("UBULog");
-		UBULog.stage.show();
+		UBULog.getStage().setScene(scene);
+		UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
+		UBULog.getStage().setTitle("UBULog");
+		UBULog.getStage().show();
 
 		clearData();
 	}
@@ -865,7 +859,7 @@ public class MainController implements Initializable {
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".png", "*.*"),
 				new FileChooser.ExtensionFilter("*.jpg", "*.jpg"), new FileChooser.ExtensionFilter("*.png", "*.png"));
 		try {
-			file = fileChooser.showSaveDialog(UBULog.stage);
+			file = fileChooser.showSaveDialog(UBULog.getStage());
 			if (file != null) {
 				try {
 					ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
@@ -902,15 +896,15 @@ public class MainController implements Initializable {
 	public void logOut(ActionEvent actionEvent) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/Login.fxml"));
-		UBULog.stage.close();
+		UBULog.getStage().close();
 		logger.info("Cerrando sesión de usuario");
-		UBULog.stage = new Stage();
+		UBULog.setStage(new Stage());
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
-		UBULog.stage.setScene(scene);
-		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
-		UBULog.stage.setTitle("UBULog");
-		UBULog.stage.show();
+		UBULog.getStage().setScene(scene);
+		UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
+		UBULog.getStage().setTitle("UBULog");
+		UBULog.getStage().show();
 
 		clearData();
 	}
@@ -960,7 +954,7 @@ public class MainController implements Initializable {
 
 			this.logs = new CsvParser();
 			FileChooser fileChooser = new FileChooser();
-			File file = fileChooser.showOpenDialog(UBULog.stage);
+			File file = fileChooser.showOpenDialog(UBULog.getStage());
 			if (file == null) {
 				throw new UBULogException(UBULogError.FICHERO_CANCELADO);
 			}
@@ -996,10 +990,10 @@ public class MainController implements Initializable {
 		alert.setHeight(300);
 		alert.setWidth(300);
 		alert.initModality(Modality.APPLICATION_MODAL);
-		alert.initOwner(UBULog.stage);
+		alert.initOwner(UBULog.getStage());
 
 		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"
-				+ UBULog.session.getActualCourse().getFullName() + "\nPuede tardar unos minutos");
+				+ UBULog.getSession().getActualCourse().getFullName() + "\nPuede tardar unos minutos");
 		alert.show();
 		return alert;
 	}
@@ -1120,14 +1114,14 @@ public class MainController implements Initializable {
 	 */
 	public void closeApplication(ActionEvent actionEvent) throws Exception {
 		logger.info("Cerrando aplicación");
-		UBULog.stage.close();
+		UBULog.getStage().close();
 	}
 
 	public static void errorDeConexion() {
 		Alert alert = new Alert(AlertType.ERROR);
 
 		alert.initModality(Modality.APPLICATION_MODAL);
-		alert.initOwner(UBULog.stage);
+		alert.initOwner(UBULog.getStage());
 		alert.getDialogPane().setContentText("Su equipo ha perdido la conexión a Internet");
 
 		logger.warn("Su equipo ha perdido la conexión a Internet");
@@ -1136,6 +1130,6 @@ public class MainController implements Initializable {
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == buttonSalir)
-			UBULog.stage.close();
+			UBULog.getStage().close();
 	}
 }

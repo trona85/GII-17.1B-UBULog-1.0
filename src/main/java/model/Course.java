@@ -288,7 +288,7 @@ public class Course {
 	public static Course getCourseByString(String courseName) {
 		Course course = null;
 
-		ArrayList<Course> courses = (ArrayList<Course>) UBULog.user.getCourses();
+		ArrayList<Course> courses = (ArrayList<Course>) UBULog.getUser().getCourses();
 		// logger.info(" Número de cursos: " + courses.size());
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).getFullName().equals(courseName)) {

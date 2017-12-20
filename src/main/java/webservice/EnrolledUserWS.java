@@ -37,7 +37,7 @@ public class EnrolledUserWS {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		ArrayList<Integer> courses = new ArrayList<Integer>();
 		try {
-			HttpGet httpget = new HttpGet(UBULog.host + "/webservice/rest/server.php?wstoken=" + token
+			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_CURSOS + "&userid="
 					+ eUser.getId());
 			CloseableHttpResponse response = httpclient.execute(httpget);

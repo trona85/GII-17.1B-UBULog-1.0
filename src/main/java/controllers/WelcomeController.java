@@ -53,11 +53,11 @@ public class WelcomeController implements Initializable {
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			lblUser.setText(UBULog.user.getFullName());
+			lblUser.setText(UBULog.getUser().getFullName());
 			logger.info("Cargando cursos...");
 			ArrayList<String> nameCourses = new ArrayList<String>();
-			for (int i = 0; i < UBULog.user.getCourses().size(); i++) {
-				nameCourses.add(UBULog.user.getCourses().get(i).getFullName());
+			for (int i = 0; i < UBULog.getUser().getCourses().size(); i++) {
+				nameCourses.add(UBULog.getUser().getCourses().get(i).getFullName());
 			}
 			Collections.sort(nameCourses);
 
@@ -80,21 +80,21 @@ public class WelcomeController implements Initializable {
 
 			// Guardamos en una variable el curso seleccionado por el usuario
 			String selectedCourse = listCourses.getSelectionModel().getSelectedItem();
-			UBULog.session.setActualCourse(Course.getCourseByString(selectedCourse));
-			logger.info(" Curso seleccionado: " + UBULog.session.getActualCourse().getFullName());
+			UBULog.getSession().setActualCourse(Course.getCourseByString(selectedCourse));
+			logger.info(" Curso seleccionado: " + UBULog.getSession().getActualCourse().getFullName());
 
 			// Accedemos a la siguiente ventana:
 			FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/view/MainNew.fxml"));
 
-			UBULog.stage.close();
-			UBULog.stage = new Stage();
+			UBULog.getStage().close();
+			UBULog.setStage(new Stage());
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
-			UBULog.stage.setScene(scene);
-			UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.stage.setTitle("UBULog");
-			UBULog.stage.setResizable(true);
-			UBULog.stage.show();
+			UBULog.getStage().setScene(scene);
+			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
+			UBULog.getStage().setTitle("UBULog");
+			UBULog.getStage().setResizable(true);
+			UBULog.getStage().show();
 			UBULog.init.getScene().setCursor(Cursor.DEFAULT);
 			lblNoSelect.setText("");
 			 logger.info("-- Entrando al curso");
