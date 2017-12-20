@@ -233,23 +233,15 @@ public class MainController implements Initializable {
 			tfdIp.setOnAction(inputTable());
 			
 			EventHandler<ActionEvent> actionChart = selectChart();
-			// Cargamos una lista de los nombres de los grupos
-			//ArrayList<String> groupsList = UBULog.session.getActualCourse().getGroups();
-			// Convertimos la lista a una lista de MenuItems para el MenuButton
+
 			ArrayList<MenuItem> groupsItemsList = new ArrayList<>();
-			// En principio mostrarán todos los usuarios en cualquier grupo
-			MenuItem mi = (new MenuItem());
-			// Añadimos el manejador de eventos al primer MenuItem
-			
-			//TODO añadimos cada tipo de grafico
-			mi = typeChart(actionChart, groupsItemsList, mi, "Vertical", "bar");
-			mi = typeChart(actionChart, groupsItemsList, mi, "Hotizontal", "horizontalBar");
-			mi = typeChart(actionChart, groupsItemsList, mi, "Lineas basicas", "line");
+
+			typeChart(actionChart, groupsItemsList, "Vertical", "bar");
+			typeChart(actionChart, groupsItemsList, "Hotizontal", "horizontalBar");
+			typeChart(actionChart, groupsItemsList, "Lineas basicas", "line");
 			
 			// Asignamos la lista de MenuItems al MenuButton "Grupo"
 			slcChart.getItems().addAll(groupsItemsList);
-			//
-			viewchart.setTypeChart("bar");
 
 			dataUserLoger();
 
@@ -285,18 +277,15 @@ public class MainController implements Initializable {
 	 * Metodo para añadir tipo de gráfico al selector.
 	 * @param actionChart, actionChart.
 	 * @param groupsItemsList, groupsItemsList.
-	 * @param mi, item.
 	 * @param value, valor.
 	 * @param key, clave.
-	 * @return mi
 	 */
-	private MenuItem typeChart(EventHandler<ActionEvent> actionChart, ArrayList<MenuItem> groupsItemsList,
-			MenuItem mi, String value, String key) {
-		mi = new MenuItem(value);
+	private void typeChart(EventHandler<ActionEvent> actionChart, ArrayList<MenuItem> groupsItemsList, String value, String key) {
+		
+		MenuItem mi = new MenuItem(value);
 		mi.setId(key);
 		mi.setOnAction(actionChart);
 		groupsItemsList.add(mi);
-		return mi;
 	}
 
 	/**
@@ -549,9 +538,10 @@ public class MainController implements Initializable {
 			 * consecuencia. El usuario elige un menuItem y cambia el tipo de gráfico.
 			 */
 			public void handle(ActionEvent chart) {
-				
 				MenuItem mItem = (MenuItem) chart.getSource();
 				viewchart.setTypeChart(mItem.getId());
+				viewchart.generarGrafica();
+				engineChart.reload();
 			}
 		};
 	}
