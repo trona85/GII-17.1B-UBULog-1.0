@@ -78,13 +78,11 @@ public class EnrolledUser {
 	/**
 	 * Constructor de EnrolledUser
 	 * 
-	 * @param token
-	 *            token de usuario logueado
 	 * @param obj
 	 *            objeto JSON con la información del usuario
 	 * @throws Exception excepción
 	 */
-	public EnrolledUser(String token, JSONObject obj) throws Exception {
+	public EnrolledUser(JSONObject obj) throws Exception {
 		this.id = obj.getInt("id");
 
 		if (obj.getString("firstname") != null)

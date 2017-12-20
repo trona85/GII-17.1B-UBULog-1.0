@@ -51,7 +51,7 @@ public class CourseWS {
 					for (int i = 0; i < jsonArray.length(); i++) {
 						JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 						if (jsonObject != null) {
-							eUsers.add(new EnrolledUser(token, jsonObject));
+							eUsers.add(new EnrolledUser(jsonObject));
 						}
 					}
 				}

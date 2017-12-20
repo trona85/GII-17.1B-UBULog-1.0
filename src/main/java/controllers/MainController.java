@@ -172,8 +172,6 @@ public class MainController implements Initializable {
 	private ObservableList<model.Event> selectedEvents = null;
 	private ObservableList<EnrolledUser> selectedParticipants = null;
 
-	private EnrolledUser userDesconocido;
-
 	/**
 	 * Muestra los usuarios matriculados en el curso, así como las actividades
 	 * de las que se compone.
@@ -408,9 +406,9 @@ public class MainController implements Initializable {
 		userCreate.setlastName("Sistema");
 		users.add(userCreate);
 
-		userDesconocido = new EnrolledUser("Desconocido", -1);
-		userDesconocido.setlastName("Desconocido");
-		users.add(userDesconocido);
+		userCreate = new EnrolledUser("Desconocido", -1);
+		userCreate.setlastName("Desconocido");
+		users.add(userCreate);
 	}
 
 	/**
