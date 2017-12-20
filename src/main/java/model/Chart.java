@@ -58,11 +58,10 @@ public class Chart {
 	/**
 	 * Método que añade un mes a la lista si no existe ya en la lista
 	 * @param month, mes del log.
+	 * @param year, año.
 	 */
 	private void setDate(int month, int year) {
-		if (dates.contains(MONTH[month] + " " + year)) {
-			return;
-		} else {
+		if (!dates.contains(MONTH[month] + " " + year)) {
 			dates.add(MONTH[month] + " " + year);
 		}
 	}
