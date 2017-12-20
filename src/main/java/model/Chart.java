@@ -59,11 +59,11 @@ public class Chart {
 	 * Método que añade un mes a la lista si no existe ya en la lista
 	 * @param month, mes del log.
 	 */
-	private void setDate(int month) {
-		if (dates.contains(MONTH[month])) {
+	private void setDate(int month, int year) {
+		if (dates.contains(MONTH[month] + " " + year)) {
 			return;
 		} else {
-			dates.add(MONTH[month]);
+			dates.add(MONTH[month] + " " + year);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class Chart {
 	private void asignedUserMonth(ArrayList<Log> logs) {
 		getDate().clear();
 		for (int i = 0; i < logs.size(); ++i) {
-			setDate(logs.get(i).getDate().get(Calendar.MONTH));
+			setDate(logs.get(i).getDate().get(Calendar.MONTH), logs.get(i).getDate().get(Calendar.YEAR));
 		}
 	}
 
@@ -97,7 +97,7 @@ public class Chart {
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
 			ArrayList<Log> filterLogs) {
 		int cont = 0;
-		
+		String fechaLog= null;
 		asignedUserMonth(filterLogs);
 		
 		if (selectedEvents.isEmpty()) {
@@ -105,8 +105,10 @@ public class Chart {
 				ArrayList<Integer> cantidad = new ArrayList<>();
 				for (int i = 0; i < dates.size(); i++) {
 					for (Log log : filterLogs) {
+						fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
+						System.out.println(fechaLog);
 						if (log.getUser().getFullName().equals(participant.toString())
-								&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
+								&& fechaLog.equals(dates.get(i)) ) {
 							cont += 1;
 						}
 					}
@@ -124,8 +126,9 @@ public class Chart {
 					ArrayList<Integer> cantidad = new ArrayList<>();
 					for (int i = 0; i < dates.size(); i++) {
 						for (Log log : filterLogs) {
+							fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
 							if (log.getEvent().equals(event.toString())
-									&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
+									&& fechaLog.equals(dates.get(i)) ) {
 								cont += 1;
 							}
 						}
@@ -142,9 +145,10 @@ public class Chart {
 						ArrayList<Integer> cantidad = new ArrayList<>();
 						for (int i = 0; i < dates.size(); i++) {
 							for (Log log : filterLogs) {
+								fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
 								if (log.getEvent().equals(event.toString())
 										&& log.getUser().getFullName().equals(participant.toString())
-										&& MONTH[log.getDate().get(Calendar.MONTH)] == dates.get(i)) {
+										&& fechaLog.equals(dates.get(i)) ) {
 									cont += 1;
 								}
 							}
