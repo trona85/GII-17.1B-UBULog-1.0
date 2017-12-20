@@ -818,6 +818,22 @@ public class MainController implements Initializable {
 		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
 		UBULog.stage.setTitle("UBULog");
 		UBULog.stage.show();
+		
+		clearData();
+	}
+
+	private void clearData() {
+		listParticipants.getSelectionModel().clearSelection();
+		listEvents.getSelectionModel().clearSelection();
+		filterLogs.clear();
+		viewchart.getDate().clear();
+		viewchart.getLabel().clear();
+		logs = null;
+		 users.clear();
+		filterTableLogs.clear();
+		loadHTML(new ArrayList<>());
+		
+		
 	}
 
 	/**
@@ -886,6 +902,8 @@ public class MainController implements Initializable {
 		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
 		UBULog.stage.setTitle("UBULog");
 		UBULog.stage.show();
+		
+		clearData();
 	}
 
 	/**
