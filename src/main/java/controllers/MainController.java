@@ -628,13 +628,13 @@ public class MainController implements Initializable {
 			public void handle(ActionEvent event) {
 				ArrayList<String> patternFilter = new ArrayList<>();
 				patternFilter.add(tfdDate.getText());
-				patternFilter.add(tfdNameUser.getText());
-				patternFilter.add(tfdUserAffected.getText());
-				patternFilter.add(tfdContext.getText());
-				patternFilter.add(tfdComponent.getText());
-				patternFilter.add(tfdEvent.getText());
-				patternFilter.add(tfdDescription.getText());
-				patternFilter.add(tfdPOrigin.getText());
+				patternFilter.add(tfdNameUser.getText().toUpperCase());
+				patternFilter.add(tfdUserAffected.getText().toUpperCase());
+				patternFilter.add(tfdContext.getText().toUpperCase());
+				patternFilter.add(tfdComponent.getText().toUpperCase());
+				patternFilter.add(tfdEvent.getText().toUpperCase());
+				patternFilter.add(tfdDescription.getText().toUpperCase());
+				patternFilter.add(tfdPOrigin.getText().toUpperCase());
 				patternFilter.add(tfdIp.getText());
 				logger.info("-> Filtrando tabla: \n Fecha :" + patternFilter.get(0) + "\n Usuario afectado: "
 						+ patternFilter.get(1) + "\n usuario afectado: " + patternFilter.get(2) + "\n contexto: "
@@ -704,29 +704,29 @@ public class MainController implements Initializable {
 
 						break;
 					case 1:
-						match = pattern.matcher(ftLogs.get(i).getNameUser());
+						match = pattern.matcher(ftLogs.get(i).getNameUser().toUpperCase());
 
 						break;
 					case 2:
-						match = pattern.matcher(ftLogs.get(i).getUserAffected());
+						match = pattern.matcher(ftLogs.get(i).getUserAffected().toUpperCase());
 						break;
 					case 3:
-						match = pattern.matcher(ftLogs.get(i).getContext());
+						match = pattern.matcher(ftLogs.get(i).getContext().toUpperCase());
 						break;
 					case 4:
-						match = pattern.matcher(ftLogs.get(i).getComponent());
+						match = pattern.matcher(ftLogs.get(i).getComponent().toUpperCase());
 						break;
 					case 5:
-						match = pattern.matcher(ftLogs.get(i).getEvent());
+						match = pattern.matcher(ftLogs.get(i).getEvent().toUpperCase());
 						break;
 					case 6:
-						match = pattern.matcher(ftLogs.get(i).getDescription());
+						match = pattern.matcher(ftLogs.get(i).getDescription().toUpperCase());
 						break;
 					case 7:
-						match = pattern.matcher(ftLogs.get(i).getOrigin());
+						match = pattern.matcher(ftLogs.get(i).getOrigin().toUpperCase());
 						break;
 					case 8:
-						match = pattern.matcher(ftLogs.get(i).getIp());
+						match = pattern.matcher(ftLogs.get(i).getIp().toUpperCase());
 						break;
 
 					default:
