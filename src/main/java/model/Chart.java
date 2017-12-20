@@ -106,7 +106,6 @@ public class Chart {
 				for (int i = 0; i < dates.size(); i++) {
 					for (Log log : filterLogs) {
 						fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
-						System.out.println(fechaLog);
 						if (log.getUser().getFullName().equals(participant.toString())
 								&& fechaLog.equals(dates.get(i)) ) {
 							cont += 1;
@@ -274,10 +273,18 @@ public class Chart {
 		}
 	}
 
+	/**
+	 * Metodo que recupera el tipo de gráfico.
+	 * @return typeChart
+	 */
 	public String getTypeChart() {
 		return typeChart;
 	}
 
+	/**
+	 * Método que asigna el tipo de gráfico.
+	 * @param typeChart, tipo de gráfico.
+	 */
 	public void setTypeChart(String typeChart) {
 		this.typeChart = typeChart;
 	}
