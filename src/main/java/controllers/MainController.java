@@ -802,12 +802,10 @@ public class MainController implements Initializable {
 	/**
 	 * Cambia la asignatura actual y carga otra
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
 	 * @throws Exception
 	 *             , escepción.
 	 */
-	public void changeCourse(ActionEvent actionEvent) throws Exception {
+	public void changeCourse() throws Exception {
 		logger.info("Cambiando de asignatura...");
 		// Accedemos a la siguiente ventana
 		FXMLLoader loader = new FXMLLoader();
@@ -843,12 +841,10 @@ public class MainController implements Initializable {
 	 * Exporta el gráfico. El usuario podrá elegir entre el formato .png o .jpg
 	 * para guardar la imagen.
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void saveChart(ActionEvent actionEvent) throws Exception {
+	public void saveChart() throws Exception {
 
 		WritableImage image = chart.snapshot(new SnapshotParameters(), null);
 		File file = new File("chart.png");
@@ -888,12 +884,10 @@ public class MainController implements Initializable {
 	/**
 	 * Vuelve a la ventana de login de usuario
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void logOut(ActionEvent actionEvent) throws Exception {
+	public void logOut() throws Exception {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/Login.fxml"));
 		UBULog.getStage().close();
@@ -917,7 +911,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void clearSelection(ActionEvent actionEvent) throws Exception {
+	public void clearSelection(){
 		if (!logs.getLogs().isEmpty()) {
 			listParticipants.getSelectionModel().clearSelection();
 			listEvents.getSelectionModel().clearSelection();
@@ -933,13 +927,10 @@ public class MainController implements Initializable {
 	/**
 	 * Abre en el navegador el repositorio del proyecto.
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void aboutUBULog(ActionEvent actionEvent) throws Exception {
-		// TODO no parece funcionar
+	public void aboutUBULog() throws Exception {
 		Desktop.getDesktop().browse(new URL("https://github.com/trona85/GII-17.1B-UBULog-1.0").toURI());
 	}
 
@@ -949,7 +940,7 @@ public class MainController implements Initializable {
 	 * @param actionEvent,
 	 *            acción del evento.
 	 */
-	public void cargaDocumento(ActionEvent actionEvent) {
+	public void cargaDocumento() {
 		try {
 
 			this.logs = new CsvParser();
@@ -972,7 +963,7 @@ public class MainController implements Initializable {
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
 			if (e.getError() != UBULogError.FICHERO_CANCELADO) {
-				cargaDocumento(actionEvent);
+				cargaDocumento();
 
 			}
 
@@ -1001,12 +992,10 @@ public class MainController implements Initializable {
 	/**
 	 * Boton para cargar documento online.
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
 	 * @throws IOException
 	 *             excepción
 	 */
-	public void cargaDocumentoOnline(ActionEvent actionEvent) throws IOException {
+	public void cargaDocumentoOnline() throws IOException {
 
 		this.logs = new CsvParser();
 		WebScripting webScripting = null;
@@ -1115,7 +1104,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void closeApplication(ActionEvent actionEvent) throws Exception {
+	public void closeApplication() {
 		logger.info("Cerrando aplicación");
 		UBULog.getStage().close();
 	}

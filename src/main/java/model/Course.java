@@ -24,9 +24,7 @@ import controllers.UBULog;
  * @version 1.0
  */
 public class Course {
-	// TODO
-	// http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&userid=6
-
+	
 	private int id;
 	private String shortName;
 	private String fullName;
@@ -56,7 +54,7 @@ public class Course {
 		this.enrolledUsersCount = obj.getInt("enrolledusercount");
 		this.idNumber = obj.getString("idnumber");
 		this.summary = obj.getString("summary");
-		this.enrolledUsers = new ArrayList<EnrolledUser>();
+		this.enrolledUsers = new ArrayList<>();
 
 	}
 
@@ -196,7 +194,7 @@ public class Course {
 	 * @return lista de roles del curso
 	 */
 	public ArrayList<String> getRoles() {
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 		Iterator<String> roleIt = this.roles.iterator();
 		while (roleIt.hasNext()) {
 			String data = roleIt.next();
@@ -214,7 +212,7 @@ public class Course {
 	 */
 	public void setRoles(ArrayList<EnrolledUser> users) {
 		// Creamos el set de roles
-		roles = new HashSet<String>();
+		roles = new HashSet<>();
 		// Recorremos la lista de usuarios matriculados en el curso
 		for (int i = 0; i < users.size(); i++) {
 			// sacamos el rol del usuario
@@ -232,7 +230,7 @@ public class Course {
 	 * @return lista de grupos del curso
 	 */
 	public ArrayList<String> getGroups() {
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 		Iterator<String> groupsIt = this.groups.iterator();
 		while (groupsIt.hasNext()) {
 			String data = groupsIt.next();
@@ -251,7 +249,7 @@ public class Course {
 	 */
 	public void setGroups(ArrayList<EnrolledUser> users) {
 		// Creamos el set de grupos
-		groups = new HashSet<String>();
+		groups = new HashSet<>();
 		// Recorremos la lista de usuarios matriculados en el curso
 		for (int i = 0; i < users.size(); i++) {
 			// Sacamos el grupo del usuario
@@ -269,7 +267,7 @@ public class Course {
 	 * @return lista de actividades
 	 */
 	public ArrayList<String> getActivities() {
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 		Iterator<String> grclIt = this.typeActivities.iterator();
 		while (grclIt.hasNext()) {
 			String data = grclIt.next();
@@ -288,8 +286,8 @@ public class Course {
 	public static Course getCourseByString(String courseName) {
 		Course course = null;
 
-		ArrayList<Course> courses = (ArrayList<Course>) UBULog.getUser().getCourses();
-		// logger.info(" Número de cursos: " + courses.size());
+		ArrayList<Course> courses = UBULog.getUser().getCourses();
+
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).getFullName().equals(courseName)) {
 				course = courses.get(i);

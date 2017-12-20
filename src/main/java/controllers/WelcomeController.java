@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,7 +54,7 @@ public class WelcomeController implements Initializable {
 		try {
 			lblUser.setText(UBULog.getUser().getFullName());
 			logger.info("Cargando cursos...");
-			ArrayList<String> nameCourses = new ArrayList<String>();
+			ArrayList<String> nameCourses = new ArrayList<>();
 			for (int i = 0; i < UBULog.getUser().getCourses().size(); i++) {
 				nameCourses.add(UBULog.getUser().getCourses().get(i).getFullName());
 			}
@@ -74,7 +73,7 @@ public class WelcomeController implements Initializable {
 	 * @param event, evento.
 	 * @throws Exception excepción
 	 */
-	public void enterCourse(ActionEvent event) throws Exception {
+	public void enterCourse() throws Exception {
 		try {
 			UBULog.getInit().getScene().setCursor(Cursor.WAIT);
 

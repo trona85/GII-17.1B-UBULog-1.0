@@ -71,11 +71,7 @@ public class WebScripting {
 			WebResponse dataDownload = inputs.get(valbtn).click().getWebResponse();
 			setResponsive(dataDownload.getContentAsString());
 
-		} catch (FailingHttpStatusCodeException e) {
-			logger.error(e.getMessage());
-		} catch (MalformedURLException e) {
-			logger.error(e.getMessage());
-		} catch (IOException e) {
+		} catch (FailingHttpStatusCodeException | IOException e) {
 			logger.error(e.getMessage());
 		}
 	}

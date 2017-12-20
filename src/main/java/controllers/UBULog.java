@@ -24,7 +24,7 @@ import webservice.Session;
 public class UBULog extends Application {
 	private static String host = "";
 	private static Stage stage;
-	private static Stage init;
+	private static Stage initialize;
 	private static Session session;
 	private static MoodleUser user;
 
@@ -37,11 +37,11 @@ public class UBULog extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
-			init = primaryStage;
-			init.setScene(scene);
-			init.getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.init.setTitle("UBULog");
-			init.show();
+			initialize = primaryStage;
+			initialize.setScene(scene);
+			initialize.getIcons().add(new Image("/img/logo_min.png"));
+			UBULog.initialize.setTitle("UBULog");
+			initialize.show();
 		} catch (Exception e) {
 			logger.error("Error al iniciar UBULog");
 		}
@@ -91,7 +91,7 @@ public class UBULog extends Application {
 	 * @return init
 	 */
 	public static Stage getInit() {
-		return init;
+		return initialize;
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class UBULog extends Application {
 	 * @param init, init.
 	 */
 	public static void setInit(Stage init) {
-		UBULog.init = init;
+		UBULog.initialize = init;
 	}
 	
 	/**

@@ -43,7 +43,7 @@ public class Chart {
 	 */
 	public Chart() {
 		dates = new ArrayList<>();
-		label = new HashMap<String, ArrayList<Integer>>();
+		label = new HashMap<>();
 		setTypeChart("bar");
 	}
 
