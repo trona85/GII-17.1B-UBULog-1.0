@@ -102,7 +102,7 @@ public class MainController implements Initializable {
 	public MenuButton slcGroup;
 	MenuItem[] groupMenuItems;
 	String filterGroup = "Todos";
-	
+
 	@FXML // Botón selector gráfico
 	public MenuButton slcChart;
 
@@ -231,7 +231,7 @@ public class MainController implements Initializable {
 			tfdDescription.setOnAction(inputTable());
 			tfdPOrigin.setOnAction(inputTable());
 			tfdIp.setOnAction(inputTable());
-			
+
 			EventHandler<ActionEvent> actionChart = selectChart();
 
 			ArrayList<MenuItem> groupsItemsList = new ArrayList<>();
@@ -239,7 +239,7 @@ public class MainController implements Initializable {
 			typeChart(actionChart, groupsItemsList, "Vertical", "bar");
 			typeChart(actionChart, groupsItemsList, "Hotizontal", "horizontalBar");
 			typeChart(actionChart, groupsItemsList, "Lineas basicas", "line");
-			
+
 			// Asignamos la lista de MenuItems al MenuButton "Grupo"
 			slcChart.getItems().addAll(groupsItemsList);
 
@@ -275,13 +275,19 @@ public class MainController implements Initializable {
 
 	/**
 	 * Metodo para añadir tipo de gráfico al selector.
-	 * @param actionChart, actionChart.
-	 * @param groupsItemsList, groupsItemsList.
-	 * @param value, valor.
-	 * @param key, clave.
+	 * 
+	 * @param actionChart,
+	 *            actionChart.
+	 * @param groupsItemsList,
+	 *            groupsItemsList.
+	 * @param value,
+	 *            valor.
+	 * @param key,
+	 *            clave.
 	 */
-	private void typeChart(EventHandler<ActionEvent> actionChart, ArrayList<MenuItem> groupsItemsList, String value, String key) {
-		
+	private void typeChart(EventHandler<ActionEvent> actionChart, ArrayList<MenuItem> groupsItemsList, String value,
+			String key) {
+
 		MenuItem mi = new MenuItem(value);
 		mi.setId(key);
 		mi.setOnAction(actionChart);
@@ -290,7 +296,9 @@ public class MainController implements Initializable {
 
 	/**
 	 * Método que recarga de nuevo el gráfico y la tabla.
-	 * @param l , lista de log.
+	 * 
+	 * @param l
+	 *            , lista de log.
 	 */
 	private void loadHTML(ArrayList<Log> l) {
 		viewchart.generarGrafica();
@@ -525,9 +533,10 @@ public class MainController implements Initializable {
 			}
 		};
 	}
-	
+
 	/**
-	 * Manejador de eventos para el botón selector de gráficos, selecciona un tipo de gráfico.
+	 * Manejador de eventos para el botón selector de gráficos, selecciona un
+	 * tipo de gráfico.
 	 * 
 	 * @return manejador de eventos de grupos
 	 */
@@ -535,7 +544,8 @@ public class MainController implements Initializable {
 		return new EventHandler<ActionEvent>() {
 			/**
 			 * Recibe un evento (relacionado con un MenuItem) y responde en
-			 * consecuencia. El usuario elige un menuItem y cambia el tipo de gráfico.
+			 * consecuencia. El usuario elige un menuItem y cambia el tipo de
+			 * gráfico.
 			 */
 			public void handle(ActionEvent chart) {
 				MenuItem mItem = (MenuItem) chart.getSource();
@@ -564,7 +574,7 @@ public class MainController implements Initializable {
 				roleYes = false;
 				ArrayList<Role> roles = users.get(i).getRoles();
 				// Si no tiene rol
-				if ((roles == null || roles.isEmpty()) && filterRole.equals("Todos")) {
+				if (roles == null || (roles.isEmpty() && filterRole.equals("Todos"))) {
 					roleYes = true;
 				} else {
 					for (int j = 0; j < roles.size(); j++) {
@@ -577,7 +587,7 @@ public class MainController implements Initializable {
 				// Filtrado por grupo:
 				groupYes = false;
 				ArrayList<Group> groups = users.get(i).getGroups();
-				if ((groups == null || groups.isEmpty()) && filterGroup.equals("Todos")) {
+				if (groups == null || (groups.isEmpty() && filterGroup.equals("Todos"))) {
 					groupYes = true;
 				} else {
 					for (int k = 0; k < groups.size(); k++) {
@@ -687,7 +697,7 @@ public class MainController implements Initializable {
 					switch (j) {
 					case 0:
 						match = pattern.matcher(ftLogs.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
-								+ (ftLogs.get(i).getDate().get(Calendar.MONTH)+1) + "/"
+								+ (ftLogs.get(i).getDate().get(Calendar.MONTH) + 1) + "/"
 								+ ftLogs.get(i).getDate().get(Calendar.YEAR) + " "
 								+ ftLogs.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
 								+ ftLogs.get(i).getDate().get(Calendar.MINUTE));
@@ -818,7 +828,7 @@ public class MainController implements Initializable {
 		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
 		UBULog.stage.setTitle("UBULog");
 		UBULog.stage.show();
-		
+
 		clearData();
 	}
 
@@ -829,11 +839,10 @@ public class MainController implements Initializable {
 		viewchart.getDate().clear();
 		viewchart.getLabel().clear();
 		logs = null;
-		 users.clear();
+		users.clear();
 		filterTableLogs.clear();
 		loadHTML(new ArrayList<>());
-		
-		
+
 	}
 
 	/**
@@ -902,7 +911,7 @@ public class MainController implements Initializable {
 		UBULog.stage.getIcons().add(new Image("/img/logo_min.png"));
 		UBULog.stage.setTitle("UBULog");
 		UBULog.stage.show();
-		
+
 		clearData();
 	}
 
@@ -1047,7 +1056,9 @@ public class MainController implements Initializable {
 			logger.info(e.getMessage());
 
 		} finally {
-			webScripting.close();
+			if (webScripting != null) {
+				webScripting.close();
+			}
 		}
 
 	}
