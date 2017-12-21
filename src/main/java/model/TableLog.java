@@ -5,8 +5,8 @@ package model;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,21 +16,18 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Oscar Fernández Armengol
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class TableLog {
 	
 	static final Logger logger = LoggerFactory.getLogger(TableLog.class);
 	
-	public void generarTablaLogs(ArrayList<Log> generateLogs) {
+	public void generarTablaLogs(List<Log> list) {
 
-		FileWriter ficheroHTML = null;
-		PrintWriter pw = null;
-		try {
+		try(FileWriter ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
+				PrintWriter pw = new PrintWriter(ficheroHTML); ) {
 			String initRow ="\t\t<th>";
 			String finalRow = "</th>";
-			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
-			pw = new PrintWriter(ficheroHTML);
 			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
 					+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> \n"
 					+ "<meta charset=\"utf-8\"> \n"
@@ -49,7 +46,7 @@ public class TableLog {
 			pw.println(initRow + "Dirección IP" + finalRow + "");
 			pw.println("\t</tr>");
 
-			for (Log log : generateLogs) {
+			for (Log log : list) {
 				dataTableLog(pw, log);
 			}
 
@@ -58,17 +55,7 @@ public class TableLog {
 
 		} catch (Exception e) {
 			logger.error("Error al generar tabla logs. {}", e);
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
-			try {
-				if (null != ficheroHTML)
-					ficheroHTML.close();
-			} catch (Exception e2) {
-				logger.error("Error al cerrar fichero html {}", e2);
-			}
-		}
+		} 
 	}
 	
 	/**

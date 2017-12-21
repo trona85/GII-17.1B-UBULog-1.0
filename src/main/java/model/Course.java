@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ import controllers.UBULog;
  * @author Oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class Course {
 	
@@ -47,15 +48,19 @@ public class Course {
 	 *            objeto JSON con la información del curso
 	 * @throws Exception excepción
 	 */
-	public Course(JSONObject obj) throws Exception {
+	public Course(JSONObject obj) {
 
-		this.id = obj.getInt("id");
-		this.shortName = obj.getString("shortname");
-		this.fullName = obj.getString("fullname");
-		this.enrolledUsersCount = obj.getInt("enrolledusercount");
-		this.idNumber = obj.getString("idnumber");
-		this.summary = obj.getString("summary");
-		this.enrolledUsers = new ArrayList<>();
+		try {
+			this.id = obj.getInt("id");
+			this.shortName = obj.getString("shortname");
+			this.fullName = obj.getString("fullname");
+			this.enrolledUsersCount = obj.getInt("enrolledusercount");
+			this.idNumber = obj.getString("idnumber");
+			this.summary = obj.getString("summary");
+			this.enrolledUsers = new ArrayList<>();
+		} catch (JSONException e) {
+			logger.error(e.getMessage());
+		}
 
 	}
 
@@ -217,7 +222,7 @@ public class Course {
 		// Recorremos la lista de usuarios matriculados en el curso
 		for (int i = 0; i < users.size(); i++) {
 			// sacamos el rol del usuario
-			ArrayList<Role> roleArray = users.get(i).getRoles();
+			List<Role> roleArray = users.get(i).getRoles();
 			// cada rol nuevo se añade al set roles
 			for (int j = 0; j < roleArray.size(); j++) {
 				roles.add(roleArray.get(j).getName());
@@ -254,7 +259,7 @@ public class Course {
 		// Recorremos la lista de usuarios matriculados en el curso
 		for (int i = 0; i < users.size(); i++) {
 			// Sacamos el grupo del usuario
-			ArrayList<Group> groupsArray = users.get(i).getGroups();
+			List<Group> groupsArray = users.get(i).getGroups();
 			// Cada grupo nuevo se añade al set de grupos
 			for (int j = 0; j < groupsArray.size(); j++) {
 				groups.add(groupsArray.get(j).getName());
@@ -287,7 +292,7 @@ public class Course {
 	public static Course getCourseByString(String courseName) {
 		Course course = null;
 
-		ArrayList<Course> courses = UBULog.getUser().getCourses();
+		List<Course> courses = UBULog.getUser().getCourses();
 
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).getFullName().equals(courseName)) {

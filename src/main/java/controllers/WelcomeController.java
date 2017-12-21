@@ -32,7 +32,7 @@ import model.Course;
  * @author oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  *
  */
 public class WelcomeController implements Initializable {
@@ -73,7 +73,7 @@ public class WelcomeController implements Initializable {
 	 * @param event, evento.
 	 * @throws Exception excepción
 	 */
-	public void enterCourse() throws Exception {
+	public void enterCourse() {
 		try {
 			UBULog.getInit().getScene().setCursor(Cursor.WAIT);
 

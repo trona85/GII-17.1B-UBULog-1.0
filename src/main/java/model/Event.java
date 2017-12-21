@@ -4,6 +4,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase eventos.
@@ -51,7 +52,7 @@ public class Event {
 	 * Metodo que devuelve logsEvent.
 	 * @return logsEvent.
 	 */
-	public ArrayList<Log> getLogsEvent() {
+	public List<Log> getLogsEvent() {
 		return logsEvent;
 	}
 

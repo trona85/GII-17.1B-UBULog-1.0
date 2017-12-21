@@ -6,13 +6,14 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * clase MoodleUser. para guardar el usuario logeado.
  * @author oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class MoodleUser {
 	private int id;
@@ -31,7 +32,7 @@ public class MoodleUser {
 	private String profileImageUrlSmall;
 	private String profileImageUrl;
 	private String tokenSession;
-	private ArrayList<Course> courses;
+	private List<Course> courses;
 
 	/**
 	 * Constructor de MoodleUser
@@ -384,7 +385,7 @@ public class MoodleUser {
 	 * 
 	 * @return courses
 	 */
-	public ArrayList<Course> getCourses() {
+	public List<Course> getCourses() {
 		return this.courses;
 	}
 
@@ -393,7 +394,7 @@ public class MoodleUser {
 	 * 
 	 * @param courses, courses
 	 */
-	public void setCourses(ArrayList<Course> courses) {
+	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
 	

@@ -5,6 +5,8 @@ package parserdocument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import model.Event;
 import model.Log;
@@ -13,7 +15,7 @@ import model.Log;
  * Clase abstracta para documentos.
  * @author Oscar Fernández Armengol
  * 
- * @version 1.0
+ * @version 1.1
  */
 public abstract class DocumentParser implements IDocumentParser {
 	/**
@@ -74,7 +76,7 @@ public abstract class DocumentParser implements IDocumentParser {
 	 * Recoge los logs.
 	 * @return logs.
 	 */
-	public ArrayList<Log> getLogs() {
+	public List<Log> getLogs() {
 		return logs;
 	}
 
@@ -90,7 +92,7 @@ public abstract class DocumentParser implements IDocumentParser {
 	 * Recoge los eventos diferentes que hay en el log.
 	 * @return events.
 	 */
-	public HashMap<String,Event> getEvents() {
+	public Map<String,Event> getEvents() {
 		return events;
 	}
 

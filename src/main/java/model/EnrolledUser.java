@@ -5,6 +5,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +16,7 @@ import org.json.JSONObject;
  * @author Oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class EnrolledUser {
 	/**
@@ -355,7 +356,7 @@ public class EnrolledUser {
 	 * 
 	 * @return roles
 	 */
-	public ArrayList<Role> getRoles() {
+	public List<Role> getRoles() {
 		return this.roles;
 	}
 
@@ -365,7 +366,7 @@ public class EnrolledUser {
 	 * @param roles,
 	 *            roles.
 	 */
-	public void setRoles(ArrayList<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles.clear();
 		for (Role role : roles) {
 			this.roles.add(role);
@@ -377,7 +378,7 @@ public class EnrolledUser {
 	 * 
 	 * @return groups
 	 */
-	public ArrayList<Group> getGroups() {
+	public List<Group> getGroups() {
 		return this.groups;
 	}
 
@@ -387,7 +388,7 @@ public class EnrolledUser {
 	 * @param groups,
 	 *            groups.
 	 */
-	public void setGroups(ArrayList<Group> groups) {
+	public void setGroups(List<Group> groups) {
 		this.groups.clear();
 		for (Group group : groups) {
 			this.groups.add(group);
@@ -399,7 +400,7 @@ public class EnrolledUser {
 	 * 
 	 * @return courses
 	 */
-	public ArrayList<Integer> getEnrolledCourses() {
+	public List<Integer> getEnrolledCourses() {
 		return this.courses;
 	}
 
@@ -409,7 +410,7 @@ public class EnrolledUser {
 	 * @param courses,
 	 *            courses.
 	 */
-	public void setEnrolledCourses(ArrayList<Integer> courses) {
+	public void setEnrolledCourses(List<Integer> courses) {
 		this.courses.clear();
 		for (Integer course : courses) {
 			this.courses.add(course);

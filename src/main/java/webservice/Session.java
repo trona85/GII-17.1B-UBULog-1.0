@@ -19,7 +19,7 @@ import model.Course;
  * @author Oscar Fernández Armengol
  *  @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class Session {
 

@@ -108,7 +108,7 @@ public class Chart {
 	 *            logs.
 	 */
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
-			ArrayList<Log> filterLogs) {
+			List<Log> filterLogs) {
 		int cont = 0;
 		String fechaLog = null;
 		asignedUserMonth(filterLogs);

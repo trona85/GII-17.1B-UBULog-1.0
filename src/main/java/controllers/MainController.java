@@ -8,7 +8,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -71,12 +74,12 @@ import webservice.CourseWS;
  * @author Oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class MainController implements Initializable {
 
 	static final Logger logger = LoggerFactory.getLogger(MainController.class);
-	private String all ="Todos";
+	private String all = "Todos";
 
 	@FXML // Curso actual
 	public Label lblActualCourse;
@@ -299,14 +302,14 @@ public class MainController implements Initializable {
 	/**
 	 * Método que recarga de nuevo el gráfico y la tabla.
 	 * 
-	 * @param l
+	 * @param list
 	 *            , lista de log.
 	 */
-	private void loadHTML(ArrayList<Log> l) {
+	private void loadHTML(List<Log> list) {
 		viewchart.generarGrafica();
 		engineChart.reload();
 
-		viewTableLog.generarTablaLogs(l);
+		viewTableLog.generarTablaLogs(list);
 		engineTableLogs.reload();
 	}
 
@@ -567,7 +570,7 @@ public class MainController implements Initializable {
 			for (int i = 0; i < users.size(); i++) {
 				// Filtrado por rol:
 				roleYes = false;
-				ArrayList<Role> roles = users.get(i).getRoles();
+				List<Role> roles = users.get(i).getRoles();
 				// Si no tiene rol
 				if (roles == null || (roles.isEmpty() && filterRole.equals(all))) {
 					roleYes = true;
@@ -581,7 +584,7 @@ public class MainController implements Initializable {
 				}
 				// Filtrado por grupo:
 				groupYes = false;
-				ArrayList<Group> groups = users.get(i).getGroups();
+				List<Group> groups = users.get(i).getGroups();
 				if (groups == null || (groups.isEmpty() && filterGroup.equals(all))) {
 					groupYes = true;
 				} else {
@@ -678,10 +681,9 @@ public class MainController implements Initializable {
 	 * @param ftLogs,
 	 *            logs filtrados.
 	 */
-	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp,
-			ArrayList<Log> ftLogs) {
+	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp, List<Log> list) {
 
-		for (int i = 0; i < ftLogs.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			for (int j = 0; j < patternFilter.size(); j++) {
 				if (patternFilter.get(j).equals("")) {
 					patterncomp.set(j, true);
@@ -691,37 +693,37 @@ public class MainController implements Initializable {
 					Matcher match = null;
 					switch (j) {
 					case 0:
-						match = pattern.matcher(ftLogs.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
-								+ (ftLogs.get(i).getDate().get(Calendar.MONTH) + 1) + "/"
-								+ ftLogs.get(i).getDate().get(Calendar.YEAR) + " "
-								+ ftLogs.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
-								+ ftLogs.get(i).getDate().get(Calendar.MINUTE));
+						match = pattern.matcher(list.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
+								+ (list.get(i).getDate().get(Calendar.MONTH) + 1) + "/"
+								+ list.get(i).getDate().get(Calendar.YEAR) + " "
+								+ list.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
+								+ list.get(i).getDate().get(Calendar.MINUTE));
 
 						break;
 					case 1:
-						match = pattern.matcher(ftLogs.get(i).getNameUser().toUpperCase());
+						match = pattern.matcher(list.get(i).getNameUser().toUpperCase());
 
 						break;
 					case 2:
-						match = pattern.matcher(ftLogs.get(i).getUserAffected().toUpperCase());
+						match = pattern.matcher(list.get(i).getUserAffected().toUpperCase());
 						break;
 					case 3:
-						match = pattern.matcher(ftLogs.get(i).getContext().toUpperCase());
+						match = pattern.matcher(list.get(i).getContext().toUpperCase());
 						break;
 					case 4:
-						match = pattern.matcher(ftLogs.get(i).getComponent().toUpperCase());
+						match = pattern.matcher(list.get(i).getComponent().toUpperCase());
 						break;
 					case 5:
-						match = pattern.matcher(ftLogs.get(i).getEvent().toUpperCase());
+						match = pattern.matcher(list.get(i).getEvent().toUpperCase());
 						break;
 					case 6:
-						match = pattern.matcher(ftLogs.get(i).getDescription().toUpperCase());
+						match = pattern.matcher(list.get(i).getDescription().toUpperCase());
 						break;
 					case 7:
-						match = pattern.matcher(ftLogs.get(i).getOrigin().toUpperCase());
+						match = pattern.matcher(list.get(i).getOrigin().toUpperCase());
 						break;
 					case 8:
-						match = pattern.matcher(ftLogs.get(i).getIp().toUpperCase());
+						match = pattern.matcher(list.get(i).getIp().toUpperCase());
 						break;
 
 					default:
@@ -736,7 +738,7 @@ public class MainController implements Initializable {
 			if (patterncomp.get(0) && patterncomp.get(1) && patterncomp.get(2) && patterncomp.get(3)
 					&& patterncomp.get(4) && patterncomp.get(5) && patterncomp.get(6) && patterncomp.get(7)
 					&& patterncomp.get(8)) {
-				filterTableLogs.add(ftLogs.get(i));
+				filterTableLogs.add(list.get(i));
 			}
 			for (int k = 0; k < patterncomp.size(); k++) {
 				patterncomp.set(k, false);
@@ -806,23 +808,28 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             , escepción.
 	 */
-	public void changeCourse() throws Exception {
-		logger.info("Cambiando de asignatura...");
-		// Accedemos a la siguiente ventana
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/Welcome.fxml"));
-		UBULog.getStage().close();
-		logger.info("Accediendo a UBULog...");
-		UBULog.setStage(new Stage());
-		Parent root = loader.load();
+	public void changeCourse() {
+		try {
 
-		Scene scene = new Scene(root);
-		UBULog.getStage().setScene(scene);
-		UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
-		UBULog.getStage().setTitle("UBULog");
-		UBULog.getStage().show();
+			logger.info("Cambiando de asignatura...");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/Welcome.fxml"));
+			UBULog.getStage().close();
+			logger.info("Accediendo a UBULog...");
+			UBULog.setStage(new Stage());
 
-		clearData();
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			UBULog.getStage().setScene(scene);
+			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
+			UBULog.getStage().setTitle("UBULog");
+			UBULog.getStage().show();
+
+			clearData();
+		} catch (IOException e) {
+			logger.error("Error al cambiar asignatira. {}", e);
+		}
+
 	}
 
 	private void clearData() {
@@ -858,8 +865,8 @@ public class MainController implements Initializable {
 		try {
 			file = fileChooser.showSaveDialog(UBULog.getStage());
 			if (file != null) {
-					ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-				
+				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+
 			}
 		} catch (Exception e) {
 			logger.error("Error en guardado de gráfico. {}", e);
@@ -882,20 +889,24 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void logOut() throws Exception {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/Login.fxml"));
-		UBULog.getStage().close();
-		logger.info("Cerrando sesión de usuario");
-		UBULog.setStage(new Stage());
-		Parent root = loader.load();
-		Scene scene = new Scene(root);
-		UBULog.getStage().setScene(scene);
-		UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
-		UBULog.getStage().setTitle("UBULog");
-		UBULog.getStage().show();
+	public void logOut() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/Login.fxml"));
+			UBULog.getStage().close();
+			logger.info("Cerrando sesión de usuario");
+			UBULog.setStage(new Stage());
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			UBULog.getStage().setScene(scene);
+			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
+			UBULog.getStage().setTitle("UBULog");
+			UBULog.getStage().show();
 
-		clearData();
+			clearData();
+		} catch (IOException e) {
+			logger.error("Error al deslogearse. {}", e);
+		}
 	}
 
 	/**
@@ -906,7 +917,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void clearSelection(){
+	public void clearSelection() {
 		if (!logs.getLogs().isEmpty()) {
 			listParticipants.getSelectionModel().clearSelection();
 			listEvents.getSelectionModel().clearSelection();
@@ -925,8 +936,12 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void aboutUBULog() throws Exception {
-		Desktop.getDesktop().browse(new URL("https://github.com/trona85/GII-17.1B-UBULog-1.0").toURI());
+	public void aboutUBULog() {
+		try {
+			Desktop.getDesktop().browse(new URL("https://github.com/trona85/GII-17.1B-UBULog-1.0").toURI());
+		} catch (Exception e) {
+			logger.error("Error al abrir GigHub. {}", e);
+		}
 	}
 
 	/**
@@ -1003,7 +1018,6 @@ public class MainController implements Initializable {
 			webScripting.getResponsiveWeb();
 
 			try (FileWriter fileWriter = new FileWriter("./tempcsv.csv")) {
-				
 
 				pw = new PrintWriter(fileWriter);
 				pw.print(webScripting.getResponsive());
@@ -1022,11 +1036,7 @@ public class MainController implements Initializable {
 			initializeDataSet(logs);
 
 			alert.close();
-			
-			if(!file.delete()){
-				throw new UBULogException(UBULogError.FICHERO_NO_ELIMINADO);
-			}
-
+			Files.delete(file.toPath());
 
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error(e.getMessage());
