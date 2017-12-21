@@ -82,11 +82,13 @@ public class MoodleUser {
 		this.setDescription(description);
 		this.setProfileImageUrlSmall(profileImageUrlSmall);
 		this.setProfileImageUrl(profileImageUrl);
-		this.courses = new ArrayList<Course>();
+		this.courses = new ArrayList<>();
 	}
 
+	/**
+	 * Constuctor vacio.
+	 */
 	public MoodleUser() {
-		// TODO generado para primer login revisar otra manera.
 	}
 
 	/**

@@ -99,7 +99,7 @@ public class EnrolledUser {
 			this.profileImageUrl = obj.getString("profileimageurl");
 		if (obj.getJSONArray("roles") != null) {
 			JSONArray roleArray = obj.getJSONArray("roles");
-			roles = new ArrayList<Role>();
+			roles = new ArrayList<>();
 			for (int i = 0; i < roleArray.length(); i++) {
 				// Establece un rol con el id, name y shortname obtenido de cada
 				// JSONObject del JSONArray
@@ -112,7 +112,7 @@ public class EnrolledUser {
 		}
 		if (obj.optJSONArray("groups") != null) {
 			JSONArray groupArray = obj.getJSONArray("groups");
-			groups = new ArrayList<Group>();
+			groups = new ArrayList<>();
 			for (int i = 0; i < groupArray.length(); i++) {
 				// Establece un grupo con el id, name y description obtenido de
 				// cada JSONObject del JSONArray
@@ -125,7 +125,7 @@ public class EnrolledUser {
 		} else {
 			groups = new ArrayList<>(); // to have an empty list, not a null
 		}
-		this.courses = new ArrayList<Integer>();
+		this.courses = new ArrayList<>();
 	}
 
 	/**
@@ -136,8 +136,6 @@ public class EnrolledUser {
 	public EnrolledUser(String nombreCompleto, int id){
 		setFullName(nombreCompleto);
 		setId(id);
-		//TODO añadir roles y grupos para no hacer null en filtros mainController
-		
 	}
 	/**
 	 * Devuelve el id del usuario

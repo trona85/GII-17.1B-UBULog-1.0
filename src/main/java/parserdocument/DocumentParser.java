@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import model.Event;
 import model.Log;
-import ubulogexception.UBULogException;
 
 /**
  * Clase abstracta para documentos.
@@ -33,11 +32,9 @@ public abstract class DocumentParser implements IDocumentParser {
 	 * Constructor.
 	 */
 	public DocumentParser() {
-		logs = new ArrayList<Log>();
-		events =new HashMap<String,Event>();
+		logs = new ArrayList<>();
+		events =new HashMap<>();
 	}
-	
-	public abstract void readDocument() throws UBULogException;
 	
 	/**
 	 * Asignamos los eventos.

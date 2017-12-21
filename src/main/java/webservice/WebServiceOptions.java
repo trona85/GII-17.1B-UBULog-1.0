@@ -10,14 +10,30 @@ package webservice;
  */
 public class WebServiceOptions {
 
-	// Devuelve token de usuario
+	/**
+	 * Constructor privado.
+	 */
+	private WebServiceOptions(){
+		
+	}
+	/**
+	 * Token de usuario
+	 */
 	public static final String SERVICIO_WEB_MOODLE = "moodle_mobile_app";
-	// Devuelve id de usuario y atributos
+	/**
+	 * Id de usuario y atributos
+	 */
 	public static final String OBTENER_INFO_USUARIO = "core_user_get_users_by_field";
-	// Devuelve los cursos en los que está matriculado el usuario
+	/**
+	 * Cursos en los que está matriculado el usuario
+	 */
 	public static final String OBTENER_CURSOS = "core_enrol_get_users_courses";
-	// Devuelve los usuarios matriculados en un curso
+	/**
+	 * Usuarios matriculados en un curso
+	 */
 	public static final String OBTENER_USUARIOS_MATRICULADOS = "core_enrol_get_enrolled_users";
-	// Devuelve todas las categorías y elementos evaluables de un curso
+	/**
+	 * Categorías y elementos evaluables de un curso
+	 */
 	public static final String OBTENER_TABLA_NOTAS = "gradereport_user_get_grades_table";
 }

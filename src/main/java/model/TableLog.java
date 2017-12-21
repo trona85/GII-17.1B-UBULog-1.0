@@ -27,6 +27,8 @@ public class TableLog {
 		FileWriter ficheroHTML = null;
 		PrintWriter pw = null;
 		try {
+			String initRow ="\t\t<th>";
+			String finalRow = "</th>";
 			ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
 			pw = new PrintWriter(ficheroHTML);
 			pw.println("<!DOCTYPE html> \n " + "<html> \n " + "<title>tabla logs</title> \n"
@@ -36,15 +38,15 @@ public class TableLog {
 					+ "<div class=\"w3-container\"> \n" + "\t<h2>Tabla de logs</h2>");
 
 			pw.println("\t<table class=\"w3-table-all w3-margin-top\" id=\"myTable\">");
-			pw.println("\t\t<tr> \n" + "\t\t<th>Fecha </th>");
-			pw.println("\t\t<th>Nombre completo del usuario</th>");
-			pw.println("\t\t<th>Usuario afectado</th>");
-			pw.println("\t\t<th>Contexto del evento</th>");
-			pw.println("\t\t<th>Componente</th>");
-			pw.println("\t\t<th>Nombre evento</th>");
-			pw.println("\t\t<th>Descripción</th>");
-			pw.println("\t\t<th>Origen</th>");
-			pw.println("\t\t<th>Dirección IP</th>");
+			pw.println("\t\t<tr> \n" + initRow + "Fecha " + finalRow + "");
+			pw.println(initRow + "Nombre completo del usuario" + finalRow + "");
+			pw.println(initRow + "Usuario afectado" + finalRow + "");
+			pw.println(initRow + "Contexto del evento" + finalRow + "");
+			pw.println(initRow + "Componente" + finalRow + "");
+			pw.println(initRow + "Nombre evento" + finalRow + "");
+			pw.println(initRow + "Descripción" + finalRow + "");
+			pw.println(initRow + "Origen" + finalRow + "");
+			pw.println(initRow + "Dirección IP" + finalRow + "");
 			pw.println("\t</tr>");
 
 			for (Log log : generateLogs) {
@@ -75,18 +77,20 @@ public class TableLog {
 	 * @param log, logs.
 	 */
 	private void dataTableLog(PrintWriter pw, Log log) {
+		String initRow ="\t\t<td>";
+		String finalRow = "</td>";
 		pw.println("\t<tr>");
 
-		pw.println("\t\t<td>" + log.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (log.getDate().get(Calendar.MONTH)+1) + "/"
-				+ log.getDate().get(Calendar.YEAR) + " "+ log.getDate().get(Calendar.HOUR_OF_DAY)+ ":"+log.getDate().get(Calendar.MINUTE)+  "</td>");
-		pw.println("\t\t<td>" + log.getNameUser() + "</td>");
-		pw.println("\t\t<td>" + log.getUserAffected() + "</td>");
-		pw.println("\t\t<td>" + log.getContext() + "</td>");
-		pw.println("\t\t<td>" + log.getComponent() + "</td>");
-		pw.println("\t\t<td>" + log.getEvent() + "</td>");
-		pw.println("\t\t<td>" + log.getDescription() + "</td>");
-		pw.println("\t\t<td>" + log.getOrigin() + "</td>");
-		pw.println("\t\t<td>" + log.getIp() + "</td>");
+		pw.println(initRow + log.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (log.getDate().get(Calendar.MONTH)+1) + "/"
+				+ log.getDate().get(Calendar.YEAR) + " "+ log.getDate().get(Calendar.HOUR_OF_DAY)+ ":"+log.getDate().get(Calendar.MINUTE)+  finalRow);
+		pw.println(initRow + log.getNameUser() + "</td>");
+		pw.println(initRow + log.getUserAffected() + finalRow);
+		pw.println(initRow + log.getContext() + finalRow);
+		pw.println(initRow + log.getComponent() + finalRow);
+		pw.println(initRow + log.getEvent() + finalRow);
+		pw.println(initRow + log.getDescription() + finalRow);
+		pw.println(initRow + log.getOrigin() + finalRow);
+		pw.println(initRow + log.getIp() + finalRow);
 
 		pw.println("\t</tr>");
 	}

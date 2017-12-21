@@ -35,7 +35,7 @@ public class EnrolledUserWS {
 	 */
 	public void setCourses(String token, EnrolledUser eUser) throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		ArrayList<Integer> courses = new ArrayList<Integer>();
+		ArrayList<Integer> courses = new ArrayList<>();
 		try {
 			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_CURSOS + "&userid="

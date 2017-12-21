@@ -19,14 +19,20 @@ import model.Course;
 import model.MoodleUser;
 
 /**
- * Clase MoodleUser para webservices. Recoge funciones útiles para servicios web relacionados con un MoodleUser.
+ * Clase MoodleUser para webservices. Recoge funciones útiles para servicios web
+ * relacionados con un MoodleUser.
  * 
  * @author Oscar Fernández Armengol
- *  @author Claudia Martínez Herrero
+ * @author Claudia Martínez Herrero
  * 
  * @version 1.0
  */
 public class MoodleUserWS {
+	/**
+	 * Constructor privado.
+	 */
+	private MoodleUserWS() {
+	}
 	/**
 	 * Establece los parametros del usuario logueado.
 	 * 
@@ -36,12 +42,11 @@ public class MoodleUserWS {
 	 *            nombre de usuario
 	 * @param mUser
 	 *            moodleUser
-	 * @throws Exception excepción
+	 * @throws Exception
+	 *             excepción
 	 */
 	public static void setMoodleUser(String token, String userName, MoodleUser mUser) throws Exception {
-		//TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_user_get_users_by_field&field=username&values[0]=profesor
-		// para id TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_user_get_users_by_field&field=id&values[0]=6
-		
+
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
@@ -52,10 +57,10 @@ public class MoodleUserWS {
 				String respuesta = EntityUtils.toString(response.getEntity());
 
 				JSONArray jsonArray = new JSONArray(respuesta);
-				
+
 				if (jsonArray.length() > 0) {
 					JSONObject jsonObject = (JSONObject) jsonArray.get(0);
-					
+
 					if (jsonObject != null) {
 						mUser.setId(jsonObject.getInt("id"));
 						if (jsonObject.has("username"))
@@ -89,13 +94,14 @@ public class MoodleUserWS {
 	 *            token de usuario
 	 * @param mUser
 	 *            usuario
-	 * @throws Exception excepción
+	 * @throws Exception
+	 *             excepción
 	 */
 	public static void setCourses(String token, MoodleUser mUser) throws Exception {
+		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		ArrayList<Course> courses = new ArrayList<Course>();
+		ArrayList<Course> courses = new ArrayList<>();
 		try {
-			// TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&&userid=6
 			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_CURSOS + "&userid="
 					+ mUser.getId());

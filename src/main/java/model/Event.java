@@ -28,7 +28,7 @@ public class Event {
 	 */
 	public Event(String nameEvent) {
 		this.setNameEvent(nameEvent);
-		logsEvent = new ArrayList<Log>();
+		logsEvent = new ArrayList<>();
 	}
 
 	/**

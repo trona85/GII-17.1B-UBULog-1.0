@@ -25,6 +25,11 @@ import model.EnrolledUser;
  * @version 1.0
  */
 public class CourseWS {
+	
+	/**
+	 * Constructor privado.
+	 */
+	private CourseWS() {}
 	/**
 	 * Establece los usuarios que están matriculados en un curso junto con su
 	 * rol y grupo.
@@ -37,9 +42,8 @@ public class CourseWS {
 	 */
 	public static void setEnrolledUsers(String token, Course course) throws Exception {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		ArrayList<EnrolledUser> eUsers = new ArrayList<EnrolledUser>();
+		ArrayList<EnrolledUser> eUsers = new ArrayList<>();
 		try {
-			//TODO http://localhost/moodle//webservice/rest/server.php?wstoken=9a5e85d1e61c1c42509d77b34f26643a&moodlewsrestformat=json&wsfunction=core_enrol_get_enrolled_users&&courseid=3
 			HttpGet httpget = new HttpGet(UBULog.getHost() + "/webservice/rest/server.php?wstoken=" + token
 					+ "&moodlewsrestformat=json&wsfunction=" + WebServiceOptions.OBTENER_USUARIOS_MATRICULADOS
 					+ "&courseid=" + course.getId());
