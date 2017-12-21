@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.json.JSONObject;
@@ -171,7 +172,7 @@ public class Course {
 	 * 
 	 * @return lista de usuarios
 	 */
-	public ArrayList<EnrolledUser> getEnrolledUsers() {
+	public List<EnrolledUser> getEnrolledUsers() {
 		Collections.sort(this.enrolledUsers, (o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
 		return this.enrolledUsers;
 	}
@@ -181,7 +182,7 @@ public class Course {
 	 * 
 	 * @param eUsers, eUsers.
 	 */
-	public void setEnrolledUsers(ArrayList<EnrolledUser> eUsers) {
+	public void setEnrolledUsers(List<EnrolledUser> eUsers) {
 		this.enrolledUsers.clear();
 		for (EnrolledUser eUser : eUsers) {
 			this.enrolledUsers.add(eUser);
@@ -193,7 +194,7 @@ public class Course {
 	 * 
 	 * @return lista de roles del curso
 	 */
-	public ArrayList<String> getRoles() {
+	public List<String> getRoles() {
 		ArrayList<String> result = new ArrayList<>();
 		Iterator<String> roleIt = this.roles.iterator();
 		while (roleIt.hasNext()) {
@@ -210,7 +211,7 @@ public class Course {
 	 * @param users
 	 *            usuarios matriculados en el curso
 	 */
-	public void setRoles(ArrayList<EnrolledUser> users) {
+	public void setRoles(List<EnrolledUser> users) {
 		// Creamos el set de roles
 		roles = new HashSet<>();
 		// Recorremos la lista de usuarios matriculados en el curso
@@ -229,7 +230,7 @@ public class Course {
 	 * 
 	 * @return lista de grupos del curso
 	 */
-	public ArrayList<String> getGroups() {
+	public List<String> getGroups() {
 		ArrayList<String> result = new ArrayList<>();
 		Iterator<String> groupsIt = this.groups.iterator();
 		while (groupsIt.hasNext()) {
@@ -247,7 +248,7 @@ public class Course {
 	 * @param users
 	 *            usuarios del curso
 	 */
-	public void setGroups(ArrayList<EnrolledUser> users) {
+	public void setGroups(List<EnrolledUser> users) {
 		// Creamos el set de grupos
 		groups = new HashSet<>();
 		// Recorremos la lista de usuarios matriculados en el curso
@@ -266,7 +267,7 @@ public class Course {
 	 * 
 	 * @return lista de actividades
 	 */
-	public ArrayList<String> getActivities() {
+	public List<String> getActivities() {
 		ArrayList<String> result = new ArrayList<>();
 		Iterator<String> grclIt = this.typeActivities.iterator();
 		while (grclIt.hasNext()) {

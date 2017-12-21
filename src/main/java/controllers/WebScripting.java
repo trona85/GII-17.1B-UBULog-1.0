@@ -19,17 +19,35 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * @author oscar
- *
+ * Clase que descarga archivo por webscripting.
+ * 
+ * @author Oscar Fernández Armengol
+ * 
+ * @version 1.1
  */
 public class WebScripting {
 
+	/**
+	 * Logger
+	 */
 	static final Logger logger = LoggerFactory.getLogger(WebScripting.class);
 
+	/**
+	 * pagina web
+	 */
 	private HtmlPage page = null;
+	/**
+	 * Cliente web
+	 */
 	private WebClient client = null;
+	/**
+	 * Log.
+	 */
 	private String responsive;
 
+	/**
+	 * Constructor de clase.
+	 */
 	public WebScripting() {
 		try {
 			client = new WebClient(BrowserVersion.getDefault());
@@ -42,18 +60,15 @@ public class WebScripting {
 
 			page.getElementById("loginbtn").click();
 
-		} catch (FailingHttpStatusCodeException e) {
-			logger.error(e.getMessage());
-
-		} catch (MalformedURLException e) {
-			logger.error(e.getMessage());
-
-		} catch (IOException e) {
+		} catch (FailingHttpStatusCodeException | IOException e) {
 			logger.error(e.getMessage());
 
 		}
 	}
 
+	/**
+	 * Metodo que pide y guarda la respuesta de log de la web.
+	 */
 	public void getResponsiveWeb() {
 		try {
 			page = client.getPage(UBULog.getHost() + "/report/log/index.php?chooselog=1&showusers=0&showcourses=0&id="
@@ -76,16 +91,27 @@ public class WebScripting {
 		}
 	}
 
+	/**
+	 * Metodo que cierra el cliente.
+	 */
 	public void close() {
 		if (client != null) {
 			client.close();
 		}
 	}
 
+	/**
+	 * Recoge responsive.
+	 * @return responsive
+	 */
 	public String getResponsive() {
 		return responsive;
 	}
 
+	/**
+	 * Guarda responsive.
+	 * @param responsive, respuesta.
+	 */
 	public void setResponsive(String responsive) {
 		this.responsive = responsive;
 	}

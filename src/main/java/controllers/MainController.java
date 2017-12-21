@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -164,7 +165,7 @@ public class MainController implements Initializable {
 	@FXML
 	private WebView imageLoger;
 
-	private ArrayList<EnrolledUser> users;
+	private List<EnrolledUser> users;
 	private CsvParser logs;
 	private ArrayList<Log> filterLogs;
 	private ArrayList<Log> filterTableLogs;
@@ -409,7 +410,7 @@ public class MainController implements Initializable {
 
 		EventHandler<ActionEvent> actionGroup = selectGroup();
 		// Cargamos una lista de los nombres de los grupos
-		ArrayList<String> groupsList = UBULog.getSession().getActualCourse().getGroups();
+		List<String> groupsList = UBULog.getSession().getActualCourse().getGroups();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
 		ArrayList<MenuItem> groupsItemsList = new ArrayList<>();
 		// En principio mostrarán todos los usuarios en cualquier grupo
@@ -436,7 +437,7 @@ public class MainController implements Initializable {
 	private void manejoRoles() {
 		EventHandler<ActionEvent> actionRole = selectRole();
 		// Cargamos una lista con los nombres de los roles
-		ArrayList<String> rolesList = UBULog.getSession().getActualCourse().getRoles();
+		List<String> rolesList = UBULog.getSession().getActualCourse().getRoles();
 		// Convertimos la lista a una lista de MenuItems para el MenuButton
 		ArrayList<MenuItem> rolesItemsList = new ArrayList<>();
 		// En principio se mostrarón todos los usuarios con cualquier rol
@@ -844,7 +845,7 @@ public class MainController implements Initializable {
 	 * @throws Exception
 	 *             excepción
 	 */
-	public void saveChart() throws Exception {
+	public void saveChart() {
 
 		WritableImage image = chart.snapshot(new SnapshotParameters(), null);
 		File file = new File("chart.png");
@@ -857,11 +858,8 @@ public class MainController implements Initializable {
 		try {
 			file = fileChooser.showSaveDialog(UBULog.getStage());
 			if (file != null) {
-				try {
 					ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-				} catch (IOException ex) {
-					logger.info(ex.getMessage());
-				}
+				
 			}
 		} catch (Exception e) {
 			logger.error("Error en guardado de gráfico. {}", e);
@@ -871,11 +869,8 @@ public class MainController implements Initializable {
 
 	/**
 	 * Método para generar gráfica dependiente de la tabla.
-	 * 
-	 * @param actionEvent,
-	 *            accion del evento.
 	 */
-	public void generateChart(ActionEvent actionEvent) {
+	public void generateChart() {
 		viewchart.setLabel(selectedParticipants, selectedEvents, filterTableLogs);
 		viewchart.generarGrafica();
 		engineChart.reload();
@@ -999,7 +994,6 @@ public class MainController implements Initializable {
 
 		this.logs = new CsvParser();
 		WebScripting webScripting = null;
-		FileWriter fileWriter = null;
 		PrintWriter pw = null;
 		File file = null;
 		try {
@@ -1008,8 +1002,8 @@ public class MainController implements Initializable {
 			webScripting = new WebScripting();
 			webScripting.getResponsiveWeb();
 
-			try {
-				fileWriter = new FileWriter("./tempcsv.csv");
+			try (FileWriter fileWriter = new FileWriter("./tempcsv.csv")) {
+				
 
 				pw = new PrintWriter(fileWriter);
 				pw.print(webScripting.getResponsive());
@@ -1019,8 +1013,6 @@ public class MainController implements Initializable {
 					pw.close();
 
 				}
-				if (fileWriter != null)
-					fileWriter.close();
 			}
 
 			file = new File("tempcsv.csv");
@@ -1030,8 +1022,8 @@ public class MainController implements Initializable {
 			initializeDataSet(logs);
 
 			alert.close();
-			boolean del = file.delete();
-			if(del == false){
+			
+			if(!file.delete()){
 				throw new UBULogException(UBULogError.FICHERO_NO_ELIMINADO);
 			}
 

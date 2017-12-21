@@ -3,9 +3,9 @@
  */
 package model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -94,7 +94,7 @@ public class Log {
 				setIdUser(-1);
 			}
 			EnrolledUser desconocido = null;
-			ArrayList<EnrolledUser> listUsers =UBULog.getSession().getActualCourse().getEnrolledUsers();
+			List<EnrolledUser> listUsers =UBULog.getSession().getActualCourse().getEnrolledUsers();
 			for (EnrolledUser us : listUsers) {
 				if(us.getId() == -1){
 					desconocido = us;

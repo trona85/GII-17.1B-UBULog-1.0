@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +18,12 @@ import javafx.collections.ObservableList;
  * 
  * @author Oscar Fernández Armengol
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class Chart {
 
 	static final Logger logger = LoggerFactory.getLogger(Chart.class);
-	
+
 	private String typeChart;
 
 	/**
@@ -29,7 +31,8 @@ public class Chart {
 	 */
 	private ArrayList<String> dates;
 	/**
-	 * HasMap de clave combinación selecionada, valor lista de cuantas veces aparece por cada mes.
+	 * HasMap de clave combinación selecionada, valor lista de cuantas veces
+	 * aparece por cada mes.
 	 */
 	private HashMap<String, ArrayList<Integer>> label;
 	/**
@@ -49,16 +52,20 @@ public class Chart {
 
 	/**
 	 * Método que devuelve lista de meses del log.
+	 * 
 	 * @return date.
 	 */
-	public ArrayList<String> getDate() {
+	public List<String> getDate() {
 		return dates;
 	}
 
 	/**
 	 * Método que añade un mes a la lista si no existe ya en la lista
-	 * @param month, mes del log.
-	 * @param year, año.
+	 * 
+	 * @param month,
+	 *            mes del log.
+	 * @param year,
+	 *            año.
 	 */
 	private void setDate(int month, int year) {
 		if (!dates.contains(MONTH[month] + " " + year)) {
@@ -67,18 +74,22 @@ public class Chart {
 	}
 
 	/**
-	 * Devuelve HasMap de clave combinación selecionada, valor lista de cuantas veces aparece por cada mes.
+	 * Devuelve HasMap de clave combinación selecionada, valor lista de cuantas
+	 * veces aparece por cada mes.
+	 * 
 	 * @return label
 	 */
-	public HashMap<String, ArrayList<Integer>> getLabel() {
+	public Map<String, ArrayList<Integer>> getLabel() {
 		return label;
 	}
 
 	/**
 	 * Método para asignamos los mese para la gráfica.
-	 * @param logs, logs cargados.
+	 * 
+	 * @param logs,
+	 *            logs cargados.
 	 */
-	private void asignedUserMonth(ArrayList<Log> logs) {
+	private void asignedUserMonth(List<Log> logs) {
 		getDate().clear();
 		for (int i = 0; i < logs.size(); ++i) {
 			setDate(logs.get(i).getDate().get(Calendar.MONTH), logs.get(i).getDate().get(Calendar.YEAR));
@@ -89,24 +100,27 @@ public class Chart {
 	 * Metodo para meter los diferentes eventos con participantes y el numero de
 	 * interacciones con ellos.
 	 * 
-	 * @param selectedParticipants, participantes seleccionados.
-	 * @param selectedEvents, eventos seleccionados.
-	 * @param filterLogs, logs.
+	 * @param selectedParticipants,
+	 *            participantes seleccionados.
+	 * @param selectedEvents,
+	 *            eventos seleccionados.
+	 * @param filterLogs,
+	 *            logs.
 	 */
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
 			ArrayList<Log> filterLogs) {
 		int cont = 0;
-		String fechaLog= null;
+		String fechaLog = null;
 		asignedUserMonth(filterLogs);
-		
+
 		if (selectedEvents.isEmpty()) {
 			for (EnrolledUser participant : selectedParticipants) {
 				ArrayList<Integer> cantidad = new ArrayList<>();
 				for (int i = 0; i < dates.size(); i++) {
 					for (Log log : filterLogs) {
-						fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
+						fechaLog = MONTH[log.getDate().get(Calendar.MONTH)] + " " + log.getDate().get(Calendar.YEAR);
 						if (log.getUser().getFullName().equals(participant.toString())
-								&& fechaLog.equals(dates.get(i)) ) {
+								&& fechaLog.equals(dates.get(i))) {
 							cont += 1;
 						}
 					}
@@ -124,9 +138,9 @@ public class Chart {
 					ArrayList<Integer> cantidad = new ArrayList<>();
 					for (int i = 0; i < dates.size(); i++) {
 						for (Log log : filterLogs) {
-							fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
-							if (log.getEvent().equals(event.toString())
-									&& fechaLog.equals(dates.get(i)) ) {
+							fechaLog = MONTH[log.getDate().get(Calendar.MONTH)] + " "
+									+ log.getDate().get(Calendar.YEAR);
+							if (log.getEvent().equals(event.toString()) && fechaLog.equals(dates.get(i))) {
 								cont += 1;
 							}
 						}
@@ -143,10 +157,11 @@ public class Chart {
 						ArrayList<Integer> cantidad = new ArrayList<>();
 						for (int i = 0; i < dates.size(); i++) {
 							for (Log log : filterLogs) {
-								fechaLog = MONTH[log.getDate().get(Calendar.MONTH)]+ " "+ log.getDate().get(Calendar.YEAR);
+								fechaLog = MONTH[log.getDate().get(Calendar.MONTH)] + " "
+										+ log.getDate().get(Calendar.YEAR);
 								if (log.getEvent().equals(event.toString())
 										&& log.getUser().getFullName().equals(participant.toString())
-										&& fechaLog.equals(dates.get(i)) ) {
+										&& fechaLog.equals(dates.get(i))) {
 									cont += 1;
 								}
 							}
@@ -167,17 +182,13 @@ public class Chart {
 	 */
 	public void generarGrafica() {
 
-		FileWriter ficheroJS = null;
-		PrintWriter pw = null;
-		try {
-			ficheroJS = new FileWriter("bin/chart/js/Chart.js");
-			pw = new PrintWriter(ficheroJS);
+		try (FileWriter ficheroJS = new FileWriter("bin/chart/js/Chart.js");
+				PrintWriter pw = new PrintWriter(ficheroJS)) {
 			pw.println(
 					"var MONTHS = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];");
 			pw.println("var colorNames = Object.keys(window.chartColors);");
 			pw.println("var color = Chart.helpers.color;");
 			pw.println("var barChartData = {");
-			// Fechas
 
 			pw.print("\tlabels: [");
 			for (int i = dates.size(); i > 0; i--) {
@@ -191,9 +202,9 @@ public class Chart {
 			}
 			pw.println("],");
 			pw.print("\t\tdatasets: [");
-			// Valores de los datos
 
 			setDataSetJavaScript(pw);
+			
 			pw.println("\t]");
 			pw.println("};");
 
@@ -221,22 +232,14 @@ public class Chart {
 
 		} catch (Exception e) {
 			logger.error("Error al generar gráfica. {}", e);
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
-			try {
-				if (null != ficheroJS)
-					ficheroJS.close();
-			} catch (Exception e2) {
-				logger.error(e2.getMessage());
-			}
 		}
 	}
 
 	/**
 	 * Método para añadir los datos al javaScript.
-	 * @param pw, para escribir en el fichero.
+	 * 
+	 * @param pw,
+	 *            para escribir en el fichero.
 	 */
 	private void setDataSetJavaScript(PrintWriter pw) {
 		int tam = label.size();
@@ -274,6 +277,7 @@ public class Chart {
 
 	/**
 	 * Metodo que recupera el tipo de gráfico.
+	 * 
 	 * @return typeChart
 	 */
 	public String getTypeChart() {
@@ -282,7 +286,9 @@ public class Chart {
 
 	/**
 	 * Método que asigna el tipo de gráfico.
-	 * @param typeChart, tipo de gráfico.
+	 * 
+	 * @param typeChart,
+	 *            tipo de gráfico.
 	 */
 	public void setTypeChart(String typeChart) {
 		this.typeChart = typeChart;

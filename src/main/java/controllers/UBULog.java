@@ -18,7 +18,7 @@ import webservice.Session;
  * @author Oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.1
  *
  */
 public class UBULog extends Application {
@@ -37,7 +37,7 @@ public class UBULog extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
-			initialize = primaryStage;
+			setInit(primaryStage);
 			initialize.setScene(scene);
 			initialize.getIcons().add(new Image("/img/logo_min.png"));
 			UBULog.initialize.setTitle("UBULog");
