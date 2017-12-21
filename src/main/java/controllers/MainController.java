@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -809,26 +807,10 @@ public class MainController implements Initializable {
 	 *             , escepción.
 	 */
 	public void changeCourse() {
-		try {
 
-			logger.info("Cambiando de asignatura...");
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/Welcome.fxml"));
-			UBULog.getStage().close();
-			logger.info("Accediendo a UBULog...");
-			UBULog.setStage(new Stage());
-
-			Parent root = loader.load();
-			Scene scene = new Scene(root);
-			UBULog.getStage().setScene(scene);
-			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.getStage().setTitle("UBULog");
-			UBULog.getStage().show();
-
-			clearData();
-		} catch (IOException e) {
-			logger.error("Error al cambiar asignatira. {}", e);
-		}
+		logger.info("Cambiando de asignatura...");
+		changeView("/view/Welcome.fxml");
+		logger.info("Accediendo a UBULog...");
 
 	}
 
@@ -890,11 +872,22 @@ public class MainController implements Initializable {
 	 *             excepción
 	 */
 	public void logOut() {
+		logger.info("Cerrando sesión de usuario");
+		changeView("/view/Login.fxml");
+
+	}
+
+	/**
+	 * Metodo que cambia la ventana cuando cambias de asignatura o te deslogeas.
+	 * 
+	 * @throws IOException
+	 *             excepción.
+	 */
+	private void changeView(String resource) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/Login.fxml"));
+			loader.setLocation(getClass().getResource(resource));
 			UBULog.getStage().close();
-			logger.info("Cerrando sesión de usuario");
 			UBULog.setStage(new Stage());
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
@@ -905,7 +898,7 @@ public class MainController implements Initializable {
 
 			clearData();
 		} catch (IOException e) {
-			logger.error("Error al deslogearse. {}", e);
+			logger.error("Error al cambiar asignatira. {}", e);
 		}
 	}
 
@@ -918,15 +911,16 @@ public class MainController implements Initializable {
 	 *             excepción
 	 */
 	public void clearSelection() {
-		if (!logs.getLogs().isEmpty()) {
-			listParticipants.getSelectionModel().clearSelection();
-			listEvents.getSelectionModel().clearSelection();
-			filterLogs.clear();
-			viewchart.getDate().clear();
-			viewchart.getLabel().clear();
+		if (logs != null)
+			if (!logs.getLogs().isEmpty()) {
+				listParticipants.getSelectionModel().clearSelection();
+				listEvents.getSelectionModel().clearSelection();
+				filterLogs.clear();
+				viewchart.getDate().clear();
+				viewchart.getLabel().clear();
 
-			loadHTML(logs.getLogs());
-		}
+				loadHTML(logs.getLogs());
+			}
 
 	}
 
