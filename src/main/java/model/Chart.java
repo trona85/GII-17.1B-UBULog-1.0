@@ -108,7 +108,7 @@ public class Chart {
 	 *            logs.
 	 */
 	public void setLabel(ObservableList<EnrolledUser> selectedParticipants, ObservableList<Event> selectedEvents,
-			List<Log> filterLogs) {
+			ArrayList<Log> filterLogs) {
 		int cont = 0;
 		String fechaLog = null;
 		asignedUserMonth(filterLogs);
@@ -182,7 +182,7 @@ public class Chart {
 	 */
 	public void generarGrafica() {
 
-		try (FileWriter ficheroJS = new FileWriter("bin/chart/js/Chart.js");
+		try (FileWriter ficheroJS = new FileWriter(getClass().getResource("/chart/js/Chart.js").getFile());
 				PrintWriter pw = new PrintWriter(ficheroJS)) {
 			pw.println(
 					"var MONTHS = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];");

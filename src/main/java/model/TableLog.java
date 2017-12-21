@@ -24,7 +24,7 @@ public class TableLog {
 	
 	public void generarTablaLogs(List<Log> list) {
 
-		try(FileWriter ficheroHTML = new FileWriter("bin/tablelogs/html/tablelogs.html");
+		try(FileWriter ficheroHTML = new FileWriter(getClass().getResource("/tablelogs/html/tablelogs.html").getFile());
 				PrintWriter pw = new PrintWriter(ficheroHTML); ) {
 			String initRow ="\t\t<th>";
 			String finalRow = "</th>";
