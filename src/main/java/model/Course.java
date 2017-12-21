@@ -46,7 +46,6 @@ public class Course {
 	 * 
 	 * @param obj
 	 *            objeto JSON con la información del curso
-	 * @throws Exception excepción
 	 */
 	public Course(JSONObject obj) {
 

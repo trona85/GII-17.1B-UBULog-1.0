@@ -70,8 +70,6 @@ public class WelcomeController implements Initializable {
 	/**
 	 * Botón entrar, accede a la siguiente ventana
 	 * 
-	 * @param event, evento.
-	 * @throws Exception excepción
 	 */
 	public void enterCourse() {
 		try {

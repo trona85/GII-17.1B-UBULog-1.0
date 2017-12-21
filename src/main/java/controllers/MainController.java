@@ -679,9 +679,9 @@ public class MainController implements Initializable {
 	 * @param ftLogs,
 	 *            logs filtrados.
 	 */
-	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp, List<Log> list) {
+	private void filtroTableLogs(ArrayList<String> patternFilter, ArrayList<Boolean> patterncomp, List<Log> ftLogs) {
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < ftLogs.size(); i++) {
 			for (int j = 0; j < patternFilter.size(); j++) {
 				if (patternFilter.get(j).equals("")) {
 					patterncomp.set(j, true);
@@ -691,37 +691,37 @@ public class MainController implements Initializable {
 					Matcher match = null;
 					switch (j) {
 					case 0:
-						match = pattern.matcher(list.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
-								+ (list.get(i).getDate().get(Calendar.MONTH) + 1) + "/"
-								+ list.get(i).getDate().get(Calendar.YEAR) + " "
-								+ list.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
-								+ list.get(i).getDate().get(Calendar.MINUTE));
+						match = pattern.matcher(ftLogs.get(i).getDate().get(Calendar.DAY_OF_MONTH) + "/"
+								+ (ftLogs.get(i).getDate().get(Calendar.MONTH) + 1) + "/"
+								+ ftLogs.get(i).getDate().get(Calendar.YEAR) + " "
+								+ ftLogs.get(i).getDate().get(Calendar.HOUR_OF_DAY) + ":"
+								+ ftLogs.get(i).getDate().get(Calendar.MINUTE));
 
 						break;
 					case 1:
-						match = pattern.matcher(list.get(i).getNameUser().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getNameUser().toUpperCase());
 
 						break;
 					case 2:
-						match = pattern.matcher(list.get(i).getUserAffected().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getUserAffected().toUpperCase());
 						break;
 					case 3:
-						match = pattern.matcher(list.get(i).getContext().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getContext().toUpperCase());
 						break;
 					case 4:
-						match = pattern.matcher(list.get(i).getComponent().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getComponent().toUpperCase());
 						break;
 					case 5:
-						match = pattern.matcher(list.get(i).getEvent().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getEvent().toUpperCase());
 						break;
 					case 6:
-						match = pattern.matcher(list.get(i).getDescription().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getDescription().toUpperCase());
 						break;
 					case 7:
-						match = pattern.matcher(list.get(i).getOrigin().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getOrigin().toUpperCase());
 						break;
 					case 8:
-						match = pattern.matcher(list.get(i).getIp().toUpperCase());
+						match = pattern.matcher(ftLogs.get(i).getIp().toUpperCase());
 						break;
 
 					default:
@@ -736,7 +736,7 @@ public class MainController implements Initializable {
 			if (patterncomp.get(0) && patterncomp.get(1) && patterncomp.get(2) && patterncomp.get(3)
 					&& patterncomp.get(4) && patterncomp.get(5) && patterncomp.get(6) && patterncomp.get(7)
 					&& patterncomp.get(8)) {
-				filterTableLogs.add(list.get(i));
+				filterTableLogs.add(ftLogs.get(i));
 			}
 			for (int k = 0; k < patterncomp.size(); k++) {
 				patterncomp.set(k, false);
@@ -803,8 +803,6 @@ public class MainController implements Initializable {
 	/**
 	 * Cambia la asignatura actual y carga otra
 	 * 
-	 * @throws Exception
-	 *             , escepción.
 	 */
 	public void changeCourse() {
 
@@ -831,8 +829,6 @@ public class MainController implements Initializable {
 	 * Exporta el gráfico. El usuario podrá elegir entre el formato .png o .jpg
 	 * para guardar la imagen.
 	 * 
-	 * @throws Exception
-	 *             excepción
 	 */
 	public void saveChart() {
 
@@ -868,8 +864,6 @@ public class MainController implements Initializable {
 	/**
 	 * Vuelve a la ventana de login de usuario
 	 * 
-	 * @throws Exception
-	 *             excepción
 	 */
 	public void logOut() {
 		logger.info("Cerrando sesión de usuario");
@@ -879,9 +873,7 @@ public class MainController implements Initializable {
 
 	/**
 	 * Metodo que cambia la ventana cuando cambias de asignatura o te deslogeas.
-	 * 
-	 * @throws IOException
-	 *             excepción.
+	 * @param resource, recurso a abrir.
 	 */
 	private void changeView(String resource) {
 		try {
@@ -905,10 +897,6 @@ public class MainController implements Initializable {
 	/**
 	 * Deja de seleccionar los participantes/actividades y borra el gráfico.
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
-	 * @throws Exception
-	 *             excepción
 	 */
 	public void clearSelection() {
 		if (logs != null)
@@ -927,8 +915,6 @@ public class MainController implements Initializable {
 	/**
 	 * Abre en el navegador el repositorio del proyecto.
 	 * 
-	 * @throws Exception
-	 *             excepción
 	 */
 	public void aboutUBULog() {
 		try {
@@ -941,8 +927,6 @@ public class MainController implements Initializable {
 	/**
 	 * Boton para cargar documento
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
 	 */
 	public void cargaDocumento() {
 		try {
@@ -1095,16 +1079,15 @@ public class MainController implements Initializable {
 	 * 
 	 * Botón "Salir". Cierra la aplicación.
 	 * 
-	 * @param actionEvent,
-	 *            acción del evento.
-	 * @throws Exception
-	 *             excepción
 	 */
 	public void closeApplication() {
 		logger.info("Cerrando aplicación");
 		UBULog.getStage().close();
 	}
 
+	/**
+	 * Método para error de conexión.
+	 */
 	public static void errorDeConexion() {
 		Alert alert = new Alert(AlertType.ERROR);
 
