@@ -33,17 +33,17 @@ public class UBULog extends Application {
 	@Override 
 	public void start(Stage primaryStage) {
 		try {
-			logger.info("[Bienvenido a UBULog]");
+			logger.info("[Bienvenido a UBULog 1.1]");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			setInit(primaryStage);
 			initialize.setScene(scene);
 			initialize.getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.initialize.setTitle("UBULog");
+			UBULog.initialize.setTitle("UBULog 1.1");
 			initialize.show();
 		} catch (Exception e) {
-			logger.error("Error al iniciar UBULog");
+			logger.error("Error al iniciar UBULog 1.1");
 		}
 	}
 	
