@@ -315,9 +315,12 @@ public class MainController implements Initializable {
 	 * Método que carga los html de la gráfica y la tabla de logs.
 	 */
 	private void viewHTML() {
-		engineChart.load(getClass().getResource("/chart/html/chart.html").toString());
-		engineTableLogs.load(getClass().getResource("/tablelogs/html/tablelogs.html").toString());
+		File f = new File("");
+		engineChart.load("file://" + f.getAbsolutePath() + "/chart.html");
+		engineTableLogs.load("file://" + f.getAbsolutePath() + "/tablelogs.html");
 	}
+
+	
 
 	private void filterLogs() {
 		selectedEvents = listEvents.getSelectionModel().getSelectedItems();
@@ -873,7 +876,9 @@ public class MainController implements Initializable {
 
 	/**
 	 * Metodo que cambia la ventana cuando cambias de asignatura o te deslogeas.
-	 * @param resource, recurso a abrir.
+	 * 
+	 * @param resource,
+	 *            recurso a abrir.
 	 */
 	private void changeView(String resource) {
 		try {
@@ -1014,7 +1019,6 @@ public class MainController implements Initializable {
 			initializeDataSet(logs);
 
 			alert.close();
-			Files.delete(file.toPath());
 
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error(e.getMessage());
@@ -1025,6 +1029,32 @@ public class MainController implements Initializable {
 			if (webScripting != null) {
 				webScripting.close();
 			}
+		}
+
+	}
+
+	/**
+	 * Metodo para eliminar los ficheros generados.
+	 * @param files, ficheros.
+	 */
+	private void removeFile() {
+
+		ArrayList<String> fileCopies = new ArrayList<>();
+		fileCopies.add("./chart.css");
+		fileCopies.add("./chart.html");
+		fileCopies.add("./Chart.js");
+		fileCopies.add("./tablelogs.html");
+		fileCopies.add("./utils.js");
+		fileCopies.add("./tempcsv.csv");
+		try {
+			for (String file : fileCopies) {
+				File f = new File(file);
+				if(f.exists()){
+					Files.delete(f.toPath());
+				}
+			}
+		} catch (IOException e) {
+			logger.error("Error. {}", new UBULogException(UBULogError.FICHERO_NO_ELIMINADO));
 		}
 
 	}
@@ -1083,6 +1113,7 @@ public class MainController implements Initializable {
 	public void closeApplication() {
 		logger.info("Cerrando aplicación");
 		UBULog.getStage().close();
+		removeFile();
 	}
 
 	/**
