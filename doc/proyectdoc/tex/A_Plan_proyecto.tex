@@ -234,17 +234,150 @@ El \href{https://github.com/trona85/GII-17.1B-UBULog-1.0/milestone/8?closed=1}{S
 \imagen{sprint8}{Sprint 8.}
 
 \subsection{Sprint 9 (06/12/17 -
-	13/12/17)}\label{sprint-8-061217---131217}
+	13/12/17)}\label{sprint-9-061217---131217}
 
-El \href{https://github.com/trona85/GII-17.1B-UBULog-1.0/milestone/9?closed=1}{Sprint 9}
+Los objetivos fueron:
+\begin{itemize}
+	\tightlist
+	\item
+	Sacar filtros del html a nuestra interfaz.
+	\item
+	Implementar funcionalidad filtros de tabla de logs y cargar la nueva gráfica con los log resultantes.
+	\item
+	Investigar la utilización de web scraping para nuestra aplicación.
+	\item
+	Crear botones en la interfaz para coger el csv de forma automática.
+	\item
+	Implementar funcionalidad de botón documento online.
+	
+\end{itemize}
 
+En este sprint, cabe destacar, la investigación del web scraping, se estimo que se haría en 5 días mas 3 dias de implementación, en una mañana, se pudieron probar las librerías Jsoup, Selenium y htmlUnit. Las dos primeras se descartaron, Selenium por problemas de ubicación de exploradores porque no podemos saber en donde el usuario los tendrá instalados y lo descartamos y Jsoup solo parsea la web, no nos deja interaccionar con ella. Con la librería htmlUnt hicimos pruebas y conseguimos traernos los datos correspondientes, en la misma mañana pudimos hacer el trabajo que esperábamos hacer en 8 días.
 
+El \href{https://github.com/trona85/GII-17.1B-UBULog-1.0/milestone/9?closed=1}{Sprint 9} se estimo en 15 días de trabajo y se realizo en esos 3 días.
+
+\imagen{sprint9}{Sprint 9.}
+
+\subsection{Sprint 10 (13/12/17 -
+	20/12/17)}\label{sprint-10-131217---201217}
+
+Los objetivos fueron:
+\begin{itemize}
+	\tightlist
+	\item
+	WebScripting funcional y refactorizado.
+	\item
+	Mostrar fecha y hora en la tabla de logs.
+	\item
+	Centrar botones inferiores.
+	\item
+	Descartar meses generados por la gráfica que no tengan logs.
+	\item
+	Modal de carga para la lectura de logs.
+	\item
+	Añadir tipos de gráficas.
+	\item
+	Arreglo de la muestra de fechas de la tabla log.
+	\item
+	Aumentar TimeOut de WebScraping.
+	
+\end{itemize}
+
+El \href{https://github.com/trona85/GII-17.1B-UBULog-1.0/milestone/10?closed=1}{Sprint 10} se estimo en 12 días de trabajo y se realizo en esos 5 días.
+
+\imagen{sprint10}{Sprint 10.}
+
+\subsection{Sprint 11 (20/12/17 -
+	12/01/18)}\label{sprint-11-201217---120118}
+
+Los objetivos fueron:
+\begin{itemize}
+	\tightlist
+	\item
+	Documentación de código.
+	\item
+	Documentación de memoria.
+	\item
+	Refactorización.
+	\item
+	Arreglo de bugs para la entrega.
+	
+\end{itemize}
+
+Este es el ultimo spring del proyecto, y el mas largo, se completara la memoria, anexos, documentación de código y se arreglaran bugs que se han observado durante el desarrollo y el testeo manual.
+
+El \href{https://github.com/trona85/GII-17.1B-UBULog-1.0/milestone/11?closed=1}{Sprint 10}
+
+%\imagen{sprint11}{Sprint 11.}
+
+FALTA IMASLKEFÑSJFDÑASJF
 
 
 \section{Estudio de viabilidad}
 
+Podemos desglosar los costes del proyecto de la siguiente manera.
+
 \subsection{Viabilidad económica}
 
+En el desglose podemos diferenciarlo en las siguientes categorías.
+
+\subsubsection{Costes de personal}
+
+El proyecto se lleva a cabo por un programador a media jornada ya que esta de practicas en otra empresa 25H/S, empezando en Octubre del 2017 asta Enero del 2018.
+
+\tablaSmall{Coste personal}{l c c}{costepersonal}
+{ \multicolumn{1}{c }{Concepto} & Coste \\}{ 
+	Salario mensual bruto & 1.300\\
+	IRPF (10\%) & 130 \\
+	S.S(29.9\%) & 388.88 \\
+	Salario programador & 1.688.88\\
+	\\
+	Total 3 meses y medio(20H/S) & 2955.54 \\
+} 
+
+\subsubsection{Coste hardware}
+
+El proyecto se realiza con el ordenador personal y se considera la amortización a 5 años y se utiliza durante 3 meses y medio.
+
+\tablaSmall{Coste hardware}{l c c}{costehardware}
+{ \multicolumn{1}{l}{Concepto} & Coste & Coste amortizado \\}{ 
+	Portatil & 1.000 & 4.86 \\
+	\\
+	Total & 1000 & 4.86  \\
+} 
+
+\subsubsection{Beneficios}
+
+El proyecto se ha pensado para ayudar al profesorado a ver la interacción de los alumnos en la asignatura. Se puede considerar un coste de 5 euros por licencia y que en la universidad hay, redondeando, 700 profesores estamos hablando de 3500 euros, la aplicación en un futuro cambiara y llegara a la 2.0 con lo cual habría que volver a pagar la nueva licencia.
+
+La aplicación se puede extender a diferentes centros aparte de la UBU.
+Si lo observamos en ese sentido se podría cobrear 500 euros por licencia, para su utilización en esa universidad. Si tenemos 83 universidades es España, podríamos obtener unos beneficios de 83 * 500 = 41.500 euros.
+
 \subsection{Viabilidad legal}
+
+En esta sección hablaremos de la viabilidad del software utilizado, de si las licencias nos permiten la explotación del mismo o su propia utilización.
+
+\tablaSmall{Viabilidad legal }{l c c c c}{viabilidadlegal}
+{ \multicolumn{1}{l}{Herramientas} & Licencia \\}{ 
+	commons-codec1.9 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	commons-csv-1.5 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	commons-logging-1.2 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	gson-2.8.0 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	htmlunit-2.28-OSGi & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpasyncclient-4.1.2 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpasyncclient-cache-4.1.2 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpclient-4.5.2 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpclient-cache-4.5.2 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpcore-4.4.5 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpcore-nio-4.4.5 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	java-json & \href{http://json.org/license.html}{Json license} \\
+	log4j-1.2.17 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	slf4j-api-1.7.1 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	httpclient-cache-4.5.2 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	slf4j-log4j12-1.7.1 & \href{http://www.apache.org/licenses/LICENSE-2.0.txt}{ Apache License Version 2.0} \\
+	UBULog 1.0 & \href{https://github.com/trona85/GII-17.1B-UBULog-1.0/blob/master/LICENSE}{ Eclipse Public License - v 1.0} \\
+} 
+
+Para la aplicación desarrollada y para lo que esta pensado, por las licencias que se están utilizando no hay ningún problema para su utilización, mientras compartamos todo el código utilizado.
 
 
