@@ -6,7 +6,7 @@ package webservice;
  * @author Oscar Fernández Armengol
  *  @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.2
  */
 public class WebServiceOptions {
 
@@ -32,8 +32,4 @@ public class WebServiceOptions {
 	 * Usuarios matriculados en un curso
 	 */
 	public static final String OBTENER_USUARIOS_MATRICULADOS = "core_enrol_get_enrolled_users";
-	/**
-	 * Categorías y elementos evaluables de un curso
-	 */
-	public static final String OBTENER_TABLA_NOTAS = "gradereport_user_get_grades_table";
 }
