@@ -363,9 +363,9 @@
 \newcommand{\nombre}{Oscar Fernández Armengol} %%% cambio de comando
 
 % Datos de portada
-\title{UBULog 1.0}
+\title{UBULog 1.1}
 \author{\nombre}
-\tutor{Raúl Marticorena Sanchez}
+\tutor{Raúl Marticorena Sánchez}
 \date{\today}
 
 \begin{document}
@@ -382,7 +382,7 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent D. nombre tutor, profesor del departamento de nombre departamento, área de nombre área.
+\noindent D. \tutor, profesor del departamento de nombre departamento, área de nombre área.
 
 \noindent Expone:
 
@@ -430,12 +430,21 @@ D. nombre tutor
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-En este primer apartado se hace una \textbf{breve} presentación del tema que se aborda en el proyecto.
+Este proyecto trata de crear una aplicación de escritorio, para docentes de la universidad de brugos, aunque se puede extender a cualquiera que tuviera un entorno de moodle por lo menos de la versión 3.3.
+
+La aplicación le permitirá logearse en la plataforma de moodle, utilizando el correo web, su contraseña y el dominio, en nuestro caso es https://ubuvirtual.ubu.es. Una vez iniciada la sesión sabremos las asignaturas en las que esta matriculado como profesor o alumno, una vez elegida la asignatura sabremos quien esta matriculado en ella. Una vez aquí podremos ver las interacciones de los log de los alumnos de manera sencilla.
+
+Nuestra aplicación consulta y guarda información de los cursos y los usuarios, a través del web service con una respuesta JSON.
+
+A lo largo de la memoria se explicara todos los pasos del desarrollo con los problemas ocasionados.
+
+Este proyecto es una continuación del proyecto UBUGrades 1.0 pero en vez de sacar estadísticas de las notas, se sacara las interacciones de los diferentes usuarios para mostrarlo de forma amigable a los usuarios.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Palabras separadas por comas que identifiquen el contenido del proyecto Ej: servidor web, buscador de vuelos, android \ldots
+Moodle, registros, servicios web, JSON, JavaFX, e-learning, análisis del
+aprendizaje, web scriping.
 \end{abstract}
 
 \clearpage
@@ -443,12 +452,23 @@ Palabras separadas por comas que identifiquen el contenido del proyecto Ej: serv
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-A \textbf{brief} presentation of the topic addressed in the project.
+
+This project tries to create a desktop application for teachers of the University of Brugos, although it can be extended to anyone who has a Moodle environment at least of version 3.3.
+
+The application will allow you to login to the moodle platform, using webmail, your password and the domain, in our case it is https://ubuvirtual.ubu.es. Once the session begins, we will know the subjects in which he / she is enrolled as a teacher or student, once the subject is chosen, we will know who is enrolled in it. Once here we can see the interactions of the students' log in a simple way.
+
+Our application consults and saves information about courses and users, through the web service with a JSON response.
+
+Throughout the memory all the steps of the development will be explained with the problems caused.
+
+This project is a continuation of the UBUGrades 1.0 project but instead of taking statistics from the notes, the interactions of the different users will be taken out in order to show it in a friendly way to the users.
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-keywords separated by commas.
+
+Moodle, logs, web services, JSON, JavaFX, e-learning, analysis of
+learning, web scripting.
 \end{abstract}
 
 \clearpage
@@ -471,7 +491,7 @@ keywords separated by commas.
 \include{./tex/3_Conceptos_teoricos}
 \include{./tex/4_Tecnicas_y_herramientas}
 \include{./tex/5_Aspectos_relevantes_del_desarrollo_del_proyecto}
-\include{./tex/6_Trabajos_relacionados}
+%\include{./tex/6_Trabajos_relacionados}
 \include{./tex/7_Conclusiones_Lineas_de_trabajo_futuras}
 
 
