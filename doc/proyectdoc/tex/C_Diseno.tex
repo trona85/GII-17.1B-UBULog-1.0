@@ -2,10 +2,142 @@
 
 \section{Introducción}
 
+En esta parte de los anexos vamos a explicar el diseño de dato, diseño procedimental y diseño arquitectónico de nuestro proyecto.
+
 \section{Diseño de datos}
 
-\section{Diseño procedimental}
+Nuestro modelo de datos se corresponde con lo siguiente:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Chart}: tiene un tipo de gráfico, agrupación de fechas por meses de los log, y los valores de las coincidencias entre ellos. Se encarga de la construcción del gráfico en la aplicación
+	\item
+	\textbf{Course}: tiene un id, nombre, apellido, usuarios matriculados, grupos y roles asociados y tipo de actividad.
+	\item
+	\textbf{EnrolledUser}: tiene un id, nombre, apellido, nombre completo, primer acceso, ultimo acceso, descripción, ciudad, país, imagen pequeña, imagen grande, usuarios matriculados y grupos, roles y cursos asociados.
+	\item
+	\textbf{Event}: tiene nombre y logs asociados al evento.
+	\item
+	\textbf{Group}: tiene id , nombre y descripción.
+	\item
+	\textbf{Log}: tiene fecha , nombre del usuario que realiza la acción, nombre del usuario afectado, contexto, componente, evento, origen, ip y descripción.
+	\item
+	\textbf{MoodleUser}: tiene un id, nombre, apellido, e-mail, departamento, primer acceso, ultimo acceso, autenticación, descripción, imagen pequeña, imagen grande, token y cursos asociados.
+	\item
+	\textbf{Role}: tiene id , nombre.
+	\item
+	\textbf{TableLog}: no tiene atributos.
+\end{itemize}
+
+%\section{Diseño procedimental}
 
 \section{Diseño arquitectónico}
+
+\subsection{Diseño de paquetes}
+
+El código de la aplicación esta organizado de la siguiente manera:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Paquetes java}: Se ha generado diferentes paquetes para el mantenimiento del código.
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{Controllers}: Controladores de las vistas.
+		
+		\imagen{controller}{Paquete controllers.}
+		
+		\item
+		\textbf{Model}: modelo de la aplicación.
+		
+		\imagen{model}{Paquete model.}
+		
+		\item
+		\textbf{Parserdocument}: paquete para documentos.
+		
+		\imagen{parserdocument}{Paquete parserdocument.}
+		\item
+		\textbf{Ubulogexception}: Gestiona las excepciones.
+		
+		\imagen{ubulogexception}{Paquete ubulogexception.}
+		\item
+		\textbf{Webservice}: servicios web para la obtención de datos en moodle.
+		
+		\imagen{webservice}{Paquete webservice.}
+		
+	\end{itemize}
+	\item
+	\textbf{resources}: Los recursos que utilizaremos para el funcionamiento de nuestra aplicación.
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{css}: Hoja de estilos en cascada (style.css) para la interfaz.
+		\item
+		\textbf{view}: Archivos .fxml para las vista de la aplicación con java fx.
+		
+		\item
+		\textbf{img}: Imágenes de la aplicación.
+		
+		
+	\end{itemize}
+	
+\end{itemize}
+
+\subsection{Diseño de Clases}
+
+\subsubsection{diagrama de Clases}
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Diagrama completo de clases}:
+	
+	\imagen{diagramadeclases}{Diagrama de clases.}
+	
+	
+\end{itemize}
+
+\subsubsection{diagrama de Paquetes}
+
+En esta subsección hacemos referencia a los anexos de Claudia Martínez Herrero. \cite{claudia:anexo}
+
+\subsubsection{Modelo vista controlador}
+
+En esta subsección hacemos referencia a los anexos de Claudia Martínez Herrero. \cite{claudia:anexo} añadiendo nueva formación a la tabla.
+
+\tablaSmallSinColores{Relación MVC entre las clases y vistas}{|l | l | l | l |}{relacion-mvc-entre-las-clases-y-vistas}
+{ \multicolumn{1}{|l }{} & Vista & Modelo & Controlador \\}{ 
+	RF1 Autenticación & Login.fxml & MoodleUser.java & Session.java \\
+	de usuario & & & LoginController.java \\
+	& & & MoodleUserWS.java \\
+	& & & MoodleOptions.java \\ \hline
+	
+	RF2 Extracción de datos & NewMain.fxml  & Course.java & WelcomeController.java\\
+	& Welcome.fxml & & MainController.java \\
+	& & & MoodleUserWS.java \\
+	& & & MoodleOptions.java \\ \hline
+	
+	RF3 Carga de datos 	& NewMain.fxml 		& Log.java & MoodleUserWS.java \\
+	& 					& 				& MoodleOptions.java \\ \hline
+	
+	RF4 Selección de datos & NewMain.fxml  & Group.java & MainController.java\\
+	& & Role.java &  \\
+	& & Log.java & MoodleUserWS.java \\
+	& & EnrolledUser.java & MoodleOptions.java \\ \hline
+	
+	RF5 Visualización de& NewMain.fxml  & EnrolledUser.java & MainController.java\\
+gráficas de log 	& & &  \\ \hline
+	
+		RF6 Visualización de log & NewMain.fxml  & EnrolledUser.java & MainController.java\\
+		& & &  \\ \hline
+	
+	RF7 Cierre de sesión & NewMain.fxml  & MoodleUser.java & MoodleOptions.java\\
+	& Welcome.fxml & & MainController.java \\  \hline
+
+}
+
+
 
 
