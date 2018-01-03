@@ -1,10 +1,10 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
 
-Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, asi como las decisiones tomadas y su repercusión.
+Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, así como las decisiones tomadas y su repercusión.
 
 \section{Inicio del proyecto}\label{inicio-del-proyecto}
 
-El proyecto comenzó el 3 de octubre del 2017. La idea surgió de un tfg anterior el de Claudia Martínez Herrero \cite{claudia} en el cual se iniciaba sesión en ubu-virtual y tenia que sacar con gráficas las notas de los diferentes alumnos. Al tutor Raúl Marticorena Sánchez, se le ocurrió dar una vuelta a esa idea y partiendo de ese tfg, queríamos sacar las estadísticas de las interacciones de los diferentes usuarios de ubu-virtual en una asignatura concreta para poder mostrarlo al profesor de forma mas amigable.
+El proyecto comenzó el 3 de octubre del 2017. La idea surgió de un tfg anterior el de Claudia Martínez Herrero \cite{claudia} en el cual se iniciaba sesión en ubu-virtual y tenía que sacar con gráficas las notas de los diferentes alumnos. Al tutor Raúl Marticorena Sánchez, se le ocurrió dar una vuelta a esa idea y partiendo de ese tfg, queríamos sacar las estadísticas de las interacciones de los diferentes usuarios de ubu-virtual en una asignatura concreta para poder mostrarlo al profesor de forma más amigable.
 
 \imagen{logo}{Logo UBULog.}
 
@@ -19,24 +19,24 @@ Algunas tecnologías utilizadas en el proyecto requerían formación antes de em
 \begin{itemize}
 	\tightlist
 	\item
-	Aplicación UBUGrades, se tubo que probar y refactorizar el código para facilitar su lectura y saber que partes nos valían y cuales podríamos desechar.
+	Aplicación UBUGrades, se tuvo que probar y refactorizar el código para facilitar su lectura y saber que partes nos valían y cuales podríamos desechar.
 	\item
-	Libreria common-csv-1.5, se investigo su javaDoc para saber si nos podia parsear nuestros documentos.
+	Librería common-csv-1.5, se investigó su javaDoc para saber si nos podía parsear nuestros documentos.
 	\item
-	Liberia HtmlUnit, Se tubo que investigar la librería y hacer diferentes pruebas antes de su implementación
+	Liberia HtmlUnit, Se tuvo que investigar la librería y hacer diferentes pruebas antes de su implementación
 	\item
-	Liberia Calendar, se investigo su javaDoc antes de empezar con la implementación, en un primer momento nu funciono y se tubo que analizar el código debugeando, se vio que el javaDoc estaba mal documentado y se vio como utilizar esta librería de forma correcta.
+	Liberia Calendar, se investigó su javaDoc antes de empezar con la implementación, en un primer momento nu funciono y se tuvo que analizar el código debuggeando, se vio que el javaDoc estaba mal documentado y se vio como utilizar esta librería de forma correcta.
 	\item
-	Liberia chart.js, se miro la documentación \cite{javascript:chart} y y se analizo su código para su implementación.
+	Libería chart.js, se miró la documentación \cite{javascript:chart} y se analizó su código para su implementación.
 \end{itemize}
 
 \section{Decisiones técnicas}\label{decisiones-tecnicas}
 
-Este proyecto a sido una continuación parcial de proyecto de Claudia Martínez Herrero \cite{claudia} con lo cual en los puntos coincidentes, explicaremos las diferencias existentes y añadiremos nueva información.
+Este proyecto ha sido una continuación parcial de proyecto de Claudia Martínez Herrero \cite{claudia} con lo cual, en los puntos coincidentes, explicaremos las diferencias existentes y añadiremos nueva información.
 
 \subsection{Utilización de Moodle y sus servicios web}\label{utilizacióndemoodleysusserviciosweb}
 
-La única diferencia en este punto, es, que nosotros no hemos generado calificaciones, ya que nosotros no lo necesitamos, porque vamos a mirar las interacciones de los usuarios con el log que genera moodle (la descarga del log se explicara en la guiá de usuario).
+La única diferencia en este punto es, que nosotros no hemos generado calificaciones, ya que nosotros no lo necesitamos, porque vamos a mirar las interacciones de los usuarios con el log que genera moodle (la descarga del log se explicara en la guía de usuario).
 
 \subsection{Funciones utilizadas}\label{funciones-utilizadas}
 
@@ -62,7 +62,7 @@ No se aporta nada nuevo.
 
 \subsection{Generar gráficos}\label{generar-graficos}
 
-Para generar los gráficos, ya que se ha optado por la librería chart.js que es de javaScript, necesitaremos un html para poder ejecutar ese java script y mostrarlo en la etiqueta HTML5 <canvas>. En un primer momento, se considero que el .html iría en resources y el .js que esta creado en tiempo de ejecución igual. Todo funcionaba de forma correcta hasta que se genero el .jar, dado que en el .jar no se puede escribir, nos empezó a dar excepciones de que ese archivo no existía, entonces optamos por generarlos en tiempo de ejecución todos los archivos. Así solucionamos los problemas de ejecución en el .jar.
+Para generar los gráficos, ya que se ha optado por la librería chart.js que es de javaScript, necesitaremos un html para poder ejecutar ese java script y mostrarlo en la etiqueta HTML5 <canvas>. En un primer momento, se consideró que el .html iría en resources y el .js que esta creado en tiempo de ejecución igual. Todo funcionaba de forma correcta hasta que se generó el .jar, dado que en el .jar no se puede escribir, nos empezó a dar excepciones de que ese archivo no existía, entonces optamos por generarlos en tiempo de ejecución todos los archivos. Así solucionamos los problemas de ejecución en el .jar.
 
 Cabe destacar que cuando se cierra la aplicación nos aseguramos de eliminar los archivos generados.
 
@@ -98,18 +98,18 @@ El javaScript necesario para las gráficas, se genera en tiempo de ejecución. E
 
 \imagen{generategrafica}{Código chart general.js.}
 
-En este código lo que hacemos es poner la configuración del gráfico, el tipo, y los datos. Las fechas las insertamos en este método, para insertar los datos que mostrar las gráficas llamamos al metodo setDataSetJavaScript pasandole el objeto printerWriter, el código es el siguiente.
+En este código lo que hacemos es poner la configuración del gráfico, el tipo, y los datos. Las fechas las insertamos en este método, para insertar los datos que queremos mostrar las gráficas llamamos al método setDataSetJavaScript pasándole el objeto printerWriter, el código es el siguiente.
 
 \imagen{setdatasetjavascript}{Código chart datos.js.}
 
-En este código generamos tantos dataset como tengamos ya almacenamos con el numero de interacciones correspondientes. Para obtener estos datos el método que almacena los datos es el siguiente.
+En este código generamos tantos dataset como tengamos ya almacenamos con el número de interacciones correspondientes. Para obtener estos datos el método que almacena los datos es el siguiente.
 
 \imagen{setlabel1}{Código que obtiene datos para el gráfico 1.}
 \imagen{setlabel2}{Código que obtiene datos para el gráfico 2.}
 
-Este método tiene 3 condiciones principales, si solo a seleccionado participantes, si solo a seleccionado eventos o si selecciona ambas.
+Este método tiene 3 condiciones principales, si solo ha seleccionado participantes, si solo ha seleccionado eventos o si selecciona ambas.
 
-en la condición mas compleja, que es seleccionar ambas, lo que ocurre, es:
+En la condición más compleja, que es seleccionar ambas, lo que ocurre, es:
 
 \begin{itemize}
 	\tightlist
@@ -122,12 +122,12 @@ en la condición mas compleja, que es seleccionar ambas, lo que ocurre, es:
 	\item
 	Con cada set de fechas de los log iteramos cada uno de los logs.
 	\item
-	Si el mes y el año, el evento y participante corresponde con el log incrementamos el contador, si no, no. Almacenamos los valores en una lista para saber el numero de veces que un participante, en un evento concreto, en esa fecha.
+	Si el mes y el año, el evento y participante corresponde con el log incrementamos el contador, si no, no. Almacenamos los valores en una lista para saber el número de veces que un participante, en un evento concreto, en esa fecha.
 \end{itemize}
 
 \subsection{Generar tabla logs}\label{generar-tabla-log}
  
- En esta parte podremos ver la información concreta de los log, se implementaron unos filtros con los cuales podremos desgranar mas el log y volver a generar una gráfica mas especifica con los datos resultantes de la tabla.
+ En esta parte podremos ver la información concreta de los log, se implementaron unos filtros con los cuales podremos desgranar más el log y volver a generar una gráfica más específica con los datos resultantes de la tabla.
  
  Cabe destacar que cuando se cierra la aplicación nos aseguramos de eliminar los archivos generados.
  
@@ -144,13 +144,13 @@ Creamos las cabeceras y una vez hecho eso recorremos cada log para obtener sus d
 
 Con web scripting lo que queremos conseguir es la automatización de la descarga de logs.
 
-Hemos observado que con la descarga de logs considerablemente grandes(con 20.000 instancias) el tiempo se incrementa considerablemente, es muchísimo mas rápido la descarga manual del log. Se ha observado, que si se intenta descargar con una conexión wifi, la aplicación puede llegar a colgarse de tal manera que haya que hacer un kill.
+Hemos observado que con la descarga de logs considerablemente grandes(con 20.000 instancias) el tiempo se incrementa considerablemente, es muchísimo más rápido la descarga manual del log. Se ha observado que, si se intenta descargar con una conexión wifi, la aplicación puede llegar a colgarse de tal manera que haya que hacer un kill.
 
-Hablaremos del código el las siguientes sub-secciones.
+Hablaremos del código en las siguientes sub-secciones.
 
 \subsubsection{Constructor}\label{constructor}
 
-En el cargaremos la web de ubu virtual y iniciaremos sesión.
+En el cargaremos la web de ubu-virtual e iniciaremos sesión.
 
 \imagen{webconst}{Constructor web scripting.}
 
@@ -179,7 +179,7 @@ No se aporta nada nuevo.
 
 \subsection{Ventana de principal}\label{ventana-de-principal}
 
-Esta ventana, se ha tenido que crear desde 0, porque no se re-dimensionaba de forma correcta, aunque se ha seguido el diseño que ya estaba, se ha cambiado botones y añadido funcionalidades nuevas, al igual que se han suprimido otras. 
+Esta ventana, se ha tenido que crear desde 0, porque no se redimensionaba de forma correcta, aunque se ha seguido el diseño que ya estaba, se ha cambiado botones y añadido funcionalidades nuevas, al igual que se han suprimido otras. 
 
 el resultado es el siguiente.
 
@@ -195,23 +195,23 @@ Un nuevo botón para generar el gráfico con referencia a los resultados de la t
 
 \subsubsection{Gráfica logs}\label{grafica-logs}
 
-Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado seria el siguiente.
+Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado sería el siguiente.
 
 \imagen{aplicacionchart}{Vista de gráfica.}
 
-En la gráfica podemos ver en la leyenda las combinaciones seleccionadas, y el el gráfico los resultados. Si no vemos bien en numero de interacciones en el gráfico a simple vista, podremos ir con el ratón, colocarnos encima de la barra deseada y nos dará la información correspondiente.
+En la gráfica podemos ver en la leyenda las combinaciones seleccionadas, y en el gráfico los resultados. Si no vemos bien en número de interacciones en el gráfico a simple vista, podremos ir con el ratón, colocarnos encima de la barra deseada y nos dará la información correspondiente.
 
 Si deseamos cambiar el tipo de gráfico podremos pinchar en el selector de la gráfica y seleccionar uno diferente.
 
 \subsubsection{Tabla logs}\label{tabla-logs}
 
-Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado seria el siguiente en la tabla de logs.
+Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado sería el siguiente en la tabla de logs.
 
 \imagen{aplicaciontable}{Vista tabla de logs.}
 
 En la tabla de logs, podremos ver los log de forma individual, con sus características.
 
-En esta tabla, proporcionamos unos filtros, de los cuales, cada uno corresponde con una columna de la tabla. En el caso de que queramos ver los log mas desgranados, podremos filtrarlos y cuando muestre el resultado pinchar en el botón generar gráfica a partir de datos de tabla y nos mostrara los datos en la gráfica resultantes.
+En esta tabla, proporcionamos unos filtros, de los cuales, cada uno corresponde con una columna de la tabla. En el caso de que queramos ver los log más desgranados, podremos filtrarlos y cuando muestre el resultado pinchar en el botón generar gráfica a partir de datos de tabla y nos mostrara los datos en la gráfica resultantes.
 
 
 
