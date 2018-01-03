@@ -2,10 +2,231 @@
 
 \section{Introducción}
 
+Este proyecto esta orientado a profesores de la universidad de Burgos y en este apartado vamos ha hablar de los objetivos generales, de la especificación de requisitos(funcionales y no funcionales) y y especificaremos cada uno de ellos.
+
 \section{Objetivos generales}
+
+En el desarrollo del proyecto se quieren conseguir los siguientes objetivos:
+
+\begin{itemize}
+	\tightlist
+	\item
+	Desarrollar una aplicación de escritorio para poder logearse con ubu-virtual.
+	\item
+	Obtención de datos por el web service de moodle.
+	\item
+	Visualizar los datos correspondientes a la asignatura seleccionada.
+	\item
+	Facilitar la interpretación de los datos representándolo por diferentes tipos de gráficas.
+	\item
+	Desgranar los datos aportados para un análisis mas profundo de ellos.
+\end{itemize}
 
 \section{Catalogo de requisitos}
 
+Ahora hablaremos de los requisitos funcionales y no funcionales, derivados de los objetivos generales de este proyecto. Se notara que varios puntos del apartado son iguales al anexo del tfg de Claudia Martínez Herrero \cite{claudia:anexo}
+
+\subsection{Requisitos funcionales}\label{requisitos-funcionales}
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{RF-1 Autenticación de usuario:} Inicialmente el usuario debe identificarse con su correo de profesor y su contraseña para poder hacer uso de las funciones de la aplicación.
+	\item
+	\textbf{RF-2 Extracción de datos:} A partir de los datos de usuario, se obtendrán todos los datos referidos a los cursos en los que esté matriculado.
+	\item
+	\textbf{RF-3 Carga de datos:} El usuario debe poder cargar los datos correspondientes al log de la asignatura.
+	\item
+	\textbf{RF-4 Selección de datos:} El usuario debe poder seleccionar qué participantes de esa asignatura y en qué eventos quiere que se muestre el gráfico.
+	
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{RF-4.1 Filtrado de participantes y eventos:} Se podrá filtrar a los participantes según los grupos, el rol y por un campo de texto y los eventos por un campo de texto.
+	\end{itemize}
+	\item
+	\textbf{RF-5 Visualización de gráficas de logs:} El usuario podrá visualizar las registros en forma de gráfica.
+	\item
+	\textbf{RF-6 Visualización de Logs:} El usuario podrá visualizar las registros de manera gráfica en formato de tabla.
+		\begin{itemize}
+			\tightlist
+			\item
+			\textbf{RF-6.1 Filtrado de logs:} Se podrá filtrar logs por varios campo de texto cada uno asociado a una columna de la tabla.
+		\end{itemize}
+	\item
+	\textbf{RF-7 Cierre de sesión:} La aplicación cierra sesión.
+
+\subsection{Requisitos no funcionales}\label{requisitos-no-funcionales}
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{RNF-1} La aplicación debe ser de escritorio.
+	\item
+	\textbf{RNF-2} La aplicación debe funcionar en un ordenador con Java (versión 8)
+	\item
+	\textbf{RNF-3} La aplicación debe funcionar contra plataformas de Moodle 3.3 como es UBUVirtual.
+	\item
+	\textbf{RNF-4} La interfaz de usuario debe ser clara e intuitiva para el usuario.
+	\item
+	\textbf{RNF-5} La aplicación debe ser sencilla de utilizar, ahorrando pasos innecesarios que puedan resultar confusos para el usuario.
+	\item
+	\textbf{RNF-6} La aplicación será extensible.
+	\item
+	\textbf{RNF-7} La sección de gráficos debe permitir exportar los gráficos en formato de imagen: .png, .jpg... .
+
+
+
 \section{Especificación de requisitos}
+
+En esta sección se mostrará el diagrama de casos de uso resultante y se
+desarrollará cada uno de ellos.	
+\subsection{Diagrama de casos de uso}\label{diagrama-de-casos-de-uso}
+	
+\imagen{usecasesdiagram}{Diagrama de casos de uso.}{1.35}
+
+\subsection{Actores}\label{actores}
+
+Solo interactuará con el sistema un actor, que se corresponderá con la
+figura del usuario.
+
+\subsection{Casos de uso}\label{casos-de-uso}
+
+\tablaSmallSinColores{RF1 - Autenticación de usuario}{|l | l |}{autenticaciondeusuario}
+{ \multicolumn{1}{|l }{RF1} & Autenticación de usuario \\}{ 
+	Descripción & Se introduce e-mail, contraseña y host (UBUVirtual).\\ \hline
+	Requisitos asociados & RF2. \\
+	\hline
+	Precondiciones & El usuario debe tener utilizar el e-mail de UBUVirtual. \\ \hline
+	Secuencia normal & 	 1- Introducir los 3 campos del login. \\
+	
+	 & 2- Entrar en la aplicación. \\ \hline
+	Postcondiciones & Datos de usuario cargados. Se accederá a la pantalla de \\
+	 & bienvenida.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+} 
+
+\tablaSmallSinColores{RF2 - Extracción de datos}{|l | l |}{extraccion-de-datos}
+{ \multicolumn{1}{|l }{RF2} & Extracción de datos \\}{ 
+	Descripción & El sistema carga los cursos en los que está matriculado \\  & el usuaio.\\ \hline
+	Requisitos asociados & RF1. \\
+	\hline
+	Precondiciones &El usuario se ha logueado correctamente. \\ \hline
+	Secuencia normal & 	 1- Obtención de los cursos del usuario. \\
+	& 2- Carga de la lista de cursos. \\
+		& 3- Selección de curso por parte del usuario. \\ \hline
+	Postcondiciones & Se visualiza una nueva pantalla con el curso elegido.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF3 - Carga de datos}{|l | l |}{carga-de-datos}
+{ \multicolumn{1}{|l }{RF3} & Extracción de datos \\}{ 
+	Descripción & El usuario cargara el fichero csv o ejecutara la descarga del log.\\ \hline
+	Requisitos asociados & RF1. \\
+	\hline
+	Precondiciones & 1- El usuario se ha logueado correctamente. \\ 
+	& 2- El usuario selecciona una asignatura. \\ \hline
+	Secuencia normal & 	 SI tiene csv: Carga documento csv. \\
+	& SI NO tiene csv: puede descargarlo manualmente o clickando en\\ & descarga automatizada. \\ \hline
+	Postcondiciones & Se cargan los datos de log en la aplicación.\\ \hline
+	Frecuencia & Media.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF4 - Selección de datos}{|l | l |}{selección-de-datos}
+{ \multicolumn{1}{|l }{RF4} & Selección de datos \\}{ 
+	Descripción & Se visualiza una pantalla con la lista de participantes del curso\\
+	& y la lista de eventos. El usuario debe seleccionar qué participantes \\ &que eventos o ambos desea visualizar.\\ \hline
+	Requisitos asociados & RF3, RF4.1. \\
+	\hline
+	Precondiciones & 1- El log debe de estar cargado. \\ 
+	& 2- Se debe mostrar participantes y eventos disponibles. \\
+	& 3- Se debe clickar en participantes o eventos o ambos. \\ \hline
+	Secuencia normal & 1- Se carga el log. \\ 
+	& 2- Se muestran los participantes y eventos disponibles. \\
+	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	Postcondiciones & Se cargan los datos de log en la aplicación.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF4.1 - Filtrado de participantes y eventos}{|l | l |}{filtrado-de-participantes-y-eventos}
+{ \multicolumn{1}{|l }{RF4} & Filtrado de participantes y eventos \\}{ 
+	Descripción & El usuario podrá filtrar los participantes y eventos del\\ & curso.\\ \hline
+	Requisitos asociados & RF4. \\
+	\hline
+	Precondiciones & 1- El log debe de estar cargado. \\ 
+	& 2- Se debe mostrar participantes y eventos disponibles. \\ \hline
+	Secuencia normal & 1- Se carga el log. \\ 
+	& 2- Se muestran los participantes y eventos disponibles. \\
+	& 3- Se puede interaccionar con los filtros. \\ \hline
+	Postcondiciones & Se muestran los datos que coinciden con los filtros.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF5 - Visualización de gráficas de logs}{|l | l |}{visualización-de-gráficas-de-logs}
+{ \multicolumn{1}{|l }{RF5} & Visualización de gráficas de logs \\}{ 
+	Descripción & La aplicación mostrara los datos seleccionados de manera\\ & gráfica.\\ \hline
+	Requisitos asociados & RF3, RF4. \\
+	\hline
+	Precondiciones & 1- El log debe de estar cargado. \\ 
+	& 2- Se debe mostrar participantes y eventos disponibles. \\
+	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	Secuencia normal & 1- Se carga el log. \\ 
+	& 2- Se muestran los participantes y eventos disponibles. \\
+	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	Postcondiciones & Se muestran los datos en la gráfica.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF6 - Visualización de logs}{|l | l |}{visualización-de-logs}
+{ \multicolumn{1}{|l }{RF6} & Visualización de logs \\}{ 
+	Descripción & La aplicación mostrara los logs cargados en forma de tabla.\\ \hline
+	Requisitos asociados & RF3, RF4. \\
+	\hline
+	Precondiciones & 1- El log debe de estar cargado. \\ 
+	& 2- Se debe mostrar participantes y eventos disponibles. \\
+	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	Secuencia normal & 1- Se carga el log. \\ 
+	& 2- Se muestran los participantes y eventos disponibles. \\
+	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	Postcondiciones & Se muestran los datos en la tabla logs.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF6.1 - Filtrado de logs}{|l | l |}{filtrado-de-logs}
+{ \multicolumn{1}{|l }{RF6.1} & Filtrado de logs \\}{ 
+	Descripción & El usuario podrá filtrar logs del curso.\\ \hline
+	Requisitos asociados & RF6. \\
+	\hline
+	Precondiciones & 1- El log debe de estar cargado. \\ 
+	& 2- Se debe mostrar participantes y eventos disponibles. \\ \hline
+	Secuencia normal & 1- Se carga el log. \\ 
+	& 2- Se muestran los participantes y eventos disponibles. \\
+	& 3- Se puede interaccionar con los filtros. \\ \hline
+	Postcondiciones & Se muestran los datos que coinciden con los filtros.\\ \hline
+	Frecuencia & Alta.\\ \hline
+	Importancia & Alta. \\ 
+}
+
+\tablaSmallSinColores{RF7 - Cierre de sesión de usuario}{|l | l |}{cierre-de-sesión-de-usuario}
+{ \multicolumn{1}{|l }{RF7} & Cierre de sesión de usuario \\}{ 
+	Descripción & Mediante un botón de salir el usuario podrá cerrar la\\ & aplicación.\\ \hline
+	Requisitos asociados & Ninguno. \\
+	\hline
+	Precondiciones & Sesión de usuario activa. \\ \hline
+	Secuencia normal & 1- El usuario pulsa el botón de salir. \\ 
+	& 2- El sistema cierra la aplicación. \\ \hline
+	Postcondiciones & Aplicación cerrada.\\ \hline
+	Frecuencia & Media.\\ \hline
+	Importancia & Media. \\ 
+}
+
+
 
 
