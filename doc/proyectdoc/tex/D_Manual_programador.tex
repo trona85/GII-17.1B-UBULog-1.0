@@ -2,10 +2,172 @@
 
 \section{Introducción}
 
+En este anexo describe la documentación técnica de programación,
+incluyendo la instalación del entorno de desarrollo, la estructura de la
+aplicación, su compilación, ejecución, la configuración de los diferentes servicios y las pruebas del sistema.
+
 \section{Estructura de directorios}
+
+El repositorio del proyecto podemos observar la siguiente estructura:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\texttt{/}: contiene los ficheros de configuración de Gradle \cite{gradle}, de los servicios de integración continua, en nuestro caso Travis-CI \cite{web:travis}, el fichero README , la copia de la
+	licencia y un fichero .xml que es el ANT para la creación del .jar.
+	\item
+	\texttt{/src/main/java/}: Encontraremos toda la lógica de la aplicación.
+	\item
+	\texttt{/src/test/java/}: El código para testear la aplicación.
+	\item
+	\texttt{/resources/}: Recursos de nuestra aplicación.
+	\item
+	\texttt{/resources/css/}: Estilos de la aplicación.
+	\item
+	\texttt{/resources/img/}: Imágenes de la aplicación.
+	\item
+	\texttt{/lib/}: Librerías de la aplicación.
+	\item
+	\texttt{/doc/}: documentación del proyecto.
+	\item
+	\texttt{/doc/javadoc/}: documentación \emph{javadoc}.
+	\item
+	\texttt{/docs/proyectdoc/}: documentación en formato \LaTeX.
+\end{itemize}
 
 \section{Manual del programador}
 
+En esta sección explicaremos como montar el entorno de desarrollo, descargar el código fuente del proyecto, compilarlo, ejecutarlo y exportarlo. hay que tener en cuenta que este manual esta orientado a sistemas Linux como lo es Ubuntu 16.04 que es donde se ha desarrollado el proyecto, aunque también se podría desarrollar en S.O. Windows.
+
+Para la instalación en sistemas Windows hay que leer la documentación de Claudia Martínez Herrero \cite{claudia:anexo} referente al manual del programador.
+
+\subsection{Entorno de desarrollo}\label{entorno-de-desarrollo}
+
+Para trabajar con el proyecto se necesita tener instalados los
+siguientes programas y dependencias:
+
+\begin{itemize}
+	\tightlist
+	\item
+	Java JDK 8.
+	\item
+	Git.
+	\item
+	Moodle 3.3.
+	\item
+	Eclipse.
+	\item
+	Plugin Gradle para Eclipse.
+\end{itemize}
+
+A continuación, se indica como instalar y configurar correctamente cada
+uno de ellos.
+
+\subsubsection{Java JDK 8}\label{java-jdk-8}
+
+En esta instalación es importante descargar el JDK 8 de oracle ya que, otro jdk como puede ser el que viene por defecto en las librerías de Ubuntu no te proporcionan la Librería Java FX.
+
+Deberemos abrir la consola y poner los siguientes comandos:
+
+\imagen{jdk}{Instalacion JDK 8 en Linux.}
+
+\subsubsection{Git}\label{git}
+
+Necesitamos git para la gestión del repositorio. Git nos permitirá clonar el proyecto en nuestro equipo, subir cambios, comprobar diferencias entre commit, etc.
+
+\imagen{git}{Instalacion Git.}
+
+\subsubsection{Moodle 3.3}\label{moodle}
+
+Para la instalación de Moodle hacemos referencia a los anexos de Claudia Martínez Herrero \cite{claudia:anexo} referente a la instalación de moodle en Windows ya que es idéntica.
+
+\subsubsection{Eclipse}\label{git}
+
+Eclipse es el entorno de desarrollo seleccionado para este proyecto. Si el programador desea utilizar otro, no tendría ningún problema.
+
+Para la instalación deberemos descargar \href{http://www.eclipse.org/downloads/}{Eclipse} en nuestro equipo. Lo descomprimimos y ejecutamos el archivo eclipse-inst, los pasos siguientes es igual que en Windows, se abrirá el gestor de instalación y solo hay que seguir las instrucciones.
+
+\subsubsection{Gadle}\label{git}
+
+La mayoría de los IDE de desarrollo tienen integrado Gradle, como es el caso de Eclipse y no se necesita ningún tipo de instalación.
+
+En el caso de que no tenga, podemos instalarlo en nuestra maquina personal. Lo que deberemos hacer es:
+
+\imagen{gradle}{Instalación gradle.}
+
 \section{Compilación, instalación y ejecución del proyecto}
 
-\section{Pruebas del sistema}
+\subsubsection{Obtención del código fuente}\label{obtención-del-código-fuente}
+
+Una vez hemos instalado todo lo necesario, deberemos clonar nuestro proyecto.
+
+Deberemos entrar al repositorio \href{https://github.com/trona85/GII-17.1B-UBULog-1.0}{GitHub} y en la parte que pone Clone whith HTTPS, copiarnos la URL.
+
+\imagen{githubclone}{Clonar proyecto con Git 1.}
+
+Abrimos la consola y nos vamos a nuestro workspace. Una vez ahí, ponemos el siguiente comando de git con la URL copiada anteriormente.
+
+\imagen{gitclone}{Clonar proyecto con Git 2.}
+
+Nos descargara el código de la aplicación y ya lo tendremos en nuestro equipo para poder trabajar con el.
+
+\subsubsection{Importar proyecto en Eclipse}\label{importar-proyecto-en-eclipse}
+
+Para importar nuestro proyecto deberemos abrir Eclipse. Una vez abierto deberemos:
+
+\begin{enumerate}
+	\tightlist
+	\item
+	Vamos a File-->import...
+	\item
+	Nos saldrá una ventana en la que deberemos elegir la opción de gradle.
+	
+	\imagen{importgradle}{Importar proyecto Gradle.}
+	
+	\item
+	Nos saldra una ventana de información, después de su lectura se da a next.
+	
+		\imagen{welcomegradle}{Información Gradle.}
+	\item
+	En esta ventana nos ubicamos en la raíz del proyecto que queremos importar, igual que en la siguiente imagen, después pinchamos en finalizar.
+	
+	\imagen{raizgradle}{Cargar proyecto Gradle.}
+	
+	\item
+	Gradle empezara a descargar todas las dependencias del proyecto, esto puede tardar unos minutos. Cuando termine ya tendremos nuestro proyecto preparado para el desarrollo.
+		
+	\imagen{dependeciesgradle}{Cargar proyecto Gradle.}
+	
+	
+\end{enumerate}
+
+\subsubsection{Build.gradle}\label{buildgradle}
+
+Build.gradle es el archivo donde debemos poner el tipo de aplicación que es, la versión y las dependencias necesarias de nuestro proyecto. \cite{gradle}
+
+\subsubsection{Travis.yml}\label{buildgradle}
+
+Travis.yml es el archivo donde tenemos la configuración para la integración continua y el análisis de la calidad del código con sonarqube. \cite{web:travis} \cite{Web:sonarqube}
+
+\subsubsection{Generar .jar}\label{generar-jar}
+
+Para generar el .jar se ha creado un .xml en el proyecto que es un ANT, en el se tienen todas las dependencias, .class y recursos necesarios para la ejecución. Para generar el jar deberemos:
+
+\begin{enumerate}
+	\tightlist
+	\item
+	Abrimos UBULog.xml en eclipse.
+	\item
+	La ventana de Eclipse que esta en la parte derecha, que pone OutLine tendremos una opción que es create runnable.
+	
+	\imagen{antecl}{Crear .jar.}
+	
+	Con el botón secundario pinchamos y ejecutamos el ANT Builder para generar el jar, en la consola del Eclipse nos saldrá esto.
+	
+	\imagen{antcreate}{Jar creado.}
+	
+	Una vez visto el resultado de la captura anterior, querrá decir que ya hemos generado el .jar.
+	
+\end{enumerate}
+
+%\section{Pruebas del sistema}
