@@ -2,10 +2,208 @@
 
 \section{Introducción}
 
+En este manual detallamos los requisitos necesarios y el manejo de la aplicación, para ayudar al usuario a su comprensión. Nuestra aplicación no es necesaria la instalación, ya que es un ejecutable.
+
 \section{Requisitos de usuarios}
 
-\section{Instalación}
+Los requisitos mínimos para poder hacer uso de la aplicación son:
+
+\begin{itemize}
+	\tightlist
+	\item
+	Disponer del ejecutable de la aplicación, UBULog.jar.
+	\item
+	Disponer de un ordenador con conexión a Internet.
+	\item
+	Tener instalado Java 8 en el equipo que se valla a ejecutar la aplicación.
+	\item
+	El usuario debe tener una cuenta de ubu-virtual activa con el rol de profesor.
+\end{itemize}
+
+%\section{Instalación}
 
 \section{Manual del usuario}
+
+\subsection{Ejecución}
+
+
+Para la ejecución de la aplicación deberemos abrir la consola de comandos, movernos a la ubicación del ejecutable y poner java -jar nombreaplicación.jar. En la siguiente captura mostramos el proceso.
+
+\imagen{execut}{Ejecución UBULog.}
+
+\subsection{Login}
+
+
+Una vez ejecutada la aplicación nos saldrá la ventana para loguearnos en nuestra aplicación.
+
+\imagen{login}{Login UBULog.}
+
+En el login observamos 3 campos que deberemos rellenar:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Usuario:} Correo de la personal UBU.
+	\item
+	\textbf{Contraseña:} Contraseña utilizada para iniciar sesión en ubu-virtual.
+	\item
+	\textbf{Host:} Dirección web de la plataforma a donde nos queremos conectar. Por defecto esta https://ubuvirtual.ubu.es/.
+\end{itemize}
+
+Una vez introduzcamos los campos tenemos 2 opciones:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Clickar borrar:} Se borraran los campos.
+	\item
+	\textbf{Clickar entrar:} Pueden suceder 2 cosas:
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{Datos incorrectos:} Se borraran los datos y indicara al usuario que el usuario o la contraseña es errónea.
+		\item
+		\textbf{Datos correctos:} Se nos abrirá la pantalla de bienvenida.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Pantalla de bienvenida}
+
+
+Cuando nos logueemos en nuestra aplicación llegaremos a la pantalla de bienvenida, en ella, nos aparecerá la lista de asignaturas en las que estamos matriculado. Deberemos seleccionar una en la que estemos matriculados con el rol de profesor.
+
+\imagen{bienvenida}{Pantalla de bienvenida.}
+
+Cuando clickemos en entrar pueden pasar 2 cosas:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Si NO hemos seleccionado asignatura:} La aplicación nos informa que debemos seleccionar una asignatura.
+	\item
+	\textbf{Si hemos seleccionado asignatura:} Nos llevara a la ventana principal de la aplicación.
+	
+\end{itemize}
+
+\subsection{Pantalla principal}
+
+\imagen{ubulog}{Pantalla principal.}
+
+\subsubsection{Visualización de participantes}
+
+En esta parte de la aplicación veremos los participantes de la asignatura (matriculados, desconocidos, sistema y administrador), nos dira el numero de participantes y tendremos 3 filtros:
+
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Filtro participantes:} Es un filtro de tipo texto que filtrara por el nombre de los participantes.
+	\item
+	\textbf{Grupos:} Filtrara por los grupos a los que perteneces los participantes.
+	\item
+	\textbf{Rol:} Filtrara por los roles a los que perteneces los participantes.
+	
+\end{itemize}
+
+
+\imagen{participantes}{Visualización de participantes.}
+
+Esta sección de la aplicación estará deshabilitada hasta que se cargue el log. Una vez cargado podremos interactuar con el para mostrar los datos en la gráfica y en la tabla de log.
+
+\subsubsection{Visualización de eventos}
+
+En esta parte de la aplicación veremos los eventos que se han realizado a lo largo de la asignatura y un filtro de texto para filtrar por el nombre del evento.
+
+
+\imagen{evento}{Visualización de eventos.}
+
+Esta sección de la aplicación estará deshabilitada hasta que se cargue el log. Una vez cargado podremos interactuar con el para mostrar los datos en la gráfica y en la tabla de log.
+
+\subsubsection{Gráfica}
+
+En esta parte de la aplicación podremos ver los datos seleccionados de forma gráfica, en esta ventana, también tenemos la posibilidad de cambiar el tipo de gráfico.
+
+\imagen{grafica}{Gráfica.}
+
+\subsubsection{Tabla logs}
+
+En esta parte de la aplicación podremos ver los log correspondientes a los datos seleccionados en forma de tabla, en esta ventana, también tenemos la posibilidad de filtrar los datos con los filtros que se encuentra en la parte superior, cada uno corresponde a una columna de la tabla y no diferencian entre minúsculas y mayúsculas.
+
+\imagen{tablelog}{Tabla logs.}
+
+\subsubsection{Botones inferiores}
+
+En esta parte de la aplicación podremos clickar los siguientes botones y su comportamiento es el siguiente:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Generar gráfica a partir de filtros de tabla:} Este botón permanecerá deshabilitado hasta que se cargue el log. De lo que se encarga es de coger los log de la tabla resultante sin filtrar o si se han aplicado filtros y generar un nuevo gráfico con los nuevos datos.
+	\item
+	\textbf{Exportar gráfico:} Guarda el gráfico en una imagen.
+	\item
+	\textbf{Cargar documento online:} Carga los datos del log de forma automatizada. Este proceso puede tardar varios minutos.
+	\item
+	\textbf{Cargar documento local:} Habiendo descargado el log de la asignatura en csv, podemos pasárselo a la aplicación directamente y cargar los datos. Este proceso es mas eficiente que el punto anterior.
+	\item
+	\textbf{Salir:} Cierra la aplicación.
+	
+	
+\end{itemize}
+
+\imagen{botonesinferiores}{Botones inferiores.}
+
+Esta sección de la aplicación estará deshabilitada hasta que se cargue el log. Una vez cargado podremos interactuar con el para mostrar los datos en la gráfica y en la tabla de log.
+
+\subsubsection{Información del usuario}
+
+En esta parte de la aplicación podremos ver el nombre, foto y curso del usuario y el host en el que se ha conectado.
+
+\imagen{userop}{Información del usuario.}
+
+\subsubsection{Menú}
+
+\imagen{menu}{Menú.}
+
+En este menú podremos hacer las siguientes acciones:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Archivo:}
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{Cambiar asignatura:} Vuelve a la pantalla de bienvenida, que muestra la lista de cursos matriculados del usuario.
+		\item
+		\textbf{Guardar gráfico como...:} Abre una ventana para que el usuario guarde el gráfico en formato de imagen (.jpg o .png).
+		\item
+		\textbf{Cerrar sesión:} Vuelve a la pantalla de login.
+		\item
+		\textbf{Salir:} Cierra la aplicación.
+	\end{itemize}
+	\item
+	\textbf{Editar:}
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{Borrar selección:} Borra las selecciones de los participantes y eventos que estén seleccionados y recarga el gráfico y la tabla de log.
+	\end{itemize}
+	\item
+	\textbf{Ayuda:}
+	\begin{itemize}
+		\tightlist
+		\item
+		\textbf{Acerca de UBULog:} Abre en el navegador un enlace al repositorio del proyecto.
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
 
 
