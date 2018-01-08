@@ -8,14 +8,14 @@ Scrum es un marco de trabajo para el desarrollo de \emph{software} que se
 engloba dentro de las metodologías ágiles. En él se define un conjunto de prácticas y roles durante el desarrollo del proyecto. Es una estrategia de trabajo iterativa e incremental a través de iteraciones (\emph{sprints})
 y revisiones. 
 
-Durante el proyecto se han llevado a cabo reuniones semanales con el tutor (\emph{sprints}) y según se iban terminando las tareas (\emph{issue}) se sincronizaba con el repositorio, lo que conlleva, que el tutor y el alumno tuvieran siempre el mismo código y se pudieran solucionar los problemas de forma rápida. \cite{Schwaber2004}
+Durante el proyecto se han llevado a cabo reuniones semanales con el tutor (\emph{sprints}) y según se iban terminando las tareas (\emph{issue}) se sincronizaba con el repositorio, lo que conlleva, que el tutor y el alumno tuvieran siempre el mismo código y se pudieran solucionar los problemas de forma rápida \cite{Schwaber2004}.
 
 \section{Patrones de diseño}\label{patrones-de-diseno}
 
 \subsection{\emph{Model-View-Presenter} (MVP)}\label{model-view-presenter-mvp}
 
 MVP es un patrón de arquitectura derivado del
-\emph{Model--View--Controller} (MVC). Fue de los primeros patrones relacionados con las vistas gráficas de interfaz de usuario. Permite separar los datos de nuestra aplicación en un modelo y enlazarlos con un controlador a las vistas que serán lo que ve el usuario.\cite{art:mvc}
+\emph{Model--View--Controller} (MVC). Fue de los primeros patrones relacionados con las vistas gráficas de interfaz de usuario. Permite separar los datos de nuestra aplicación en un modelo y enlazarlos con un controlador a las vistas que serán lo que ve el usuario \cite{art:mvc}.
 
 Se compone de las tres capas con las que lleva su nombre:
 
@@ -42,7 +42,7 @@ Se compone de las tres capas con las que lleva su nombre:
 	Herramienta elegida: \href{https://git-scm.com/}{Git}.
 \end{itemize}
 
-Git es un sistema de control de versiones distribuido. Nos permite tener dos repositorios, un repositorio local y otro repositorio remoto, los dos tendrán como rama principal la \emph{master}, en la cual, cuando consideremos que los cambios de nuestro repositorio \emph{local} pueden subirse al \emph{master}, podremos subirlo para compartirlo con el equipo.  No nos hace falta estar permanentemente conectados a una red como con Subversion. Como no requiere de conexión, nos podríamos retraer a un commit anterior, ya que tenemos el historial de log en nuestro repositorio \emph{local}, sin internet y de forma local.\cite{web:git}
+Git es un sistema de control de versiones distribuido. Nos permite tener dos repositorios, un repositorio local y otro repositorio remoto, los dos tendrán como rama principal la \emph{master}, en la cual, cuando consideremos que los cambios de nuestro repositorio \emph{local} pueden subirse al \emph{master}, podremos subirlo para compartirlo con el equipo.  No nos hace falta estar permanentemente conectados a una red como con Subversion. Como no requiere de conexión, nos podríamos retraer a un commit anterior, ya que tenemos el historial de log en nuestro repositorio \emph{local}, sin internet y de forma local \cite{web:git}.
 
 Git se distribuye bajo la licencia de \emph{software} libre GNU LGPL v2.1.
 
@@ -61,7 +61,7 @@ Git se distribuye bajo la licencia de \emph{software} libre GNU LGPL v2.1.
 GitHub es una plataforma web donde podemos hospedar nuestro repositorios del proyecto. Nos permite todas las  funcionalidades de Git, revisión de commit, revisión de código, documentación, gestión de tareas.... Es
 gratuita cuando los proyectos son \emph{open source}.
 
-Con el plugin de Chrome Zedhub, en GitHub, nos permite tener la funcionalidad de canvas para la organización de tareas, como la plataforma Trello. Como estamos utilizando servicios de integración continua, teniendo el repositorio en GitHub, nos permite la sincronización solo con nuestra cuenta de GitHub. \cite{web:github}
+Con el plugin de Chrome Zedhub, en GitHub, nos permite tener la funcionalidad de canvas para la organización de tareas, como la plataforma Trello. Como estamos utilizando servicios de integración continua, teniendo el repositorio en GitHub, nos permite la sincronización solo con nuestra cuenta de GitHub \cite{web:github}.
 
 \section{Gestión del proyecto}\label{gestion-del-proyecto}
 
@@ -76,7 +76,7 @@ Con el plugin de Chrome Zedhub, en GitHub, nos permite tener la funcionalidad de
 
 ZenHub es un plugin desarrollado para exploradores web para integrar una nueva vista, más organizativa, en GitHub. 
 
-Proporciona un tablero canvas en donde cada tarea representada se corresponde con un \emph{issue} o tarea, nativo de GitHub. Cada tarea puede ser organizada en el \emph{sprint} al que pertenece con la asignación de ella, su tiempo estimado de realización, etc. Si el proyecto tiene menos de 5 colaboradores es \emph{open source}. \cite{web:zenhub}
+Proporciona un tablero canvas en donde cada tarea representada se corresponde con un \emph{issue} o tarea, nativo de GitHub. Cada tarea puede ser organizada en el \emph{sprint} al que pertenece con la asignación de ella, su tiempo estimado de realización, etc. Si el proyecto tiene menos de 5 colaboradores es \emph{open source} \cite{web:zenhub}.
 
 
 \section{Entorno de desarrollo integrado
@@ -86,19 +86,19 @@ Proporciona un tablero canvas en donde cada tarea representada se corresponde co
 
 \subsubsection{eclipse neon}\label{eclipse}
 Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos facilita el trabajo a la hora de programar, nos proporciona un auto completar de métodos y clases y nos enseña, si lo tiene, una descripción de los métodos. Esto nos ayuda en un primer momento si no se conoce la librería a utilizar o los métodos. En nuestro caso lo utilizamos para programación Java, aunque nos permite otro lenguages, como puede ser PHP.
-Eclipse también nos permite funciones de caracterización que nos ahorran horas de trabajo y podemos conectarlo con Git directamente para hacer commit. y ver de forma directa los cambios hechos o los ficheros que no están commiteados.\cite{web:eclipse}
+Eclipse también nos permite funciones de caracterización que nos ahorran horas de trabajo y podemos conectarlo con Git directamente para hacer commit. y ver de forma directa los cambios hechos o los ficheros que no están commiteados \cite{web:eclipse}.
 
 \subsection{LaTeX}\label{latex}
 
 \subsubsection{TexStudio}\label{texstudio}
 
-TexStudio es un editor para crear documentos LaTeX. Nos permite compilar el documento, previsualizarlo, autocompletarlo, corrección de faltas. Se puede instalar en diferentes sistemas operativos. En el entorno Ubuntu 16.04, la instalación es sencilla, aparte del texStudio solo hay que instalar los paquetes de idiomas y ya podremos empezar a trabajar. \cite{web:texstudio}
+TexStudio es un editor para crear documentos LaTeX. Nos permite compilar el documento, previsualizarlo, autocompletarlo, corrección de faltas. Se puede instalar en diferentes sistemas operativos. En el entorno Ubuntu 16.04, la instalación es sencilla, aparte del texStudio solo hay que instalar los paquetes de idiomas y ya podremos empezar a trabajar \cite{web:texstudio}.
 
 \subsection{JavaScript y HTML}\label{javascript-y-html}
 
 \subsubsection{Sublime Text}\label{sublime-text}
 
-Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos permite desarrollar proyectos en diferentes lenguajes, como Python, PHP , Java, HTML , JavaScript, etc. Como eclipse no tiene plugins para JavaScript hemos optado por programar con sublime para HTML y JavaScript. \cite{web:sublime}
+Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos permite desarrollar proyectos en diferentes lenguajes, como Python, PHP , Java, HTML , JavaScript, etc. Como eclipse no tiene plugins para JavaScript hemos optado por programar con sublime para HTML y JavaScript \cite{web:sublime}.
 
 \section{Servicios de integración
 	continua}\label{servicios-de-integraciuxf3n-continua}
@@ -107,7 +107,7 @@ Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos perm
 
 \subsubsection{TravisCI}\label{travis-ci}
 
-Travis es una herramienta de integración continua que está alojada en la nube y que podemos sincronizarla con GitHub. Esto nos permite, cada vez que hacemos un commit, montar nuestro proyecto y ejecutar las pruebas de forma automatizada, y cuando termine nos enviara un informe del resultado. \cite{web:travis}
+Travis es una herramienta de integración continua que está alojada en la nube y que podemos sincronizarla con GitHub. Esto nos permite, cada vez que hacemos un commit, montar nuestro proyecto y ejecutar las pruebas de forma automatizada, y cuando termine nos enviara un informe del resultado \cite{web:travis}.
 
 
 %\subsection{Cobertura de código}\label{cobertura-de-codigo}
@@ -116,7 +116,7 @@ Travis es una herramienta de integración continua que está alojada en la nube 
 
 \subsubsection{SonarQube}\label{sonarqube}
 
-SonarQube es una plataforma que tiene versión de escritorio y también está alojada en la nube, de código abierto. Nos permite la sincronización con nuestro repositorio en GitHub y nos evalúa el código. Permite detectar bugs, código smell, código duplicado, etc. Es muy útil para mejorar el mantenimiento de tu proyecto. \cite{web:sonarqube}
+SonarQube es una plataforma que tiene versión de escritorio y también está alojada en la nube, de código abierto. Nos permite la sincronización con nuestro repositorio en GitHub y nos evalúa el código. Permite detectar bugs, código smell, código duplicado, etc. Es muy útil para mejorar el mantenimiento de tu proyecto \cite{web:sonarqube}.
 
 \section{Sistemas de construcción automática del
 	\emph{software}}\label{sistemas-de-construccion-automuxe1tica-del-software}
@@ -124,7 +124,7 @@ SonarQube es una plataforma que tiene versión de escritorio y también está al
 
 
 \subsection{Gradle}\label{gradle}
-\href{https://gradle.org/}{Gradle} Es una herramienta para la automatización de build, puede ser instalada en el sistema operativo o como plugin en eclipse, el plugin tiene ciertas limitaciones, como por ejemplo la especificación de errores. hay veces que no te los dice y tienes que ejecutarlo desde consola, por eso, en nuestro proyecto, se ha utilizado los dos. \cite{gradle}
+\href{https://gradle.org/}{Gradle} Es una herramienta para la automatización de build, puede ser instalada en el sistema operativo o como plugin en eclipse, el plugin tiene ciertas limitaciones, como por ejemplo la especificación de errores. hay veces que no te los dice y tienes que ejecutarlo desde consola, por eso, en nuestro proyecto, se ha utilizado los dos \cite{gradle}.
 
 
 \section{Librerías}\label{libreruxedas}
@@ -137,15 +137,14 @@ es una librería para la creación de interfaces gráficas en Java.
 
 \subsection{Log4j}\label{log4j}
 
-Log4j es una librería de Java desarrollada por la compañía Apache Software Fundation que nos permite en nuestra aplicación escribir mensajes de registro, como pueden ser errores o warnings. También nos permite configurar el filtrado de mensajes para que el programador pueda ver los tipos de errores que desee. \cite{Java:log}
+Log4j es una librería de Java desarrollada por la compañía Apache Software Fundation que nos permite en nuestra aplicación escribir mensajes de registro, como pueden ser errores o warnings. También nos permite configurar el filtrado de mensajes para que el programador pueda ver los tipos de errores que desee \cite{Java:log}.
 
 \subsection{HttpClient}\label{httpclient}
 
-HttpClient es una librería de Google diseñada para Java, lo que nos permite es hacer peticiones HTTP. Con esta librería haremos las peticiones a UBUVirtual para que nos de los datos correspondientes. \cite{java:Httpclient}
-
+HttpClient es una librería de Google diseñada para Java, lo que nos permite es hacer peticiones HTTP. Con esta librería haremos las peticiones a UBUVirtual para que nos de los datos correspondientes \cite{java:Httpclient}.
 \subsection{Commons-CSV}\label{commons-csv}
 
-Commons-CSV es una librería creada por Apache Software Fundation para Java, que nos facilita la obtención de datos de un CSV. \cite{java:csvparser}
+Commons-CSV es una librería creada por Apache Software Fundation para Java, que nos facilita la obtención de datos de un CSV \cite{java:csvparser}.
 
 \subsection{HtmlUnit}\label{htmlunit}
 \begin{itemize}
@@ -158,7 +157,7 @@ Commons-CSV es una librería creada por Apache Software Fundation para Java, que
 	Herramienta elegida: \href{http://htmlunit.sourceforge.net/}{HtmlUnit}.
 \end{itemize}
 
-HtmlUnit es una librería para Java, que nos permite la interacción en páginas web o \emph{web scripting}, nos permite rellenar formularios, hacer clic sobre botones, incluso recoger archivos descargados de la web. \cite{Java:htmlunit}
+HtmlUnit es una librería para Java, que nos permite la interacción en páginas web o \emph{web scripting}, nos permite rellenar formularios, hacer clic sobre botones, incluso recoger archivos descargados de la web \cite{Java:htmlunit}.
 %\subsection{JUnit}\label{junit}
 
 
@@ -189,4 +188,4 @@ HtmlUnit es una librería para Java, que nos permite la interacción en páginas
 
 \subsection{MySQL WorkBench}\label{pinta}
 
-\href{https://pinta-project.com/pintaproject/pinta/}{MySQL WorkBench} es una aplicación para desarrolladores o diseñadores de bases de datos o que tengan que trabajar con bases de datos. Nos permite importar o exportar BD, ver su entidad/relación para saber como se comunican las tablas, saber su estructura, etc. \cite{web:worckbench}
+\href{https://pinta-project.com/pintaproject/pinta/}{MySQL WorkBench} es una aplicación para desarrolladores o diseñadores de bases de datos o que tengan que trabajar con bases de datos. Nos permite importar o exportar BD, ver su entidad/relación para saber como se comunican las tablas, saber su estructura, etc \cite{web:worckbench}.
