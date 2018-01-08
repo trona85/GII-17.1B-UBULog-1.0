@@ -73,6 +73,7 @@ public class Session {
 	 * realiza mediante una petición http al webservice de Moodle
 	 * 
 	 * @throws Exception excepción
+	 * @throws UBULogException usuario o contraseña no existente.
 	 */
 	public void setToken() throws Exception, UBULogException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();

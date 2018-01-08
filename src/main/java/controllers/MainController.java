@@ -1028,7 +1028,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * Metodo para eliminar los ficheros generados.
-	 * @param files, ficheros.
 	 */
 	private void removeFile() {
 
