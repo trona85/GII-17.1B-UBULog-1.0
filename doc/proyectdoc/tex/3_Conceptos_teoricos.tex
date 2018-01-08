@@ -8,7 +8,7 @@ Vamos a hablar de los conceptos teóricos aportando nueva información contando 
 
 \section{Token}\label{token}
 
-Token para la autenticación en web, que es como lo estamos utilizando nosotros. Es un código único, en algunos casos temporal, que se le asocia a un usuario para mantenerle su sesión abierta, mientras ese token sea correcto. En nuestro caso, se genera un token permanente, dado que estamos en pruebas. el token que nos genera moodle es: "9a5e85d1e61c1c42509d77b34f26643a"
+Token para la autenticación en web, que es como lo estamos utilizando nosotros. Es un código único, en algunos casos temporal, que se le asocia a un usuario para mantenerle su sesión abierta, mientras ese token sea correcto. En nuestro caso, se genera un token permanente, dado que estamos en pruebas. el token que nos genera Moodle es: "9a5e85d1e61c1c42509d77b34f26643a"
 
 \section{Json}\label{json}
 
@@ -18,7 +18,7 @@ Su estructura seria tal que así:
 
 \imagen{json}{Estructura Json.}
 
-La imagen representa una respuesta del servidor de moodle haciéndole una petición a su WebService.
+La imagen representa una respuesta del servidor de Moodle haciéndole una petición a su WebService.
 
 Para su tratamiento de los datos es similar a un array de objetos, nos podemos mover por él y almacenar esos datos para nuestro uso futuro, igualmente podemos crear un Json y enviarlo al servidor para que lo trate el, en el caso de que estuviera permitido.
 
@@ -31,18 +31,18 @@ El usuario podría ir al registro sin ningún problema y descargarlo, pero tambi
 Lo que hemos hecho es automatizar el proceso que haría el usuario de forma manual. 
  \begin{enumerate}
  	\item 
- 	Nos iremos a la url de logueo.
+ 	Nos iremos a la URL de logueo.
  	\item 
- 	Rellenamos usuario y contraseña e inmediatamente hacemos click en aceptar.
+ 	Rellenamos usuario y contraseña e inmediatamente hacemos clic en aceptar.
  	\item 
- 	Construimos la url para ir al registro con los filtros para que salgan todos, se puede poner en la url porque moodle, esa búsqueda, hace una petición GET.
+ 	Construimos la URL para ir al registro con los filtros para que salgan todos, se puede poner en la URL porque Moodle, esa búsqueda, hace una petición GET.
  	\item 
- 	Una vez estemos en la ventana con todos los log del registro hacemos click en descargar, como por defecto el archivo descarga es csv no consideramos ese movimiento.
+ 	Una vez estemos en la ventana con todos los log del registro hacemos clic en descargar, como por defecto el archivo descarga es CSV no consideramos ese movimiento.
  	\item 
  	Recogemos la respuesta que nos da la web y la convertimos en String, en este paso ya tenemos todo el registro almacenado en nuestra aplicación.
  \end{enumerate}
  
-Aunque en nuestra aplicación ya nos logueamos al principio, para este proceso hay que volver a loguearse, ya que, es token que nos proporciona el web service de moodle, no es el mismo.
+Aunque en nuestra aplicación ya nos logueamos al principio, para este proceso hay que volver a loguearse, ya que, es token que nos proporciona el web service de Moodle, no es el mismo.
 
 Es importante destacar, que este proceso, para el usuario, es transparente. Lo único que va a notar, es que, le cuesta cargar el log más. En el equipo que se ha desarrollado el proyecto un log de 100 registros es imperceptible, pero hacer que se lo descargue automáticamente incrementa el tiempo de forma considerable.
  

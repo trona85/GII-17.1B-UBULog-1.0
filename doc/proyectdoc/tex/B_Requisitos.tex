@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-Este proyecto esta orientado a profesores de la universidad de Burgos y en este apartado vamos ha hablar de los objetivos generales, de la especificación de requisitos(funcionales y no funcionales) y y especificaremos cada uno de ellos.
+Este proyecto está orientado a profesores de la universidad de Burgos y en este apartado vamos a hablar de los objetivos generales, de la especificación de requisitos (funcionales y no funcionales) y especificaremos cada uno de ellos.
 
 \section{Objetivos generales}
 
@@ -11,20 +11,20 @@ En el desarrollo del proyecto se quieren conseguir los siguientes objetivos:
 \begin{itemize}
 	\tightlist
 	\item
-	Desarrollar una aplicación de escritorio para poder logearse con ubu-virtual.
+	Desarrollar una aplicación de escritorio para poder loguearse con UBUVirtual.
 	\item
-	Obtención de datos por el web service de moodle.
+	Obtención de datos por el Web Service de Moodle.
 	\item
 	Visualizar los datos correspondientes a la asignatura seleccionada.
 	\item
 	Facilitar la interpretación de los datos representándolo por diferentes tipos de gráficas.
 	\item
-	Desgranar los datos aportados para un análisis mas profundo de ellos.
+	Desgranar los datos aportados para un análisis más profundo de ellos.
 \end{itemize}
 
-\section{Catalogo de requisitos}
+\section{Catálogo de requisitos}
 
-Ahora hablaremos de los requisitos funcionales y no funcionales, derivados de los objetivos generales de este proyecto. Se notara que varios puntos del apartado son iguales al anexo del tfg de Claudia Martínez Herrero \cite{claudia:anexo}
+Ahora hablaremos de los requisitos funcionales y no funcionales, derivados de los objetivos generales de este proyecto. Se notará que varios puntos del apartado son iguales al anexo del TFG de Claudia Martínez Herrero \cite{claudia:anexo}
 
 \subsection{Requisitos funcionales}\label{requisitos-funcionales}
 
@@ -45,16 +45,17 @@ Ahora hablaremos de los requisitos funcionales y no funcionales, derivados de lo
 		\textbf{RF-4.1 Filtrado de participantes y eventos:} Se podrá filtrar a los participantes según los grupos, el rol y por un campo de texto y los eventos por un campo de texto.
 	\end{itemize}
 	\item
-	\textbf{RF-5 Visualización de gráficas de logs:} El usuario podrá visualizar las registros en forma de gráfica.
+	\textbf{RF-5 Visualización de gráficas de logs:} El usuario podrá visualizar los registros en forma de gráfica.
 	\item
 	\textbf{RF-6 Visualización de Logs:} El usuario podrá visualizar las registros de manera gráfica en formato de tabla.
 		\begin{itemize}
 			\tightlist
 			\item
-			\textbf{RF-6.1 Filtrado de logs:} Se podrá filtrar logs por varios campo de texto cada uno asociado a una columna de la tabla.
+			\textbf{RF-6.1 Filtrado de logs:} Se podrá filtrar logs por varios campos de texto cada uno asociado a una columna de la tabla.
 		\end{itemize}
 	\item
 	\textbf{RF-7 Cierre de sesión:} La aplicación cierra sesión.
+\end{itemize}
 
 \subsection{Requisitos no funcionales}\label{requisitos-no-funcionales}
 
@@ -73,9 +74,9 @@ Ahora hablaremos de los requisitos funcionales y no funcionales, derivados de lo
 	\item
 	\textbf{RNF-6} La aplicación será extensible.
 	\item
-	\textbf{RNF-7} La sección de gráficos debe permitir exportar los gráficos en formato de imagen: .png, .jpg... .
+	\textbf{RNF-7} La sección de gráficos debe permitir exportar los gráficos en formato de imagen: .png, .jpg....
 
-
+\end{itemize}
 
 \section{Especificación de requisitos}
 
@@ -109,7 +110,7 @@ figura del usuario.
 
 \tablaSmallSinColores{RF2 - Extracción de datos}{|l | l |}{extraccion-de-datos}
 { \multicolumn{1}{|l }{RF2} & Extracción de datos \\}{ 
-	Descripción & El sistema carga los cursos en los que está matriculado \\  & el usuaio.\\ \hline
+	Descripción & El sistema carga los cursos en los que está matriculado \\  & el usuario.\\ \hline
 	Requisitos asociados & RF1. \\
 	\hline
 	Precondiciones &El usuario se ha logueado correctamente. \\ \hline
@@ -129,7 +130,7 @@ figura del usuario.
 	Precondiciones & 1- El usuario se ha logueado correctamente. \\ 
 	& 2- El usuario selecciona una asignatura. \\ \hline
 	Secuencia normal & 	 SI tiene csv: Carga documento csv. \\
-	& SI NO tiene csv: puede descargarlo manualmente o clickando en\\ & descarga automatizada. \\ \hline
+	& SI NO tiene csv: puede descargarlo manualmente o clicando en\\ & descarga automatizada. \\ \hline
 	Postcondiciones & Se cargan los datos de log en la aplicación.\\ \hline
 	Frecuencia & Media.\\ \hline
 	Importancia & Alta. \\ 
@@ -143,10 +144,10 @@ figura del usuario.
 	\hline
 	Precondiciones & 1- El log debe de estar cargado. \\ 
 	& 2- Se debe mostrar participantes y eventos disponibles. \\
-	& 3- Se debe clickar en participantes o eventos o ambos. \\ \hline
+	& 3- Se debe clicar en participantes o eventos o ambos. \\ \hline
 	Secuencia normal & 1- Se carga el log. \\ 
 	& 2- Se muestran los participantes y eventos disponibles. \\
-	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	& 3- Se hace clic en participantes o eventos o ambos. \\ \hline
 	Postcondiciones & Se cargan los datos de log en la aplicación.\\ \hline
 	Frecuencia & Alta.\\ \hline
 	Importancia & Alta. \\ 
@@ -174,10 +175,10 @@ figura del usuario.
 	\hline
 	Precondiciones & 1- El log debe de estar cargado. \\ 
 	& 2- Se debe mostrar participantes y eventos disponibles. \\
-	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	& 3- Se hace clic en participantes o eventos o ambos. \\ \hline
 	Secuencia normal & 1- Se carga el log. \\ 
 	& 2- Se muestran los participantes y eventos disponibles. \\
-	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	& 3- Se hace clic en participantes o eventos o ambos. \\ \hline
 	Postcondiciones & Se muestran los datos en la gráfica.\\ \hline
 	Frecuencia & Alta.\\ \hline
 	Importancia & Alta. \\ 
@@ -190,10 +191,10 @@ figura del usuario.
 	\hline
 	Precondiciones & 1- El log debe de estar cargado. \\ 
 	& 2- Se debe mostrar participantes y eventos disponibles. \\
-	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	& 3- Se hace clic en participantes o eventos o ambos. \\ \hline
 	Secuencia normal & 1- Se carga el log. \\ 
 	& 2- Se muestran los participantes y eventos disponibles. \\
-	& 3- Se hace click en participantes o eventos o ambos. \\ \hline
+	& 3- Se hace clic en participantes o eventos o ambos. \\ \hline
 	Postcondiciones & Se muestran los datos en la tabla logs.\\ \hline
 	Frecuencia & Alta.\\ \hline
 	Importancia & Alta. \\ 

@@ -37,7 +37,7 @@ El repositorio del proyecto podemos observar la siguiente estructura:
 
 \section{Manual del programador}
 
-En esta sección explicaremos como montar el entorno de desarrollo, descargar el código fuente del proyecto, compilarlo, ejecutarlo y exportarlo. hay que tener en cuenta que este manual esta orientado a sistemas Linux como lo es Ubuntu 16.04 que es donde se ha desarrollado el proyecto, aunque también se podría desarrollar en S.O. Windows.
+En esta sección explicaremos como montar el entorno de desarrollo, descargar el código fuente del proyecto, compilarlo, ejecutarlo y exportarlo. hay que tener en cuenta que este manual está orientado a sistemas Linux como lo es Ubuntu 16.04 que es donde se ha desarrollado el proyecto, aunque también se podría desarrollar en S.O. Windows.
 
 Para la instalación en sistemas Windows hay que leer la documentación de Claudia Martínez Herrero \cite{claudia:anexo} referente al manual del programador.
 
@@ -65,23 +65,23 @@ uno de ellos.
 
 \subsubsection{Java JDK 8}\label{java-jdk-8}
 
-En esta instalación es importante descargar el JDK 8 de oracle ya que, otro jdk como puede ser el que viene por defecto en las librerías de Ubuntu no te proporcionan la Librería Java FX.
+En esta instalación es importante descargar el JDK 8 de Oracle ya que, otro JDK como puede ser el que viene por defecto en las librerías de Ubuntu no te proporcionan la Librería Java FX.
 
 Deberemos abrir la consola y poner los siguientes comandos:
 
-\imagen{jdk}{Instalacion JDK 8 en Linux.}
+\imagen{jdk}{Instalación JDK 8 en Linux.}
 
-\subsubsection{Git}\label{git}
+\subsubsection{Git}\label{git-git}
 
-Necesitamos git para la gestión del repositorio. Git nos permitirá clonar el proyecto en nuestro equipo, subir cambios, comprobar diferencias entre commit, etc.
+Necesitamos Git para la gestión del repositorio. Git nos permitirá clonar el proyecto en nuestro equipo, subir cambios, comprobar diferencias entre commit, etc.
 
-\imagen{git}{Instalacion Git.}
+\imagen{git}{Instalación Git.}
 
 \subsubsection{Moodle 3.3}\label{moodle}
 
-Para la instalación de Moodle hacemos referencia a los anexos de Claudia Martínez Herrero \cite{claudia:anexo} referente a la instalación de moodle en Windows ya que es idéntica.
+Para la instalación de Moodle hacemos referencia a los anexos de Claudia Martínez Herrero \cite{claudia:anexo} referente a la instalación de Moodle en Windows ya que es idéntica.
 
-\subsubsection{Eclipse}\label{git}
+\subsubsection{Eclipse}\label{eclipse}
 
 Eclipse es el entorno de desarrollo seleccionado para este proyecto. Si el programador desea utilizar otro, no tendría ningún problema.
 
@@ -93,7 +93,7 @@ La mayoría de los IDE de desarrollo tienen integrado Gradle, como es el caso de
 
 En el caso de que no tenga, podemos instalarlo en nuestra maquina personal. Lo que deberemos hacer es:
 
-\imagen{gradle}{Instalación gradle.}
+\imagen{gradle}{Instalación Gradle.}
 
 \section{Compilación, instalación y ejecución del proyecto}
 
@@ -101,11 +101,11 @@ En el caso de que no tenga, podemos instalarlo en nuestra maquina personal. Lo q
 
 Una vez hemos instalado todo lo necesario, deberemos clonar nuestro proyecto.
 
-Deberemos entrar al repositorio \href{https://github.com/trona85/GII-17.1B-UBULog-1.0}{GitHub} y en la parte que pone Clone whith HTTPS, copiarnos la URL.
+Deberemos entrar al repositorio \href{https://github.com/trona85/GII-17.1B-UBULog-1.0}{GitHub} y en la parte que pone Clone with HTTPS, copiarnos la URL.
 
 \imagen{githubclone}{Clonar proyecto con Git 1.}
 
-Abrimos la consola y nos vamos a nuestro workspace. Una vez ahí, ponemos el siguiente comando de git con la URL copiada anteriormente.
+Abrimos la consola y nos vamos a nuestro workspace. Una vez ahí, ponemos el siguiente comando de Git con la URL copiada anteriormente.
 
 \imagen{gitclone}{Clonar proyecto con Git 2.}
 
@@ -120,12 +120,12 @@ Para importar nuestro proyecto deberemos abrir Eclipse. Una vez abierto deberemo
 	\item
 	Vamos a File-->import...
 	\item
-	Nos saldrá una ventana en la que deberemos elegir la opción de gradle.
+	Nos saldrá una ventana en la que deberemos elegir la opción de Gradle.
 	
 	\imagen{importgradle}{Importar proyecto Gradle.}
 	
 	\item
-	Nos saldra una ventana de información, después de su lectura se da a next.
+	Nos saldrá una ventana de información, después de su lectura se da a next.
 	
 		\imagen{welcomegradle}{Información Gradle.}
 	\item
@@ -145,20 +145,20 @@ Para importar nuestro proyecto deberemos abrir Eclipse. Una vez abierto deberemo
 
 Build.gradle es el archivo donde debemos poner el tipo de aplicación que es, la versión y las dependencias necesarias de nuestro proyecto. \cite{gradle}
 
-\subsubsection{Travis.yml}\label{buildgradle}
+\subsubsection{Travis.yml}\label{travis-yml}
 
-Travis.yml es el archivo donde tenemos la configuración para la integración continua y el análisis de la calidad del código con sonarqube. \cite{web:travis} \cite{Web:sonarqube}
+Travis.yml es el archivo donde tenemos la configuración para la integración continua y el análisis de la calidad del código con SonarQube. \cite{web:travis,web:sonarqube}
 
 \subsubsection{Generar .jar}\label{generar-jar}
 
-Para generar el .jar se ha creado un .xml en el proyecto que es un ANT, en el se tienen todas las dependencias, .class y recursos necesarios para la ejecución. Para generar el jar deberemos:
+Para generar el .jar se ha creado un .xml en el proyecto que es un ANT, en él se tienen todas las dependencias, .class y recursos necesarios para la ejecución. Para generar el jar deberemos:
 
 \begin{enumerate}
 	\tightlist
 	\item
 	Abrimos UBULog.xml en eclipse.
 	\item
-	La ventana de Eclipse que esta en la parte derecha, que pone OutLine tendremos una opción que es create runnable.
+	La ventana de Eclipse que está en la parte derecha, que pone OutLine tendremos una opción que es create runnable.
 	
 	\imagen{antecl}{Crear .jar.}
 	
