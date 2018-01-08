@@ -289,6 +289,7 @@
                   </Tab>
                </tabs>
             </TabPane>
+            <ProgressIndicator fx:id="progresBarDoc" maxHeight="50.0" maxWidth="50.0" prefHeight="30.0" prefWidth="30.0" progress="0.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </center>

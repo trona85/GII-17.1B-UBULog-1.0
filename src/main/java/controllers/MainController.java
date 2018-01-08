@@ -46,6 +46,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -72,13 +73,15 @@ import webservice.CourseWS;
  * @author Oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.1
+ * @version 1.2
  */
 public class MainController implements Initializable {
 
 	static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	private String all = "Todos";
 
+	@FXML
+	public ProgressIndicator progresBarDoc;
 	@FXML // Curso actual
 	public Label lblActualCourse;
 	@FXML // Usuario actual
@@ -189,7 +192,6 @@ public class MainController implements Initializable {
 			viewchart = new Chart();
 			viewTableLog = new TableLog();
 			setDisableComponentInterfaz(true);
-
 			engineChart = chart.getEngine();
 			engineTableLogs = tableLogs.getEngine();
 
@@ -247,6 +249,8 @@ public class MainController implements Initializable {
 			slcChart.getItems().addAll(groupsItemsList);
 
 			dataUserLoger();
+			
+			progresBarDoc.setVisible(false);
 
 		} catch (Exception e) {
 			logger.error("Error en la inicialización. {}", e);
@@ -939,7 +943,8 @@ public class MainController implements Initializable {
 	 */
 	public void cargaDocumento() {
 		try {
-
+			progresBarDoc.setVisible(true);
+			progresBarDoc.setProgress(50);
 			this.logs = new CsvParser();
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(UBULog.getStage());
@@ -949,13 +954,13 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
-			Alert alert = modalOpen();
 
 			logs.setFile(file.toString());
 			logs.readDocument();
 
 			initializeDataSet(logs);
-			alert.close();
+			progresBarDoc.setProgress(100);
+			progresBarDoc.setVisible(false);
 
 		} catch (UBULogException e) {
 			logger.info(e.getMessage());
@@ -966,24 +971,6 @@ public class MainController implements Initializable {
 
 		}
 
-	}
-
-	/**
-	 * Método que carga un modal.
-	 * 
-	 * @return alert.
-	 */
-	private Alert modalOpen() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeight(300);
-		alert.setWidth(300);
-		alert.initModality(Modality.APPLICATION_MODAL);
-		alert.initOwner(UBULog.getStage());
-
-		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"
-				+ UBULog.getSession().getActualCourse().getFullName() + "\nPuede tardar unos minutos");
-		alert.show();
-		return alert;
 	}
 
 	/**
@@ -999,10 +986,12 @@ public class MainController implements Initializable {
 		PrintWriter pw = null;
 		File file = null;
 		try {
-
-			Alert alert = modalOpen();
+			progresBarDoc.setVisible(true);
+			progresBarDoc.setProgress(10);
+			
 			webScripting = new WebScripting();
 			webScripting.getResponsiveWeb();
+			progresBarDoc.setProgress(90);
 
 			try (FileWriter fileWriter = new FileWriter("./tempcsv.csv")) {
 
@@ -1021,8 +1010,8 @@ public class MainController implements Initializable {
 			logs.readDocument();
 
 			initializeDataSet(logs);
-
-			alert.close();
+			progresBarDoc.setProgress(100);
+			progresBarDoc.setVisible(false);
 
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error(e.getMessage());
