@@ -208,7 +208,7 @@ public class Chart {
 "}(this));");
 
 		} catch (Exception e) {
-			logger.error("Error al generar html. {}", e);
+			logger.error("Error al generar Utils.js. {}", e);
 		}
 
 	}
@@ -250,7 +250,7 @@ public class Chart {
 					+ ".analyser td {	padding: 2px;	text-align: center;}");
 
 		} catch (Exception e) {
-			logger.error("Error al generar html. {}", e);
+			logger.error("Error al generar CSS. {}", e);
 		}
 
 	}
