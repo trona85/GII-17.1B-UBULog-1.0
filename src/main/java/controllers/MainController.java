@@ -897,7 +897,7 @@ public class MainController implements Initializable {
 			Scene scene = new Scene(root);
 			UBULog.getStage().setScene(scene);
 			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.getStage().setTitle("UBULog 1.1");
+			UBULog.getStage().setTitle("UBULog 1.2");
 			UBULog.getStage().show();
 
 			clearData();
