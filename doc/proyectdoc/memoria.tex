@@ -40,7 +40,7 @@
 % Imagenes
 \usepackage{graphicx}
 \newcommand{\imagen}[2]{
-	\begin{figure}[!h]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.9\textwidth]{#1}
 		\caption{#2}\label{fig:#1}
@@ -363,9 +363,9 @@
 \newcommand{\nombre}{Oscar Fernández Armengol} %%% cambio de comando
 
 % Datos de portada
-\title{UBULog 1.1}
+\title{UBULog 1.0}
 \author{\nombre}
-\tutor{Raúl Marticorena Sánchez}
+\tutor{Dr. Raúl Marticorena Sánchez}
 \date{\today}
 
 \begin{document}
@@ -382,11 +382,11 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent D. \tutor, profesor del departamento de nombre departamento, área de nombre área.
+\noindent D. \tutor, profesor del departamento de ingeniería civil, área de lenguajes y sistemas informáticos.
 
 \noindent Expone:
 
-\noindent Que el alumno D. \nombre, con DNI 71346020-C, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado título de TFG. 
+\noindent Que el alumno D. \nombre, con DNI 71346020-C, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado UBULog 1.0. 
 
 \noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
 
@@ -432,19 +432,19 @@ D. nombre tutor
 \begin{abstract}
 Este proyecto trata de crear una aplicación de escritorio, para docentes de la universidad de brugos, aunque se puede extender a cualquiera que tuviera un entorno de Moodle por lo menos de la versión 3.3.
 
-La aplicación le permitirá loguearse en la plataforma de Moodle, utilizando el correo web, su contraseña y el dominio, en nuestro caso es https://ubuvirtual.ubu.es. Una vez iniciada la sesión sabremos las asignaturas en las que está matriculado como profesor o alumno, una vez elegida la asignatura sabremos quien está matriculado en ella. Una vez aquí podremos ver las interacciones de los log de los alumnos de manera sencilla.
+La aplicación le permitirá iniciar sesión en la plataforma de Moodle, utilizando el correo web, su contraseña y el dominio, en nuestro caso es https://ubuvirtual.ubu.es. Una vez iniciada la sesión sabremos las asignaturas en las que está matriculado como profesor o alumno, una vez elegida la asignatura sabremos quien está matriculado en ella. Una vez aquí podremos ver las interacciones de los log de los alumnos de manera sencilla.
 
 Nuestra aplicación consulta y guarda información de los cursos y los usuarios, a través del web service con una respuesta JSON.
 
 A lo largo de la memoria se explicará todos los pasos del desarrollo con los problemas ocasionados.
 
-Este proyecto es una continuación del proyecto UBUGrades 1.0 pero en vez de sacar estadísticas de las notas, se sacará las interacciones de los diferentes usuarios para mostrarlo de forma amigable a los usuarios.
+Este proyecto es una modificación a partir del proyecto UBUGrades 1.0 pero en vez de sacar estadísticas de las notas, se sacará las interacciones de los diferentes usuarios para mostrarlo de forma amigable a los usuarios.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
 Moodle, registros, servicios web, JSON, JavaFX, e-learning, análisis del
-aprendizaje, web scriping.
+aprendizaje, web scripting.
 \end{abstract}
 
 \clearpage
