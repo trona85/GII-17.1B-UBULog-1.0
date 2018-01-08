@@ -321,8 +321,11 @@ public class MainController implements Initializable {
 	}
 
 	
-
+/**
+ * Método para coger los log correspondientes a la seleccion de los eventos y participantes
+ */
 	private void filterLogs() {
+		clearFilterTableLog();
 		selectedEvents = listEvents.getSelectionModel().getSelectedItems();
 		selectedParticipants = listParticipants.getSelectionModel().getSelectedItems();
 
@@ -904,6 +907,7 @@ public class MainController implements Initializable {
 	 * 
 	 */
 	public void clearSelection() {
+		clearFilterTableLog();
 		if (logs != null)
 			if (!logs.getLogs().isEmpty()) {
 				listParticipants.getSelectionModel().clearSelection();
@@ -1103,6 +1107,20 @@ public class MainController implements Initializable {
 		tfdDescription.setDisable(disable);
 		tfdPOrigin.setDisable(disable);
 		tfdIp.setDisable(disable);
+	}
+	/**
+	 * Metodo para reiniciar los filtros de la tabla log.
+	 */
+	private void clearFilterTableLog(){
+		tfdDate.setText("");
+		tfdNameUser.setText("");
+		tfdUserAffected.setText("");
+		tfdContext.setText("");
+		tfdComponent.setText("");
+		tfdEvent.setText("");
+		tfdDescription.setText("");
+		tfdPOrigin.setText("");
+		tfdIp.setText("");
 	}
 
 	/**

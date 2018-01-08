@@ -4,10 +4,11 @@ package ubulogexception;
  * clase UBULogError. clase tipo enum para almacenar errores..
  * @author oscar Fernández Armengol
  * 
- * @version 1.0
+ * @version 1.2
  */
 public enum UBULogError {
 		
+		USER_PASS_INCORRECTO("El usuario o la contraseña es incorrecto"),
 		FICHERO_NO_VALIDO("El fichero seleccionado no es valido"),
 		FICHERO_NO_ELIMINADO("El fichero no se ha eliminado"),
 		FICHERO_CANCELADO("Cancelación de selección de fichero"),

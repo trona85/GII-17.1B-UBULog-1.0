@@ -9,9 +9,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import controllers.UBULog;
 import model.Course;
+import ubulogexception.UBULogError;
+import ubulogexception.UBULogException;
 
 /**
  *  Clase sesión. Obtiene el token de usuario y guarda sus parámetros. Establece la sesión.
@@ -22,6 +26,8 @@ import model.Course;
  * @version 1.1
  */
 public class Session {
+	
+	static final Logger logger = LoggerFactory.getLogger(Session.class);
 
 	/**
 	 * Nombre usuario.
@@ -68,7 +74,7 @@ public class Session {
 	 * 
 	 * @throws Exception excepción
 	 */
-	public void setToken() throws Exception {
+	public void setToken() throws Exception, UBULogException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 			HttpGet httpget = new HttpGet(UBULog.getHost() + "/login/token.php?username=" + this.userName + "&password="
@@ -77,10 +83,13 @@ public class Session {
 			try {
 				String respuesta = EntityUtils.toString(response.getEntity());
 				JSONObject jsonObject = new JSONObject(respuesta);
-				if (jsonObject != null) {
+				if (jsonObject.has("token")) {
+					
 					this.tokenUser = jsonObject.getString("token");
+				}else{
+					throw new UBULogException(UBULogError.USER_PASS_INCORRECTO);
 				}
-			} finally {
+			}finally {
 				response.close();
 			}
 		} finally {

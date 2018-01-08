@@ -37,7 +37,7 @@
 			<children>
 				<TextField id="txtUname" fx:id="txtUsername" layoutY="27.0" prefWidth="173.0" styleClass="text-field-login" stylesheets="@/css/style.css" />
 				<PasswordField id="yxyPassword" fx:id="txtPassword" layoutY="63.0" prefHeight="25.0" prefWidth="174.0" styleClass="text-field-login" stylesheets="@/css/style.css" />
-				<TextField fx:id="txtHost" layoutY="100.0" prefWidth="173.0" styleClass="text-field-login" stylesheets="@/css/style.css" />
+				<TextField fx:id="txtHost" layoutY="100.0" prefWidth="173.0" styleClass="text-field-login" stylesheets="@/css/style.css" text="https://ubuvirtual.ubu.es/" />
 			</children>
 		</Group>
 		<Button id="Entrar" fx:id="btnLogin" cancelButton="false" defaultButton="false" disable="false" focusTraversable="true" graphicTextGap="5.0" layoutX="100.0" layoutY="405.0" mnemonicParsing="false" onAction="#login" prefWidth="70.0" text="Entrar" textOverrun="ELLIPSIS" underline="false" visible="true">

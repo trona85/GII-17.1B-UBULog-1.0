@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.MoodleUser;
+import ubulogexception.UBULogException;
 import webservice.MoodleUserWS;
 import webservice.Session;
 
@@ -26,7 +27,7 @@ import webservice.Session;
  * @author oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.0
+ * @version 1.2
  */
 public class LoginController {
 
@@ -66,9 +67,11 @@ public class LoginController {
 		try {
 			UBULog.getSession().setToken();
 			
-		} catch (Exception e) {
+		} catch (UBULogException e) {
 			correcto = false;
-			logger.error("No se ha podido establecer el token d usuario. {}", e);
+			logger.error("No se ha podido establecer el token d usuario. {}", e.getMessage());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		
 		if (correcto) {
@@ -110,7 +113,7 @@ public class LoginController {
 			Thread th = new Thread(task);
 			th.start();
 		} else {
-			lblStatus.setText(" Usuario incorrecto");
+			lblStatus.setText(" Usuario o contraseña incorrecto");
 			logger.info("Login Incorrecto");
 			txtUsername.setText("");
 			txtPassword.setText("");
