@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-Este proyecto está orientado a profesores de la universidad de Burgos y en este apartado vamos a hablar de los objetivos generales, de la especificación de requisitos (funcionales y no funcionales) y especificaremos cada uno de ellos.
+Este proyecto está orientado a profesores de la Universidad de Burgos y en este apartado vamos a hablar de los objetivos generales, de la especificación de requisitos (funcionales y no funcionales) y especificaremos cada uno de ellos.
 
 \section{Objetivos generales}
 
@@ -11,7 +11,7 @@ En el desarrollo del proyecto se quieren conseguir los siguientes objetivos:
 \begin{itemize}
 	\tightlist
 	\item
-	Desarrollar una aplicación de escritorio para poder loguearse con UBUVirtual.
+	Desarrollar una aplicación de escritorio para poder iniciar sesión en UBUVirtual.
 	\item
 	Obtención de datos por el Web Service de Moodle.
 	\item
@@ -84,7 +84,7 @@ En esta sección se mostrará el diagrama de casos de uso resultante y se
 desarrollará cada uno de ellos.	
 \subsection{Diagrama de casos de uso}\label{diagrama-de-casos-de-uso}
 	
-\imagen{usecasesdiagram}{Diagrama de casos de uso.}{1.35}
+\imagen{usecasesdiagram}{Diagrama de casos de uso.}{0.9}
 
 \subsection{Actores}\label{actores}
 
@@ -95,11 +95,11 @@ figura del usuario.
 
 \tablaSmallSinColores{RF1 - Autenticación de usuario}{|l | l |}{autenticaciondeusuario}
 { \multicolumn{1}{|l }{RF1} & Autenticación de usuario \\}{ 
-	Descripción & Se introduce e-mail, contraseña y host (UBUVirtual).\\ \hline
+	Descripción & Se introduce \emph{e-mail}, contraseña y \emph{host} (UBUVirtual).\\ \hline
 	Requisitos asociados & RF2. \\
 	\hline
-	Precondiciones & El usuario debe tener utilizar el e-mail de UBUVirtual. \\ \hline
-	Secuencia normal & 	 1- Introducir los 3 campos del login. \\
+	Precondiciones & El usuario debe tener utilizar el \emph{e-mail} de UBUVirtual. \\ \hline
+	Secuencia normal & 	 1- Introducir los 3 campos de inicio de sesión. \\
 	
 	 & 2- Entrar en la aplicación. \\ \hline
 	Postcondiciones & Datos de usuario cargados. Se accederá a la pantalla de \\
@@ -113,7 +113,7 @@ figura del usuario.
 	Descripción & El sistema carga los cursos en los que está matriculado \\  & el usuario.\\ \hline
 	Requisitos asociados & RF1. \\
 	\hline
-	Precondiciones &El usuario se ha logueado correctamente. \\ \hline
+	Precondiciones &El usuario ha iniciado sesión correctamente. \\ \hline
 	Secuencia normal & 	 1- Obtención de los cursos del usuario. \\
 	& 2- Carga de la lista de cursos. \\
 		& 3- Selección de curso por parte del usuario. \\ \hline
@@ -124,13 +124,13 @@ figura del usuario.
 
 \tablaSmallSinColores{RF3 - Carga de datos}{|l | l |}{carga-de-datos}
 { \multicolumn{1}{|l }{RF3} & Extracción de datos \\}{ 
-	Descripción & El usuario cargara el fichero csv o ejecutara la descarga del log.\\ \hline
+	Descripción & El usuario cargará el fichero CSV o ejecutará la descarga del log.\\ \hline
 	Requisitos asociados & RF1. \\
 	\hline
-	Precondiciones & 1- El usuario se ha logueado correctamente. \\ 
+	Precondiciones & 1- El usuario ha iniciado sesión correctamente. \\ 
 	& 2- El usuario selecciona una asignatura. \\ \hline
-	Secuencia normal & 	 SI tiene csv: Carga documento csv. \\
-	& SI NO tiene csv: puede descargarlo manualmente o clicando en\\ & descarga automatizada. \\ \hline
+	Secuencia normal & 	 SI tiene CSV: Carga documento CSV. \\
+	& SI NO tiene CSV: puede descargarlo manualmente o clicando en\\ & descarga automatizada. \\ \hline
 	Postcondiciones & Se cargan los datos de log en la aplicación.\\ \hline
 	Frecuencia & Media.\\ \hline
 	Importancia & Alta. \\ 
@@ -186,7 +186,7 @@ figura del usuario.
 
 \tablaSmallSinColores{RF6 - Visualización de logs}{|l | l |}{visualización-de-logs}
 { \multicolumn{1}{|l }{RF6} & Visualización de logs \\}{ 
-	Descripción & La aplicación mostrara los logs cargados en forma de tabla.\\ \hline
+	Descripción & La aplicación mostrará los logs cargados en forma de tabla.\\ \hline
 	Requisitos asociados & RF3, RF4. \\
 	\hline
 	Precondiciones & 1- El log debe de estar cargado. \\ 

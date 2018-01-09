@@ -24,12 +24,12 @@ Se compone de las tres capas con las que lleva su nombre:
 	\item
 	\textit{\textbf{Modelo}}: Los diferentes tipos de datos en los que se compone la aplicación.
 	\item
-	\textit{\textbf{View}}: Como el usuario va a visualizar los datos, una vista no tiene porqué ser general para todos, cada usuario puede tener la suya propia.
+	\textit{\textbf{Vista}}: Como el usuario va a visualizar los datos, una vista no tiene por qué ser general para todos, cada usuario puede tener la suya propia.
 	\item
 	\textit{\textbf{Controlador}}: Comunica la capa modelo con las vistas. Comunica datos del modelo para mostrárselos al usuario.
 \end{itemize}
 
-\imagen{mvc}{Patrón MVP.}
+\imagen{mvc}{Patrón MVP.}{0.9}
 
 \section{Control de versiones}\label{control-de-versiones}
 
@@ -42,7 +42,7 @@ Se compone de las tres capas con las que lleva su nombre:
 	Herramienta elegida: \href{https://git-scm.com/}{Git}.
 \end{itemize}
 
-Git es un sistema de control de versiones distribuido. Nos permite tener dos repositorios, un repositorio local y otro repositorio remoto, los dos tendrán como rama principal la \emph{master}, en la cual, cuando consideremos que los cambios de nuestro repositorio \emph{local} pueden subirse al \emph{master}, podremos subirlo para compartirlo con el equipo.  No nos hace falta estar permanentemente conectados a una red como con Subversion. Como no requiere de conexión, nos podríamos retraer a un commit anterior, ya que tenemos el historial de log en nuestro repositorio \emph{local}, sin internet y de forma local \cite{web:git}.
+Git es un sistema de control de versiones distribuido. Nos permite tener dos repositorios, un repositorio local y otro repositorio remoto, los dos tendrán como rama principal la \emph{master}, en la cual, cuando consideremos que los cambios de nuestro repositorio \emph{local} pueden subirse al \emph{master}, podremos subirlo para compartirlo con el equipo.  No nos hace falta estar permanentemente conectados a una red como con Subversion. Como no requiere de conexión, nos podríamos retraer a un \emph{commit} anterior, ya que tenemos el historial de log en nuestro repositorio \emph{local}, sin internet y de forma local \cite{web:git}.
 
 Git se distribuye bajo la licencia de \emph{software} libre GNU LGPL v2.1.
 
@@ -58,10 +58,10 @@ Git se distribuye bajo la licencia de \emph{software} libre GNU LGPL v2.1.
 	Herramienta elegida: \href{https://github.com/}{GitHub}.
 \end{itemize}
 
-GitHub es una plataforma web donde podemos hospedar nuestro repositorios del proyecto. Nos permite todas las  funcionalidades de Git, revisión de commit, revisión de código, documentación, gestión de tareas.... Es
+GitHub es una plataforma web donde podemos hospedar nuestro repositorios del proyecto. Nos permite todas las  funcionalidades de Git, revisión de \emph{commit}, revisión de código, documentación, gestión de tareas.... Es
 gratuita cuando los proyectos son \emph{open source}.
 
-Con el plugin de Chrome Zedhub, en GitHub, nos permite tener la funcionalidad de canvas para la organización de tareas, como la plataforma Trello. Como estamos utilizando servicios de integración continua, teniendo el repositorio en GitHub, nos permite la sincronización solo con nuestra cuenta de GitHub \cite{web:github}.
+Con el plugin de Chrome ZenHub, en GitHub, nos permite tener la funcionalidad de canvas para la organización de tareas, como la plataforma Trello. Como estamos utilizando servicios de integración continua, teniendo el repositorio en GitHub, nos permite la sincronización solo con nuestra cuenta de GitHub \cite{web:github}.
 
 \section{Gestión del proyecto}\label{gestion-del-proyecto}
 
@@ -76,7 +76,7 @@ Con el plugin de Chrome Zedhub, en GitHub, nos permite tener la funcionalidad de
 
 ZenHub es un plugin desarrollado para exploradores web para integrar una nueva vista, más organizativa, en GitHub. 
 
-Proporciona un tablero canvas en donde cada tarea representada se corresponde con un \emph{issue} o tarea, nativo de GitHub. Cada tarea puede ser organizada en el \emph{sprint} al que pertenece con la asignación de ella, su tiempo estimado de realización, etc. Si el proyecto tiene menos de 5 colaboradores es \emph{open source} \cite{web:zenhub}.
+Proporciona un tablero kanbas en donde cada tarea representada se corresponde con un \emph{issue} o tarea, nativo de GitHub. Cada tarea puede ser organizada en el \emph{sprint} al que pertenece con la asignación de ella, su tiempo estimado de realización, etc. Si el proyecto tiene menos de 5 colaboradores es \emph{open source} \cite{web:zenhub}.
 
 
 \section{Entorno de desarrollo integrado
@@ -85,14 +85,14 @@ Proporciona un tablero canvas en donde cada tarea representada se corresponde co
 \subsection{Java}\label{java}
 
 \subsubsection{eclipse neon}\label{eclipse}
-Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos facilita el trabajo a la hora de programar, nos proporciona un auto completar de métodos y clases y nos enseña, si lo tiene, una descripción de los métodos. Esto nos ayuda en un primer momento si no se conoce la librería a utilizar o los métodos. En nuestro caso lo utilizamos para programación Java, aunque nos permite otro lenguages, como puede ser PHP.
-Eclipse también nos permite funciones de caracterización que nos ahorran horas de trabajo y podemos conectarlo con Git directamente para hacer commit. y ver de forma directa los cambios hechos o los ficheros que no están commiteados \cite{web:eclipse}.
+Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos facilita el trabajo a la hora de programar, nos proporciona un auto completar de métodos y clases y nos enseña, si lo tiene, una descripción de los métodos. Esto nos ayuda en un primer momento si no se conoce la librería a utilizar o los métodos. En nuestro caso lo utilizamos para programación Java, aunque nos permite otro lenguajes, como puede ser PHP.
+Eclipse también nos permite funciones de caracterización que nos ahorran horas de trabajo y podemos conectarlo con Git directamente para hacer \emph{commit} y ver de forma directa los cambios hechos o los ficheros que no se ha hecho \emph{commit} \cite{web:eclipse}.
 
 \subsection{LaTeX}\label{latex}
 
 \subsubsection{TexStudio}\label{texstudio}
 
-TexStudio es un editor para crear documentos LaTeX. Nos permite compilar el documento, previsualizarlo, autocompletarlo, corrección de faltas. Se puede instalar en diferentes sistemas operativos. En el entorno Ubuntu 16.04, la instalación es sencilla, aparte del texStudio solo hay que instalar los paquetes de idiomas y ya podremos empezar a trabajar \cite{web:texstudio}.
+TexStudio es un editor para crear documentos \LaTeX. Nos permite compilar el documento, previsualizarlo, autocompletarlo, corrección de faltas. Se puede instalar en diferentes sistemas operativos. En el entorno Ubuntu 16.04, la instalación es sencilla, aparte del texStudio solo hay que instalar los paquetes de idiomas y ya podremos empezar a trabajar \cite{web:texstudio}.
 
 \subsection{JavaScript y HTML}\label{javascript-y-html}
 
@@ -107,7 +107,7 @@ Es una aplicación con un entorno de desarrollo integrado (\emph{IDE}), nos perm
 
 \subsubsection{TravisCI}\label{travis-ci}
 
-Travis es una herramienta de integración continua que está alojada en la nube y que podemos sincronizarla con GitHub. Esto nos permite, cada vez que hacemos un commit, montar nuestro proyecto y ejecutar las pruebas de forma automatizada, y cuando termine nos enviara un informe del resultado \cite{web:travis}.
+Travis es una herramienta de integración continua que está alojada en la nube y que podemos sincronizarla con GitHub. Esto nos permite, cada vez que hacemos un commit, montar nuestro proyecto y ejecutar las pruebas de forma automatizada, y cuando termine nos enviará un informe del resultado \cite{web:travis}.
 
 
 %\subsection{Cobertura de código}\label{cobertura-de-codigo}
@@ -116,7 +116,7 @@ Travis es una herramienta de integración continua que está alojada en la nube 
 
 \subsubsection{SonarQube}\label{sonarqube}
 
-SonarQube es una plataforma que tiene versión de escritorio y también está alojada en la nube, de código abierto. Nos permite la sincronización con nuestro repositorio en GitHub y nos evalúa el código. Permite detectar bugs, código smell, código duplicado, etc. Es muy útil para mejorar el mantenimiento de tu proyecto \cite{web:sonarqube}.
+SonarQube es una plataforma que tiene versión de escritorio y también está alojada en la nube, de código abierto. Nos permite la sincronización con nuestro repositorio en GitHub y nos evalúa el código. Permite detectar bugs, \emph{smell code}, código duplicado, etc. Es muy útil para mejorar el mantenimiento de tu proyecto \cite{web:sonarqube}.
 
 \section{Sistemas de construcción automática del
 	\emph{software}}\label{sistemas-de-construccion-automuxe1tica-del-software}
@@ -124,7 +124,7 @@ SonarQube es una plataforma que tiene versión de escritorio y también está al
 
 
 \subsection{Gradle}\label{gradle}
-\href{https://gradle.org/}{Gradle} Es una herramienta para la automatización de build, puede ser instalada en el sistema operativo o como plugin en eclipse, el plugin tiene ciertas limitaciones, como por ejemplo la especificación de errores. hay veces que no te los dice y tienes que ejecutarlo desde consola, por eso, en nuestro proyecto, se ha utilizado los dos \cite{gradle}.
+\href{https://gradle.org/}{Gradle} Es una herramienta para la automatización de \emph{build}, puede ser instalada en el sistema operativo o como plugin en eclipse. El plugin tiene ciertas limitaciones, como por ejemplo la especificación de errores, hay veces que no te los dice y tienes que ejecutarlo desde consola, por eso, en nuestro proyecto, se ha utilizado los dos \cite{gradle}.
 
 
 \section{Librerías}\label{libreruxedas}
@@ -135,9 +135,14 @@ SonarQube es una plataforma que tiene versión de escritorio y también está al
 \href{http://docs.oracle.com/javase/8/javase-clienttechnologies.htm}{JavaFX}
 es una librería para la creación de interfaces gráficas en Java.
 
+\subsection{Calendar}\label{calendar}
+
+\href{https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.html}{Calendar}
+es una librería para manejar las fechas en java, antes se utilizaba Date pero esta deprecada.
+
 \subsection{Log4j}\label{log4j}
 
-Log4j es una librería de Java desarrollada por la compañía Apache Software Fundation que nos permite en nuestra aplicación escribir mensajes de registro, como pueden ser errores o warnings. También nos permite configurar el filtrado de mensajes para que el programador pueda ver los tipos de errores que desee \cite{Java:log}.
+Log4j es una librería de Java desarrollada por la compañía Apache Software Fundation que nos permite en nuestra aplicación escribir mensajes de registro, como pueden ser errores o \emph{warnings}. También nos permite configurar el filtrado de mensajes para que el programador pueda ver los tipos de errores que desee \cite{Java:log}.
 
 \subsection{HttpClient}\label{httpclient}
 
@@ -157,7 +162,7 @@ Commons-CSV es una librería creada por Apache Software Fundation para Java, que
 	Herramienta elegida: \href{http://htmlunit.sourceforge.net/}{HtmlUnit}.
 \end{itemize}
 
-HtmlUnit es una librería para Java, que nos permite la interacción en páginas web o \emph{web scripting}, nos permite rellenar formularios, hacer clic sobre botones, incluso recoger archivos descargados de la web \cite{Java:htmlunit}.
+HtmlUnit es una librería para Java, que nos permite la interacción en páginas web o Web Scripting, nos permite rellenar formularios, hacer clic sobre botones, incluso recoger archivos descargados de la web \cite{Java:htmlunit}.
 %\subsection{JUnit}\label{junit}
 
 
@@ -180,7 +185,7 @@ HtmlUnit es una librería para Java, que nos permite la interacción en páginas
 
 \subsection{Scene Builder}\label{scene-builder}
 
-\href{http://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-info-2157684.html}{Scene Builder} es una aplicación para diseñar la interfaz de usuario de una manera sencilla. Scene builder es de Oracle con ella podremos generar los archivos .fxml que serán los que cargaremos para ver las vistas del usuario.
+\href{http://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-info-2157684.html}{Scene Builder} es una aplicación para diseñar la interfaz de usuario de una manera sencilla. Scene Builder es de Oracle con ella podremos generar los archivos .fxml que serán los que cargaremos para ver las vistas del usuario.
 
 \subsection{Pinta}\label{pinta}
 

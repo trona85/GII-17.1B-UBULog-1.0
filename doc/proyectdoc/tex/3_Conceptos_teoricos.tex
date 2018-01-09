@@ -1,6 +1,6 @@
 \capitulo{3}{Conceptos teóricos}
 
-Vamos a hablar de los conceptos teóricos aportando nueva información contando la información del tfg anterior de Claudia Martínez Herrero (página 6-13, año 2017) \cite{claudia}.
+Vamos a hablar de los conceptos teóricos aportando nueva información contando la información del TFG previo de Claudia Martínez Herrero (página 6-13, año 2017) \cite{claudia}.
 
 %\section{API Rest}\label{api-rest}
 
@@ -8,30 +8,34 @@ Vamos a hablar de los conceptos teóricos aportando nueva información contando 
 
 \section{Token}\label{token}
 
-Token para la autenticación en web, que es como lo estamos utilizando nosotros. Es un código único, en algunos casos temporal, que se le asocia a un usuario para mantenerle su sesión abierta, mientras ese token sea correcto. En nuestro caso, se genera un token permanente, dado que estamos en pruebas. el token que nos genera Moodle es: "9a5e85d1e61c1c42509d77b34f26643a"
+Token para la autenticación en web, que es como lo estamos utilizando nosotros. Es un código único, en algunos casos temporal, que se le asocia a un usuario para mantenerle su sesión abierta, mientras ese token sea correcto. Un ejemplo de token generado por Moodle es: "9a5e85d1e61c1c42509d77b34f26643a"
+
+\section{Logs de Moodle}\label{logs-de-moodle}
+
+Moodle guarda todas las interacciones que hacen todos los usuarios en todas las asignaturas, entradas a cuestionarios, descarga de documento, repuestas en un test, etc.... Los profesores pueden verlo en formato de tabla en la web de Moodle y descargarlo en formato CSV.
 
 \section{Json}\label{json}
 
-JavaScript Object Notation (\emph{Json}) es una estructura en formato texto, con el cual, podemos enviar y recibir datos de un servidor, de forma rápida y sencilla. 
+JavaScript Object Notation (\emph{Json}) es una estructura en formato texto, con el cuál, podemos enviar y recibir datos de un servidor, de forma rápida y sencilla. 
 
 Su estructura seria tal que así:
 
-\imagen{json}{Estructura Json.}
+\imagen{json}{Estructura Json.}{0.9}
 
 La imagen representa una respuesta del servidor de Moodle haciéndole una petición a su WebService.
 
 Para su tratamiento de los datos es similar a un array de objetos, nos podemos mover por él y almacenar esos datos para nuestro uso futuro, igualmente podemos crear un Json y enviarlo al servidor para que lo trate el, en el caso de que estuviera permitido.
 
-\section{Web Scraping}\label{web-scraping}
+\section{Web Scripting}\label{web-scripting}
 
-Web Scraping es una manera de interaccionar con una web y automatizar las interacciones. Su uso habitual es para  el testeo de webs, probar campos, botones, etc.... Pero también podemos utilizarlo para el tratamiento de datos. Hay veces que la web no proporciona una api rest o un archivo con el cual podamos tratar ciertos datos para hacer alguna cosa concreta. En nuestro caso, lo tenemos que utilizar para la descarga automática de un log, en el que si no estamos logueados, no podríamos descargar ningún documento.
+Web Scripting es una manera de interaccionar con una web y automatizar las interacciones. Su uso habitual es para  el testeo de webs, probar campos, botones, etc.... Pero también podemos utilizarlo para el tratamiento de datos. Hay veces que la web no proporciona una api rest o un archivo con el cual podamos tratar ciertos datos para hacer alguna cosa concreta. En nuestro caso, lo tenemos que utilizar para la descarga automática de un log porque el WebService de Moodle no nos proporciona un método con el cuál podamos conseguir esos datos.
 
 El usuario podría ir al registro sin ningún problema y descargarlo, pero también nos interesa, que si el usuario no sabe dónde está el registro o le resulta dificultoso el proceso de descargarlo manualmente, podamos automatizarlo para él.
  
 Lo que hemos hecho es automatizar el proceso que haría el usuario de forma manual. 
  \begin{enumerate}
  	\item 
- 	Nos iremos a la URL de logueo.
+ 	Nos iremos a la URL donde se nos permite iniciar sesión.
  	\item 
  	Rellenamos usuario y contraseña e inmediatamente hacemos clic en aceptar.
  	\item 
@@ -42,7 +46,7 @@ Lo que hemos hecho es automatizar el proceso que haría el usuario de forma manu
  	Recogemos la respuesta que nos da la web y la convertimos en String, en este paso ya tenemos todo el registro almacenado en nuestra aplicación.
  \end{enumerate}
  
-Aunque en nuestra aplicación ya nos logueamos al principio, para este proceso hay que volver a loguearse, ya que, es token que nos proporciona el web service de Moodle, no es el mismo.
+Aunque en nuestra aplicación ya iniciamos sesión con el Web Service de Moodle, para este proceso hay que volver a iniciar sesión, ya que, el token que nos proporciona el Web Service de Moodle, no es el mismo.
 
 Es importante destacar, que este proceso, para el usuario, es transparente. Lo único que va a notar, es que, le cuesta cargar el log más. En el equipo que se ha desarrollado el proyecto un log de 100 registros es imperceptible, pero hacer que se lo descargue automáticamente incrementa el tiempo de forma considerable.
  

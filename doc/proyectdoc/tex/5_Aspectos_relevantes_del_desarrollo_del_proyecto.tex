@@ -4,9 +4,9 @@ Este apartado pretende recoger los aspectos más interesantes del desarrollo del
 
 \section{Inicio del proyecto}\label{inicio-del-proyecto}
 
-El proyecto comenzó el 3 de octubre del 2017. La idea surgió de un tfg anterior el de Claudia Martínez Herrero \cite{claudia} en el cual se iniciaba sesión en UBUVirtual y tenía que sacar con gráficas las notas de los diferentes alumnos. Al tutor Raúl Marticorena Sánchez, se le ocurrió dar una vuelta a esa idea y partiendo de ese tfg, queríamos sacar las estadísticas de las interacciones de los diferentes usuarios de UBUVirtual en una asignatura concreta para poder mostrarlo al profesor de forma más amigable.
+El proyecto comenzó el 3 de octubre del 2017. La idea surgió de un TFG anterior, el de Claudia Martínez Herrero \cite{claudia} en el cual se iniciaba sesión en UBUVirtual y tenía que sacar con gráficas las notas de los diferentes alumnos. Al tutor Raúl Marticorena Sánchez, se le ocurrió dar una vuelta a esa idea y partiendo de ese TFG, queríamos sacar las estadísticas de las interacciones de los diferentes usuarios de UBUVirtual en una asignatura concreta para poder mostrarlo al profesor de forma más amigable.
 
-\imagen{logo}{Logo UBULog.}
+\imagen{logo}{Logo UBULog.}{0.9}
 
 \section{Metodologías}\label{metodologias-proyecto}
 
@@ -19,7 +19,7 @@ Algunas tecnologías utilizadas en el proyecto requerían formación antes de em
 \begin{itemize}
 	\tightlist
 	\item
-	Aplicación UBUGrades, se tuvo que probar y refactorizar el código para facilitar su lectura y saber que partes nos valían y cuales podríamos desechar.
+	Aplicación UBUGrades, se tuvo que probar y refactorizar el código para facilitar su lectura y saber qué partes nos valían y cuales podríamos desechar.
 	\item
 	Librería Common-csv-1.5, se investigó su JavaDoc para saber si nos podía parsear nuestros documentos.
 	\item
@@ -36,7 +36,7 @@ Este proyecto ha sido una continuación parcial de proyecto de Claudia Martínez
 
 \subsection{Utilización de Moodle y sus servicios web}\label{utilizacióndemoodleysusserviciosweb}
 
-La única diferencia en este punto es, que nosotros no hemos generado calificaciones, ya que nosotros no lo necesitamos, porque vamos a mirar las interacciones de los usuarios con el log que genera Moodle (la descarga del log se explicara en la guía de usuario).
+La única diferencia en este punto es, que nosotros no hemos generado calificaciones, ya que nosotros no lo necesitamos, porque vamos a mirar las interacciones de los usuarios con el log que genera Moodle (la descarga del log se explicará en la guía de usuario).
 
 \subsection{Funciones utilizadas}\label{funciones-utilizadas}
 
@@ -72,40 +72,40 @@ A continuación explicaremos los métodos correspondientes para generar los grá
 
 Con el crearemos el objeto Chart.
 
-\imagen{chartconst}{Constructor Chart.}
+\imagen{chartconst}{Constructor Chart.}{0.9}
 
 \subsubsection{HTML}\label{html}
 
-El HTML necesario para las gráficas, se genera en tiempo de ejecución. El método con el cual se genera es el siguiente.
+El HTML necesario para las gráficas, se genera en tiempo de ejecución. El método con el cuál se genera es el siguiente.
 
-\imagen{charthtml}{Código HTML para el gráfico.}
+\imagen{charthtml}{Código HTML para el gráfico.}{1}
 
 \subsubsection{CSS}\label{css}
 
-El CSS necesario para las gráficas, se genera en tiempo de ejecución. El método con el cual se genera es el siguiente.
+El CSS necesario para las gráficas, se genera en tiempo de ejecución. El método con el cuál se genera es el siguiente.
 
-\imagen{chartcss}{Código CSS del gráfico.}
+\imagen{chartcss}{Código CSS del gráfico.}{1}
 
 \subsubsection{Utils.js}\label{utils}
 
-El JavaScript necesario para generar gráficas, se genera en tiempo de ejecución. El método con el cual se genera es el siguiente.
+El JavaScript necesario para generar gráficas, se genera en tiempo de ejecución. El método con el cuál se genera es el siguiente.
 
-\imagen{chartutil}{Código utils.js necesario para el gráfico.}
+\imagen{chartutil}{Código utils.js necesario para el gráfico.}{0.9}
 
 \subsubsection{chart.js}\label{chart-js}
 
 El JavaScript necesario para las gráficas, se genera en tiempo de ejecución. El método con el cual se genera es el siguiente.
 
-\imagen{generategrafica}{Código chart general.js.}
+\imagen{generategrafica}{Código chart general.js.}{0.9}
 
-En este código lo que hacemos es poner la configuración del gráfico, el tipo, y los datos. Las fechas las insertamos en este método, para insertar los datos que queremos mostrar las gráficas llamamos al método setDataSetJavaScript pasándole el objeto PrinterWriter, el código es el siguiente.
+En este código lo que hacemos es poner la configuración del gráfico, el tipo, y los datos. Las fechas las insertamos en este método, para insertar los datos que queremos mostrar las gráficas llamamos al método \emph{setDataSetJavaScript} pasándole el objeto \emph{PrinterWriter}, el código es el siguiente.
 
-\imagen{setdatasetjavascript}{Código chart datos.js.}
+\imagen{setdatasetjavascript}{Código chart datos.js.}{1}
 
-En este código generamos tantos DataSet como tengamos ya almacenamos con el número de interacciones correspondientes. Para obtener estos datos el método que almacena los datos es el siguiente.
+En este código generamos tantos \emph{DataSet} como tengamos ya almacenamos con el número de interacciones correspondientes. Para obtener estos datos el método que almacena los datos es el siguiente.
 
-\imagen{setlabel1}{Código que obtiene datos para el gráfico 1.}
-\imagen{setlabel2}{Código que obtiene datos para el gráfico 2.}
+\imagen{setlabel1}{Código que obtiene datos para el gráfico 1.}{1}
+\imagen{setlabel2}{Código que obtiene datos para el gráfico 2.}{1}
 
 Este método tiene 3 condiciones principales, si solo ha seleccionado participantes, si solo ha seleccionado eventos o si selecciona ambas.
 
@@ -135,8 +135,8 @@ En la condición más compleja, que es seleccionar ambas, lo que ocurre, es:
  
 \subsubsection{HTML}\label{html-tabla-log}
  
-\imagen{generartablalog}{Código que genera la tabla log 1.}
-\imagen{datatablelog}{Código que genera la tabla log 2.}
+\imagen{generartablalog}{Código que genera la tabla log 1.}{1}
+\imagen{datatablelog}{Código que genera la tabla log 2.}{1}
 
 Creamos las cabeceras y una vez hecho eso recorremos cada log para obtener sus datos y poder crear la tabla completa.
 
@@ -144,7 +144,7 @@ Creamos las cabeceras y una vez hecho eso recorremos cada log para obtener sus d
 
 Con Web Scripting lo que queremos conseguir es la automatización de la descarga de logs.
 
-Hemos observado que con la descarga de logs considerablemente grandes(con 20.000 instancias) el tiempo se incrementa considerablemente, es muchísimo más rápido la descarga manual del log. Se ha observado que, si se intenta descargar con una conexión wifi, la aplicación puede llegar a colgarse de tal manera que haya que hacer un kill.
+Hemos observado que con la descarga de logs considerablemente grandes(con 20.000 instancias) el tiempo se incrementa considerablemente, es muchísimo más rápido la descarga manual del log. Se ha observado que, si se intenta descargar con una conexión wifi, la aplicación puede llegar a colgarse de tal manera que haya que hacer un \emph{kill}.
 
 Hablaremos del código en las siguientes sub-secciones.
 
@@ -152,9 +152,9 @@ Hablaremos del código en las siguientes sub-secciones.
 
 En el cargaremos la web de UBUVirtual e iniciaremos sesión.
 
-\imagen{webconst}{Constructor Web Scripting.}
+\imagen{webconst}{Constructor Web Scripting.}{0.9}
 
-\subsubsection{Responsive Web}\label{responsive-web}
+\subsubsection{Recolección de datos CSV}\label{responsive-web}
 
 Una vez iniciado sesión cargamos la URL correspondiente con todos los log, sin ningún tipo de filtro, del curso en el que estamos.
 
@@ -162,12 +162,12 @@ Recogemos la respuesta que nos da al hacer clic en el input de descarga y guarda
 
 El código correspondiente es el siguiente.
 
-\imagen{webdown}{Método getResponsiveWeb.}
+\imagen{webdown}{Método recolección de datos CSV.}{1}
 
 
 \subsection{Decisiones en cuanto a la interfaz}\label{decisiones-en-cuanto-a-la-interfaz}
 
-El proyecto a partido del diseño del TFG de Claudia Martínez Herrero \cite{claudia} con algunas modificaciones.
+El proyecto ha partido del diseño del TFG de Claudia Martínez Herrero \cite{claudia} con algunas modificaciones.
 
 \subsection{Ventana de bienvenida}\label{ventana-de-bienvenida}
 
@@ -179,25 +179,29 @@ No se aporta nada nuevo.
 
 \subsection{Ventana de principal}\label{ventana-de-principal}
 
-Esta ventana, se ha tenido que crear desde 0, porque no se redimensionaba de forma correcta, aunque se ha seguido el diseño que ya estaba, se ha cambiado botones y añadido funcionalidades nuevas, al igual que se han suprimido otras. 
+Esta ventana, se ha tenido que crear desde cero, porque no se redimensionaba de forma correcta, aunque se ha seguido el diseño que ya estaba, se ha cambiado botones y añadido funcionalidades nuevas, al igual que se han suprimido otras. 
 
-el resultado es el siguiente.
+El resultado es el siguiente.
 
-\imagen{aplicacionp}{Ventana de principal UBULog.}
+\imagen{aplicacionp}{Ventana de principal UBULog.}{0.9}
 
-El primer cambio importante que se observa es que, si no se tiene un log cargado, los filtros, las selecciones de eventos y participantes quedan deshabilitadas hasta que se carga e log.
+El primer cambio importante que se observa es que, si no se tiene un log cargado, los filtros, las selecciones de eventos y participantes quedan deshabilitadas hasta que se carga el log.
 
-Se añade la foto del profesor que ha iniciado sesión.
-
-Nuevos botones para la carga de log cuando se tiene el registro almacenado en local o si se quiere descargar de forma automática.
-
-Un nuevo botón para generar el gráfico con referencia a los resultados de la tabla de logs.
+\begin{itemize}
+	\tightlist
+	\item
+	Se añade la foto del profesor que ha iniciado sesión.
+	\item
+	Nuevos botones para la carga de log cuando se tiene el registro almacenado en local o si se quiere descargar de forma automática.
+	\item
+	Un nuevo botón para generar el gráfico con referencia a los resultados de la tabla de logs.
+\end{itemize}
 
 \subsubsection{Gráfica logs}\label{grafica-logs}
 
 Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado sería el siguiente.
 
-\imagen{aplicacionchart}{Vista de gráfica.}
+\imagen{aplicacionchart}{Vista de gráfica.}{0.9}
 
 En la gráfica podemos ver en la leyenda las combinaciones seleccionadas, y en el gráfico los resultados. Si no vemos bien en número de interacciones en el gráfico a simple vista, podremos ir con el ratón, colocarnos encima de la barra deseada y nos dará la información correspondiente.
 
@@ -207,7 +211,7 @@ Si deseamos cambiar el tipo de gráfico podremos pinchar en el selector de la gr
 
 Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado sería el siguiente en la tabla de logs.
 
-\imagen{aplicaciontable}{Vista tabla de logs.}
+\imagen{aplicaciontable}{Vista tabla de logs.}{0.9}
 
 En la tabla de logs, podremos ver los log de forma individual, con sus características.
 

@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-En esta parte de los anexos vamos a explicar el diseño de dato, diseño procedimental y diseño arquitectónico de nuestro proyecto.
+En esta parte de los anexos vamos a explicar el diseño de datos y diseño arquitectónico de nuestro proyecto.
 
 \section{Diseño de datos}
 
@@ -23,7 +23,7 @@ Nuestro modelo de datos se corresponde con lo siguiente:
 	\item
 	\textbf{Log}: tiene fecha , nombre del usuario que realiza la acción, nombre del usuario afectado, contexto, componente, evento, origen, ip y descripción.
 	\item
-	\textbf{MoodleUser}: tiene un id, nombre, apellido, e-mail, departamento, primer acceso, ultimo acceso, autenticación, descripción, imagen pequeña, imagen grande, token y cursos asociados.
+	\textbf{MoodleUser}: tiene un id, nombre, apellido, \emph{e-mail}, departamento, primer acceso, ultimo acceso, autenticación, descripción, imagen pequeña, imagen grande, token y cursos asociados.
 	\item
 	\textbf{Role}: tiene id , nombre.
 	\item
@@ -47,25 +47,25 @@ El código de la aplicación está organizado de la siguiente manera:
 		\item
 		\textbf{Controllers}: Controladores de las vistas.
 		
-		\imagen{controller}{Paquete controllers.}
+		\imagen{controller}{Paquete controllers.}{0.9}
 		
 		\item
 		\textbf{Model}: modelo de la aplicación.
 		
-		\imagen{model}{Paquete model.}
+		\imagen{model}{Paquete model.}{0.6}
 		
 		\item
 		\textbf{Parserdocument}: paquete para documentos.
 		
-		\imagen{parserdocument}{Paquete parserdocument.}
+		\imagen{parserdocument}{Paquete parserdocument.}{0.6}
 		\item
 		\textbf{Ubulogexception}: Gestiona las excepciones.
 		
-		\imagen{ubulogexception}{Paquete ubulogexception.}
+		\imagen{ubulogexception}{Paquete ubulogexception.}{0.6}
 		\item
 		\textbf{Webservice}: Servicios Web para la obtención de datos en Moodle.
 		
-		\imagen{webservice}{Paquete webservice.}
+		\imagen{webservice}{Paquete webservice.}{0.6}
 		
 	\end{itemize}
 	\item
@@ -87,21 +87,23 @@ El código de la aplicación está organizado de la siguiente manera:
 
 \subsection{Diseño de Clases}
 
-\subsubsection{diagrama de Clases}
+\subsubsection{Diagrama de Clases}
 
 \begin{itemize}
 	\tightlist
 	\item
 	\textbf{Diagrama completo de clases}:
 	
-	\imagen{diagramadeclases}{Diagrama de clases.}
+	\imagen{diagramadeclases}{Diagrama de clases.}{1}
 	
 	
 \end{itemize}
 
-\subsubsection{diagrama de Paquetes}
+\subsubsection{Diagrama de Paquetes}
 
 En esta subsección hacemos referencia a los anexos de Claudia Martínez Herrero \cite{claudia:anexo}.
+
+\imagen{diagramadepaquete}{Diagrama de Paquetes.}{1}
 
 \subsubsection{Modelo vista controlador}
 

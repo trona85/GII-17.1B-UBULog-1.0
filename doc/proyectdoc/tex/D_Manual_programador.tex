@@ -1,4 +1,4 @@
-\apendice{Documentación técnica de programación}
+\apendice{Doc. técnica de programación}
 
 \section{Introducción}
 
@@ -8,7 +8,7 @@ aplicación, su compilación, ejecución, la configuración de los diferentes se
 
 \section{Estructura de directorios}
 
-El repositorio del proyecto podemos observar la siguiente estructura:
+En el repositorio del proyecto podemos observar la siguiente estructura:
 
 \begin{itemize}
 	\tightlist
@@ -69,13 +69,13 @@ En esta instalación es importante descargar el JDK 8 de Oracle ya que, otro JDK
 
 Deberemos abrir la consola y poner los siguientes comandos:
 
-\imagen{jdk}{Instalación JDK 8 en Linux.}
+\imagen{jdk}{Instalación JDK 8 en Linux.}{0.9}
 
 \subsubsection{Git}\label{git-git}
 
 Necesitamos Git para la gestión del repositorio. Git nos permitirá clonar el proyecto en nuestro equipo, subir cambios, comprobar diferencias entre commit, etc.
 
-\imagen{git}{Instalación Git.}
+\imagen{git}{Instalación Git.}{1}
 
 \subsubsection{Moodle 3.3}\label{moodle}
 
@@ -87,15 +87,15 @@ Eclipse es el entorno de desarrollo seleccionado para este proyecto. Si el progr
 
 Para la instalación deberemos descargar \href{http://www.eclipse.org/downloads/}{Eclipse} en nuestro equipo. Lo descomprimimos y ejecutamos el archivo eclipse-inst, los pasos siguientes es igual que en Windows, se abrirá el gestor de instalación y solo hay que seguir las instrucciones.
 
-\subsubsection{Gadle}\label{git}
+\subsubsection{Gradle}\label{git}
 
 La mayoría de los IDE de desarrollo tienen integrado Gradle, como es el caso de Eclipse y no se necesita ningún tipo de instalación.
 
 En el caso de que no tenga, podemos instalarlo en nuestra maquina personal. Lo que deberemos hacer es:
 
-\imagen{gradle}{Instalación Gradle.}
+\imagen{gradle}{Instalación Gradle.}{1}
 
-\section{Compilación, instalación y ejecución del proyecto}
+\section{Compilación, instalación y ejecución}
 
 \subsubsection{Obtención del código fuente}\label{obtención-del-código-fuente}
 
@@ -103,13 +103,13 @@ Una vez hemos instalado todo lo necesario, deberemos clonar nuestro proyecto.
 
 Deberemos entrar al repositorio \href{https://github.com/trona85/GII-17.1B-UBULog-1.0}{GitHub} y en la parte que pone Clone with HTTPS, copiarnos la URL.
 
-\imagen{githubclone}{Clonar proyecto con Git 1.}
+\imagen{githubclone}{Clonar proyecto con Git 1.}{0.9}
 
-Abrimos la consola y nos vamos a nuestro workspace. Una vez ahí, ponemos el siguiente comando de Git con la URL copiada anteriormente.
+Abrimos la consola y nos vamos a nuestro \emph{workspace}. Una vez ahí, ponemos el siguiente comando de Git con la URL copiada anteriormente.
 
-\imagen{gitclone}{Clonar proyecto con Git 2.}
+\imagen{gitclone}{Clonar proyecto con Git 2.}{1}
 
-Nos descargara el código de la aplicación y ya lo tendremos en nuestro equipo para poder trabajar con el.
+Nos descargará el código de la aplicación y ya lo tendremos en nuestro equipo para poder trabajar con el.
 
 \subsubsection{Importar proyecto en Eclipse}\label{importar-proyecto-en-eclipse}
 
@@ -122,21 +122,21 @@ Para importar nuestro proyecto deberemos abrir Eclipse. Una vez abierto deberemo
 	\item
 	Nos saldrá una ventana en la que deberemos elegir la opción de Gradle.
 	
-	\imagen{importgradle}{Importar proyecto Gradle.}
+	\imagen{importgradle}{Importar proyecto Gradle.}{0.9}
 	
 	\item
-	Nos saldrá una ventana de información, después de su lectura se da a next.
+	Nos saldrá una ventana de información, después de su lectura se da a \emph{next}.
 	
-		\imagen{welcomegradle}{Información Gradle.}
+		\imagen{welcomegradle}{Información Gradle.}{0.9}
 	\item
 	En esta ventana nos ubicamos en la raíz del proyecto que queremos importar, igual que en la siguiente imagen, después pinchamos en finalizar.
 	
-	\imagen{raizgradle}{Cargar proyecto Gradle.}
+	\imagen{raizgradle}{Cargar proyecto Gradle.}{0.9}
 	
 	\item
-	Gradle empezara a descargar todas las dependencias del proyecto, esto puede tardar unos minutos. Cuando termine ya tendremos nuestro proyecto preparado para el desarrollo.
+	Gradle empezará a descargar todas las dependencias del proyecto, esto puede tardar unos minutos. Cuando termine ya tendremos nuestro proyecto preparado para el desarrollo.
 		
-	\imagen{dependeciesgradle}{Cargar proyecto Gradle.}
+	\imagen{dependeciesgradle}{Cargar proyecto Gradle.}{0.9}
 	
 	
 \end{enumerate}
@@ -158,13 +158,13 @@ Para generar el .jar se ha creado un .xml en el proyecto que es un ANT, en él s
 	\item
 	Abrimos UBULog.xml en eclipse.
 	\item
-	La ventana de Eclipse que está en la parte derecha, que pone OutLine tendremos una opción que es create runnable.
+	La ventana de Eclipse que está en la parte derecha, que pone \emph{OutLine} tendremos una opción que es \emph{create runnable}.
 	
-	\imagen{antecl}{Crear .jar.}
+	\imagen{antecl}{Crear .jar.}{0.9}
 	
 	Con el botón secundario pinchamos y ejecutamos el ANT Builder para generar el jar, en la consola del Eclipse nos saldrá esto.
 	
-	\imagen{antcreate}{Jar creado.}
+	\imagen{antcreate}{Jar creado.}{0.9}
 	
 	Una vez visto el resultado de la captura anterior, querrá decir que ya hemos generado el .jar.
 	
