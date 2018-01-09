@@ -73,7 +73,7 @@ import webservice.CourseWS;
  * @author Oscar Fernández Armengol
  * @author Claudia Martínez Herrero
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class MainController implements Initializable {
 
@@ -249,7 +249,7 @@ public class MainController implements Initializable {
 			slcChart.getItems().addAll(groupsItemsList);
 
 			dataUserLoger();
-			
+
 			progresBarDoc.setVisible(false);
 
 		} catch (Exception e) {
@@ -324,10 +324,10 @@ public class MainController implements Initializable {
 		engineTableLogs.load("file://" + f.getAbsolutePath() + "/tablelogs.html");
 	}
 
-	
-/**
- * Método para coger los log correspondientes a la seleccion de los eventos y participantes
- */
+	/**
+	 * Método para coger los log correspondientes a la seleccion de los eventos
+	 * y participantes
+	 */
 	private void filterLogs() {
 		clearFilterTableLog();
 		selectedEvents = listEvents.getSelectionModel().getSelectedItems();
@@ -897,7 +897,7 @@ public class MainController implements Initializable {
 			Scene scene = new Scene(root);
 			UBULog.getStage().setScene(scene);
 			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.getStage().setTitle("UBULog 1.2");
+			UBULog.getStage().setTitle("UBULog 1.3");
 			UBULog.getStage().show();
 
 			clearData();
@@ -943,8 +943,7 @@ public class MainController implements Initializable {
 	 */
 	public void cargaDocumento() {
 		try {
-			progresBarDoc.setVisible(true);
-			progresBarDoc.setProgress(50);
+			
 			this.logs = new CsvParser();
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(UBULog.getStage());
@@ -954,12 +953,15 @@ public class MainController implements Initializable {
 			if (!file.toString().contains(".csv")) {
 				throw new UBULogException(UBULogError.FICHERO_NO_VALIDO);
 			}
+			modalOpen();
+			progresBarDoc.setVisible(true);
+			progresBarDoc.setProgress(0.5);
 
 			logs.setFile(file.toString());
 			logs.readDocument();
 
 			initializeDataSet(logs);
-			progresBarDoc.setProgress(100);
+			progresBarDoc.setProgress(1);
 			progresBarDoc.setVisible(false);
 
 		} catch (UBULogException e) {
@@ -971,6 +973,23 @@ public class MainController implements Initializable {
 
 		}
 
+	}
+
+	/**
+	 * Método que carga un modal.
+	 * 
+	 * @return alert.
+	 */
+	private void modalOpen() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeight(300);
+		alert.setWidth(300);
+		alert.initModality(Modality.APPLICATION_MODAL);
+		alert.initOwner(UBULog.getStage());
+
+		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"
+				+ UBULog.getSession().getActualCourse().getFullName() + "\nPuede tardar unos minutos");
+		alert.showAndWait();
 	}
 
 	/**
@@ -986,12 +1005,13 @@ public class MainController implements Initializable {
 		PrintWriter pw = null;
 		File file = null;
 		try {
+			modalOpen();
 			progresBarDoc.setVisible(true);
-			progresBarDoc.setProgress(10);
-			
+			progresBarDoc.setProgress(0.1);
+
 			webScripting = new WebScripting();
 			webScripting.getResponsiveWeb();
-			progresBarDoc.setProgress(90);
+			progresBarDoc.setProgress(0.9);
 
 			try (FileWriter fileWriter = new FileWriter("./tempcsv.csv")) {
 
@@ -1010,7 +1030,7 @@ public class MainController implements Initializable {
 			logs.readDocument();
 
 			initializeDataSet(logs);
-			progresBarDoc.setProgress(100);
+			progresBarDoc.setProgress(1);
 			progresBarDoc.setVisible(false);
 
 		} catch (FailingHttpStatusCodeException e) {
@@ -1041,7 +1061,7 @@ public class MainController implements Initializable {
 		try {
 			for (String file : fileCopies) {
 				File f = new File(file);
-				if(f.exists()){
+				if (f.exists()) {
 					Files.delete(f.toPath());
 				}
 			}
@@ -1096,10 +1116,11 @@ public class MainController implements Initializable {
 		tfdPOrigin.setDisable(disable);
 		tfdIp.setDisable(disable);
 	}
+
 	/**
 	 * Metodo para reiniciar los filtros de la tabla log.
 	 */
-	private void clearFilterTableLog(){
+	private void clearFilterTableLog() {
 		tfdDate.setText("");
 		tfdNameUser.setText("");
 		tfdUserAffected.setText("");

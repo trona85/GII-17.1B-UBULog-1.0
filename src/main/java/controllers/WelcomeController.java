@@ -89,7 +89,7 @@ public class WelcomeController implements Initializable {
 			Scene scene = new Scene(root);
 			UBULog.getStage().setScene(scene);
 			UBULog.getStage().getIcons().add(new Image("/img/logo_min.png"));
-			UBULog.getStage().setTitle("UBULog 1.2");
+			UBULog.getStage().setTitle("UBULog 1.3");
 			UBULog.getStage().setResizable(true);
 			UBULog.getStage().show();
 			UBULog.getInit().getScene().setCursor(Cursor.DEFAULT);
