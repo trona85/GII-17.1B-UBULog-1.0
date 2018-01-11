@@ -988,7 +988,7 @@ public class MainController implements Initializable {
 		alert.initOwner(UBULog.getStage());
 
 		alert.getDialogPane().setContentText("Se esta cargando el registro de la asignatura:\n"
-				+ UBULog.getSession().getActualCourse().getFullName() + "\nPuede tardar unos minutos");
+				+ UBULog.getSession().getActualCourse().getFullName() + "\nPuede tardar unos minutos \nPinche aceptar para continuar");
 		alert.showAndWait();
 	}
 
