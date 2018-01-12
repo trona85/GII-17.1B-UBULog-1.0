@@ -978,7 +978,6 @@ public class MainController implements Initializable {
 	/**
 	 * Método que carga un modal.
 	 * 
-	 * @return alert.
 	 */
 	private void modalOpen() {
 		Alert alert = new Alert(AlertType.INFORMATION);

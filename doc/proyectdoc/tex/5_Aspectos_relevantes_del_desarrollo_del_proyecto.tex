@@ -86,22 +86,22 @@ El CSS necesario para las gráficas, se genera en tiempo de ejecución. El méto
 
 \imagen{chartcss}{Código CSS del gráfico.}{1}
 
-\subsubsection{Utils.js}\label{utils}
+\newpage\subsubsection{Utils.js}\label{utils}
 
 El JavaScript necesario para generar gráficas, se genera en tiempo de ejecución. El método con el cuál se genera es el siguiente.
 
 \imagen{chartutil}{Código utils.js necesario para el gráfico.}{0.9}
 
-\subsubsection{chart.js}\label{chart-js}
+\newpage\subsubsection{chart.js}\label{chart-js}
 
 El JavaScript necesario para las gráficas, se genera en tiempo de ejecución. El método con el cual se genera es el siguiente.
 
-\imagen{generategrafica}{Código chart general.js.}{0.9}
-
+\imagen{generategrafica}{Código chart general.js.}{1}
+\newpage
 En este código lo que hacemos es poner la configuración del gráfico, el tipo, y los datos. Las fechas las insertamos en este método, para insertar los datos que queremos mostrar las gráficas llamamos al método \emph{setDataSetJavaScript} pasándole el objeto \emph{PrinterWriter}, el código es el siguiente.
 
 \imagen{setdatasetjavascript}{Código chart datos.js.}{1}
-
+\newpage
 En este código generamos tantos \emph{DataSet} como tengamos ya almacenamos con el número de interacciones correspondientes. Para obtener estos datos el método que almacena los datos es el siguiente.
 
 \imagen{setlabel1}{Código que obtiene datos para el gráfico 1.}{1}
@@ -154,7 +154,7 @@ En el cargaremos la web de UBUVirtual e iniciaremos sesión.
 
 \imagen{webconst}{Constructor Web Scripting.}{0.9}
 
-\subsubsection{Recolección de datos CSV}\label{responsive-web}
+\newpage\subsubsection{Recolección de datos CSV}\label{responsive-web}
 
 Una vez iniciado sesión cargamos la URL correspondiente con todos los log, sin ningún tipo de filtro, del curso en el que estamos.
 
@@ -177,7 +177,7 @@ No se aporta nada nuevo.
 
 No se aporta nada nuevo.
 
-\subsection{Ventana de principal}\label{ventana-de-principal}
+\newpage\subsection{Ventana de principal}\label{ventana-de-principal}
 
 Esta ventana, se ha tenido que crear desde cero, porque no se redimensionaba de forma correcta, aunque se ha seguido el diseño que ya estaba, se ha cambiado botones y añadido funcionalidades nuevas, al igual que se han suprimido otras. 
 
@@ -197,7 +197,7 @@ El primer cambio importante que se observa es que, si no se tiene un log cargado
 	Un nuevo botón para generar el gráfico con referencia a los resultados de la tabla de logs.
 \end{itemize}
 
-\subsubsection{Gráfica logs}\label{grafica-logs}
+\newpage\subsubsection{Gráfica logs}\label{grafica-logs}
 
 Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado sería el siguiente.
 
@@ -207,7 +207,7 @@ En la gráfica podemos ver en la leyenda las combinaciones seleccionadas, y en e
 
 Si deseamos cambiar el tipo de gráfico podremos pinchar en el selector de la gráfica y seleccionar uno diferente.
 
-\subsubsection{Tabla logs}\label{tabla-logs}
+\newpage\subsubsection{Tabla logs}\label{tabla-logs}
 
 Una vez tengamos el log cargado, podremos seleccionar eventos y participantes, el resultado sería el siguiente en la tabla de logs.
 
