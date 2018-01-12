@@ -7,7 +7,7 @@
     <property name="dir.workspace" value="${dir.buildfile}/.."/>
     <property name="dir.jarfile" value="${dir.workspace}"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.workspace}/ubulog.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="${dir.workspace}/UBULog.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="controllers.UBULog"/>
                 <attribute name="Class-Path" value="."/>
